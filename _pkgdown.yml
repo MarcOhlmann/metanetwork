@@ -16,6 +16,7 @@ reference:
   - '`append_mean_nets`'
   - '`is.metanetwork`'
   - '`metanet_build_pipe`'
+  - '`%>%`'
 - title: Computing trophic levels and TL-tsne layout
   desc: |
     Set of functions and objects to compute trophic levels and attach 'TL-tsne' layout
