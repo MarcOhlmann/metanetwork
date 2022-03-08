@@ -50,42 +50,66 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="all-functions">All functions <a href="#all-functions" class="anchor" aria-hidden="true"></a></h2>
-          <p class="section-desc"></p>
+          <h2 id="building-and-handling-metanetworks">Building and handling metanetworks <a href="#building-and-handling-metanetworks" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Set of functions to build a ‘metanetwork’ object and handle it</p>
         </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="TL_tsne.default.html">TL_tsne.default</a></code> </p>
+          <p><code><a href="build_metanet.html">build_metanet()</a></code> </p>
         </td>
-        <td><p>Default configuration for the diffusion kernel based t-sne</p></td>
+        <td><p>Build metanetwork object</p></td>
+      </tr><tr><td>
+          <p><code><a href="print_metanet.html">print_metanet()</a></code> </p>
+        </td>
+        <td><p>print metanetwork</p></td>
       </tr><tr><td>
           <p><code><a href="append_agg_nets.html">append_agg_nets()</a></code> </p>
         </td>
         <td><p>append aggregated networks</p></td>
       </tr><tr><td>
+          <p><code><a href="extract_networks.html">extract_networks()</a></code> </p>
+        </td>
+        <td><p>extract networks from metanetwork</p></td>
+      </tr><tr><td>
           <p><code><a href="append_mean_nets.html">append_mean_nets()</a></code> </p>
         </td>
         <td><p>append mean networks</p></td>
+      </tr><tr><td>
+          <p><code><a href="is.metanetwork.html">is.metanetwork()</a></code> </p>
+        </td>
+        <td><p>Test of belonging to class metanetwork</p></td>
+      </tr><tr><td>
+          <p><code><a href="metanet_build_pipe.html">metanet_build_pipe()</a></code> </p>
+        </td>
+        <td><p>Build and execute 'metanetwork' pipeline</p></td>
+      </tr><tr><td>
+          <p><code><a href="pipe.html">%&gt;%</a></code> </p>
+        </td>
+        <td><p>Pipe</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="computing-trophic-levels-and-tl-tsne-layout">Computing trophic levels and TL-tsne layout <a href="#computing-trophic-levels-and-tl-tsne-layout" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Set of functions and objects to compute trophic levels and attach ‘TL-tsne’ layout</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="compute_TL.html">compute_TL()</a></code> </p>
+        </td>
+        <td><p>compute trophic levels</p></td>
       </tr><tr><td>
           <p><code><a href="attach_layout.html">attach_layout()</a></code> </p>
         </td>
         <td><p>compute and attach 'TL-tsne' layout</p></td>
       </tr><tr><td>
-          <p><code><a href="build_metanet.html">build_metanet()</a></code> </p>
+          <p><code><a href="metanet_pipe.html">metanet_pipe()</a></code> </p>
         </td>
-        <td><p>Build metanetwork object</p></td>
+        <td><p>Execute 'metanetwork' pipeline</p></td>
       </tr><tr><td>
-          <p><code><a href="compute_TL.html">compute_TL()</a></code> </p>
+          <p><code><a href="TL_tsne.default.html">TL_tsne.default</a></code> </p>
         </td>
-        <td><p>compute trophic levels</p></td>
-      </tr><tr><td>
-          <p><code><a href="diff_plot.html">diff_plot()</a></code> </p>
-        </td>
-        <td><p>plot difference network</p></td>
-      </tr><tr><td>
-          <p><code><a href="extract_networks.html">extract_networks()</a></code> </p>
-        </td>
-        <td><p>extract networks from metanetwork</p></td>
-      </tr><tr><td>
+        <td><p>Default configuration for the diffusion kernel based t-sne</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="visualising-metanetworks">Visualising metanetworks <a href="#visualising-metanetworks" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Set of functions and objects to visualise metanetworks, using computed layout</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
           <p><code><a href="ggmetanet.html">ggmetanet()</a></code> </p>
         </td>
         <td><p>ggmetanet</p></td>
@@ -94,10 +118,26 @@
         </td>
         <td><p>Default configuration for ggnet</p></td>
       </tr><tr><td>
-          <p><code><a href="is.metanetwork.html">is.metanetwork()</a></code> </p>
+          <p><code><a href="vismetaNetwork.html">vismetaNetwork()</a></code> </p>
         </td>
-        <td><p>Test of belonging to class metanetwork</p></td>
+        <td><p>vismetaNetwork</p></td>
       </tr><tr><td>
+          <p><code><a href="visNetwork.default.html">visNetwork.default</a></code> </p>
+        </td>
+        <td><p>Default configuration for visNetwork</p></td>
+      </tr><tr><td>
+          <p><code><a href="diff_plot.html">diff_plot()</a></code> </p>
+        </td>
+        <td><p>plot difference network</p></td>
+      </tr><tr><td>
+          <p><code><a href="plot_trophicTable.html">plot_trophicTable()</a></code> </p>
+        </td>
+        <td><p>Plot trophic groups hierarchy</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="data-sets">Data sets <a href="#data-sets" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr></tbody><tbody><tr><td>
           <p><code><a href="meta_angola.html">meta_angola</a></code> </p>
         </td>
         <td><p>Angola fishery metanetwork
@@ -105,34 +145,6 @@ metanetwork built from:
 KAngelini &amp; Velho 2011, Data from: 
 Angelini, R., Velho, VF. (2011)
  Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)</p></td>
-      </tr><tr><td>
-          <p><code><a href="metanet_build_pipe.html">metanet_build_pipe()</a></code> </p>
-        </td>
-        <td><p>Build and execute 'metanetwork' pipeline</p></td>
-      </tr><tr><td>
-          <p><code><a href="metanet_pipe.html">metanet_pipe()</a></code> </p>
-        </td>
-        <td><p>Execute 'metanetwork' pipeline</p></td>
-      </tr><tr><td>
-          <p><code><a href="pipe.html">%&gt;%</a></code> </p>
-        </td>
-        <td><p>Pipe</p></td>
-      </tr><tr><td>
-          <p><code><a href="plot_trophicTable.html">plot_trophicTable()</a></code> </p>
-        </td>
-        <td><p>Plot trophic groups hierarchy</p></td>
-      </tr><tr><td>
-          <p><code><a href="print_metanet.html">print_metanet()</a></code> </p>
-        </td>
-        <td><p>print metanetwork</p></td>
-      </tr><tr><td>
-          <p><code><a href="visNetwork.default.html">visNetwork.default</a></code> </p>
-        </td>
-        <td><p>Default configuration for visNetwork</p></td>
-      </tr><tr><td>
-          <p><code><a href="vismetaNetwork.html">vismetaNetwork()</a></code> </p>
-        </td>
-        <td><p>vismetaNetwork</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

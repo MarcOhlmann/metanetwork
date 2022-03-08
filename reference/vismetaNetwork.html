@@ -120,28 +120,28 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-in"><span class="co">#on angola dataset</span></span>
 <span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_angola</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775022538</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.140924522371</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.282691299236</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019141</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.137812546123</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.265792483759</span>
 <span class="r-in"><span class="fu">vismetaNetwork</span><span class="op">(</span><span class="va">meta_angola</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1259.92651522773</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 342.590023923491</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 350.189254079052</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"><span class="co"># flipping coordinates and controlling x_y_range</span></span>
 <span class="r-in"><span class="fu">vismetaNetwork</span><span class="op">(</span><span class="va">meta_angola</span>, beta <span class="op">=</span> <span class="fl">0.05</span>,flip_coords <span class="op">=</span> <span class="cn">TRUE</span>,x_y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>,<span class="fl">200</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1370.36009569396</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1400.75701631621</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 314.981628806931</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"><span class="co">#adding a legend</span></span>
 <span class="r-in"><span class="fu">vismetaNetwork</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>, beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1259.92651522773</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 342.590023923491</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 350.189254079052</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"><span class="co">#use metaweb layout to represent a local network</span></span>
 <span class="r-in"><span class="fu">vismetaNetwork</span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>, beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span class="r-in">layout_metaweb<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1259.92651522773</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 342.590023923491</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 350.189254079052</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#custom visNetwork parameters</span></span>
@@ -152,7 +152,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-in"><span class="fu">vismetaNetwork</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>, beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span class="r-in">visNetwork.config <span class="op">=</span> <span class="va">visNetwork.custom</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1259.92651522773</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 342.590023923491</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 350.189254079052</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"></span>
