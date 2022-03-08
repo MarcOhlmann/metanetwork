@@ -24,7 +24,7 @@ Imports:
 LinkingTo:
 License: GPL-3
 URL: https://github.com/MarcOhlmann/metanetwork,
- https://marcohlmann.github.io/metanetwork/
+    https://marcohlmann.github.io/metanetwork/
 NeedsCompilation: no
 Packaged: 
 Repository: CRAN
