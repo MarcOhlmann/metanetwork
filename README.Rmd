@@ -9,36 +9,34 @@ date: "22/6/2021"
 output: github_document
 ---
 
+```{r chunk-name, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  fig.path = "man/figures/"
+)
+```
+
 
 ## Description
 
-Description: A collection of tools to represent and analyse trophic networks in space accross aggregation levels. The package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on diffusion kernel and trophic levels with `R`.
-
-## Dependencies 
-\small
-'metanetwork' depends on:
-
-* igraph
-* Matrix
-* Matrix.utils
-* ggplot2
-* dplyr
-* GGally
-* network
-* ade4
-* intergraph
-* sna
-* visNetwork
+A collection of tools in `R` to represent and analyse trophic networks in space accross aggregation levels. The package contains a layout algorithm specifically designed for trophic networks, using trophic levels and dimension reduction on diffusion kernel  with .
 
 ## Package installation
-- Download the package from the gitlab page
-- Install from source or using 'devtools'
+
+```{r,echo = TRUE,eval = F}
+install_github("MarcOhlmann/metanetwork")
+```
+
 
 ## Loading the package
-```{r 1,echo = TRUE,results='hide',message=FALSE,warning=FALSE}
+```{r,echo = T,message = F,warning=F}
 library(metanetwork)
 ```
 Loading 'igraph' is also strongly recommended 
+```{r,echo = T,message = F,warning=F}
+library(igraph)
+```
+
 
 # Introduction and basics
 
@@ -55,11 +53,6 @@ Additional information might be considered (and used in 'metanetwork') as:
 metanetwork at different aggregation levels
 
 ## What 'metanetwork' package provides ?
-
-```{r,echo = FALSE,message=FALSE,warning=FALSE,include = F}
-library(metanetwork)
-```
-
 
 ```{r,echo = TRUE,message=FALSE,warning=FALSE}
 #Angola dataset
@@ -158,7 +151,7 @@ A method `compute_trophic_levels` allows to compute trophic levels for metanetwo
 
 ```{r,echo = TRUE}
 #compute trophic levels for metaweb and local networks
-meta0 = compute_trophic_levels(meta0)
+meta0 = compute_TL(meta0)
 ```
 
 Once trophic levels computed, each node of networks of the considered metanetwork have a node attribute `$TL`
@@ -272,7 +265,7 @@ The method `append_aggregated_network` allows computing and appending aggregated
 
 
 ```{r}
-meta_angola = append_aggregated_networks(meta_angola)
+meta_angola = append_agg_nets(meta_angola)
 print(meta_angola)
 ```
 ### Representing aggregated networks, adding a legend to networks
@@ -280,7 +273,7 @@ print(meta_angola)
 Once computed, `ggmetanet` function allows representing aggregated networks and legending local networks using trophic table. Do not forget to first compute trophic levels.
 
 ```{r, message = FALSE, warning = FALSE}
-meta_angola = compute_trophic_levels(meta_angola)
+meta_angola = compute_TL(meta_angola)
 ggmetanet(g = meta_angola$metaweb_Phylum,beta = 1,metanetwork = meta_angola)
 ```
 
@@ -338,7 +331,7 @@ Using metaweb layout can ease the representation and comparaison of multiple loc
 ```{r}
 #using metaweb layout to represent a local network
 ggmetanet(g = meta_angola$X1986,metanetwork = meta_angola,
-          legend = "Phylum",layout_metaweb = T)
+          legend = "Phylum",layout_metaweb = T,beta = 0.05)
 
 #using metaweb layout for diffplot
 diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,

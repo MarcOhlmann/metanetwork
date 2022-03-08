@@ -5,31 +5,16 @@ Marc Ohlmann
 
 ## Description
 
-Description: A collection of tools to represent and analyse trophic
-networks in space accross aggregation levels. The package contains a
-layout algorithm specifically designed for trophic networks, using
-dimension reduction on diffusion kernel and trophic levels with `R`.
-
-## Dependencies
-
-metanetwork depends on:
-
--   igraph
--   Matrix
--   Matrix.utils
--   ggplot2
--   dplyr
--   GGally
--   network
--   ade4
--   intergraph
--   sna
--   visNetwork
+A collection of tools in `R` to represent and analyse trophic networks
+in space accross aggregation levels. The package contains a layout
+algorithm specifically designed for trophic networks, using trophic
+levels and dimension reduction on diffusion kernel with .
 
 ## Package installation
 
--   Download the package from the gitlab page
--   Install from source or using devtools
+``` r
+install_github("MarcOhlmann/metanetwork")
+```
 
 ## Loading the package
 
@@ -38,6 +23,12 @@ library(metanetwork)
 ```
 
 Loading ‘igraph’ is also strongly recommended
+
+``` r
+library(igraph)
+```
+
+# Introduction and basics
 
 ## What is a metanetwork ?
 
@@ -55,8 +46,15 @@ as:
 
 -   a trophic table indicating a hierarchy of nodes of the metaweb, in
     order to study the metanetwork at different aggregation levels
--   a qualitative covariable table, in order to average local networks
-    for each value of the covariable
+
+## What ‘metanetwork’ package provides ?
+
+``` r
+#Angola dataset
+ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
+```
+
+![](man/figures/unnamed-chunk-4-1.png)<!-- -->
 
 # Pyramid example
 
@@ -89,7 +87,7 @@ network = asNetwork(g)
 ggnet2(network, arrow.size = 7,size = 3 ,arrow.gap = 0.025, label = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+![](man/figures/unnamed-chunk-5-1.png)<!-- -->
 
 Notice that ‘ggnet2’ default layout algorithm (Fruchterman-Reingold
 algorithm, a force directed algorithm) is non-reproducible and
@@ -99,7 +97,7 @@ non-oriented: x-axis and y-axis do not have any interpretation
 ggnet2(network, arrow.size = 7,size = 3 ,arrow.gap = 0.025, label = T)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](man/figures/unnamed-chunk-6-1.png)<!-- -->
 
 ### Generating abundance table
 
@@ -121,7 +119,7 @@ From the lattice metaweb and abundance table, build a S3 object of class
 
 ``` r
 #building metanetwork object
-meta0 = build_metanetwork(metaweb = g,abTable = presence)
+meta0 = build_metanet(metaweb = g,abTable = presence)
 class(g)
 ```
 
@@ -133,22 +131,53 @@ class(meta0)
 
     ## [1] "metanetwork"
 
-method `print` prints a summary of the considered metanetwork.
+method `print_metanet` prints a summary of the considered metanetwork.
 
 ``` r
 print(meta0)
 ```
 
-    ## object of class metanetwork 
-    ## metaweb has 15 nodes and 16 edges 
-    ## 2 local networks 
-    ## single resolution available
+    ## $metaweb
+    ## IGRAPH d5efca3 DNW- 15 16 -- metaweb
+    ## + attr: name (g/c), dimvector (g/n), nei (g/n), mutual (g/l), circular
+    ## | (g/l), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from d5efca3 (vertex names):
+    ##  [1] A->C B->C C->F D->E D->H E->F E->I F->J G->H H->I I->J J->O K->L L->M M->N
+    ## [16] N->O
+    ## 
+    ## $abTable
+    ##   A B C D E F G H I J K L M N O
+    ## a 1 1 1 1 1 1 0 0 1 0 0 0 0 0 1
+    ## b 0 0 0 1 1 1 1 1 1 1 1 1 1 1 1
+    ## 
+    ## $trophicTable
+    ## NULL
+    ## 
+    ## $covariable
+    ## NULL
+    ## 
+    ## $a
+    ## IGRAPH a651388 DNW- 8 6 -- a
+    ## + attr: name (g/c), dimvector (g/n), nei (g/n), mutual (g/l), circular
+    ## | (g/l), res (g/x), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from a651388 (vertex names):
+    ## [1] A->C B->C C->F D->E E->F E->I
+    ## 
+    ## $b
+    ## IGRAPH bd9ee08 DNW- 12 13 -- b
+    ## + attr: name (g/c), dimvector (g/n), nei (g/n), mutual (g/l), circular
+    ## | (g/l), res (g/x), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from bd9ee08 (vertex names):
+    ##  [1] D->E D->H E->F E->I F->J G->H H->I I->J J->O K->L L->M M->N N->O
+    ## 
+    ## attr(,"class")
+    ## [1] "metanetwork"
 
 ## Handling metanetworks
 
 ### the class ‘metanetwork’
 
-A `metanetwork` object consists in a list of ‘igraph’ objects:
+A ‘metanetwork’ object consists in a list of ‘igraph’ objects:
 
 -   metaweb, the metaweb used to build the metanetwork, an ‘igraph’
     object with node attribute `$ab` indicating the local relative
@@ -188,8 +217,9 @@ table(V(meta0$metaweb)$ab)
     ## 0.05  0.1 
     ##   10    5
 
-metaweb node relative abundances are the mean of the local relative
-abundances
+Metaweb node relative abundances are the mean of the local relative
+abundances. Addtitional objects like `abTable` or `trophicTable` can be
+included in a ‘metanetwork’ object
 
 ### computing trophic levels
 
@@ -207,7 +237,7 @@ metanetwork objects.
 
 ``` r
 #compute trophic levels for metaweb and local networks
-meta0 = compute_trophic_levels(meta0)
+meta0 = compute_TL(meta0)
 ```
 
 Once trophic levels computed, each node of networks of the considered
@@ -275,14 +305,14 @@ of the current metanetwork by default.
 ggmetanet(metanetwork = meta0,beta = 0.1)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](man/figures/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 #ggmetanet#
 ggmetanet(metanetwork = meta0,beta = 0.45)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](man/figures/unnamed-chunk-14-1.png)<!-- -->
 
 `ggmetanet` can also represent local networks (with specific layout)
 
@@ -290,7 +320,7 @@ ggmetanet(metanetwork = meta0,beta = 0.45)
 ggmetanet(g = meta0$b,beta = 0.1,metanetwork = meta0)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](man/figures/unnamed-chunk-15-1.png)<!-- -->
 
 Increasing `beta` squeeze y-axis
 
@@ -298,7 +328,7 @@ Increasing `beta` squeeze y-axis
 ggmetanet(g = meta0$b,beta = 1,metanetwork = meta0)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](man/figures/unnamed-chunk-16-1.png)<!-- -->
 
 Moreover, it clusters nodes belonging to different ‘branches’. They
 become more and more similar when beta is increased.
@@ -314,7 +344,7 @@ trophic level equals to its value in the metaweb.
 ggmetanet(g = meta0$a,beta = 0.45,metanetwork = meta0)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](man/figures/unnamed-chunk-17-1.png)<!-- -->
 
 ### `diff_plot` function
 
@@ -326,9 +356,9 @@ variation in abundance in both networks.
 diff_plot(g1 = meta0$a,g2 = meta0$b,beta = 0.1,mode = 'TL-tsne',metanetwork = meta0)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](man/figures/unnamed-chunk-18-1.png)<!-- -->
 
-## Changing `ggnet` configuration parameters
+### Changing `ggnet` configuration parameters
 
 In order to fine tune network plots, it is possible to modify `ggnet`
 parameters in metanetwork. An object `ggnet.default` is stored and wraps
@@ -342,8 +372,7 @@ ggmetanet(beta = 0.1,metanetwork = meta0,
           ggnet.config = ggnet.custom)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-15-1.png)<!-- --> # Angola
-data set
+![](man/figures/unnamed-chunk-19-1.png)<!-- --> ## Angola data set
 
 An example using real data is accessible in metanetwork. It consists in
 the Angoala coastal trophic network from *Angelini, R. & Vaz-Velho, F.
@@ -356,15 +385,16 @@ angola dataset is lazy loaded in metanetwork. `meta_angola` consists in
 a object of class `metanetwork`.
 
 ``` r
-print(meta_angola)
+print_metanet(meta_angola)
 ```
 
-    ## object of class metanetwork 
+    ## object of class metanetwork
+
     ## metaweb has 28 nodes and 127 edges 
     ## 2 local networks 
     ## available resolutions are: Species Phylum
 
-## `plot_trophic_table` function
+### `plot_trophic_table` function
 
 Contrary to the pyramid example, angola dataset do have a trophic table,
 describing nodes memberships in higher relevant groups. In angola
@@ -379,36 +409,169 @@ ggnet.custom$label.size = 2
 plot_trophicTable(meta_angola,ggnet.config = ggnet.custom)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](man/figures/unnamed-chunk-21-1.png)<!-- -->
 
-## `append_aggregated_network` method
+### `append_aggregated_network` method
 
 The method `append_aggregated_network` allows computing and appending
 aggregated networks (at the different available resolutions) to the
 current metanetwork.
 
 ``` r
-meta_angola = append_aggregated_networks(meta_angola)
+meta_angola = append_agg_nets(meta_angola)
 print(meta_angola)
 ```
 
-    ## object of class metanetwork 
-    ## metaweb has 28 nodes and 127 edges 
-    ## 2 local networks 
-    ## available resolutions are: Species Phylum
+    ## $metaweb
+    ## IGRAPH f873652 DNW- 28 127 -- metaweb
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight
+    ## | (e/n)
+    ## + edges from f873652 (vertex names):
+    ##  [1] Trachurus ->Haemulidae     Trachurus ->Marine mammals
+    ##  [3] Sardinella->Ariidae        Sardinella->Merluccius    
+    ##  [5] Sardinella->Pseudotolithus Sardinella->Serranidae    
+    ##  [7] Sardinella->Haemulidae     Sardinella->Small pelagics
+    ##  [9] Sardinella->Large pelagics Sardinella->Cephalopodes  
+    ## [11] Sardinella->Marine mammals Sardinella->Marine birds  
+    ## [13] Sciaenidae->Merluccius     Sciaenidae->Serranidae    
+    ## + ... omitted several edges
+    ## 
+    ## $abTable
+    ##       Trachurus Sardinella Sciaenidae    Ariidae Merluccius      Dentex
+    ## X1986 0.3100092  0.3144169 0.02424242 0.01689624 0.02938476 0.007346189
+    ## X2003 0.1465201  0.1792717 0.06895066 0.02413273 0.00258565 0.068950657
+    ##       Pseudotolithus  Serranidae Polynemidae Parapenaeus longirostris
+    ## X1986    0.004407713 0.004407713 0.005876951              0.009550046
+    ## X2003    0.072398190 0.018961431 0.017237664              0.006377936
+    ##        Haemulidae Aristeus varidens Small pelagics Mesopelagics Large pelagics
+    ## X1986 0.008080808       0.003673095     0.03746556  0.001469238    0.004407713
+    ## X2003 0.020685197       0.005860806     0.07239819  0.003447533    0.003275156
+    ##       Demersal fish Chondrichthyes Cephalopodes Miscellaneous     Penaeus
+    ## X1986   0.005876951    0.002938476 0.0007346189   0.007346189 0.001469238
+    ## X2003   0.034475329    0.013790131 0.0068950657   0.027580263 0.006205559
+    ##       Marine mammals Marine birds Macrobenthos Middlebenthos Large Zoo
+    ## X1986          0.025        0.025        0.025         0.025     0.025
+    ## X2003          0.025        0.025        0.025         0.025     0.025
+    ##       Small Zoo Phytoplankton Detritus
+    ## X1986     0.025         0.025    0.025
+    ## X2003     0.025         0.025    0.025
+    ## 
+    ## $trophicTable
+    ##                                           Species     Phylum
+    ## Ariidae                                   Ariidae       Fish
+    ## Aristeus varidens               Aristeus varidens Arthropoda
+    ## Cephalopodes                         Cephalopodes   Mollusca
+    ## Chondrichthyes                     Chondrichthyes    Benthos
+    ## Demersal fish                       Demersal fish       Fish
+    ## Dentex                                     Dentex       Fish
+    ## Detritus                                 Detritus      Plant
+    ## Haemulidae                             Haemulidae       Fish
+    ## Large pelagics                     Large pelagics       Fish
+    ## Large Zoo                               Large Zoo   Plankton
+    ## Macrobenthos                         Macrobenthos    Benthos
+    ## Marine birds                         Marine birds       Bird
+    ## Marine mammals                     Marine mammals    Mammals
+    ## Merluccius                             Merluccius       Fish
+    ## Mesopelagics                         Mesopelagics       Fish
+    ## Middlebenthos                       Middlebenthos    Benthos
+    ## Miscellaneous                       Miscellaneous Arthropoda
+    ## Parapenaeus longirostris Parapenaeus longirostris Arthropoda
+    ## Penaeus                                   Penaeus Arthropoda
+    ## Phytoplankton                       Phytoplankton   Plankton
+    ## Polynemidae                           Polynemidae       Fish
+    ## Pseudotolithus                     Pseudotolithus       Fish
+    ## Sardinella                             Sardinella       Fish
+    ## Sciaenidae                             Sciaenidae       Fish
+    ## Serranidae                             Serranidae       Fish
+    ## Small pelagics                     Small pelagics       Fish
+    ## Small Zoo                               Small Zoo   Plankton
+    ## Trachurus                               Trachurus       Fish
+    ## 
+    ## $covariable
+    ## NULL
+    ## 
+    ## $X1986
+    ## IGRAPH eeeeb2e DNW- 28 127 -- X1986
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight
+    ## | (e/n)
+    ## + edges from eeeeb2e (vertex names):
+    ##  [1] Trachurus ->Haemulidae     Trachurus ->Marine mammals
+    ##  [3] Sardinella->Ariidae        Sardinella->Merluccius    
+    ##  [5] Sardinella->Pseudotolithus Sardinella->Serranidae    
+    ##  [7] Sardinella->Haemulidae     Sardinella->Small pelagics
+    ##  [9] Sardinella->Large pelagics Sardinella->Cephalopodes  
+    ## [11] Sardinella->Marine mammals Sardinella->Marine birds  
+    ## [13] Sciaenidae->Merluccius     Sciaenidae->Serranidae    
+    ## + ... omitted several edges
+    ## 
+    ## $X2003
+    ## IGRAPH b673113 DNW- 28 127 -- X2003
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight
+    ## | (e/n)
+    ## + edges from b673113 (vertex names):
+    ##  [1] Trachurus ->Haemulidae     Trachurus ->Marine mammals
+    ##  [3] Sardinella->Ariidae        Sardinella->Merluccius    
+    ##  [5] Sardinella->Pseudotolithus Sardinella->Serranidae    
+    ##  [7] Sardinella->Haemulidae     Sardinella->Small pelagics
+    ##  [9] Sardinella->Large pelagics Sardinella->Cephalopodes  
+    ## [11] Sardinella->Marine mammals Sardinella->Marine birds  
+    ## [13] Sciaenidae->Merluccius     Sciaenidae->Serranidae    
+    ## + ... omitted several edges
+    ## 
+    ## $metaweb_Phylum
+    ## IGRAPH 47e0994 DNW- 8 24 -- metaweb
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from 47e0994 (vertex names):
+    ##  [1] Arthropoda->Benthos    Arthropoda->Bird       Arthropoda->Fish      
+    ##  [4] Arthropoda->Mammals    Arthropoda->Mollusca   Benthos   ->Arthropoda
+    ##  [7] Benthos   ->Benthos    Benthos   ->Fish       Benthos   ->Mollusca  
+    ## [10] Fish      ->Benthos    Fish      ->Bird       Fish      ->Fish      
+    ## [13] Fish      ->Mammals    Fish      ->Mollusca   Plankton  ->Arthropoda
+    ## [16] Plankton  ->Benthos    Plankton  ->Bird       Plankton  ->Fish      
+    ## [19] Plankton  ->Mollusca   Plankton  ->Plankton   Plant     ->Arthropoda
+    ## [22] Plant     ->Benthos    Plant     ->Fish       Plant     ->Plankton  
+    ## 
+    ## $X1986_Phylum
+    ## IGRAPH 508456f DNW- 8 24 -- X1986
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from 508456f (vertex names):
+    ##  [1] Arthropoda->Benthos    Arthropoda->Bird       Arthropoda->Fish      
+    ##  [4] Arthropoda->Mammals    Arthropoda->Mollusca   Benthos   ->Arthropoda
+    ##  [7] Benthos   ->Benthos    Benthos   ->Fish       Benthos   ->Mollusca  
+    ## [10] Fish      ->Benthos    Fish      ->Bird       Fish      ->Fish      
+    ## [13] Fish      ->Mammals    Fish      ->Mollusca   Plankton  ->Arthropoda
+    ## [16] Plankton  ->Benthos    Plankton  ->Bird       Plankton  ->Fish      
+    ## [19] Plankton  ->Mollusca   Plankton  ->Plankton   Plant     ->Arthropoda
+    ## [22] Plant     ->Benthos    Plant     ->Fish       Plant     ->Plankton  
+    ## 
+    ## $X2003_Phylum
+    ## IGRAPH d8170a2 DNW- 8 24 -- X2003
+    ## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)
+    ## + edges from d8170a2 (vertex names):
+    ##  [1] Arthropoda->Benthos    Arthropoda->Bird       Arthropoda->Fish      
+    ##  [4] Arthropoda->Mammals    Arthropoda->Mollusca   Benthos   ->Arthropoda
+    ##  [7] Benthos   ->Benthos    Benthos   ->Fish       Benthos   ->Mollusca  
+    ## [10] Fish      ->Benthos    Fish      ->Bird       Fish      ->Fish      
+    ## [13] Fish      ->Mammals    Fish      ->Mollusca   Plankton  ->Arthropoda
+    ## [16] Plankton  ->Benthos    Plankton  ->Bird       Plankton  ->Fish      
+    ## [19] Plankton  ->Mollusca   Plankton  ->Plankton   Plant     ->Arthropoda
+    ## [22] Plant     ->Benthos    Plant     ->Fish       Plant     ->Plankton  
+    ## 
+    ## attr(,"class")
+    ## [1] "metanetwork"
 
-## Representing aggregated networks, adding a legend to networks
+### Representing aggregated networks, adding a legend to networks
 
 Once computed, `ggmetanet` function allows representing aggregated
 networks and legending local networks using trophic table. Do not forget
 to first compute trophic levels.
 
 ``` r
-meta_angola = compute_trophic_levels(meta_angola)
+meta_angola = compute_TL(meta_angola)
 ggmetanet(g = meta_angola$metaweb_Phylum,beta = 1,metanetwork = meta_angola)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](man/figures/unnamed-chunk-23-1.png)<!-- -->
 
 Node sizes are proportional to relative abundances. Trophic table allows
 adding a legend to network at the finest resolution.
@@ -417,17 +580,17 @@ adding a legend to network at the finest resolution.
 ggmetanet(g = meta_angola$metaweb,beta = 0.04,legend = 'Phylum',metanetwork = meta_angola)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](man/figures/unnamed-chunk-24-1.png)<!-- -->
 
-## `diff_plot`
+### `diff_plot`
 
 ``` r
 diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,beta = 0.04,metanetwork = meta_angola)
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](man/figures/unnamed-chunk-25-1.png)<!-- -->
 
-## `vismetaNetwork` function
+### `vismetaNetwork` function
 
 metanetwork allows representing trophic networks in interactive way
 using `visNetwork` function and both layout algorithms. We highly
@@ -443,6 +606,109 @@ vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'group',x_y_range 
 Interactive visualisation of angola dataset and other trophic networks
 using `vismetaNetwork` are available at
 <https://shiny.osug.fr/app/ecological-networks>.
+
+## Additional features
+
+### attach_layout function
+
+Since `TL-tsne` layout is stochastic and requires (a bit of) computation
+times, saving and using the the same layout (for a given *β* value) is
+recommended. Moreover, it makes easier visual network analysis and
+comparison since it is fixed. `attach_layout` function allows saving
+computed layouts by attaching them as a node attribute.
+
+``` r
+#attaching a layout to the metaweb
+meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
+```
+
+    ## beta = 0.05
+
+    ## Epoch: Iteration #100 error is: 907.410775022321
+
+    ## Epoch: Iteration #200 error is: 217.150829821012
+
+    ## Epoch: Iteration #300 error is: 217.280059129137
+
+``` r
+#layout is saved as node attribute (only one component since the other one is trophic level)
+V(meta_angola$metaweb)$TL
+```
+
+    ##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122
+    ##  [8] 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394
+    ## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889
+    ## [22] 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
+
+``` r
+V(meta_angola$metaweb)$layout_beta0.05_1
+```
+
+    ## NULL
+
+``` r
+#ggmetanet uses computed layout
+ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
+```
+
+    ## mode is TL-tsne
+
+![](man/figures/unnamed-chunk-27-1.png)<!-- -->
+
+``` r
+#attaching a new layout for the same beta value
+meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
+```
+
+    ## beta = 0.05
+
+    ## Epoch: Iteration #100 error is: 907.41077501653
+
+    ## Epoch: Iteration #200 error is: 217.1059313833
+
+    ## Epoch: Iteration #300 error is: 217.232811268805
+
+``` r
+#ggmetanet with the new 'TL-tsne-run
+ggmetanet(meta_angola,beta = 0.05,legend = "Phylum",nrep_ly = 2)
+```
+
+    ## mode is TL-tsne
+
+![](man/figures/unnamed-chunk-27-2.png)<!-- -->
+
+Notice that even if the two layouts are quite different in term of
+global structure, they share some features in terms of local structure.
+
+### Using metaweb layout
+
+Using metaweb layout can ease the representation and comparaison of
+multiple local networks.
+
+``` r
+#using metaweb layout to represent a local network
+ggmetanet(g = meta_angola$X1986,metanetwork = meta_angola,
+          legend = "Phylum",layout_metaweb = T,beta = 0.05)
+```
+
+    ## mode is TL-tsne
+
+![](man/figures/unnamed-chunk-28-1.png)<!-- -->
+
+``` r
+#using metaweb layout for diffplot
+diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,
+          metanetwork = meta_angola,beta = 0.05,
+          layout_metaweb = T)
+```
+
+    ## mode is TL-tsne
+
+    ## plotting: X1986_Species - X2003_Species
+
+    ## mode is TL-tsne
+
+![](man/figures/unnamed-chunk-28-2.png)<!-- -->
 
 ## Authors
 

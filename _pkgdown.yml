@@ -5,3 +5,38 @@ template:
     bootswatch: flatly
     ganalytics: UA-12345678-0
 
+reference:
+- title: 'Building and handling metanetworks'
+  desc: >
+    Set of functions to build a 'metanetwork' object and handle it
+  contents:
+    - '`build_metanet`'
+    - '`print_metanet`'
+    - '`append_agg_nets`'
+    - '`extract_networks`'
+    - '`append_mean_nets`'
+    - '`is.metanetwork`'
+    - '`metanet_build_pipe`'
+- title: 'Computing trophic levels and TL-tsne layout'
+  desc: >
+    Set of functions and objects to compute trophic levels and attach 'TL-tsne' layout
+  contents:
+    - '`compute_TL`'
+    - '`attach_layout`'
+    - '`metanet_pipe`'
+    - '`TL_tsne.default`'
+- title: 'Visualising metanetworks'
+  desc: >
+    Set of functions and objects to visualise metanetworks, using computed layout
+  contents:
+  - '`ggmetanet`'
+  - '`ggnet.default`'
+  - '`vismetaNetwork`'
+  - '`visNetwork.default`'
+  - '`diff_plot`'
+  - '`plot_trophicTable`'
+- title: Data sets
+  desc: ~
+  contents:
+    - '`meta_angola`'
+
