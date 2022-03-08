@@ -32,7 +32,13 @@ the hierarchy describes in trophicTable"><!-- mathjax --><script src="https://cd
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/MarcOhlmann/metanetwork/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -42,7 +48,7 @@ the hierarchy describes in trophicTable"><!-- mathjax --><script src="https://cd
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>append aggregated networks</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/R/append_agg_nets.R" class="external-link"><code>R/append_agg_nets.R</code></a></small>
     <div class="hidden name"><code>append_agg_nets.Rd</code></div>
     </div>
 
@@ -71,7 +77,7 @@ the hierarchy describes in <code>trophicTable</code></p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marcohlmann.github.io/metanetwork/">metanetwork</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">append_agg_nets</span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $metaweb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH f873652 DNW- 28 127 -- metaweb</span>
@@ -170,9 +176,9 @@ the hierarchy describes in <code>trophicTable</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + ... omitted several edges</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $metaweb_Phylum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH c5a6f60 DNW- 8 24 -- metaweb</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 2a476ec DNW- 8 24 -- metaweb</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from c5a6f60 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 2a476ec (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
@@ -183,9 +189,9 @@ the hierarchy describes in <code>trophicTable</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $X1986_Phylum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 6f06c72 DNW- 8 24 -- X1986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 57dc7a3 DNW- 8 24 -- X1986</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 6f06c72 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 57dc7a3 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
@@ -196,9 +202,9 @@ the hierarchy describes in <code>trophicTable</code></p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $X2003_Phylum</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 78c4ec3 DNW- 8 24 -- X2003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> IGRAPH 76c4b09 DNW- 8 24 -- X2003</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 78c4ec3 (vertex names):</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> + edges from 76c4b09 (vertex names):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>

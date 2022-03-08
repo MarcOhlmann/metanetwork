@@ -32,7 +32,13 @@ If this function is run several times for a given beta value, repetitions of the
       <ul class="nav navbar-nav"><li>
   <a href="../reference/index.html">Reference</a>
 </li>
-      </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
+      </ul><ul class="nav navbar-nav navbar-right"><li>
+  <a href="https://github.com/MarcOhlmann/metanetwork/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
@@ -42,7 +48,7 @@ If this function is run several times for a given beta value, repetitions of the
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>compute and attach 'TL-tsne' layout</h1>
-    
+    <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/R/get_layout.R" class="external-link"><code>R/get_layout.R</code></a></small>
     <div class="hidden name"><code>attach_layout.Rd</code></div>
     </div>
 
@@ -93,45 +99,45 @@ squeezing of the network</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marcohlmann.github.io/metanetwork/">metanetwork</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="co"># on angola dataset (metaweb)</span></span>
 <span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019091</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.123696172265</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.235637126316</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.41077501813</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.149632252989</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.280788969724</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.8052787   6.3500995  -4.9919766   4.3173525  14.7045216 -11.5750737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -27.8224298  -7.3285473 -31.6950657 -21.8876569 -15.7181934 -24.7342426</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]   8.6624401  18.6676265  27.3249344   1.9849554  21.0783406  -2.5239404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.3179112 -18.2966381  11.0902724  32.0784544  -9.4512652 -13.7398486</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]  16.5809706  12.9975238  10.4728128 -20.0327938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.9699854   4.3168625  -4.7150988  16.0495267  10.7082106 -11.2447051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -31.1225455  -7.0596916 -24.0191628 -21.3960192 -15.2872787 -27.3844976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  13.6438515  18.4888453  31.9489070   2.1172794  21.0107034  -2.3075092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1618955 -17.7962425   7.7306987  27.5904994  -9.1671324 -13.3837952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   6.3112917   8.9117161  11.6803424 -19.4331459</span>
 <span class="r-in"><span class="co"># on a local network</span></span>
 <span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775022257</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.111747473726</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.237510284764</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775042512</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.132086910766</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.254362943016</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># getting repetitions</span></span>
 <span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775029978</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.130303700915</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.249360734201</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775018261</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.105595761743</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.236219377924</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.8052787   6.3500995  -4.9919766   4.3173525  14.7045216 -11.5750737</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -27.8224298  -7.3285473 -31.6950657 -21.8876569 -15.7181934 -24.7342426</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]   8.6624401  18.6676265  27.3249344   1.9849554  21.0783406  -2.5239404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.3179112 -18.2966381  11.0902724  32.0784544  -9.4512652 -13.7398486</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]  16.5809706  12.9975238  10.4728128 -20.0327938</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.9699854   4.3168625  -4.7150988  16.0495267  10.7082106 -11.2447051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -31.1225455  -7.0596916 -24.0191628 -21.3960192 -15.2872787 -27.3844976</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  13.6438515  18.4888453  31.9489070   2.1172794  21.0107034  -2.3075092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1618955 -17.7962425   7.7306987  27.5904994  -9.1671324 -13.3837952</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   6.3112917   8.9117161  11.6803424 -19.4331459</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  26.8355044   6.1920905  -4.8111888   4.2311100  14.2392482 -15.3088207</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -31.0204894  -7.1705187 -24.0008308 -21.4150566 -11.2713428 -27.3434987</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  11.3415869  18.0833619  23.2147580   1.9947639  20.4218831  -2.4048987</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.2487786 -17.8430636   9.6364648  31.4395459  -9.2600008 -13.3111979</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   8.3259281  15.9514154  12.9729019 -19.4708768</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  22.5910506   6.0713111  -4.8456896   4.1371543  13.9986412 -11.2405401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -29.7338072  -7.1457204 -20.6608823 -22.7396358 -15.1695702 -26.0818708</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13]   8.2999314  17.7558711  25.9369211   1.8925191  20.0426132  -2.4595758</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.3238957 -17.6442030  10.5687023  30.5042445  -9.2034691 -13.3683658</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25]  15.7590642  12.3863464  10.0090604 -19.3362053</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
