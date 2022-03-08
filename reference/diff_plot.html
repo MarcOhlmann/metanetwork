@@ -26,13 +26,7 @@ with a layout based on diffusion kernel, using either 'ggnet' or 'visNetwork' vi
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://gitlab.com/marcohlmann/metanetwork/" aria-label="gitlab">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
-     
-  </a>
-</li>
-      </ul></div>
+      <ul class="navbar-nav"></ul></div>
 
     
   </div>
@@ -40,7 +34,7 @@ with a layout based on diffusion kernel, using either 'ggnet' or 'visNetwork' vi
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>plot difference network</h1>
-      <small class="dont-index">Source: <a href="https://gitlab.com/marcohlmann/metanetwork/blob/HEAD/R/diff_plot.R" class="external-link"><code>R/diff_plot.R</code></a></small>
+      
       <div class="d-none name"><code>diff_plot.Rd</code></div>
     </div>
 
@@ -118,7 +112,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co">#on Angola dataset</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.com/marcohlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marcohlmann.github.io/metanetwork/">metanetwork</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span>
 <span class="r-in">beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
@@ -126,9 +120,9 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467953607</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.13678294568</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.272175803983</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467950921</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.124038540617</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.249655122821</span>
 <span class="r-plt img"><img src="diff_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co">#using visNetwork</span></span>
 <span class="r-in"><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span>
@@ -136,19 +130,19 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467956275</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.105699342227</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.240926744119</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467951619</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.106284241836</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.226872998474</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1356.85756899361</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 361.567515260574</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 359.385742403501</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#computing and using metaweb layout for diffplot</span></span>
 <span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 838.97535322082</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 199.589197646621</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 199.589190200876</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 838.97058802867</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 199.589204589066</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 199.58919020088</span>
 <span class="r-in"><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span>
 <span class="r-in">beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
@@ -161,7 +155,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> x_max = 1259.92651522773</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 340.638960573859</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> y_max = 340.638960573534</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in x$width %||% settings$fig.width * settings$dpi:</span> non-numeric argument to binary operator</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co">##contrasting alpha </span></span>
@@ -173,9 +167,9 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467956368</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.114114405412</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.230095879421</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467952319</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.143160299553</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.275369915902</span>
 <span class="r-plt img"><img src="diff_plot-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span class="co">#per node           </span></span>
 <span class="r-in"><span class="fu">diff_plot</span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -185,9 +179,9 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467957264</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.098317946606</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.213390644108</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467952307</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.133478230982</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.257318302669</span>
 <span class="r-plt img"><img src="diff_plot-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 <span class="r-in"></span>

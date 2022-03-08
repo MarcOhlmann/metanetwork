@@ -26,13 +26,7 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://gitlab.com/marcohlmann/metanetwork/" aria-label="gitlab">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
-     
-  </a>
-</li>
-      </ul></div>
+      <ul class="navbar-nav"></ul></div>
 
     
   </div>
@@ -40,7 +34,7 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Build and execute 'metanetwork' pipeline</h1>
-      <small class="dont-index">Source: <a href="https://gitlab.com/marcohlmann/metanetwork/blob/HEAD/R/metanet_build_pipe.R" class="external-link"><code>R/metanet_build_pipe.R</code></a></small>
+      
       <div class="d-none name"><code>metanet_build_pipe.Rd</code></div>
     </div>
 
@@ -75,7 +69,7 @@ squeezing of the network</p></dd>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.com/marcohlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marcohlmann.github.io/metanetwork/">metanetwork</a></span><span class="op">)</span></span>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dimvector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">3</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -85,8 +79,8 @@ squeezing of the network</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> computing trophic levels</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> attaching layout for beta= 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891914</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051216312</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891912</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051218011</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-in"><span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
@@ -99,9 +93,9 @@ squeezing of the network</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> computing trophic levels</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> attaching layout for beta= 0.05</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775025263</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.111235118176</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.214534036742</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019406</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.133403165825</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.252553479635</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

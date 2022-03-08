@@ -43,14 +43,7 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
 </form>
 
-      <ul class="navbar-nav">
-<li class="nav-item">
-  <a class="external-link nav-link" href="https://gitlab.com/marcohlmann/metanetwork/" aria-label="gitlab">
-    <span class="fab fa fab fa-gitlab fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
+      <ul class="navbar-nav"></ul>
 </div>
 
     
@@ -96,7 +89,7 @@
 <h2 id="loading-the-package">Loading the package<a class="anchor" aria-label="anchor" href="#loading-the-package"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gitlab.com/marcohlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://marcohlmann.github.io/metanetwork/">metanetwork</a></span><span class="op">)</span></code></pre></div>
 <p>Loading ‘igraph’ is also strongly recommended</p>
 </div>
 <div class="section level2">
@@ -171,17 +164,17 @@
 <code class="sourceCode R"><span class="co">#building metanetwork object</span>
 <span class="va">meta0</span> <span class="op">=</span> <span class="fu">build_metanetwork</span><span class="op">(</span>metaweb <span class="op">=</span> <span class="va">g</span>,abTable <span class="op">=</span> <span class="va">presence</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "igraph"</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co">## [1] "igraph"</span></span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "metanetwork"</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co">## [1] "metanetwork"</span></span></code></pre></div>
 <p>method <code>print</code> prints a summary of the considered metanetwork.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## object of class metanetwork </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="do">## metaweb has 15 nodes and 16 edges </span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 local networks </span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="do">## single resolution available</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">## object of class metanetwork </span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">## metaweb has 15 nodes and 16 edges </span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">## 2 local networks </span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co">## single resolution available</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="handling-metanetworks">Handling metanetworks<a class="anchor" aria-label="anchor" href="#handling-metanetworks"></a>
@@ -197,21 +190,21 @@
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "b"</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## [1] "b"</span></span></code></pre></div>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] "metaweb"</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">## [1] "metaweb"</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#abundances</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.0833333333333333 </span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">##                 12</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co">## </span></span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="co">## 0.0833333333333333 </span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="co">##                 12</span></span></code></pre></div>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="do">## 0.05  0.1 </span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="do">##   10    5</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co">## </span></span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="co">## 0.05  0.1 </span></span>
+<span id="cb18-3"><a href="#cb18-3"></a><span class="co">##   10    5</span></span></code></pre></div>
 <p>metaweb node relative abundances are the mean of the local relative abundances</p>
 </div>
 <div class="section level3">
@@ -227,12 +220,12 @@ To get a solution of dimension 1 (and not of higher dimension), the metaweb need
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#trophic levels</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="do">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="do">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="co">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
+<span id="cb23-3"><a href="#cb23-3"></a><span class="co">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -310,10 +303,10 @@ with <img src="README_files/beta.gif" alt="beta"> a positive parameter. Diffusio
 <p>angola dataset is lazy loaded in metanetwork. <code>meta_angola</code> consists in a object of class <code>metanetwork</code>.</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## object of class metanetwork </span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="do">## metaweb has 28 nodes and 127 edges </span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 local networks </span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="do">## available resolutions are: Species Phylum</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">## object of class metanetwork </span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="co">## metaweb has 28 nodes and 127 edges </span></span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="co">## 2 local networks </span></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co">## available resolutions are: Species Phylum</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plot_trophic_table-function">
@@ -335,10 +328,10 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">append_aggregated_networks</span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
-<div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="do">## object of class metanetwork </span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="do">## metaweb has 28 nodes and 127 edges </span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="do">## 2 local networks </span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="do">## available resolutions are: Species Phylum</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="co">## object of class metanetwork </span></span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="co">## metaweb has 28 nodes and 127 edges </span></span>
+<span id="cb35-3"><a href="#cb35-3"></a><span class="co">## 2 local networks </span></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="co">## available resolutions are: Species Phylum</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="representing-aggregated-networks-adding-a-legend-to-networks">Representing aggregated networks, adding a legend to networks<a class="anchor" aria-label="anchor" href="#representing-aggregated-networks-adding-a-legend-to-networks"></a>
@@ -382,14 +375,7 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 </div>
 </div>
 
-  </main><aside class="col-md-3"><div class="links">
-<h2 data-toc-skip>Links</h2>
-<ul class="list-unstyled">
-<li><a href="https://gitlab.com/marcohlmann/metanetwork/" class="external-link">Browse source code</a></li>
-</ul>
-</div>
-
-<div class="license">
+  </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
