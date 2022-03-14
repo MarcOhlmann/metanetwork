@@ -7,6 +7,7 @@ date: "22/6/2021"
 #     fig_height: 8
 #     fig_width: 10
 output: github_document
+always_allow_html: true
 ---
 
 ```{r chunk-name, include=FALSE}
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(
 
 ## Description
 
-A collection of tools in `R` to represent and analyse trophic networks in space accross aggregation levels. The package contains a layout algorithm specifically designed for trophic networks, using trophic levels and dimension reduction on diffusion kernel  with .
+A collection of tools in `R` to represent and analyse trophic networks in space across aggregation levels. The package contains a layout algorithm specifically designed for trophic networks, using trophic levels and dimension reduction on a diffusion kernel.
 
 ## Package installation
 
@@ -32,12 +33,13 @@ install_github("MarcOhlmann/metanetwork")
 ## Loading the package
 ```{r,echo = T,message = F,warning=F}
 library(metanetwork)
-```
-Loading 'igraph' is also strongly recommended 
+``` 
+
+Loading 'igraph' is also strongly recommended  since 'metanetwork' objects are built from 'igraph' objects
+
 ```{r,echo = T,message = F,warning=F}
 library(igraph)
 ```
-
 
 # Introduction and basics
 
@@ -60,113 +62,9 @@ metanetwork at different aggregation levels
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
-## Angola data set 
-
-An example using real data is accessible in metanetwork. It consists in the Angoala coastal trophic network from *Angelini, R. & Vaz-Velho, F. (2011).*, abundance data at different time steps (1986 and 2003) and a trophic table, indicating the groups to which species belong.
-
-## angola metanetwork object
-
-angola dataset is lazy loaded in metanetwork. `meta_angola` consists in a object of class `metanetwork`.
-
-```{r}
-print_metanet(meta_angola)
-```
-### `plot_trophic_table` function
-
-Contrary to the pyramid example, angola dataset do have a trophic table, describing nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at Species or Phylum level.       
-The `plot_trophic_table` function allows representing the tree describing species memberships.
-
-```{r}
-ggnet.custom = ggnet.default
-ggnet.custom$label.size = 2
-plot_trophicTable(meta_angola,ggnet.config = ggnet.custom)
-```
-
-### `append_aggregated_network` method
-
-The method `append_aggregated_network` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
-
-
-```{r}
-meta_angola = append_agg_nets(meta_angola)
-print(meta_angola)
-```
-### Representing aggregated networks, adding a legend to networks
-
-Once computed, `ggmetanet` function allows representing aggregated networks and legending local networks using trophic table. Do not forget to first compute trophic levels.
-
-```{r, message = FALSE, warning = FALSE}
-meta_angola = compute_TL(meta_angola)
-ggmetanet(g = meta_angola$metaweb_Phylum,beta = 1,metanetwork = meta_angola)
-```
-
-Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.
-
-```{r, message = FALSE, warning = FALSE}
-ggmetanet(g = meta_angola$metaweb,beta = 0.04,legend = 'Phylum',metanetwork = meta_angola)
-```
-
-### `diff_plot`
-
-```{r, message=F,warning=F}
-diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,beta = 0.04,metanetwork = meta_angola)
-```
-       
-### `vismetaNetwork` function
-
-metanetwork allows representing trophic networks in interactive way using `visNetwork` function and both layout algorithms. We highly recommend this function to explore large and dense networks. Since outputs of this functions cannot be rendered on this README, they are saved in `./vismetaNetwork` in html format. `x_y_range` argument allows controlling the x-axis and y-axis scale.
-
-```{r,echo=T,eval=F,warning=F,message=F}
-vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'group',x_y_range = c(10,0.05))
-```
-
-Interactive visualisation of angola dataset and other trophic networks using `vismetaNetwork` are available at [https://shiny.osug.fr/app/ecological-networks](https://shiny.osug.fr/app/ecological-networks).
-
-## Additional features
-
-### attach_layout function
-
-Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given $\beta$ value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed.
-`attach_layout` function allows saving computed layouts by attaching them as a node attribute.
-
-```{r}
-#attaching a layout to the metaweb
-meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
-#layout is saved as node attribute (only one component since the other one is trophic level)
-V(meta_angola$metaweb)$TL
-V(meta_angola$metaweb)$layout_beta0.05_1
-#ggmetanet uses computed layout
-ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
-
-#attaching a new layout for the same beta value
-meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
-#ggmetanet with the new 'TL-tsne-run
-ggmetanet(meta_angola,beta = 0.05,legend = "Phylum",nrep_ly = 2)
-
-```
-
-Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure.
-
-### Using metaweb layout
-
-Using metaweb layout can ease the representation and comparaison of multiple local networks. 
-
-```{r}
-#using metaweb layout to represent a local network
-ggmetanet(g = meta_angola$X1986,metanetwork = meta_angola,
-          legend = "Phylum",layout_metaweb = T,beta = 0.05)
-
-#using metaweb layout for diffplot
-diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,
-          metanetwork = meta_angola,beta = 0.05,
-          layout_metaweb = T)
-```
- 
 ## Authors
 
-This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR 'Globnets'.
+This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009).
 
-## Contact
 
-For any bugs, information or feedback, please contact [Marc Ohlmann](marcohlmann _at_ live.fr).
 
