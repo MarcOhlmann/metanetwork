@@ -97,9 +97,258 @@
     
     
 <div class="section level2">
-<h2 id="preliminaries">Preliminaries<a class="anchor" aria-label="anchor" href="#preliminaries"></a>
+<h2 id="angola-data-set">Angola data set<a class="anchor" aria-label="anchor" href="#angola-data-set"></a>
 </h2>
-<p>This vignette illustrates the standard use of the <code>PLNPCA</code> function and the methods accompanying the R6 Classes <code>PLNPCAfamily</code> and <code>PLNPCAfit</code>.</p>
+<p>An example using real data is accessible in metanetwork. It consists in the Angoala coastal trophic network from <em>Angelini, R. &amp; Vaz-Velho, F. (2011).</em>, abundance data at different time steps (1986 and 2003) and a trophic table, indicating the groups to which species belong.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="angola-metanetwork-object">angola metanetwork object<a class="anchor" aria-label="anchor" href="#angola-metanetwork-object"></a>
+</h2>
+<p>angola dataset is lazy loaded in metanetwork. <code>meta_angola</code> consists in a object of class <code>metanetwork</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/print_metanet.html">print_metanet</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## metaweb has 28 nodes and 127 edges </span>
+<span class="co">## 2 local networks </span>
+<span class="co">## available resolutions are: Species Phylum</span></code></pre>
+<div class="section level3">
+<h3 id="plot_trophic_table-function">
+<code>plot_trophic_table</code> function<a class="anchor" aria-label="anchor" href="#plot_trophic_table-function"></a>
+</h3>
+<p>Contrary to the pyramid example, angola dataset do have a trophic table, describing nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at Species or Phylum level.<br>
+The <code>plot_trophic_table</code> function allows representing the tree describing species memberships.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span>
+<span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span>
+<span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_angola</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="append_aggregated_network-method">
+<code>append_aggregated_network</code> method<a class="anchor" aria-label="anchor" href="#append_aggregated_network-method"></a>
+</h3>
+<p>The method <code>append_aggregated_network</code> allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## $metaweb</span>
+<span class="co">## IGRAPH f873652 DNW- 28 127 -- metaweb</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
+<span class="co">## | (e/n)</span>
+<span class="co">## + edges from f873652 (vertex names):</span>
+<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
+<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
+<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
+<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
+<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
+<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
+<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
+<span class="co">## + ... omitted several edges</span>
+<span class="co">## </span>
+<span class="co">## $abTable</span>
+<span class="co">##       Trachurus Sardinella Sciaenidae    Ariidae Merluccius      Dentex</span>
+<span class="co">## X1986 0.3100092  0.3144169 0.02424242 0.01689624 0.02938476 0.007346189</span>
+<span class="co">## X2003 0.1465201  0.1792717 0.06895066 0.02413273 0.00258565 0.068950657</span>
+<span class="co">##       Pseudotolithus  Serranidae Polynemidae Parapenaeus longirostris</span>
+<span class="co">## X1986    0.004407713 0.004407713 0.005876951              0.009550046</span>
+<span class="co">## X2003    0.072398190 0.018961431 0.017237664              0.006377936</span>
+<span class="co">##        Haemulidae Aristeus varidens Small pelagics Mesopelagics Large pelagics</span>
+<span class="co">## X1986 0.008080808       0.003673095     0.03746556  0.001469238    0.004407713</span>
+<span class="co">## X2003 0.020685197       0.005860806     0.07239819  0.003447533    0.003275156</span>
+<span class="co">##       Demersal fish Chondrichthyes Cephalopodes Miscellaneous     Penaeus</span>
+<span class="co">## X1986   0.005876951    0.002938476 0.0007346189   0.007346189 0.001469238</span>
+<span class="co">## X2003   0.034475329    0.013790131 0.0068950657   0.027580263 0.006205559</span>
+<span class="co">##       Marine mammals Marine birds Macrobenthos Middlebenthos Large Zoo</span>
+<span class="co">## X1986          0.025        0.025        0.025         0.025     0.025</span>
+<span class="co">## X2003          0.025        0.025        0.025         0.025     0.025</span>
+<span class="co">##       Small Zoo Phytoplankton Detritus</span>
+<span class="co">## X1986     0.025         0.025    0.025</span>
+<span class="co">## X2003     0.025         0.025    0.025</span>
+<span class="co">## </span>
+<span class="co">## $trophicTable</span>
+<span class="co">##                                           Species     Phylum</span>
+<span class="co">## Ariidae                                   Ariidae       Fish</span>
+<span class="co">## Aristeus varidens               Aristeus varidens Arthropoda</span>
+<span class="co">## Cephalopodes                         Cephalopodes   Mollusca</span>
+<span class="co">## Chondrichthyes                     Chondrichthyes    Benthos</span>
+<span class="co">## Demersal fish                       Demersal fish       Fish</span>
+<span class="co">## Dentex                                     Dentex       Fish</span>
+<span class="co">## Detritus                                 Detritus      Plant</span>
+<span class="co">## Haemulidae                             Haemulidae       Fish</span>
+<span class="co">## Large pelagics                     Large pelagics       Fish</span>
+<span class="co">## Large Zoo                               Large Zoo   Plankton</span>
+<span class="co">## Macrobenthos                         Macrobenthos    Benthos</span>
+<span class="co">## Marine birds                         Marine birds       Bird</span>
+<span class="co">## Marine mammals                     Marine mammals    Mammals</span>
+<span class="co">## Merluccius                             Merluccius       Fish</span>
+<span class="co">## Mesopelagics                         Mesopelagics       Fish</span>
+<span class="co">## Middlebenthos                       Middlebenthos    Benthos</span>
+<span class="co">## Miscellaneous                       Miscellaneous Arthropoda</span>
+<span class="co">## Parapenaeus longirostris Parapenaeus longirostris Arthropoda</span>
+<span class="co">## Penaeus                                   Penaeus Arthropoda</span>
+<span class="co">## Phytoplankton                       Phytoplankton   Plankton</span>
+<span class="co">## Polynemidae                           Polynemidae       Fish</span>
+<span class="co">## Pseudotolithus                     Pseudotolithus       Fish</span>
+<span class="co">## Sardinella                             Sardinella       Fish</span>
+<span class="co">## Sciaenidae                             Sciaenidae       Fish</span>
+<span class="co">## Serranidae                             Serranidae       Fish</span>
+<span class="co">## Small pelagics                     Small pelagics       Fish</span>
+<span class="co">## Small Zoo                               Small Zoo   Plankton</span>
+<span class="co">## Trachurus                               Trachurus       Fish</span>
+<span class="co">## </span>
+<span class="co">## $covariable</span>
+<span class="co">## NULL</span>
+<span class="co">## </span>
+<span class="co">## $X1986</span>
+<span class="co">## IGRAPH eeeeb2e DNW- 28 127 -- X1986</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
+<span class="co">## | (e/n)</span>
+<span class="co">## + edges from eeeeb2e (vertex names):</span>
+<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
+<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
+<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
+<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
+<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
+<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
+<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
+<span class="co">## + ... omitted several edges</span>
+<span class="co">## </span>
+<span class="co">## $X2003</span>
+<span class="co">## IGRAPH b673113 DNW- 28 127 -- X2003</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
+<span class="co">## | (e/n)</span>
+<span class="co">## + edges from b673113 (vertex names):</span>
+<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
+<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
+<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
+<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
+<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
+<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
+<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
+<span class="co">## + ... omitted several edges</span>
+<span class="co">## </span>
+<span class="co">## $metaweb_Phylum</span>
+<span class="co">## IGRAPH 4109aff DNW- 8 24 -- metaweb</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
+<span class="co">## + edges from 4109aff (vertex names):</span>
+<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
+<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
+<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
+<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
+<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
+<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
+<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
+<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
+<span class="co">## </span>
+<span class="co">## $X1986_Phylum</span>
+<span class="co">## IGRAPH 42936e3 DNW- 8 24 -- X1986</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
+<span class="co">## + edges from 42936e3 (vertex names):</span>
+<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
+<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
+<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
+<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
+<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
+<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
+<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
+<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
+<span class="co">## </span>
+<span class="co">## $X2003_Phylum</span>
+<span class="co">## IGRAPH d5b31c0 DNW- 8 24 -- X2003</span>
+<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
+<span class="co">## + edges from d5b31c0 (vertex names):</span>
+<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
+<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
+<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
+<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
+<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
+<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
+<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
+<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
+<span class="co">## </span>
+<span class="co">## attr(,"class")</span>
+<span class="co">## [1] "metanetwork"</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="representing-aggregated-networks-adding-a-legend-to-networks">Representing aggregated networks, adding a legend to networks<a class="anchor" aria-label="anchor" href="#representing-aggregated-networks-adding-a-legend-to-networks"></a>
+</h3>
+<p>Once computed, <code>ggmetanet</code> function allows representing aggregated networks and legending local networks using trophic table. Do not forget to first compute trophic levels.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb_Phylum</span>,beta <span class="op">=</span> <span class="fl">1</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p>Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.04</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="diff_plot">
+<code>diff_plot</code><a class="anchor" aria-label="anchor" href="#diff_plot"></a>
+</h3>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,beta <span class="op">=</span> <span class="fl">0.04</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="vismetanetwork-function">
+<code>vismetaNetwork</code> function<a class="anchor" aria-label="anchor" href="#vismetanetwork-function"></a>
+</h3>
+<p>metanetwork allows representing trophic networks in interactive way using <code>visNetwork</code> function and both layout algorithms. We highly recommend this function to explore large and dense networks. Since outputs of this functions cannot be rendered on this README, they are saved in <code>./vismetaNetwork</code> in html format. <code>x_y_range</code> argument allows controlling the x-axis and y-axis scale.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/vismetaNetwork.html">vismetaNetwork</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.04</span>,legend <span class="op">=</span> <span class="st">'group'</span>,x_y_range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Interactive visualisation of angola dataset and other trophic networks using <code>vismetaNetwork</code> are available at <a href="https://shiny.osug.fr/app/ecological-networks" class="external-link">https://shiny.osug.fr/app/ecological-networks</a>.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="additional-features">Additional features<a class="anchor" aria-label="anchor" href="#additional-features"></a>
+</h2>
+<div class="section level3">
+<h3 id="attach_layout-function">attach_layout function<a class="anchor" aria-label="anchor" href="#attach_layout-function"></a>
+</h3>
+<p>Since <code>TL-tsne</code> layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given <span class="math inline">\(\beta\)</span> value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed. <code>attach_layout</code> function allows saving computed layouts by attaching them as a node attribute.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#attaching a layout to the metaweb</span>
+<span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
+<span class="co">#layout is saved as node attribute (only one component since the other one is trophic level)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></code></pre></div>
+<pre><code><span class="co">##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122</span>
+<span class="co">##  [8] 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394</span>
+<span class="co">## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889</span>
+<span class="co">## [22] 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000</span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></code></pre></div>
+<pre><code><span class="co">## NULL</span></code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#ggmetanet uses computed layout</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#attaching a new layout for the same beta value</span>
+<span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
+<span class="co">#ggmetanet with the new 'TL-tsne-run</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>,nrep_ly <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
+<p>Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure.</p>
+</div>
+<div class="section level3">
+<h3 id="using-metaweb-layout">Using metaweb layout<a class="anchor" aria-label="anchor" href="#using-metaweb-layout"></a>
+</h3>
+<p>Using metaweb layout can ease the representation and comparaison of multiple local networks.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#using metaweb layout to represent a local network</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,
+          legend <span class="op">=</span> <span class="st">"Phylum"</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#using metaweb layout for diffplot</span>
+<span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,
+          metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,
+          layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<p><img src="angola_files/figure-html/unnamed-chunk-10-2.png" width="700"></p>
+</div>
 </div>
   </div>
 
