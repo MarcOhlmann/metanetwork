@@ -1,8 +1,11 @@
 pandoc: 2.7.3
 pkgdown: 2.0.2
 pkgdown_sha: ~
-articles: {}
-last_built: 2022-03-08T16:40Z
+articles:
+  angola: angola.html
+  interactive_representation: interactive_representation.html
+  pyramid: pyramid.html
+last_built: 2022-03-14T09:33Z
 urls:
   reference: https://marcohlmann.github.io/metanetwork/reference
   article: https://marcohlmann.github.io/metanetwork/articles
