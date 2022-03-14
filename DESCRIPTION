@@ -21,7 +21,6 @@ Date/Publication:
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
-LazyData: true
 biocViews:
 Imports: 
 	GGally,
