@@ -3,9 +3,26 @@ Type: Package
 Title: Handling and representing trophic networks in space and time
 Version: 0.0.0
 Date: 2020-09-01
-Author: Marc Ohlmann [aut, cre]
-Maintainer: Marc Ohlmann <marcohlmann@live.fr>
+Authors@R: c(
+  person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marc.ohlmann@univ-grenoble-alpes.fr",
+      comment = c(ORCID = "0000-0003-3772-3969 ")),
+  person("Jimmy", "Garnier", role = c("aut", "ctb"), email = "jimmy.garnier@univ-smb.fr"),
+  person("Laurent", "Vuillon", role = c("aut", "ctb"), email = "laurent.vuillon@univ-smb.fr")
+  )
 Description: A collection of tools to handle and represent trophic networks in space or time accross aggregation levels. This package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on diffusion kernel and trophic levels.
+LinkingTo:
+License: GPL-3
+URL: https://github.com/MarcOhlmann/metanetwork,
+    https://marcohlmann.github.io/metanetwork/
+NeedsCompilation: no
+Packaged: 
+Repository: CRAN
+Date/Publication: 
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+LazyData: true
+biocViews:
 Imports: 
 	GGally,
 	network,
@@ -21,13 +38,4 @@ Imports:
         grDevices,
         RColorBrewer,
         magrittr
-LinkingTo:
-License: GPL-3
-URL: https://github.com/MarcOhlmann/metanetwork,
-    https://marcohlmann.github.io/metanetwork/
-NeedsCompilation: no
-Packaged: 
-Repository: CRAN
-Date/Publication: 
-LazyData: true
-RoxygenNote: 7.1.2
+Language: en-US

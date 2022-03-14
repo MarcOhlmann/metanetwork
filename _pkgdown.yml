@@ -4,6 +4,21 @@ template:
   params:
     bootswatch: flatly
     ganalytics: UA-12345678-0
+    
+navbar:
+  structure:
+    left:  [home, reference, articles]
+    right: [github]
+  components:
+    home: ~
+    articles:
+      text: "Vignettes"
+      menu:
+      - text: "The pyramid example"
+        href: articles/pyramid.html
+      - text: "interactive_representation"
+        href: articles/interactive_representation.html
+    
 reference:
 - title: Building and handling metanetworks
   desc: |

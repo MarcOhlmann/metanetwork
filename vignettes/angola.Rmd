@@ -1,0 +1,26 @@
+---
+title: "Dimension reduction of multivariate count data with PLN-PCA"
+author: "PLN team"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  screenshot.force = FALSE, 
+  echo = TRUE,
+  rows.print = 5,
+  message = FALSE, 
+  warning = FALSE)
+```
+
+## Preliminaries
+
+This vignette illustrates the standard use of the `PLNPCA` function and the methods accompanying the R6 Classes `PLNPCAfamily` and `PLNPCAfit`.

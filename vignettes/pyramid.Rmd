@@ -1,0 +1,208 @@
+---
+title: "Pyramid metanetwork example using 'metanetwork'"
+author: "Marc Ohlmann"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{pyramid}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  screenshot.force = FALSE, 
+  echo = TRUE,
+  rows.print = 5,
+  message = FALSE, 
+  warning = FALSE)
+```
+
+## Preliminaries
+
+This vignette illustrates 'metanetwork' through a pyramid network example.
+The packages required to run the vignette are the following:
+
+```{r packages}
+library(igraph)
+library(metanetwork)
+```
+
+## Generating pyramid data set
+
+### Generating the metaweb an representing it using 'ggnet2'
+We first generate a pyramid network using 'igraph' and represent it using 'ggnet2'
+
+
+```{r,echo = TRUE,message=FALSE,warning=FALSE}
+library(igraph)
+library(network)
+library(intergraph)
+library(GGally)
+
+n = 5
+#generate a lattice 
+g = igraph::make_lattice(dim = 2,length = n,directed = T)
+#deleting nodes and edges
+nodes_to_rm = c()
+for (k in 1:(n-1)){
+  nodes_to_rm = c(nodes_to_rm,((k-1)*n+1):(k*n - k))
+}
+g = delete_vertices(g,nodes_to_rm)
+g = delete_edges(g,c("7|12","8|13","9|14","2|5"))
+V(g)$name = LETTERS[1:vcount(g)]
+#representing the lattice using ggnet package
+network = asNetwork(g)
+ggnet2(network, arrow.size = 7,size = 3 ,arrow.gap = 0.025, label = T)
+```
+
+Notice that 'ggnet2' default layout algorithm (Fruchterman-Reingold algorithm, a force directed algorithm) is non-reproducible. Moreover, x-axis and y-axis do not have any ecological interpretation.
+
+```{r}
+ggnet2(network, arrow.size = 7,size = 3 ,arrow.gap = 0.025, label = T)
+```
+
+### Generating abundance table
+We now generate two local communities (presence/absence in our case)
+```{r,echo = TRUE}
+#sampling a presence table
+presence = rbind(c(1,1,1,1,1,1,0,0,1,0,0,0,0,0,1),
+                 c(0,0,0,1,1,1,1,1,1,1,1,1,1,1,1))
+
+rownames(presence) = c('a','b')
+colnames(presence) = V(g)$name
+```
+
+## Building a metanetwork object
+From the lattice metaweb and abundance table, build a S3 object of class 'metanetwork' using `build_metanetwork`
+
+```{r,echo = TRUE}
+#building metanetwork object
+meta0 = build_metanet(metaweb = g,abTable = presence)
+class(g)
+class(meta0)
+```
+
+method `print_metanet` prints a summary of the considered metanetwork.
+
+```{r}
+print_metanet(meta0)
+```
+
+## Handling metanetworks
+
+### the class 'metanetwork'
+A 'metanetwork' object consists in a list of 'igraph' objects:
+
+* metaweb, the metaweb used to build the metanetwork, an 'igraph' object with node attribute `$ab` indicating the local relative abundance of each node and graph attribute `$name`indicating `"metaweb"`
+* local networks, a list of 'igraph' objects with node attribute `$ab` indicating the local relative abundance of each node in each network and graph attribute `$name` indicating local network names, that is rownames of the abundance table.
+
+```{r,echo = TRUE}
+meta0$b$name
+meta0$metaweb$name
+#abundances
+table(V(meta0$b)$ab)
+table(V(meta0$metaweb)$ab)
+```
+
+Metaweb node relative abundances are the mean of the local relative abundances.
+Additional objects like `abTable` or `trophicTable` can be included in a 'metanetwork' object
+
+### Computing trophic levels
+
+'metanetwork' package enables 2D network representation with x-axis equals to trophic levels. To compute trophic levels, 'metanetwork' implements the method, based on laplacian matrix, described in: *MacKay, R. S., S. Johnson, and B. Sansom. "How directed is a directed network?." Royal Society open science 7.9 (2020): 201138.*     
+The metaweb needs to be connected for trophic levels to be unique. Local networks can however be disconnected (see Ref).
+A method `compute_TL` allows computing trophic levels and storing it as node attribute `$TL` of each network.
+
+```{r,echo = TRUE}
+#compute trophic levels for metaweb and local networks
+meta0 = compute_TL(meta0)
+V(meta0$metaweb)$name
+V(meta0$metaweb)$TL
+```
+
+## Representing metanetworks
+
+'metanetwork' implements a layout algorithm, 'TL-tsne', specifically designed for trophic networks, based on trophic levels and on dimension reduction of graph diffusion kernel.
+
+### Diffusion graph kernel
+
+Diffusion kernel is a similarity matrix between nodes according to a diffusion process. Let $G$ be a directed network, $\mathbf{A}$ its adjacency matrix and $\mathbf{D}$ its degree diagonal matrix. The laplacian matrix of $G$ is defined as:
+
+\begin{equation}
+\mathbf{L} = \mathbf{D} - \mathbf{A} - \mathbf{A}^{T}
+\end{equation}
+
+The diffusion kernel is then defined as (Kondor & Lafferty, 2002):
+
+\begin{equation}
+    \textbf{K} = \exp(-\beta\mathbf{L}) = \sum_{k \geq 0} \frac{(- \beta\mathbf{L})^k}{k!}
+\end{equation}
+
+with $\beta$ a positive parameter.
+Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbours.
+
+### beta parameter
+
+$\beta$ is the single parameter of the diffusion kernel. It controls the weight given to the different paths in the diffusion kernel. It is also analogous to the diffusion constant in physics. We'll see through examples its importance in squeezing networks.
+
+### `ggmetanet` function
+
+The main metanetwork representation function is `ggmetanet`. It allows representing metaweb and local networks using `ggnet` and both layout algorithms. `ggmetanet` plots the metaweb of the current metanetwork by default.
+
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+#ggmetanet#
+ggmetanet(metanetwork = meta0,beta = 0.1)
+```
+       
+
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+#ggmetanet#
+ggmetanet(metanetwork = meta0,beta = 0.45)
+```
+   
+`ggmetanet` can also represent local networks (with specific layout)
+     
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+ggmetanet(g = meta0$b,beta = 0.1,metanetwork = meta0)
+```
+
+Increasing `beta` squeeze y-axis
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+ggmetanet(g = meta0$b,beta = 1,metanetwork = meta0)
+```
+      
+Moreover, it clusters nodes belonging to different 'branches'. They become more and more similar when beta is increased.        
+
+*Representing disconnected networks*
+
+If the metaweb needs to be connected, local networks can be disconnected due to sampling effects. In that case, trophic levels are computed using metaweb trophic levels. The basal species of each connected component has a trophic level equals to its value in the metaweb.        
+
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+ggmetanet(g = meta0$a,beta = 0.45,metanetwork = meta0)
+```
+    
+### `diff_plot` function
+
+In order to compare local networks, a `diff_plot` function is implemented. It colors nodes according to their presence/absence or variation in abundance in both networks.
+
+```{r, warning = FALSE,echo = TRUE,message= FALSE}
+diff_plot(g1 = meta0$a,g2 = meta0$b,beta = 0.1,mode = 'TL-tsne',metanetwork = meta0)
+```
+   
+### Changing `ggnet` configuration parameters 
+
+In order to fine tune network plots, it is possible to modify `ggnet` parameters in  metanetwork. An object `ggnet.default` is stored and wraps the different visualisation parameters. Change it to modify the plot.
+
+```{r,warning=F,message=F}
+ggnet.custom = ggnet.default
+ggnet.custom$edge.size = 3*ggnet.default$edge.size
+ggnet.custom$label.size = 7
+ggmetanet(beta = 0.1,metanetwork = meta0,
+          ggnet.config = ggnet.custom)
+```
+
+### Attaching layout  
