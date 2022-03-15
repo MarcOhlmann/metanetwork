@@ -3,12 +3,12 @@ R package ‘metanetwork’
 Marc Ohlmann
 22/6/2021
 
-# pkgdown <img src="man/figures/logo_metanetwork.png" align="right" />
+# <img src="man/figures/logo_metanetwork.png" align="right" />
 
 ## Description
 
 A collection of tools in `R` to represent and analyse trophic networks
-in space accross aggregation levels. The package contains a layout
+in space across aggregation levels. The package contains a layout
 algorithm specifically designed for trophic networks, using trophic
 levels and dimension reduction on a diffusion kernel.
 
@@ -22,12 +22,10 @@ install_github("MarcOhlmann/metanetwork")
 
 ``` r
 library(metanetwork)
-library(widgetdown)
-library(htmltools)
-library(htmlwidgets)
 ```
 
-Loading ‘igraph’ is also strongly recommended
+Loading ‘igraph’ is also strongly recommended since ‘metanetwork’
+objects are built from ‘igraph’ objects
 
 ``` r
 library(igraph)
@@ -67,8 +65,3 @@ This package is currently developed by Marc Ohlmann from Laboratoire
 d’Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from
 Laboratoire de Mathématiques, Chambéry. It is supported by the ANR
 [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009).
-
-## Contact
-
-For any bugs, information or feedback, please contact [Marc
-Ohlmann](marcohlmann%20_at_%20live.fr).

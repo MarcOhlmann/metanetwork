@@ -1,6 +1,6 @@
 ---
-title: "Dimension reduction of multivariate count data with PLN-PCA"
-author: "PLN team"
+title: "Angola dataset analysis"
+author: "Marc Ohlmann"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:

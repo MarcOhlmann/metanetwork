@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pkgdown <img src="man/figures/logo_metanetwork.png" align="right" />
+# <img src="man/figures/logo_metanetwork.png" align="right" />
 
 ## Description
 
