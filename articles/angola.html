@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -59,7 +59,7 @@
       <a href="../articles/pyramid.html">The pyramid example</a>
     </li>
     <li>
-      <a href="../articles/interactive_representation.html">interactive_representation</a>
+      <a href="../articles/angola.html">The Angola dataset</a>
     </li>
   </ul>
 </li>
@@ -132,144 +132,10 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <p>The method <code>append_aggregated_network</code> allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## $metaweb</span>
-<span class="co">## IGRAPH f873652 DNW- 28 127 -- metaweb</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
-<span class="co">## | (e/n)</span>
-<span class="co">## + edges from f873652 (vertex names):</span>
-<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
-<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
-<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
-<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
-<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
-<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
-<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
-<span class="co">## + ... omitted several edges</span>
-<span class="co">## </span>
-<span class="co">## $abTable</span>
-<span class="co">##       Trachurus Sardinella Sciaenidae    Ariidae Merluccius      Dentex</span>
-<span class="co">## X1986 0.3100092  0.3144169 0.02424242 0.01689624 0.02938476 0.007346189</span>
-<span class="co">## X2003 0.1465201  0.1792717 0.06895066 0.02413273 0.00258565 0.068950657</span>
-<span class="co">##       Pseudotolithus  Serranidae Polynemidae Parapenaeus longirostris</span>
-<span class="co">## X1986    0.004407713 0.004407713 0.005876951              0.009550046</span>
-<span class="co">## X2003    0.072398190 0.018961431 0.017237664              0.006377936</span>
-<span class="co">##        Haemulidae Aristeus varidens Small pelagics Mesopelagics Large pelagics</span>
-<span class="co">## X1986 0.008080808       0.003673095     0.03746556  0.001469238    0.004407713</span>
-<span class="co">## X2003 0.020685197       0.005860806     0.07239819  0.003447533    0.003275156</span>
-<span class="co">##       Demersal fish Chondrichthyes Cephalopodes Miscellaneous     Penaeus</span>
-<span class="co">## X1986   0.005876951    0.002938476 0.0007346189   0.007346189 0.001469238</span>
-<span class="co">## X2003   0.034475329    0.013790131 0.0068950657   0.027580263 0.006205559</span>
-<span class="co">##       Marine mammals Marine birds Macrobenthos Middlebenthos Large Zoo</span>
-<span class="co">## X1986          0.025        0.025        0.025         0.025     0.025</span>
-<span class="co">## X2003          0.025        0.025        0.025         0.025     0.025</span>
-<span class="co">##       Small Zoo Phytoplankton Detritus</span>
-<span class="co">## X1986     0.025         0.025    0.025</span>
-<span class="co">## X2003     0.025         0.025    0.025</span>
-<span class="co">## </span>
-<span class="co">## $trophicTable</span>
-<span class="co">##                                           Species     Phylum</span>
-<span class="co">## Ariidae                                   Ariidae       Fish</span>
-<span class="co">## Aristeus varidens               Aristeus varidens Arthropoda</span>
-<span class="co">## Cephalopodes                         Cephalopodes   Mollusca</span>
-<span class="co">## Chondrichthyes                     Chondrichthyes    Benthos</span>
-<span class="co">## Demersal fish                       Demersal fish       Fish</span>
-<span class="co">## Dentex                                     Dentex       Fish</span>
-<span class="co">## Detritus                                 Detritus      Plant</span>
-<span class="co">## Haemulidae                             Haemulidae       Fish</span>
-<span class="co">## Large pelagics                     Large pelagics       Fish</span>
-<span class="co">## Large Zoo                               Large Zoo   Plankton</span>
-<span class="co">## Macrobenthos                         Macrobenthos    Benthos</span>
-<span class="co">## Marine birds                         Marine birds       Bird</span>
-<span class="co">## Marine mammals                     Marine mammals    Mammals</span>
-<span class="co">## Merluccius                             Merluccius       Fish</span>
-<span class="co">## Mesopelagics                         Mesopelagics       Fish</span>
-<span class="co">## Middlebenthos                       Middlebenthos    Benthos</span>
-<span class="co">## Miscellaneous                       Miscellaneous Arthropoda</span>
-<span class="co">## Parapenaeus longirostris Parapenaeus longirostris Arthropoda</span>
-<span class="co">## Penaeus                                   Penaeus Arthropoda</span>
-<span class="co">## Phytoplankton                       Phytoplankton   Plankton</span>
-<span class="co">## Polynemidae                           Polynemidae       Fish</span>
-<span class="co">## Pseudotolithus                     Pseudotolithus       Fish</span>
-<span class="co">## Sardinella                             Sardinella       Fish</span>
-<span class="co">## Sciaenidae                             Sciaenidae       Fish</span>
-<span class="co">## Serranidae                             Serranidae       Fish</span>
-<span class="co">## Small pelagics                     Small pelagics       Fish</span>
-<span class="co">## Small Zoo                               Small Zoo   Plankton</span>
-<span class="co">## Trachurus                               Trachurus       Fish</span>
-<span class="co">## </span>
-<span class="co">## $covariable</span>
-<span class="co">## NULL</span>
-<span class="co">## </span>
-<span class="co">## $X1986</span>
-<span class="co">## IGRAPH eeeeb2e DNW- 28 127 -- X1986</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
-<span class="co">## | (e/n)</span>
-<span class="co">## + edges from eeeeb2e (vertex names):</span>
-<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
-<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
-<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
-<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
-<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
-<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
-<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
-<span class="co">## + ... omitted several edges</span>
-<span class="co">## </span>
-<span class="co">## $X2003</span>
-<span class="co">## IGRAPH b673113 DNW- 28 127 -- X2003</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), TL (v/n), weight</span>
-<span class="co">## | (e/n)</span>
-<span class="co">## + edges from b673113 (vertex names):</span>
-<span class="co">##  [1] Trachurus -&gt;Haemulidae     Trachurus -&gt;Marine mammals</span>
-<span class="co">##  [3] Sardinella-&gt;Ariidae        Sardinella-&gt;Merluccius    </span>
-<span class="co">##  [5] Sardinella-&gt;Pseudotolithus Sardinella-&gt;Serranidae    </span>
-<span class="co">##  [7] Sardinella-&gt;Haemulidae     Sardinella-&gt;Small pelagics</span>
-<span class="co">##  [9] Sardinella-&gt;Large pelagics Sardinella-&gt;Cephalopodes  </span>
-<span class="co">## [11] Sardinella-&gt;Marine mammals Sardinella-&gt;Marine birds  </span>
-<span class="co">## [13] Sciaenidae-&gt;Merluccius     Sciaenidae-&gt;Serranidae    </span>
-<span class="co">## + ... omitted several edges</span>
-<span class="co">## </span>
-<span class="co">## $metaweb_Phylum</span>
-<span class="co">## IGRAPH cf12eb3 DNW- 8 24 -- metaweb</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="co">## + edges from cf12eb3 (vertex names):</span>
-<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
-<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
-<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
-<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
-<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
-<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
-<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
-<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
-<span class="co">## </span>
-<span class="co">## $X1986_Phylum</span>
-<span class="co">## IGRAPH cb8250b DNW- 8 24 -- X1986</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="co">## + edges from cb8250b (vertex names):</span>
-<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
-<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
-<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
-<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
-<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
-<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
-<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
-<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
-<span class="co">## </span>
-<span class="co">## $X2003_Phylum</span>
-<span class="co">## IGRAPH 6863349 DNW- 8 24 -- X2003</span>
-<span class="co">## + attr: res (g/c), name (g/c), name (v/c), ab (v/n), weight (e/n)</span>
-<span class="co">## + edges from 6863349 (vertex names):</span>
-<span class="co">##  [1] Arthropoda-&gt;Benthos    Arthropoda-&gt;Bird       Arthropoda-&gt;Fish      </span>
-<span class="co">##  [4] Arthropoda-&gt;Mammals    Arthropoda-&gt;Mollusca   Benthos   -&gt;Arthropoda</span>
-<span class="co">##  [7] Benthos   -&gt;Benthos    Benthos   -&gt;Fish       Benthos   -&gt;Mollusca  </span>
-<span class="co">## [10] Fish      -&gt;Benthos    Fish      -&gt;Bird       Fish      -&gt;Fish      </span>
-<span class="co">## [13] Fish      -&gt;Mammals    Fish      -&gt;Mollusca   Plankton  -&gt;Arthropoda</span>
-<span class="co">## [16] Plankton  -&gt;Benthos    Plankton  -&gt;Bird       Plankton  -&gt;Fish      </span>
-<span class="co">## [19] Plankton  -&gt;Mollusca   Plankton  -&gt;Plankton   Plant     -&gt;Arthropoda</span>
-<span class="co">## [22] Plant     -&gt;Benthos    Plant     -&gt;Fish       Plant     -&gt;Plankton  </span>
-<span class="co">## </span>
-<span class="co">## attr(,"class")</span>
-<span class="co">## [1] "metanetwork"</span></code></pre>
+<span class="fu"><a href="../reference/print_metanet.html">print_metanet</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></code></pre></div>
+<pre><code><span class="co">## metaweb has 28 nodes and 127 edges </span>
+<span class="co">## 2 local networks </span>
+<span class="co">## available resolutions are: Species Phylum</span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="representing-aggregated-networks-adding-a-legend-to-networks">Representing aggregated networks, adding a legend to networks<a class="anchor" aria-label="anchor" href="#representing-aggregated-networks-adding-a-legend-to-networks"></a>
