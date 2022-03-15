@@ -13,7 +13,7 @@ build_metanet(
 )
 }
 \arguments{
-\item{metaweb}{metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'. 
+\item{metaweb}{metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
 Metaweb needs to be directed and connected. This parameter must be non-null.}
 
 \item{abTable}{abundances of nodes in local networks, matrix of class 'matrix',

@@ -54,11 +54,11 @@ plot_trophicTable(meta_angola,ggnet.config = ggnet.custom)
 
 The method `append_aggregated_network` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
 
-
 ```{r}
 meta_angola = append_agg_nets(meta_angola)
-print(meta_angola)
+print_metanet(meta_angola)
 ```
+
 ### Representing aggregated networks, adding a legend to networks
 
 Once computed, `ggmetanet` function allows representing aggregated networks and legending local networks using trophic table. Do not forget to first compute trophic levels.

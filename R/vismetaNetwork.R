@@ -283,8 +283,8 @@ vismetaNetwork <- function(metanetwork,g = NULL,beta = 0.1,
           customLayout(metanetwork = metanetwork,g = g,mode = mode,beta = beta,x_y_range = x_y_range,
                        nrep_ly = nrep_ly,layout_metaweb = layout_metaweb,flip_coords = flip_coords,
                        TL_tsne.config = TL_tsne.config) %>%
-          visNetwork::visLegend(width = 0.1, position = "right")
-        
+          visNetwork::visLegend(width = 0.1, position = "right") +
+         ggplot2::theme(legend.position="bottom", legend.box = "vertical")
         if(!(visNetwork.config$visEvent)){
           return(network_loc)
         } else{
@@ -369,10 +369,11 @@ vismetaNetwork <- function(metanetwork,g = NULL,beta = 0.1,
                               list(text = "Legend",
                                    style = "font-family:Comic Sans MS;color:#6d799c;font-size:12px;text-align:center;")) %>%
       visNetwork::visGroups(groupname = "shared", color = "grey50") %>%
-      visNetwork::visGroups(groupname = "more abundant in g1", color = "#a1d99b") %>%
-      visNetwork::visGroups(groupname = "more abundant in g2", color = "#fc9272") %>%
-      visNetwork::visGroups(groupname = "only present in g1", color = "#31a354") %>%
-      visNetwork::visGroups(groupname = "only present in g2", color = "#de2d26") 
+      visNetwork::visGroups(groupname = "more ab in g1", color = "#a1d99b") %>%
+      visNetwork::visGroups(groupname = "more ab in g2", color = "#fc9272") %>%
+      visNetwork::visGroups(groupname = "only pres in g1", color = "#31a354") %>%
+      visNetwork::visGroups(groupname = "only pres in g2", color = "#de2d26")  +
+      ggplot2::theme(legend.position="bottom", legend.box = "vertical")
     
       return(network_loc)
   }

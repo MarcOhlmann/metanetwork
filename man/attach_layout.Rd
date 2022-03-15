@@ -27,7 +27,7 @@ attach_layout(
 \item{g}{character indicating the name of the network for which the 'TL-tsne' layout is computed,
 default is 'metaweb'}
 
-\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
+\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
 \item{mode}{only 'TL-tsne' is supported for this function}

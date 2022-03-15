@@ -12,7 +12,7 @@ metanet_build_pipe(metanetwork, beta = 0.1, verbose = T)
 \arguments{
 \item{metanetwork}{object of class 'metanetwork'}
 
-\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
+\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
 \item{verbose}{a boolean indicating wheter message along the pipeline should be printed}
@@ -23,7 +23,7 @@ object of class 'metanetwork'
 \code{NULL}
 }
 \description{
-Method executing the whole metanetwork pipeline, including building 'metanetwork' object (\code{build_metanet},\code{append_agg_nets}, \code{compute_TL}, 
+Method executing the whole metanetwork pipeline, including building 'metanetwork' object (\code{build_metanet},\code{append_agg_nets}, \code{compute_TL},
 \code{attach_layout})
 }
 \examples{

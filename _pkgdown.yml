@@ -16,8 +16,8 @@ navbar:
       menu:
       - text: "The pyramid example"
         href: articles/pyramid.html
-      - text: "interactive_representation"
-        href: articles/interactive_representation.html
+      - text: "The Angola dataset"
+        href: articles/angola.html
     
 reference:
 - title: Building and handling metanetworks

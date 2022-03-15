@@ -168,9 +168,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
       g = igraph::delete.edges(graph = g,
                                edges =  which(abs(igraph::E(g)$weight_col) < edge_thrs))
     }
-    color_loc =  ifelse(igraph::V(g)$ab>0,'more abundant in g1','more abundant in g2')
-    color_loc[which(igraph::V(g)$ab > 2)] = 'only present in g1'
-    color_loc[which(igraph::V(g)$ab < -2)] = 'only present in g2'
+    color_loc =  ifelse(igraph::V(g)$ab>0,'more ab in g1','more ab in g2')
+    color_loc[which(igraph::V(g)$ab > 2)] = 'only pres in g1'
+    color_loc[which(igraph::V(g)$ab < -2)] = 'only pres in g2'
     color_loc[which(igraph::V(g)$ab ==0)] = 'shared'
     edge_color_loc = ifelse(igraph::E(g)$weight_col>0,'#a1d99b','#fc9272')
     edge_color_loc[which(igraph::E(g)$weight_col == 0)] = 'black'
@@ -299,18 +299,19 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         edge_alpha = (alpha %*% t(alpha)) * igraph::get.adjacency(g) * ggnet.config$edge.alpha
         g_Network = network::set.edge.value(g_Network,"edge_alpha",edge_alpha)
         edge_alpha_vec = network::get.edge.attribute(g_Network,'edge_alpha')
-        
-        return(GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
-                              size = size_loc,edge.size = "weight",
-                              label = ggnet.config$label, label.size = ggnet.config$label.size,
-                              max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                              arrow.size = ggnet.config$arrow.size,
-                              arrow.gap = ggnet.config$arrow.gap,
-                              alpha = alpha,
-                              edge.alpha = edge_alpha_vec*ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
-                              legend.position = ggnet.config$legend.position,
-                              palette = c("only present in g1" = "#31a354", "more abundant in g1" = "#a1d99b","more abundant in g2" = "#fc9272",
-                                          "only present in g2" = "#de2d26","shared" = "grey75")))
+        net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
+                             size = size_loc,edge.size = "weight",
+                             label = ggnet.config$label, label.size = ggnet.config$label.size,
+                             max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                             arrow.size = ggnet.config$arrow.size,
+                             arrow.gap = ggnet.config$arrow.gap,
+                             alpha = alpha,
+                             edge.alpha = edge_alpha_vec*ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
+                             legend.position = ggnet.config$legend.position,
+                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
+                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+                             ggplot2::theme(legend.box = "vertical")
+        return(net)
       } else{
         nodes_focal = alpha_per_node$nodes
         alpha_focal = alpha_per_node$alpha_focal
@@ -321,31 +322,35 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         edge_alpha = (alpha %*% t(alpha)) * igraph::get.adjacency(g) * ggnet.config$edge.alpha
         g_Network = network::set.edge.value(g_Network,"edge_alpha",edge_alpha)
         edge_alpha_vec = network::get.edge.attribute(g_Network,'edge_alpha')
-        return(GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
-                              size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
-                              label = ggnet.config$label, 
-                              label.size = ggnet.config$label.size*alpha,
-                              max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                              edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                              arrow.gap = ggnet.config$arrow.gap,
-                              alpha = alpha,
-                              edge.alpha = edge_alpha_vec,
-                              legend.position = ggnet.config$legend.position,
-                              palette = c("only present in g1" = "#31a354", "more abundant in g1" = "#a1d99b","more abundant in g2" = "#fc9272",
-                                          "only present in g2" = "#de2d26","shared" = "grey75")))
+        net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
+                             size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
+                             label = ggnet.config$label, 
+                             label.size = ggnet.config$label.size*alpha,
+                             max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                             edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                             arrow.gap = ggnet.config$arrow.gap,
+                             alpha = alpha,
+                             edge.alpha = edge_alpha_vec,
+                             legend.position = ggnet.config$legend.position,
+                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
+                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+          ggplot2::theme(legend.box = "vertical")
+        return(net)
       }
     } else{
-      return(GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
-                     size = size_loc,edge.size = "weight",
-                     label = ggnet.config$label, label.size = ggnet.config$label.size,
-                     max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                     arrow.size = ggnet.config$arrow.size,
-                     arrow.gap = ggnet.config$arrow.gap,
-                     alpha = alpha,
-                     edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
-                     legend.position = ggnet.config$legend.position,
-                     palette = c("only present in g1" = "#31a354", "more abundant in g1" = "#a1d99b","more abundant in g2" = "#fc9272",
-                                 "only present in g2" = "#de2d26","shared" = "grey75")))
+      net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
+                           size = size_loc,edge.size = "weight",
+                           label = ggnet.config$label, label.size = ggnet.config$label.size,
+                           max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                           arrow.size = ggnet.config$arrow.size,
+                           arrow.gap = ggnet.config$arrow.gap,
+                           alpha = alpha,
+                           edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
+                           legend.position = ggnet.config$legend.position,
+                           palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
+                                       "only pres in g2" = "#de2d26","shared" = "grey75")) +
+        ggplot2::theme(legend.box = "vertical")
+      return(net)
     }
 
   }else{
@@ -366,22 +371,21 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         if(nb_cols < 15){
           mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(nb_cols)
           names(mycolors) = unique(color_loc)
-          
-          return(GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
-                                size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                palette = mycolors,
-                                legend.position = ggnet.config$legend.position)
-                )
+          net = GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
+                         size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
+                         label = ggnet.config$label, 
+                         label.size = ggnet.config$label.size,
+                         max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                         edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                         arrow.gap = ggnet.config$arrow.gap,
+                         alpha = alpha,
+                         edge.alpha = edge_alpha_vec,
+                         palette = mycolors,
+                         legend.position = ggnet.config$legend.position) +
+            ggplot2::theme(legend.box = "vertical")
+          return(net)
         } else{ #use colors and shapes
           #assigning shapes (four types 15,16,17,18) and colors
-          
           groups_loc = unique(color_loc)
           n_groups_loc = length(groups_loc)
           
@@ -403,19 +407,19 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           
           # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
           # rownames(shape_color_table) = groups_loc
-          return(GGally::ggnet2(g_Network,mode = mode_loc,
-                                color = colors_loc_nodes,
-                                size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                legend.position = ggnet.config$legend.position,
-                                shape = shapes_loc_nodes)
-                 )
+          net = GGally::ggnet2(g_Network,mode = mode_loc,
+                         color = colors_loc_nodes,
+                         size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
+                         label = ggnet.config$label, 
+                         label.size = ggnet.config$label.size,
+                         max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                         edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                         arrow.gap = ggnet.config$arrow.gap,
+                         alpha = alpha,
+                         edge.alpha = edge_alpha_vec,
+                         legend.position = ggnet.config$legend.position,
+                         shape = shapes_loc_nodes)
+          return(net)
         }
       }else{
         nodes_focal = alpha_per_node$nodes
@@ -433,19 +437,19 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         if(nb_cols < 15){
           mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(nb_cols)
           names(mycolors) = unique(color_loc)
-          
-          return(GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
-                                size = size_loc,
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                palette = mycolors,
-                                legend.position = ggnet.config$legend.position)
-          )
+          net = GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
+                         size = size_loc,
+                         label = ggnet.config$label, 
+                         label.size = ggnet.config$label.size,
+                         max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                         edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                         arrow.gap = ggnet.config$arrow.gap,
+                         alpha = alpha,
+                         edge.alpha = edge_alpha_vec,
+                         palette = mycolors,
+                         legend.position = ggnet.config$legend.position) +
+            ggplot2::theme(legend.box = "vertical")
+          return(net)
         } else{ #use colors and shapes
           #assigning shapes (four types 15,16,17,18) and colors
           
@@ -467,22 +471,22 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) colors_loc[x])
           names(colors_loc_nodes) = V(g)$name
-          
+          net = GGally::ggnet2(g_Network,mode = mode_loc,
+                               color = colors_loc_nodes,
+                               size = size_loc,
+                               label = ggnet.config$label, 
+                               label.size = ggnet.config$label.size,
+                               max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                               edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                               arrow.gap = ggnet.config$arrow.gap,
+                               alpha = alpha,
+                               edge.alpha = edge_alpha_vec,
+                               legend.position = ggnet.config$legend.position,
+                               shape = shapes_loc_nodes)  +
+            ggplot2::theme(legend.box = "vertical")
           # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
           # rownames(shape_color_table) = groups_loc
-          return(GGally::ggnet2(g_Network,mode = mode_loc,
-                                color = colors_loc_nodes,
-                                size = size_loc,
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                legend.position = ggnet.config$legend.position,
-                                shape = shapes_loc_nodes)
-          )
+          return(net)
         }
       }
     }else{
@@ -500,20 +504,20 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           if(nb_cols < 15){
             mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(nb_cols)
             names(mycolors) = unique(color_loc)
-            
-            return(GGally::ggnet2(g_Network,mode = mode_loc,
-                                  color = color_loc,
-                                  size = size_loc,
-                                  label = ggnet.config$label, 
-                                  label.size = ggnet.config$label.size,
-                                  max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                  edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                  arrow.gap = ggnet.config$arrow.gap,
-                                  alpha = ggnet.config$alpha,
-                                  edge.alpha = ggnet.config$edge.alpha,
-                                  legend.position = ggnet.config$legend.position,
-                                  palette = mycolors)
-            )
+            net = GGally::ggnet2(g_Network,mode = mode_loc,
+                                 color = color_loc,
+                                 size = size_loc,
+                                 label = ggnet.config$label, 
+                                 label.size = ggnet.config$label.size,
+                                 max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                                 edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                                 arrow.gap = ggnet.config$arrow.gap,
+                                 alpha = ggnet.config$alpha,
+                                 edge.alpha = ggnet.config$edge.alpha,
+                                 legend.position = ggnet.config$legend.position,
+                                 palette = mycolors)  +
+              ggplot2::theme(legend.box = "vertical")
+            return(net)
           } else{ #use colors and shapes
             #assigning shapes (four types 15,16,17,18) and colors
             
@@ -538,29 +542,32 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
             # rownames(shape_color_table) = groups_loc
-            return(GGally::ggnet2(g_Network,mode = mode_loc,
-                                  color = colors_loc_nodes,
-                                  size = size_loc,
-                                  label = ggnet.config$label, 
-                                  label.size = ggnet.config$label.size,
-                                  max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                  edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                  arrow.gap = ggnet.config$arrow.gap,
-                                  alpha = ggnet.config$alpha,
-                                  edge.alpha = ggnet.config$edge.alpha,
-                                  legend.position = ggnet.config$legend.position,
-                                  shape = shapes_loc_nodes)
-            )
+            net = GGally::ggnet2(g_Network,mode = mode_loc,
+                                 color = colors_loc_nodes,
+                                 size = size_loc,
+                                 label = ggnet.config$label, 
+                                 label.size = ggnet.config$label.size,
+                                 max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                                 edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                                 arrow.gap = ggnet.config$arrow.gap,
+                                 alpha = ggnet.config$alpha,
+                                 edge.alpha = ggnet.config$edge.alpha,
+                                 legend.position = ggnet.config$legend.position,
+                                 shape = shapes_loc_nodes)  +
+              ggplot2::theme(legend.box = "vertical")
+            return(net)
           }
     } else {
-          return(GGally::ggnet2(g_Network,mode = mode_loc,node.color = ggnet.config$default.color,
-                        size = size_loc,
-                        label = ggnet.config$label, label.size = ggnet.config$label.size,
-                        max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                        edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                        arrow.gap = ggnet.config$arrow.gap, alpha = ggnet.config$alpha,
-                        edge.alpha = ggnet.config$edge.alpha, 
-                        legend.position = ggnet.config$legend.position))
+      net = GGally::ggnet2(g_Network,mode = mode_loc,node.color = ggnet.config$default.color,
+                           size = size_loc,
+                           label = ggnet.config$label, label.size = ggnet.config$label.size,
+                           max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                           edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                           arrow.gap = ggnet.config$arrow.gap, alpha = ggnet.config$alpha,
+                           edge.alpha = ggnet.config$edge.alpha, 
+                           legend.position = ggnet.config$legend.position)  +
+        ggplot2::theme(legend.box = "vertical")
+          return(net)
           
         }
       } else {
@@ -583,21 +590,18 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           message(paste0('you can reproduce this result in non-interactive mode by setting: \n',
                          'alpha_per_node = ','list(nodes = c(',names_to_print,'),alpha_focal =',alpha_focal,
                          ',alpha_hidden =',alpha_hidden,')'))
-          
-          return(GGally::ggnet2(g_Network,mode = mode_loc,
-                                size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size*alpha,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                legend.position = ggnet.config$legend.position)
-          )
-          
-          
-          
+          net = GGally::ggnet2(g_Network,mode = mode_loc,
+                               size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
+                               label = ggnet.config$label, 
+                               label.size = ggnet.config$label.size*alpha,
+                               max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                               edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                               arrow.gap = ggnet.config$arrow.gap,
+                               alpha = alpha,
+                               edge.alpha = edge_alpha_vec,
+                               legend.position = ggnet.config$legend.position)  +
+            ggplot2::theme(legend.box = "vertical")
+          return(net)
         } else{
           message("Alpha interactive mode, enter groups to enhance")
           message(paste0("Choose groups among: "),Reduce(paste,unique(metanetwork$trophicTable[,legend])))
@@ -624,18 +628,19 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           nb_cols = length(unique(color_loc))
           mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(nb_cols)
           names(mycolors) = unique(color_loc)
-          return(GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
-                                size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
-                                label = ggnet.config$label, 
-                                label.size = ggnet.config$label.size,
-                                max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                                edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                                arrow.gap = ggnet.config$arrow.gap,
-                                alpha = alpha,
-                                edge.alpha = edge_alpha_vec,
-                                palette = mycolors,
-                                legend.position = ggnet.config$legend.position)
-          )
+          net = GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
+                               size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
+                               label = ggnet.config$label, 
+                               label.size = ggnet.config$label.size,
+                               max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                               edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                               arrow.gap = ggnet.config$arrow.gap,
+                               alpha = alpha,
+                               edge.alpha = edge_alpha_vec,
+                               palette = mycolors,
+                               legend.position = ggnet.config$legend.position)  +
+            ggplot2::theme(legend.box = "vertical")
+          return(net)
         }
       }
     }

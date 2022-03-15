@@ -27,7 +27,7 @@ ggmetanet(
 
 \item{g}{network (igraph object) to represent, default is metaweb}
 
-\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
+\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 vertical squeezing of the network}
 
 \item{legend}{resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL}
@@ -45,14 +45,14 @@ to use metaweb layout = T, you need first to compute metaweb layout for this bet
 
 \item{diff_plot_bool}{boolean, do not edit by hand}
 
-\item{alpha_per_group}{controlling alpha per group (only for 'ggnet' vis), a list of format 
+\item{alpha_per_group}{controlling alpha per group (only for 'ggnet' vis), a list of format
 \code{list(resolutions = "XX",groups = XX,alpha_focal = XX,alpha_hidden = XX)}, see example}
 
-\item{alpha_per_node}{controlling alpha per node (only for 'ggnet' vis), a list of format 
+\item{alpha_per_node}{controlling alpha per node (only for 'ggnet' vis), a list of format
 \code{list(nodes = XX,alpha_focal = XX,alpha_hidden = XX)}, see example
 In that case, y-axis is the trophic level and x-axis is the layout axis}
 
-\item{alpha_interactive}{a boolean indicating whether alpha (that is node transparency) 
+\item{alpha_interactive}{a boolean indicating whether alpha (that is node transparency)
 should be asked in interactive mode to the user}
 
 \item{ggnet.config}{configuration list for ggnet representation, default is ggnet.default}
@@ -63,7 +63,7 @@ should be asked in interactive mode to the user}
 object of class 'ggplot'
 }
 \description{
-Function that provides network static representation  (using 'ggnet') from a 
+Function that provides network static representation  (using 'ggnet') from a
 'metanetwork' object with a layout based on a diffusion kernel
 }
 \examples{

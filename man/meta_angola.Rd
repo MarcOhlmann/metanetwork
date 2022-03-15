@@ -5,15 +5,15 @@
 \alias{meta_angola}
 \title{Angola fishery metanetwork
 metanetwork built from:
-KAngelini & Velho 2011, Data from: 
+KAngelini & Velho 2011, Data from:
 Angelini, R., Velho, VF. (2011)
- Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)}
+Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)}
 \format{
 \describe{
 A object of class 'metanetwork'
-\item{metaweb}{The metaweb from Angelini & Velho 2011, containing 28 groups and 127 interactions, a \code{igraph} object} 
+\item{metaweb}{The metaweb from Angelini & Velho 2011, containing 28 groups and 127 interactions, a \code{igraph} object}
 \item{abTable}{Abundance table built from biomass at two dates: 1986 and 2003, a \code{matrix}}
-\item{trophicTable}{Taxonomic table, a three column \code{data.frame} 
+\item{trophicTable}{Taxonomic table, a three column \code{data.frame}
 with three different taxonomic levels (species (or group), phylum and kingdom)}
 }
 }
@@ -26,8 +26,8 @@ meta_angola
 \description{
 Angola fishery metanetwork
 metanetwork built from:
-KAngelini & Velho 2011, Data from: 
+KAngelini & Velho 2011, Data from:
 Angelini, R., Velho, VF. (2011)
- Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)
+Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)
 }
 \keyword{datasets}

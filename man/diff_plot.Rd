@@ -29,7 +29,7 @@ diff_plot(
 
 \item{g2}{network (of class 'igraph') of metanetwork}
 
-\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
+\item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
 \item{mode}{mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'}
@@ -41,18 +41,18 @@ squeezing of the network}
 \item{layout_metaweb}{a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
 to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}}
 
-\item{flip_coords}{a boolean indicating wheter coordinates should be flipped. 
+\item{flip_coords}{a boolean indicating wheter coordinates should be flipped.
 In that case, y-axis is the trophic level and x-axis is the layout axis}
 
-\item{alpha_per_group}{controlling alpha per group (only for 'ggnet' vis), a list of format 
+\item{alpha_per_group}{controlling alpha per group (only for 'ggnet' vis), a list of format
 \code{list(resolutions = "XX",groups = XX,alpha_focal = XX,alpha_hidden = XX)}, see example}
 
-\item{alpha_per_node}{controlling alpha per node (only for 'ggnet' vis), a list of format 
+\item{alpha_per_node}{controlling alpha per node (only for 'ggnet' vis), a list of format
 \code{list(nodes = XX,alpha_focal = XX,alpha_hidden = XX)}, see example}
 
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
 
-\item{nrep_ly}{If several layouts for this beta value are attached to the metaweb 
+\item{nrep_ly}{If several layouts for this beta value are attached to the metaweb
 (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}}
 
 \item{ggnet.config}{configuration list for ggnet representation, default is ggnet.default}
@@ -63,7 +63,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis}
 plot of the difference network, either using 'ggnet' or 'visNetwork'
 }
 \description{
-Function to represent difference between two networks belonging to a metanetwork 
+Function to represent difference between two networks belonging to a metanetwork
 with a layout based on diffusion kernel, using either 'ggnet' or 'visNetwork' visualisation
 }
 \examples{

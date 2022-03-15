@@ -13,7 +13,7 @@ print_metanet(metanetwork)
 \item{metanetwork}{object of class 'metanetwork'}
 }
 \value{
-character indicating number of nodes and edges of the metaweb, availabe resolutions 
+character indicating number of nodes and edges of the metaweb, availabe resolutions
 and number of local networks
 
 \code{NULL}

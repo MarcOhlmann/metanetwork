@@ -18,7 +18,7 @@ object of class 'metanetwork'
 \code{NULL}
 }
 \description{
-Method to append aggregated metawebs and aggregated local networks using 
+Method to append aggregated metawebs and aggregated local networks using
 the hierarchy describes in \code{trophicTable}
 }
 \examples{
