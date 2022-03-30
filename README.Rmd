@@ -1,7 +1,7 @@
 ---
 title: "R package 'metanetwork'"
 author: "Marc Ohlmann"
-date: "22/6/2021"
+date: "15/03/22"
 # output: 
 #   slidy_presentation: 
 #     fig_height: 8

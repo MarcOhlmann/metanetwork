@@ -1,7 +1,7 @@
 R package ‘metanetwork’
 ================
 Marc Ohlmann
-22/6/2021
+15/03/22
 
 # <img src="man/figures/logo_metanetwork.png" align="right" />
 

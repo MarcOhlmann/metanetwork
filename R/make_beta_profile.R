@@ -21,7 +21,7 @@ get_ext_Moran_index <- function(y_coord,g,beta = NULL){
     Xmean = mean(X)
     n = vcount(g)
     W = sum(A)
-    I = (n/W) * (t(A%*%(X-Xmean))%*%X) / (t(X)%*%X)
+    I = (n/W) * (t(A%*%(X-Xmean))%*%(X-Xmean)) / (t(X-Xmean)%*%(X-Xmean))
     #penalty with number of distance inferior to label size
     x_y_coords = cbind(V(g)$TL,y_coord)
     sum(dist(x_y_coords) < ggnet.default$label.size)/length(dist(x_y_coords))

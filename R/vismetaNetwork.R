@@ -283,8 +283,7 @@ vismetaNetwork <- function(metanetwork,g = NULL,beta = 0.1,
           customLayout(metanetwork = metanetwork,g = g,mode = mode,beta = beta,x_y_range = x_y_range,
                        nrep_ly = nrep_ly,layout_metaweb = layout_metaweb,flip_coords = flip_coords,
                        TL_tsne.config = TL_tsne.config) %>%
-          visNetwork::visLegend(width = 0.1, position = "right") +
-         ggplot2::theme(legend.position="bottom", legend.box = "vertical")
+          visNetwork::visLegend(width = 0.1, position = "right") 
         if(!(visNetwork.config$visEvent)){
           return(network_loc)
         } else{

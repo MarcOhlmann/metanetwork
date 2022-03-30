@@ -136,7 +136,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         }
        }
       #legend must be a coarser resolution than resolution of the current network
-      if(!(which(colnames(metanetwork$trophicTable) == res_local) <
+      if(!(which(colnames(metanetwork$trophicTable) == res_local) <=
            which(colnames(metanetwork$trophicTable) == legend))){
         stop("legend must be a coarser resolution than resolution of the current network")
       } else{
@@ -153,6 +153,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           trophic_table_loc = unique(metanetwork$trophicTable[,c(res_local,legend)])
           rownames(trophic_table_loc) = trophic_table_loc[,1]
           color_loc = trophic_table_loc[igraph::V(g)$name,legend]
+          color_loc = color_loc[order(color_loc)]
         # }
       }
     }
@@ -388,18 +389,17 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           #assigning shapes (four types 15,16,17,18) and colors
           groups_loc = unique(color_loc)
           n_groups_loc = length(groups_loc)
-          
-          #shpes
-          k = floor(n_groups_loc/4)
+          #shapes: use of 15,16,17,18 and 25
+          k = floor(n_groups_loc/5)
           shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,n_groups_loc-3*k)) 
+                         rep(18,k),rep(25,n_groups_loc-4*k)) 
           names(shapes_loc) = groups_loc
           shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) shapes_loc[x])
           names(shapes_loc_nodes) = V(g)$name
           #colors
-          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/4)+3)
-          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-3*k)])
+          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
+          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
           names(colors_loc) = groups_loc
           colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) colors_loc[x])
@@ -456,21 +456,22 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           groups_loc = unique(color_loc)
           n_groups_loc = length(groups_loc)
           
-          #shpes
-          k = floor(n_groups_loc/4)
+          #shapes: use of 15,16,17,18 and 25
+          k = floor(n_groups_loc/5)
           shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,n_groups_loc-3*k)) 
+                         rep(18,k),rep(25,n_groups_loc-4*k)) 
           names(shapes_loc) = groups_loc
           shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) shapes_loc[x])
           names(shapes_loc_nodes) = V(g)$name
           #colors
-          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/4)+3)
-          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-3*k)])
+          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
+          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
           names(colors_loc) = groups_loc
           colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) colors_loc[x])
           names(colors_loc_nodes) = V(g)$name
+          
           net = GGally::ggnet2(g_Network,mode = mode_loc,
                                color = colors_loc_nodes,
                                size = size_loc,
@@ -524,22 +525,21 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             groups_loc = unique(color_loc)
             n_groups_loc = length(groups_loc)
             
-            #shpes
-            k = floor(n_groups_loc/4)
+            #shapes: use of 15,16,17,18 and 25
+            k = floor(n_groups_loc/5)
             shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                           rep(18,n_groups_loc-3*k)) 
+                           rep(18,k),rep(25,n_groups_loc-4*k)) 
             names(shapes_loc) = groups_loc
             shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                       function(x) shapes_loc[x])
             names(shapes_loc_nodes) = V(g)$name
             #colors
-            mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/4)+3)
-            colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-3*k)])
+            mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
+            colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
             names(colors_loc) = groups_loc
             colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                       function(x) colors_loc[x])
             names(colors_loc_nodes) = V(g)$name
-            
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
             # rownames(shape_color_table) = groups_loc
             net = GGally::ggnet2(g_Network,mode = mode_loc,

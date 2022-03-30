@@ -1,8 +1,8 @@
 Package: metanetwork
 Type: Package
 Title: Handling and representing trophic networks in space and time
-Version: 0.0.1
-Date: 2020-09-01
+Version: 0.1.2
+Date: 2022-29-03
 Authors@R: c(
   person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marc.ohlmann@univ-grenoble-alpes.fr",
       comment = c(ORCID = "0000-0003-3772-3969 ")),
