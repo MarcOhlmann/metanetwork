@@ -153,6 +153,10 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           trophic_table_loc = unique(metanetwork$trophicTable[,c(res_local,legend)])
           rownames(trophic_table_loc) = trophic_table_loc[,1]
           color_loc = trophic_table_loc[igraph::V(g)$name,legend]
+          order_loc = order(color_loc)
+          #permuting in the order of colors for legend
+          g = igraph::permute(g,order(order_loc))
+          #ordering colors for legend
           color_loc = color_loc[order(color_loc)]
         # }
       }
