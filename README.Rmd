@@ -62,6 +62,11 @@ metanetwork at different aggregation levels
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
+## 'metanetwork' map
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '50%'}
+knitr::include_graphics("man/figures/metanetwork_map.png")
+```
+
 ## Authors
 
 This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009).

@@ -100,8 +100,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                            alpha_per_group = NULL,alpha_per_node = NULL,
                            alpha_interactive = F,
                            ggnet.config = ggnet.default,
-                           TL_tsne.config = TL_tsne.default,
-                           edge.color = NULL){
+                           TL_tsne.config = TL_tsne.default){
 
   if(!is.metanetwork(metanetwork)){
     stop("metanetwork is an object of class metanetwork, see build_metanetwork")
@@ -563,19 +562,16 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             return(net)
           }
     } else {
-      #edge color
-
-      
-      net = GGally::ggnet2(g_Network,mode = mode_loc,node.color = ggnet.config$default.color,
-                           size = size_loc,
-                           label = ggnet.config$label, label.size = ggnet.config$label.size,
-                           max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                           edge.size = "weight",arrow.size = ggnet.config$arrow.size,
-                           arrow.gap = ggnet.config$arrow.gap, alpha = ggnet.config$alpha,
-                           edge.alpha = ggnet.config$edge.alpha, 
-                           legend.position = ggnet.config$legend.position)  +
-        ggplot2::theme(legend.box = "vertical")
-          return(net)
+        net = GGally::ggnet2(g_Network,mode = mode_loc,node.color = ggnet.config$default.color,
+                             size = size_loc,
+                             label = ggnet.config$label, label.size = ggnet.config$label.size,
+                             max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                             edge.size = "weight",arrow.size = ggnet.config$arrow.size,
+                             arrow.gap = ggnet.config$arrow.gap, alpha = ggnet.config$alpha,
+                             edge.alpha = ggnet.config$edge.alpha, 
+                             legend.position = ggnet.config$legend.position)  +
+          ggplot2::theme(legend.box = "vertical")
+      return(net)
         }
       } else {
         if(is.null(legend)){

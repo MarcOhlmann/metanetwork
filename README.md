@@ -59,6 +59,10 @@ ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 
 ![](man/figures/unnamed-chunk-4-1.png)<!-- -->
 
+## ‘metanetwork’ map
+
+<img src="man/figures/metanetwork_map.png" title="A caption" alt="A caption" width="50%" />
+
 ## Authors
 
 This package is currently developed by Marc Ohlmann from Laboratoire
