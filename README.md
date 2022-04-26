@@ -61,7 +61,7 @@ ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 
 ## ‘metanetwork’ map
 
-<img src="man/figures/metanetwork_map.png" title="A caption" alt="A caption" width="50%" />
+<img src="man/figures/metanetwork_map.png" title="A caption" alt="A caption" width="60%" />
 
 ## Authors
 

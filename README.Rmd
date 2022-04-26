@@ -63,7 +63,7 @@ ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
 ## 'metanetwork' map
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '50%'}
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '60%'}
 knitr::include_graphics("man/figures/metanetwork_map.png")
 ```
 
