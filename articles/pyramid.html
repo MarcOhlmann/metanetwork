@@ -296,16 +296,16 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <code class="sourceCode R"><span class="co">#for the metaweb</span>
 <span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1] -41.063098 -29.162231 -34.562783 -10.844238 -15.886728 -21.544562</span>
-<span class="co">##  [7]   9.683064   4.181938  -1.008290  -5.798806  41.704032  35.523346</span>
-<span class="co">## [13]  29.114901  22.861611  16.801845</span></code></pre>
+<pre><code><span class="co">##  [1]  42.642834  30.306198  35.912053  11.338336  16.570904  22.432049</span>
+<span class="co">##  [7] -10.032480  -4.323180   1.070275   6.042624 -43.382046 -36.950476</span>
+<span class="co">## [13] -30.300708 -23.809732 -17.516652</span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#for a local network</span>
 <span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1] -41.063098 -29.162231 -34.562783 -10.844238 -15.886728 -21.544562</span>
-<span class="co">##  [7]   9.683064   4.181938  -1.008290  -5.798806  41.704032  35.523346</span>
-<span class="co">## [13]  29.114901  22.861611  16.801845</span></code></pre>
+<pre><code><span class="co">##  [1]  42.642834  30.306198  35.912053  11.338336  16.570904  22.432049</span>
+<span class="co">##  [7] -10.032480  -4.323180   1.070275   6.042624 -43.382046 -36.950476</span>
+<span class="co">## [13] -30.300708 -23.809732 -17.516652</span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or <code>vismetaNetwork</code> will use the computed layout for the desired <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
