@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3</span>
       </span>
     </div>
 
@@ -291,6 +291,38 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="section level3">
 <h3 id="attaching-layout">Attaching layout<a class="anchor" aria-label="anchor" href="#attaching-layout"></a>
 </h3>
+<p>For network representation reproducibility and to gain computation time, we recommend to store ‘TL-tsne’ layout after computation. To do so, use the method <code>attach_layout</code>. Once the layout computed, it is attached to the network as node attribute.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#for the metaweb</span>
+<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
+<pre><code><span class="co">##  [1] -41.063098 -29.162231 -34.562783 -10.844238 -15.886728 -21.544562</span>
+<span class="co">##  [7]   9.683064   4.181938  -1.008290  -5.798806  41.704032  35.523346</span>
+<span class="co">## [13]  29.114901  22.861611  16.801845</span></code></pre>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#for a local network</span>
+<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
+<pre><code><span class="co">##  [1] -41.063098 -29.162231 -34.562783 -10.844238 -15.886728 -21.544562</span>
+<span class="co">##  [7]   9.683064   4.181938  -1.008290  -5.798806  41.704032  35.523346</span>
+<span class="co">## [13]  29.114901  22.861611  16.801845</span></code></pre>
+<p>Then, any call of <code>ggmetanet</code> or <code>vismetaNetwork</code> will use the computed layout for the desired <span class="math inline">\(\beta\)</span> value.</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<p><img src="pyramid_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p>Using that way, network representation is reproducible.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#calling again ggmetanet</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<p><img src="pyramid_files/figure-html/unnamed-chunk-17-1.png" width="700"> Once the layout computed for the metaweb, it can be used to represent local network or difference network using <code>layout_metaweb = T</code></p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#ggmetanet</span>
+<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<p><img src="pyramid_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">#diffplot</span>
+<span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span><span class="va">meta0</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<p><img src="pyramid_files/figure-html/unnamed-chunk-18-2.png" width="700"> ## Modifying local networks</p>
 </div>
 </div>
   </div>
