@@ -18,7 +18,17 @@
 #' Method executing the whole metanetwork pipeline, including building 'metanetwork' object (\code{build_metanet},\code{append_agg_nets}, \code{compute_TL}, 
 #' \code{attach_layout}) 
 #'
-#' @param metanetwork object of class 'metanetwork'
+#' @param metaweb metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'. 
+#' Metaweb needs to be directed and connected. This parameter must be non-null.
+#' @param abTable abundances of nodes in local networks, matrix of class 'matrix',
+#'  columns must have names corresponding to node labels of the metaweb,
+#'  rows are node abundances in local networks.
+#'  Default is null, in that case, uniform abundances are assigned
+#' @param trophicTable a 'matrix' or 'data.frame' indicating hierarchy of the nodes.
+#'  Names of the columns correspond to the different resolutions.
+#'  It indicates the membership of each node of the metaweb. Default is null.
+#' @param compute_local_nets a boolean, indicates whether local networks must be computed or not.
+#' Default is \code{TRUE}
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network
 #' @param verbose a boolean indicating wheter message along the pipeline should be printed
@@ -30,40 +40,30 @@
 #' library(igraph)
 #' 
 #' g = make_lattice(dimvector = c(4,4),2,3,directed = TRUE)
-#' meta0 = build_metanet(g)
-#' meta0 = metanet_pipe(meta0)
+#' meta0 = metanet_build_pipe(g)
 #' ggmetanet(meta0)
 #' 
-#' #on angola data set
-#' meta_angola = metanet_pipe(meta_angola,beta = 0.05)
 #'
 #' @export
-metanet_build_pipe <- function(metanetwork,beta = 0.1,verbose = T){
-  UseMethod("metanet_build_pipe",metanetwork)
-}
-
-#' @return \code{NULL}
-#'
-#' @rdname metanet_build_pipe
-#' @exportS3Method metanet_build_pipe metanetwork
-metanet_build_pipe.metanetwork <- function(metanetwork,beta = 0.1,verbose = T){
+metanet_build_pipe <- function(metaweb,abTable = NULL, trophicTable = NULL,
+                               compute_local_nets = T,verbose = T,beta = 0.1){
+ 
   if(verbose){
     message("building metanetwork")
-    if(!(is.null(metanetwork$trophicTable))){
-      message("append aggregated networks")    
+    if(!(is.null(trophicTable))){
+      message("appending aggregated networks")    
     }
     message("computing trophic levels")
     message(paste0("attaching layout for beta= ",beta))
   }
   #piping the different metanetwork operations
-  meta_loc = build_metanetwork(metaweb,abTable = abTable, trophicTable = trophicTable,
-                               compute_local_networks = compute_local_networks,
-                               covariable = covariable)
+  meta_loc = build_metanet(metaweb,abTable = abTable, trophicTable = trophicTable,
+                           compute_local_nets = compute_local_nets)
   if(is.null(meta_loc$trophicTable)){
     meta_loc = meta_loc %>% compute_TL() %>%
       attach_layout(beta = beta)
   }else{
-    meta_loc = meta_loc %>% append_agg_nets(metanetwork) %>%  compute_TL() %>%
+    meta_loc = meta_loc %>% append_agg_nets() %>%  compute_TL() %>%
       attach_layout(beta = beta)
   }
   return(meta_loc)

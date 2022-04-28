@@ -2,25 +2,40 @@
 % Please edit documentation in R/metanet_build_pipe.R
 \name{metanet_build_pipe}
 \alias{metanet_build_pipe}
-\alias{metanet_build_pipe.metanetwork}
 \title{Build and execute 'metanetwork' pipeline}
 \usage{
-metanet_build_pipe(metanetwork, beta = 0.1, verbose = T)
-
-\method{metanet_build_pipe}{metanetwork}(metanetwork, beta = 0.1, verbose = T)
+metanet_build_pipe(
+  metaweb,
+  abTable = NULL,
+  trophicTable = NULL,
+  compute_local_nets = T,
+  verbose = T,
+  beta = 0.1
+)
 }
 \arguments{
-\item{metanetwork}{object of class 'metanetwork'}
+\item{metaweb}{metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
+Metaweb needs to be directed and connected. This parameter must be non-null.}
+
+\item{abTable}{abundances of nodes in local networks, matrix of class 'matrix',
+columns must have names corresponding to node labels of the metaweb,
+rows are node abundances in local networks.
+Default is null, in that case, uniform abundances are assigned}
+
+\item{trophicTable}{a 'matrix' or 'data.frame' indicating hierarchy of the nodes.
+Names of the columns correspond to the different resolutions.
+It indicates the membership of each node of the metaweb. Default is null.}
+
+\item{compute_local_nets}{a boolean, indicates whether local networks must be computed or not.
+Default is \code{TRUE}}
+
+\item{verbose}{a boolean indicating wheter message along the pipeline should be printed}
 
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
-
-\item{verbose}{a boolean indicating wheter message along the pipeline should be printed}
 }
 \value{
 object of class 'metanetwork'
-
-\code{NULL}
 }
 \description{
 Method executing the whole metanetwork pipeline, including building 'metanetwork' object (\code{build_metanet},\code{append_agg_nets}, \code{compute_TL},
@@ -31,11 +46,8 @@ library(metanetwork)
 library(igraph)
 
 g = make_lattice(dimvector = c(4,4),2,3,directed = TRUE)
-meta0 = build_metanet(g)
-meta0 = metanet_pipe(meta0)
+meta0 = metanet_build_pipe(g)
 ggmetanet(meta0)
 
-#on angola data set
-meta_angola = metanet_pipe(meta_angola,beta = 0.05)
 
 }

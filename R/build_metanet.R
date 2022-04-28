@@ -28,8 +28,6 @@
 #'  It indicates the membership of each node of the metaweb. Default is null.
 #' @param compute_local_nets a boolean, indicates whether local networks must be computed or not.
 #' Default is \code{TRUE}
-#' @param covariable a vector of class \code{character} indicating qualitative covariables for local networks
-#' , default is null.
 #'
 #' @return an object of S3 class 'metanetwork'
 #'
@@ -47,7 +45,7 @@
 #' 
 #' @export
 build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
-                              compute_local_nets = TRUE,covariable = NULL){
+                              compute_local_nets = TRUE){
   
   if(inherits(metaweb,'igraph')){
     if(is.null(igraph::V(metaweb)$name)){
@@ -104,15 +102,7 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
     #   stop('trophic table must represent a hierarchy, thus group dependencies must be acyclic')
     # }
   }
-  if(!(is.null(covariable))){
-    if(!(is.null(dim(covariable)))){
-      stop("covariable must be a character vector,
-           not a matrix (only the single qualitative covariable case is implemented)")
-    } else if(class(covariable) != "character"){
-      stop("covariable must be a character vector")
-    }
-    }
-  
+
   #attributing relative mean abundance at the nodes of the metaweb
   if(is.null(igraph::V(metaweb)$ab)){
     igraph::V(metaweb)$ab = colMeans(abTable)/sum(colMeans(abTable))
@@ -128,8 +118,7 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
   metaweb$name = 'metaweb'
   
   metanetwork = list(metaweb = metaweb, abTable = abTable,
-                      trophicTable = trophicTable,
-                      covariable = covariable)
+                      trophicTable = trophicTable)
   
   if(nrow(abTable) > 1 && compute_local_nets){
    metanetwork = c(metanetwork, 

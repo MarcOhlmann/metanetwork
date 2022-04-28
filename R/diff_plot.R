@@ -102,6 +102,11 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
         igraph::V(g2)$ab = 1
       }
       g_union = igraph::union(g1,g2)
+      #test if g_union is conneted
+      if(!(igraph::is.connected(g_union)) && !(layout_metaweb)){
+        stop("the union network is not connected, you must use layout_metaweb=T to represent it (you then also have to compute layout for 
+             the metaweb using attach_layout)")
+      }
       g_union = igraph::permute(g_union,order(order(igraph::V(g_union)$name)))
       #ab of gUnion: V(g1)$ab - V(g2)$ab if the node is present in both networks
       # -10 if node is absent

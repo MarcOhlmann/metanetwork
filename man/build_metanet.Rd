@@ -8,8 +8,7 @@ build_metanet(
   metaweb,
   abTable = NULL,
   trophicTable = NULL,
-  compute_local_nets = TRUE,
-  covariable = NULL
+  compute_local_nets = TRUE
 )
 }
 \arguments{
@@ -27,9 +26,6 @@ It indicates the membership of each node of the metaweb. Default is null.}
 
 \item{compute_local_nets}{a boolean, indicates whether local networks must be computed or not.
 Default is \code{TRUE}}
-
-\item{covariable}{a vector of class \code{character} indicating qualitative covariables for local networks
-, default is null.}
 }
 \value{
 an object of S3 class 'metanetwork'

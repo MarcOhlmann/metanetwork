@@ -69,7 +69,7 @@ knitr::include_graphics("man/figures/metanetwork_map.png")
 
 ## Authors
 
-This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009).
+This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009) and ANR [Econet](https://cmatias.perso.math.cnrs.fr/ANR_EcoNet.html).
 
 
 

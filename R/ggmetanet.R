@@ -343,18 +343,32 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         return(net)
       }
     } else{
-      net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
-                           size = size_loc,edge.size = "weight",
-                           label = ggnet.config$label, label.size = ggnet.config$label.size,
-                           max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
-                           arrow.size = ggnet.config$arrow.size,
-                           arrow.gap = ggnet.config$arrow.gap,
-                           alpha = alpha,
-                           edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
-                           legend.position = ggnet.config$legend.position,
-                           palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
-                                       "only pres in g2" = "#de2d26","shared" = "grey75")) +
-        ggplot2::theme(legend.box = "vertical")
+      #check level number of attribute "color", bug in ggnet2 with palette if single level
+      if(length(unique( network::get.vertex.attribute(g_Network,"color"))) == 1){
+        net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
+                             size = size_loc,edge.size = "weight",
+                             label = ggnet.config$label, label.size = ggnet.config$label.size,
+                             max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                             arrow.size = ggnet.config$arrow.size,
+                             arrow.gap = ggnet.config$arrow.gap,
+                             alpha = alpha,
+                             edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
+                             legend.position = ggnet.config$legend.position) +
+          ggplot2::theme(legend.box = "vertical")
+      }else{
+        net = GGally::ggnet2(g_Network,mode = mode_loc,color = "color",edge.color = edge_color_loc,
+                             size = size_loc,edge.size = "weight",
+                             label = ggnet.config$label, label.size = ggnet.config$label.size,
+                             max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
+                             arrow.size = ggnet.config$arrow.size,
+                             arrow.gap = ggnet.config$arrow.gap,
+                             alpha = alpha,
+                             edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
+                             legend.position = ggnet.config$legend.position,
+                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
+                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+          ggplot2::theme(legend.box = "vertical")
+      }
       return(net)
     }
 
