@@ -206,3 +206,37 @@ ggmetanet(beta = 0.1,metanetwork = meta0,
 ```
 
 ### Attaching layout  
+
+For network representation reproducibility and to gain computation time, we recommend to store 'TL-tsne' layout after computation. To do so, use the method `attach_layout`. Once the layout computed, it is attached to the network as node attribute.
+
+```{r,warning=F,message=F}
+#for the metaweb
+meta0 = attach_layout(meta0,beta = 0.1)
+V(meta0$metaweb)$layout_beta0.1
+
+#for a local network
+meta0 = attach_layout(metanetwork = meta0,g = meta0$a,beta = 0.1)
+V(meta0$metaweb)$layout_beta0.1
+```
+
+Then, any call of `ggmetanet` or `vismetaNetwork` will use the computed layout for the desired $\beta$ value.
+
+```{r,warning=F,message=F}
+ggmetanet(meta0,beta = 0.1)
+```
+
+Using that way, network representation is reproducible.
+
+```{r,warning=F,message=F}
+#calling again ggmetanet
+ggmetanet(meta0,beta = 0.1)
+```
+Once the layout computed for the metaweb, it can be used to represent local network or difference network using `layout_metaweb = T`
+
+```{r,warning=F,message=F}
+#ggmetanet
+ggmetanet(meta0,beta = 0.1,layout_metaweb = T)
+#diffplot
+diff_plot(meta0,meta0$a,meta0$b,beta = 0.1,layout_metaweb = T)
+```
+## Modifying local networks

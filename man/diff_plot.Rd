@@ -64,7 +64,7 @@ plot of the difference network, either using 'ggnet' or 'visNetwork'
 }
 \description{
 Function to represent difference between two networks belonging to a metanetwork
-with a layout based on diffusion kernel, using either 'ggnet' or 'visNetwork' visualisation
+with 'TL-tsne' using either 'ggnet' or 'visNetwork' visualisation. This function represent the difference between g1 and g2 (g1-g2).
 }
 \examples{
 #on Angola dataset
@@ -73,10 +73,13 @@ library(metanetwork)
 
 diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
 beta = 0.05)
+
 #using visNetwork
+## NOT RUN
+#return htmlwidget
 diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
 beta = 0.05,vis_tool = "visNetwork")
-
+## END NOT RUN
 #computing and using metaweb layout for diffplot
 meta_angola = attach_layout(meta_angola,beta = 0.1)
 diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,

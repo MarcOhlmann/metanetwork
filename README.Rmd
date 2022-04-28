@@ -55,6 +55,8 @@ Additional information might be considered (and used in 'metanetwork') as:
 * a trophic table indicating a hierarchy of nodes of the metaweb, in order to study the 
 metanetwork at different aggregation levels
 
+See vignettes for application of 'metanetwork' on several datasets.
+
 ## What 'metanetwork' package provides ?
 
 ```{r,echo = TRUE,message=FALSE,warning=FALSE}
