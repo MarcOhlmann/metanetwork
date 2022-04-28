@@ -7,25 +7,6 @@ Marc Ohlmann
 
 ## Description
 
-``` r
-devtools::install_github("jayhesselberth/widgetdown")
-## Skipping install of 'widgetdown' from a github remote, the SHA1 (20f189c0) has not changed since last install.
-##   Use `force = TRUE` to force installation
-```
-
-``` r
-library(leaflet)
-  leaflet() %>%
-  addTiles() %>%
-  addMarkers(
-  lng=174.768,
-  lat=-36.852,
-  popup="The birthplace of R"
-)
-```
-
-![](man/figures/leaflet-1.png)<!-- -->
-
 A collection of tools in `R` to represent and analyse trophic networks
 in space across aggregation levels. The package contains a layout
 algorithm specifically designed for trophic networks, using trophic
@@ -69,6 +50,8 @@ as:
 -   a trophic table indicating a hierarchy of nodes of the metaweb, in
     order to study the metanetwork at different aggregation levels
 
+See vignettes for application of ‘metanetwork’ on several datasets.
+
 ## What ‘metanetwork’ package provides ?
 
 ``` r
@@ -76,7 +59,7 @@ as:
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
-![](man/figures/unnamed-chunk-5-1.png)<!-- -->
+![](man/figures/unnamed-chunk-4-1.png)<!-- -->
 
 ## ‘metanetwork’ map
 
