@@ -71,26 +71,42 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">metanet_build_pipe</span><span class="op">(</span><span class="va">metanetwork</span>, beta <span class="op">=</span> <span class="fl">0.1</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-
-<span class="co"># S3 method for metanetwork</span>
-<span class="fu">metanet_build_pipe</span><span class="op">(</span><span class="va">metanetwork</span>, beta <span class="op">=</span> <span class="fl">0.1</span>, verbose <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">metanet_build_pipe</span><span class="op">(</span>
+  <span class="va">metaweb</span>,
+  abTable <span class="op">=</span> <span class="cn">NULL</span>,
+  trophicTable <span class="op">=</span> <span class="cn">NULL</span>,
+  compute_local_nets <span class="op">=</span> <span class="cn">T</span>,
+  verbose <span class="op">=</span> <span class="cn">T</span>,
+  beta <span class="op">=</span> <span class="fl">0.1</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>metanetwork</dt>
-<dd><p>object of class 'metanetwork'</p></dd>
+    <dl><dt>metaweb</dt>
+<dd><p>metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
+Metaweb needs to be directed and connected. This parameter must be non-null.</p></dd>
+<dt>abTable</dt>
+<dd><p>abundances of nodes in local networks, matrix of class 'matrix',
+columns must have names corresponding to node labels of the metaweb,
+rows are node abundances in local networks.
+Default is null, in that case, uniform abundances are assigned</p></dd>
+<dt>trophicTable</dt>
+<dd><p>a 'matrix' or 'data.frame' indicating hierarchy of the nodes.
+Names of the columns correspond to the different resolutions.
+It indicates the membership of each node of the metaweb. Default is null.</p></dd>
+<dt>compute_local_nets</dt>
+<dd><p>a boolean, indicates whether local networks must be computed or not.
+Default is <code>TRUE</code></p></dd>
+<dt>verbose</dt>
+<dd><p>a boolean indicating wheter message along the pipeline should be printed</p></dd>
 <dt>beta</dt>
 <dd><p>the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network</p></dd>
-<dt>verbose</dt>
-<dd><p>a boolean indicating wheter message along the pipeline should be printed</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object of class 'metanetwork'
-<code>NULL</code></p>
+    <p>object of class 'metanetwork'</p>
     </div>
 
     <div id="ref-examples">
@@ -99,29 +115,20 @@ squeezing of the network</p></dd>
 <span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dimvector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">3</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
-<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="metanet_pipe.html">metanet_pipe</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
+<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu">metanet_build_pipe</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> building metanetwork</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> computing trophic levels</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> attaching layout for beta= 0.1</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891915</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051218238</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891942</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051219876</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-in"><span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-plt img"><img src="metanet_build_pipe-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
-<span class="r-in"><span class="co">#on angola data set</span></span>
-<span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="metanet_pipe.html">metanet_pipe</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> append aggregated networks</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> computing trophic levels</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching layout for beta= 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019374</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.131492366444</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.264065221738</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
