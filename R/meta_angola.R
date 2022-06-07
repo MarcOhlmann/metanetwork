@@ -16,7 +16,7 @@
 
 #' Angola fishery metanetwork
 #' metanetwork built from:
-#' KAngelini & Velho 2011, Data from: 
+#' Angelini & Velho 2011, Data from: 
 #' Angelini, R., Velho, VF. (2011)
 #'  Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina 75(2)
 #' @docType data

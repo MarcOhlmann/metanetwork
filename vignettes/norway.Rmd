@@ -1,0 +1,82 @@
+---
+title: "Norway soil metanetwork analysis"
+author: "Marc Ohlmann"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  screenshot.force = FALSE, 
+  echo = TRUE,
+  rows.print = 5,
+  message = FALSE, 
+  warning = FALSE)
+```
+
+## Norway soil metanetwork data set 
+
+Norway soil metanetwork dataset was extracted from *Calderon-SAnou et al. 2021*. It consists in a soil expert knowledge metaweb with abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. It also contains a trophic table to analyse the network at different aggregation levels.
+
+```{r}
+library(metanetwork)
+library(igraph)
+```
+
+## Norway metanetwork object
+
+Norway soil dataset is lazy loaded in metanetwork. `meta_norway` consists in a object of class `metanetwork`.
+
+```{r}
+print_metanet(meta_norway)
+```
+
+### `plot_trophic_table` function
+
+Trophic table describes nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at trophic class or trophic group level.       
+The `plot_trophic_table` function allows representing the tree describing species memberships.
+
+```{r}
+ggnet.custom = ggnet.default
+ggnet.custom$label.size = 2
+plot_trophicTable(meta_norway,res = c('trophic_group','trophic_class'),ggnet.config = ggnet.custom)
+```
+
+### `append_agg_nets` method
+
+The method `append_agg_nets` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
+
+```{r}
+meta_norway = append_agg_nets(meta_norway)
+print_metanet(meta_norway)
+```
+
+### Representing aggregated networks, adding a legend to networks
+
+Once computed, `ggmetanet` function allows representing aggregated networks and legending local networks using trophic table using 'ggnet' visualisation. Do not forget to first compute trophic levels. Computation of 'TL-tsne' layout is done `ggmetanet` function.
+
+```{r, message = FALSE, warning = FALSE}
+meta_norway = compute_TL(meta_norway)
+ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.5,metanetwork = meta_norway)
+```
+
+Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.
+
+```{r, message = FALSE, warning = FALSE}
+ggnet.custom = ggnet.default
+ggnet.custom$label.size = 1.5
+ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
+```
+
+### `diff_plot`
+
+```{r, message=F,warning=F}
+diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = meta_norway)
+```

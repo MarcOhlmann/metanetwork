@@ -18,6 +18,8 @@ navbar:
         href: articles/pyramid.html
       - text: "The Angola dataset"
         href: articles/angola.html
+      - text: "The Norway dataset"
+        href: articles/norway.html
     
 reference:
 - title: Building and handling metanetworks
