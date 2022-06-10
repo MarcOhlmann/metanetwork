@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
       </span>
     </div>
 
@@ -60,6 +60,9 @@
     </li>
     <li>
       <a href="../articles/angola.html">The Angola dataset</a>
+    </li>
+    <li>
+      <a href="../articles/norway.html">The Norway dataset</a>
     </li>
   </ul>
 </li>
@@ -87,7 +90,7 @@
       <h1 data-toc-skip>Pyramid metanetwork example using ‘metanetwork’</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-04-28</h4>
+            <h4 data-toc-skip class="date">2022-06-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/pyramid.Rmd" class="external-link"><code>vignettes/pyramid.Rmd</code></a></small>
       <div class="hidden name"><code>pyramid.Rmd</code></div>
@@ -296,16 +299,16 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <code class="sourceCode R"><span class="co">#for the metaweb</span>
 <span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1]  42.642834  30.306198  35.912053  11.338336  16.570904  22.432049</span>
-<span class="co">##  [7] -10.032480  -4.323180   1.070275   6.042624 -43.382046 -36.950476</span>
-<span class="co">## [13] -30.300708 -23.809732 -17.516652</span></code></pre>
+<pre><code><span class="co">##  [1]  29.4009464  41.3846950  34.8477732  10.8874596  15.9756959  21.6905967</span>
+<span class="co">##  [7]  -9.7706778  -4.2406821   0.9799551   5.7948946 -41.9703064 -35.7447211</span>
+<span class="co">## [13] -29.2995049 -23.0150121 -16.9211121</span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co">#for a local network</span>
 <span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1]  42.642834  30.306198  35.912053  11.338336  16.570904  22.432049</span>
-<span class="co">##  [7] -10.032480  -4.323180   1.070275   6.042624 -43.382046 -36.950476</span>
-<span class="co">## [13] -30.300708 -23.809732 -17.516652</span></code></pre>
+<pre><code><span class="co">##  [1]  29.4009464  41.3846950  34.8477732  10.8874596  15.9756959  21.6905967</span>
+<span class="co">##  [7]  -9.7706778  -4.2406821   0.9799551   5.7948946 -41.9703064 -35.7447211</span>
+<span class="co">## [13] -29.2995049 -23.0150121 -16.9211121</span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or <code>vismetaNetwork</code> will use the computed layout for the desired <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
