@@ -54,5 +54,9 @@ reference:
   - '`plot_trophicTable`'
 - title: Data sets
   desc: ~
-  contents: '`meta_angola`'
+  contents:
+  - '`meta_angola`'
+  - '`meta_norway`'
+  - '`meta_angola`'
+  - '`meta_norway`'
 

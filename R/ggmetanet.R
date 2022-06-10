@@ -105,10 +105,14 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
   if(!is.metanetwork(metanetwork)){
     stop("metanetwork is an object of class metanetwork, see build_metanetwork")
   }
-  message(paste0("mode is ",mode))
-  if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle'))){
-    stop("mode must be one of: \n
+  if(sum(class(mode) == "character")>0){
+    message(paste0("mode is ",mode))
+    if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle'))){
+      stop("mode must be one of: \n
          'TL-tsne','TL-kpco','fr','kk','circle")
+    }
+  } else if (sum(class(mode) %in% c("matrix","data.frame"))>0){
+    message(paste0("mode is custom"))
   }
   
   if(!(diff_plot_bool)){
@@ -204,7 +208,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
   #   if(!(vertex_names)){network.vertex.names(g_Network) = rep("",length(V(g)))}
   # }
 
-  
+  if(sum(class(mode) == "character")>0){
   if(mode %in% c("fr","kk","circle")){
     if(mode == "fr"){
       mode_loc = "fruchtermanreingold"
@@ -266,6 +270,14 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                                               TL_tsne.config = TL_tsne.config)
         rownames(mode_loc) = igraph::V(g)$name
       }
+    }
+  }
+  }
+  if(sum(class(mode) %in% c('matrix','data.frame'))>0){
+    if(!(prod(dim(mode) == c(igraph::vcount(g),2)))){
+      stop("mode must be of dimension: node number of g * 2")
+    } else{
+      mode_loc = mode[V(g)$name,]
     }
   }
   
@@ -407,10 +419,10 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           #assigning shapes (four types 15,16,17,18) and colors
           groups_loc = unique(color_loc)
           n_groups_loc = length(groups_loc)
-          #shapes: use of 15,16,17,18 and 25
+          #shapes: use of 15,16,17,18
           k = floor(n_groups_loc/5)
           shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,k),rep(25,n_groups_loc-4*k)) 
+                         rep(18,n_groups_loc-3*k)) 
           names(shapes_loc) = groups_loc
           shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) shapes_loc[x])
@@ -474,10 +486,10 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           groups_loc = unique(color_loc)
           n_groups_loc = length(groups_loc)
           
-          #shapes: use of 15,16,17,18 and 25
-          k = floor(n_groups_loc/5)
+          #shapes: use of 15,16,17,18
+          k = floor(n_groups_loc/4)
           shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,k),rep(25,n_groups_loc-4*k)) 
+                         rep(18,n_groups_loc-3*k)) 
           names(shapes_loc) = groups_loc
           shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                     function(x) shapes_loc[x])
@@ -546,7 +558,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             #shapes: use of 15,16,17,18 and 25
             k = floor(n_groups_loc/5)
             shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                           rep(18,k),rep(25,n_groups_loc-4*k)) 
+                           rep(18,n_groups_loc-3*k)) 
             names(shapes_loc) = groups_loc
             shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
                                       function(x) shapes_loc[x])
