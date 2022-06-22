@@ -30,7 +30,6 @@ reference:
   - '`print`'
   - '`append_agg_nets`'
   - '`extract_networks`'
-  - '`append_mean_nets`'
   - '`is.metanetwork`'
   - '`metanet_build_pipe`'
   - '`%>%`'
