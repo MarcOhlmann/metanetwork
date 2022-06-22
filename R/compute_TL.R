@@ -19,7 +19,7 @@ compute_TL_laplacian <- function(G,metanetwork){
     G = igraph::simplify(G)
   }
   #recursive function on connected components of G
-  if(is.null(E(G)$weight)){
+  if(is.null(igraph::E(G)$weight)){
     A = as.matrix(igraph::get.adjacency(G))
     names_loc = rownames(A)
     u  = igraph::degree(G)
@@ -103,24 +103,39 @@ compute_TL <- function(metanetwork){
 #' @rdname compute_TL
 #' @exportS3Method compute_TL metanetwork
 compute_TL.metanetwork <- function(metanetwork){ 
-    TL_loc = compute_TL_laplacian(G = metanetwork$metaweb,
-                                  metanetwork = metanetwork)
-    metanetwork$metaweb = igraph::set_vertex_attr(
-    metanetwork$metaweb, name = "TL", value = TL_loc)
+    # get the networks
+    networks = metanetwork[lapply(metanetwork,class) == "igraph"]
+    if(is.null(igraph::V(metanetwork$metaweb)$TL)){
+      TL_loc = compute_TL_laplacian(G = metanetwork$metaweb,
+                                    metanetwork = metanetwork)
+      metanetwork$metaweb = igraph::set_vertex_attr(
+        metanetwork$metaweb, name = "TL", value = TL_loc)
+    }
     #TL for metaweb at different aggregation levels
     metaweb_names = names(metanetwork)[grep('metaweb_',x = names(metanetwork))]
-    for(metaweb_name in metaweb_names){
-      eval(parse(text=paste0('TL_loc = compute_TL_laplacian(metanetwork$',metaweb_name,')')))
-      eval(parse(text=paste0('metanetwork$',metaweb_name, '= igraph::set_vertex_attr(metanetwork$',metaweb_name,', name = "TL", value = TL_loc)' )))
+    paste0(sapply(networks,function(g) g$name),"_",sapply(networks,function(g) g$res))
+    
+    if(length(metaweb_names)>0){
+      for(metaweb_name in metaweb_names){
+        #check if TL is already computed
+        if(is.null(igraph::V(metanetwork[[metaweb_name]])$TL)){
+          TL_loc = compute_TL_laplacian(metanetwork[[metaweb_name]])
+          metanetwork[[metaweb_name]] = igraph::set_vertex_attr(metanetwork[[metaweb_name]],
+                                                                name = "TL",value = TL_loc)
+        }
+      }
     }
     #TL for local networks
     local_networks = metanetwork[sapply(metanetwork,class) == 'igraph']
-    local_networks = local_networks[-grep("metaweb",sapply(local_networks,function(g) g$name))]
+    local_networks = local_networks[-grep("metaweb",
+                                          sapply(local_networks,function(g) g$name))]
     local_networks_ids = which(sapply(metanetwork,class) == 'igraph')
     local_networks_ids = local_networks_ids[-grep("metaweb",names(local_networks_ids))]
     
     TL_list = lapply(local_networks,function(g)
-      compute_TL_laplacian(G = g,metanetwork = metanetwork))
+      get_TL_loc_nets(g,metanetwork)
+    )
+
     # for(g in local_networks){
     #   compute_TL_laplacian(G = g,metanetwork = metanetwork)
     # }
@@ -137,6 +152,15 @@ compute_TL.metanetwork <- function(metanetwork){
     }
   return(metanetwork)
 } 
+
+#get trophic level of local networks
+get_TL_loc_nets <- function(g,metanetwork){
+  if(is.null(igraph::V(g)$TL)){
+    compute_TL_laplacian(G = g,metanetwork = metanetwork)
+  }else{
+    return(igraph::V(g)$TL)
+  }
+}
 
 #compute trophic levels of the difference network
 compute_TL_diff <- function(metanetwork_diff,metanetwork){

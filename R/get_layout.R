@@ -13,6 +13,28 @@
 # You should have received a copy of the GNU General Public License
 # along with metanetwork.  If not, see <http://www.gnu.org/licenses/>
 
+#' Default configuration for group-TL-tsne layout
+#'
+#' A list with parameters customizing group-TL-tsne layout
+#'
+#' @examples
+#' # display all default settings
+#' group_layout.default
+#'
+#' # create a new settings object with n_neighbors set to 5
+#' group_layout.custom = group_layout.default
+#' group_layout.custom$group_height = 10
+#' group_layout.custom
+#' 
+#' @export
+group_layout.default = list(
+  nbreaks_group = 1,
+  group_height = 5,
+  group_width = 5
+)
+
+
+
 
 #' Default configuration for the diffusion kernel based t-sne
 #'
@@ -65,7 +87,7 @@ compute_diffusion_kernel = function(g,beta){
 }
 
 #compute TL-tsne layout
-get_nodes_position_TL_tsne <- function(g,TL,TL_tsne.config,beta){
+get_coord_TL_tsne <- function(g,TL,TL_tsne.config,beta){
   max_iter = TL_tsne.config$max_iter
   min_cost = TL_tsne.config$min_cost
   epoch_callback = TL_tsne.config$epoch_callback
@@ -136,6 +158,86 @@ get_nodes_position_TL_tsne <- function(g,TL,TL_tsne.config,beta){
   return(ydata)
 }
 
+# g = g
+# metanetwork = metanetwork
+# group_layout_config = group_layout_config
+# res = res
+# beta = beta
+
+#get group-TL-tsne layout
+get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
+  #need for a res
+  if(is.null(res)){
+    stop("no resolution provided, group layout is impossible !")
+  }
+  #need for a trophic Table
+  if(is.null(metanetwork$trophicTable)){
+    stop("no trophicTable provided, group layout is impossible !")
+  }
+  networks = metanetwork[lapply(metanetwork,class) == "igraph"]
+  if(!(res %in% sapply(networks,function(g) g$res))){
+    stop("to use group-TL-tsne layout, you need to compute aggregated networks first, see append_agg_nets")
+  }
+  #group-TL-tsne layout is available only at the original resolution
+  if(!(g$res == colnames(metanetwork$trophicTable)[1])){
+    stop("group layout is only available at the orginal resolution")
+  }
+  
+  #get the network at the desired res
+  name_res_tab = sapply(networks,
+                        function(g) list(res = g$res, name = g$name))
+  g_agg = networks[[which(colSums(name_res_tab == c(res,g$name)) == 2)]]
+  if(is.null(igraph::V(g_agg)$TL)){
+    stop("to use group-TL-tsne layout, you need to compute trophic levels first, see compute_TL")
+  }
+  #check if TL-tsne layout is already computed for g_agg
+  if(is.null(igraph::get.vertex.attribute(g_agg,paste0("layout_beta",beta)))){
+    message(paste0("computing TL-tsne layout for ",g$name,"at resolution: ",res,". See attach_layout to store it."))
+    g_agg = attach_layout_g(g_agg,metanetwork,mode = 'TL-tsne',beta,TL_tsne.config = TL_tsne.default)
+  }
+  
+  nbreaks_group = group_layout.config$nbreaks_group
+  group_height = group_layout.config$group_height
+  group_width = group_layout.config$group_width
+  
+  groups = V(g_agg)$name
+  if(nbreaks_group == 1){
+    coords_list = c()
+    for(k in 1:length(groups)){
+      sp_loc = metanetwork$trophicTable[
+        which(metanetwork$trophicTable[,res] == groups[k]),
+        1]
+      g_loc = induced_subgraph(metanetwork$metaweb,sp_loc)
+      #setting coords to 0 if single node
+      if(igraph::vcount(g_loc) == 1){
+        layout_loc = matrix(0,ncol = 2,nrow = 1)
+      }else{
+        layout_loc = layout_with_graphopt(g_loc)
+        #centering and scaling
+        layout_loc[,1] = group_height*(layout_loc[,1] - mean(layout_loc[,1]))/(sd(layout_loc[,1]))
+        layout_loc[,2] = group_width*(layout_loc[,2] - mean(layout_loc[,2]))/(sd(layout_loc[,2]))
+      }
+      rownames(layout_loc) = V(g_loc)$name
+      #adding the coordinate of the current group in the aggregated layout
+      layout_loc[,1] = layout_loc[,1] + 100*V(g_agg)$TL[k]/max(abs(V(g_agg)$TL))
+      layout_loc[,2] = layout_loc[,2] + 100*igraph::get.vertex.attribute(
+        g_agg,paste0("layout_beta",beta))[k]/
+        max(abs(igraph::get.vertex.attribute(
+          g_agg,paste0("layout_beta",beta))))
+      coords_list = c(coords_list,list(layout_loc))
+    }
+    names(coords_list) = groups
+    #rbinding coordinates
+    coords_mat = do.call(rbind,coords_list)
+    coords_mat = coords_mat[V(g)$name,]
+  } else{
+    #get group sizes
+    group_sizes = table(metanetwork$trophicTable[,res])[V(g_agg)$name]
+    sapply(1:(nbreaks_group-1),function(k) quantile(group_sizes,k/nbreaks_group))
+  }
+  return(coords_mat)
+}
+
 # get TL-kpco layout
 get_nodes_position_TL_kpco <- function(g,TL,beta){
   if(igraph::is.connected(g,mode = "weak")){
@@ -174,10 +276,11 @@ get_nodes_position_TL_kpco <- function(g,TL,beta){
 
 #save TL-tsne layout as node attribute
 attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
-                       beta,TL_tsne.config = TL_tsne.default){
+                       beta,TL_tsne.config = TL_tsne.default,res = NULL,
+                       group_layout.config){
   if(mode == 'TL-tsne'){
     TL = igraph::V(g)$TL
-    coords = get_nodes_position_TL_tsne(g = g,TL = TL,
+    coords = get_coord_TL_tsne(g = g,TL = TL,
                                         TL_tsne.config,beta)
     #check if the layout has been computed already
     if(is.null(igraph::get.vertex.attribute(g,paste0("layout_beta",beta)))){
@@ -191,12 +294,19 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
                           value = as.vector(coords[,2]))
     }
 
+  } else if (mode == "group-TL-tsne"){
+    coords = get_coord_group_TL_tsne(g = g,metanetwork = metanetwork,
+                                     group_layout.config = group_layout.config,res = res,beta = beta)
+    g = igraph::set_vertex_attr(graph = g, name = paste0("group_layout_x_beta",beta),
+                                value = as.vector(coords[,1]))
+    g = igraph::set_vertex_attr(graph = g, name = paste0("group_layout_y_beta",beta),
+                                value = as.vector(coords[,2]))
   }
   return(g)
 }
   
 
-#' compute and attach 'TL-tsne' layout
+#' compute and attach 'TL-tsne' layouts
 #'
 #' Method to compute 'TL-tsne' layout and save it as node attributes of the focal network. Each node of the focal network has an attribute \code{layout_beta_VALUE}.
 #' If this function is run several times for a given beta value, repetitions of the layout algorithm will be stored as node attributes
@@ -206,7 +316,7 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #'  default is 'metaweb'
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network
-#' @param mode only 'TL-tsne' is supported for this function
+#' @param mode 'TL-tsne' or 'group-TL-tsne'
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
 #' @return 'metanetwork' object with layout added as node attribute of the considered network
 #'
@@ -226,17 +336,18 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #'
 #' @export
 attach_layout <- function(metanetwork,g = NULL,beta = 0.1,
-                          mode = 'TL-tsne',TL_tsne.config = TL_tsne.default){
+                          mode = 'TL-tsne',TL_tsne.config = TL_tsne.default,
+                          res = NULL,group_layout.config = group_layout.default){
 UseMethod("attach_layout",metanetwork)
 }
-
 
 #' @return \code{NULL}
 #'
 #' @rdname attach_layout
 #' @exportS3Method attach_layout metanetwork
 attach_layout.metanetwork <- function(metanetwork,g = NULL,beta = 0.1,
-				mode = 'TL-tsne',TL_tsne.config = TL_tsne.default){
+				                              mode = 'TL-tsne',TL_tsne.config = TL_tsne.default,
+				                              res = NULL,group_layout.config = group_layout.default){
   if(is.null(g)){
     g = metanetwork$metaweb
   }
@@ -244,7 +355,9 @@ attach_layout.metanetwork <- function(metanetwork,g = NULL,beta = 0.1,
   if(!(igraph::is.simple(g))){
     g = igraph::simplify(g)
   }
-  g_lay = attach_layout_g(g,metanetwork,mode,beta,TL_tsne.config)
+  g_lay = attach_layout_g(g = g,metanetwork = metanetwork,mode = mode,beta = beta,
+                          TL_tsne.config = TL_tsne.config,res = res,
+                          group_layout.config = group_layout.config)
   #identification of g
   if(is.null(g$res)){
     metanetwork[[which(names(metanetwork) == g$name)]] = g_lay

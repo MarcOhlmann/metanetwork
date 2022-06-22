@@ -13,6 +13,24 @@
 # You should have received a copy of the GNU General Public License
 # along with metanetwork.  If not, see <http://www.gnu.org/licenses/>
 
+# metanetwork = meta0
+# g = meta0$metaweb_group
+# flip_coords = T
+# beta = beta
+# legend = "group"
+# mode = 'TL-tsne'
+# edge_thrs = NULL
+# layout_metaweb = F
+# nrep_ly = 1
+# diff_plot_bool = F
+# alpha_per_group = NULL
+# alpha_per_node = NULL
+# alpha_interactive = F
+# ggnet.config = ggnet.default
+# TL_tsne.config = TL_tsne.default
+# 
+
+
 
 #' Default configuration for ggnet
 #'
@@ -107,9 +125,10 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
   }
   if(sum(class(mode) == "character")>0){
     message(paste0("mode is ",mode))
-    if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle'))){
+    if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle','group-TL-tsne'))){
       stop("mode must be one of: \n
-         'TL-tsne','TL-kpco','fr','kk','circle")
+         'TL-tsne','TL-kpco','fr','kk','circle', 'group-TL-tsne' \n
+           or, alternatively, a 2-column matrix with coordinates" )
     }
   } else if (sum(class(mode) %in% c("matrix","data.frame"))>0){
     message(paste0("mode is custom"))
@@ -262,21 +281,44 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
       attr_names = igraph::vertex_attr_names(g)
       #check if a layout is attached to the focal network
       if(length(grep(paste0("beta",beta),attr_names))>0){
+        #check if nrep_ly indicates computed layout
+        if(nrep_ly>length(grep(paste0("beta",beta),attr_names))){
+          stop(paste0("nrep_ly argument is:",nrep_ly,
+                      "whereas number of computed layout for this beta value are:",
+                      length(grep(paste0("beta",beta),attr_names))," .You must decrease nrep_ly or
+                      compute more layouts for this beta value"))
+        }
         mode_loc = cbind(igraph::V(g)$TL,
                          igraph::get.vertex.attribute(g,attr_names[grep(paste0("beta",beta),attr_names)[nrep_ly]]))
         rownames(mode_loc) = igraph::V(g)$name
       }else{
-        mode_loc = get_nodes_position_TL_tsne(g = g,TL = igraph::V(g)$TL,beta = beta,
+        mode_loc = get_coord_TL_tsne(g = g,TL = igraph::V(g)$TL,beta = beta,
                                               TL_tsne.config = TL_tsne.config)
         rownames(mode_loc) = igraph::V(g)$name
       }
     }
   }
   }
+  if(mode == "group-TL-tsne"){
+    attr_names = igraph::vertex_attr_names(g)
+    if(length(grep(paste0("group_layout_x_beta",beta),attr_names)) == 0){
+      stop("to use 'group-TL-tsne', you need to attach a layout for the desired beta value
+           and resolution, see attach_layout function with 'group-TL-tsne' mode")
+    }else{
+      mode_loc = cbind(igraph::get.vertex.attribute(g,attr_names[
+        grep(paste0("group_layout_x_beta",beta),attr_names)]),
+                       igraph::get.vertex.attribute(g,attr_names[
+                         grep(paste0("group_layout_y_beta",beta),attr_names)]))
+      rownames(mode_loc) = igraph::V(g)$name
+    }
+  }
+  
   if(sum(class(mode) %in% c('matrix','data.frame'))>0){
+    #custom layout
     if(!(prod(dim(mode) == c(igraph::vcount(g),2)))){
       stop("mode must be of dimension: node number of g * 2")
     } else{
+      message("mode is custom")
       mode_loc = mode[V(g)$name,]
     }
   }
@@ -416,24 +458,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          #assigning shapes (four types 15,16,17,18) and colors
-          groups_loc = unique(color_loc)
-          n_groups_loc = length(groups_loc)
-          #shapes: use of 15,16,17,18
-          k = floor(n_groups_loc/5)
-          shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,n_groups_loc-3*k)) 
-          names(shapes_loc) = groups_loc
-          shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                    function(x) shapes_loc[x])
-          names(shapes_loc_nodes) = V(g)$name
-          #colors
-          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
-          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
-          names(colors_loc) = groups_loc
-          colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                    function(x) colors_loc[x])
-          names(colors_loc_nodes) = V(g)$name
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+          colors_loc_nodes = shapes_colors$colors
+          shapes_loc_nodes = shapes_colors$shapes
           
           # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
           # rownames(shape_color_table) = groups_loc
@@ -481,26 +508,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          #assigning shapes (four types 15,16,17,18) and colors
-          
-          groups_loc = unique(color_loc)
-          n_groups_loc = length(groups_loc)
-          
-          #shapes: use of 15,16,17,18
-          k = floor(n_groups_loc/4)
-          shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                         rep(18,n_groups_loc-3*k)) 
-          names(shapes_loc) = groups_loc
-          shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                    function(x) shapes_loc[x])
-          names(shapes_loc_nodes) = V(g)$name
-          #colors
-          mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
-          colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
-          names(colors_loc) = groups_loc
-          colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                    function(x) colors_loc[x])
-          names(colors_loc_nodes) = V(g)$name
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+          colors_loc_nodes = shapes_colors$colors
+          shapes_loc_nodes = shapes_colors$shapes
           
           net = GGally::ggnet2(g_Network,mode = mode_loc,
                                color = colors_loc_nodes,
@@ -550,26 +560,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
               ggplot2::theme(legend.box = "vertical")
             return(net)
           } else{ #use colors and shapes
-            #assigning shapes (four types 15,16,17,18) and colors
-            
-            groups_loc = unique(color_loc)
-            n_groups_loc = length(groups_loc)
-            
-            #shapes: use of 15,16,17,18 and 25
-            k = floor(n_groups_loc/5)
-            shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
-                           rep(18,n_groups_loc-3*k)) 
-            names(shapes_loc) = groups_loc
-            shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                      function(x) shapes_loc[x])
-            names(shapes_loc_nodes) = V(g)$name
-            #colors
-            mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
-            colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
-            names(colors_loc) = groups_loc
-            colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
-                                      function(x) colors_loc[x])
-            names(colors_loc_nodes) = V(g)$name
+            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+            colors_loc_nodes = shapes_colors$colors
+            shapes_loc_nodes = shapes_colors$shapes
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
             # rownames(shape_color_table) = groups_loc
             net = GGally::ggnet2(g_Network,mode = mode_loc,
@@ -676,6 +669,44 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
   }
 }    
      
+#function to build a legend mixing shapes and colors    
+assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config){
+  groups_loc = unique(color_loc)
+  n_groups_loc = length(groups_loc)
+  nb_cols = length(unique(color_loc))
+  
+  #shapes: use of 15,16,17,18 and 25
+  k = floor(n_groups_loc/5)
+  shapes_loc = c(rep(15,k),rep(16,k),rep(17,k),
+                 rep(18,n_groups_loc-3*k)) 
+  names(shapes_loc) = groups_loc
+  
+  mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
+  colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
+  names(colors_loc) = groups_loc
+  #legend identical to network resolution
+  if(g$res == legend){
+    shapes_loc_nodes = sapply(V(g)$name,
+                              function(x) shapes_loc[x])
+    names(shapes_loc_nodes) = V(g)$name
+    #colors
+    colors_loc_nodes = sapply(V(g)$name,
+                              function(x) colors_loc[x])
+    names(colors_loc_nodes) = V(g)$name
     
-    
+  }else{ #must be at the original resolution 
+    shapes_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
+                              function(x) shapes_loc[x])
+    names(shapes_loc_nodes) = V(g)$name
+    #colors
+    mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
+    colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
+    names(colors_loc) = groups_loc
+    colors_loc_nodes = sapply(metanetwork$trophicTable[V(g)$name,legend],
+                              function(x) colors_loc[x])
+    names(colors_loc_nodes) = V(g)$name
+  }
+  return(list(shapes = shapes_loc_nodes,
+              colors = colors_loc_nodes))
+}
     

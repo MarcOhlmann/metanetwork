@@ -10,7 +10,9 @@ attach_layout(
   g = NULL,
   beta = 0.1,
   mode = "TL-tsne",
-  TL_tsne.config = TL_tsne.default
+  TL_tsne.config = TL_tsne.default,
+  res = NULL,
+  group_layout.config = group_layout.default
 )
 
 \method{attach_layout}{metanetwork}(
@@ -18,7 +20,9 @@ attach_layout(
   g = NULL,
   beta = 0.1,
   mode = "TL-tsne",
-  TL_tsne.config = TL_tsne.default
+  TL_tsne.config = TL_tsne.default,
+  res = NULL,
+  group_layout.config = group_layout.default
 )
 }
 \arguments{

@@ -27,21 +27,23 @@
 #' 
 #' g = make_ring(5,directed = TRUE)
 #' meta = build_metanet(g)
-#' print_metanet(meta)
+#' print(meta)
 #' 
 #' #on Angola dataset
-#' print_metanet(meta_angola)
+#' print(meta_angola)
 #'
+#' #on Norway dataset
+#' print(meta_norway)
 #' @export
-print_metanet <- function(metanetwork){
-  UseMethod("print_metanet",metanetwork)
+print <- function(metanetwork){
+  UseMethod("print",metanetwork)
 }
 
 #' @return \code{NULL}
 #'
-#' @rdname print_metanet
-#' @exportS3Method  print_metanet metanetwork
-print_metanet.metanetwork <- function(metanetwork){
+#' @rdname print
+#' @exportS3Method  print metanetwork
+print.metanetwork <- function(metanetwork){
   message("object of class metanetwork")
   cat("metaweb has",length(igraph::V(metanetwork$metaweb)),
       "nodes and",length(igraph::E(metanetwork$metaweb)),"edges","\n")
