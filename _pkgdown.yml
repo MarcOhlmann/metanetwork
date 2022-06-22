@@ -27,7 +27,7 @@ reference:
     Set of functions to build a 'metanetwork' object and handle it
   contents:
   - '`build_metanet`'
-  - '`print_metanet`'
+  - '`print`'
   - '`append_agg_nets`'
   - '`extract_networks`'
   - '`append_mean_nets`'
