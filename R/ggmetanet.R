@@ -474,7 +474,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -524,7 +524,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -576,7 +576,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
               ggplot2::theme(legend.box = "vertical")
             return(net)
           } else{ #use colors and shapes
-            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config)
+            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
             colors_loc_nodes = shapes_colors$colors
             shapes_loc_nodes = shapes_colors$shapes
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
@@ -686,7 +686,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
 }    
      
 #function to build a legend mixing shapes and colors    
-assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config){
+assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
+                                 beta){
   groups_loc = unique(color_loc)
   #re-order with group trophic levels for shapes
   networks = extract_networks(metanetwork)
@@ -711,7 +712,7 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config){
     RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
   
   #assign colors according to TL-tsne coordinate of the aggregated network
-  ind_attr_loc = grep("layout_beta", igraph::vertex_attr_names(agg_net_loc))
+  ind_attr_loc = grep(paste0("layout_beta",beta), igraph::vertex_attr_names(agg_net_loc))
   lay_agg_loc = igraph::get.vertex.attribute(agg_net_loc)[[ind_attr_loc]]
   names(lay_agg_loc) = igraph::V(agg_net_loc)$name
   lay_agg_loc = lay_agg_loc[groups_loc]
