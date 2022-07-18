@@ -3,7 +3,7 @@
 \name{attach_layout}
 \alias{attach_layout}
 \alias{attach_layout.metanetwork}
-\title{compute and attach 'TL-tsne' layout}
+\title{compute and attach 'TL-tsne' layouts}
 \usage{
 attach_layout(
   metanetwork,
@@ -34,7 +34,7 @@ default is 'metaweb'}
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
-\item{mode}{only 'TL-tsne' is supported for this function}
+\item{mode}{'TL-tsne' or 'group-TL-tsne'}
 
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
 }

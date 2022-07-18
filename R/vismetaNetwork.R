@@ -88,7 +88,7 @@ customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
                        igraph::get.vertex.attribute(g,attr_names[grep(paste0("beta",beta),attr_names)[nrep_ly]]))
         rownames(coords) = igraph::V(g)$name
       }else{
-        coords = get_nodes_position_TL_tsne(g = g,TL = igraph::V(g)$TL,beta = beta,
+        coords = get_coord_TL_tsne(g = g,TL = igraph::V(g)$TL,beta = beta,
                                             TL_tsne.config = TL_tsne.config)
         rownames(coords) = igraph::V(g)$name
       }

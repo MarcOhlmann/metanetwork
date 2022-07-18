@@ -1,7 +1,7 @@
 Package: metanetwork
 Type: Package
 Title: Handling and representing trophic networks in space and time
-Version: 0.3.1
+Version: 0.4.0
 Date: 2022-29-03
 Authors@R: c(
   person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marc.ohlmann@univ-grenoble-alpes.fr",
@@ -18,7 +18,6 @@ NeedsCompilation: no
 Packaged: 
 Repository: CRAN
 Date/Publication: 
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 BugReports: https://github.com/MarcOhlmann/metanetwork/issues

@@ -41,6 +41,7 @@ reference:
   - '`attach_layout`'
   - '`metanet_pipe`'
   - '`TL_tsne.default`'
+  - '`group_layout.default`'
 - title: Visualising metanetworks
   desc: |
     Set of functions and objects to visualise metanetworks, using computed layout

@@ -33,9 +33,6 @@ group_layout.default = list(
   group_width = 5
 )
 
-
-
-
 #' Default configuration for the diffusion kernel based t-sne
 #'
 #' A list with parameters customizing configuration for the diffusion kernel based t-sne (see 'tsne' R package documentation)
@@ -158,12 +155,18 @@ get_coord_TL_tsne <- function(g,TL,TL_tsne.config,beta){
   return(ydata)
 }
 
-# g = g
-# metanetwork = metanetwork
-# group_layout_config = group_layout_config
-# res = res
-# beta = beta
 
+# metanetwork = meta_vrtb
+# g = meta_vrtb$metaweb
+# beta = beta
+# mode = "group-TL-tsne"
+# res = "group"
+# group_layout.config = group_layout.custom
+# 
+# group_layout.config$nbreaks_group = 5
+# group_layout.config$group_height = c(2,4,3,4,1)
+# group_layout.config$group_width = c(2,4,3,4,1)
+  
 #get group-TL-tsne layout
 get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
   #need for a res
@@ -195,31 +198,30 @@ get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
     message(paste0("computing TL-tsne layout for ",g$name,"at resolution: ",res,". See attach_layout to store it."))
     g_agg = attach_layout_g(g_agg,metanetwork,mode = 'TL-tsne',beta,TL_tsne.config = TL_tsne.default)
   }
-  
   nbreaks_group = group_layout.config$nbreaks_group
   group_height = group_layout.config$group_height
   group_width = group_layout.config$group_width
   
-  groups = V(g_agg)$name
+  groups = igraph::V(g_agg)$name
   if(nbreaks_group == 1){
     coords_list = c()
     for(k in 1:length(groups)){
       sp_loc = metanetwork$trophicTable[
         which(metanetwork$trophicTable[,res] == groups[k]),
         1]
-      g_loc = induced_subgraph(metanetwork$metaweb,sp_loc)
+      g_loc = igraph::induced_subgraph(metanetwork$metaweb,sp_loc)
       #setting coords to 0 if single node
       if(igraph::vcount(g_loc) == 1){
         layout_loc = matrix(0,ncol = 2,nrow = 1)
       }else{
-        layout_loc = layout_with_graphopt(g_loc)
+        layout_loc = igraph::layout_with_graphopt(g_loc)
         #centering and scaling
-        layout_loc[,1] = group_height*(layout_loc[,1] - mean(layout_loc[,1]))/(sd(layout_loc[,1]))
-        layout_loc[,2] = group_width*(layout_loc[,2] - mean(layout_loc[,2]))/(sd(layout_loc[,2]))
+        layout_loc[,1] = group_width*(layout_loc[,1] - mean(layout_loc[,1]))/(sd(layout_loc[,1]))
+        layout_loc[,2] = group_height*(layout_loc[,2] - mean(layout_loc[,2]))/(sd(layout_loc[,2]))
       }
-      rownames(layout_loc) = V(g_loc)$name
+      rownames(layout_loc) = igraph::V(g_loc)$name
       #adding the coordinate of the current group in the aggregated layout
-      layout_loc[,1] = layout_loc[,1] + 100*V(g_agg)$TL[k]/max(abs(V(g_agg)$TL))
+      layout_loc[,1] = layout_loc[,1] + 100*igraph::V(g_agg)$TL[k]/max(abs(igraph::V(g_agg)$TL))
       layout_loc[,2] = layout_loc[,2] + 100*igraph::get.vertex.attribute(
         g_agg,paste0("layout_beta",beta))[k]/
         max(abs(igraph::get.vertex.attribute(
@@ -229,11 +231,47 @@ get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
     names(coords_list) = groups
     #rbinding coordinates
     coords_mat = do.call(rbind,coords_list)
-    coords_mat = coords_mat[V(g)$name,]
+    coords_mat = coords_mat[igraph::V(g)$name,]
   } else{
-    #get group sizes
-    group_sizes = table(metanetwork$trophicTable[,res])[V(g_agg)$name]
-    sapply(1:(nbreaks_group-1),function(k) quantile(group_sizes,k/nbreaks_group))
+    #check if height and length are of appropriate length.
+    if(!((length(group_height) == nbreaks_group) && (length(group_width) == nbreaks_group))){
+      stop("group_height and group_length must be of length equal to nbreaks_group, see group_layout.config argument")
+    } else{
+      #get group sizes
+      group_sizes = table(metanetwork$trophicTable[,res])[igraph::V(g_agg)$name]
+      group_sizes_cut = cut(group_sizes, 
+                             quantile(group_sizes,probs = seq(0,1,length.out = nbreaks_group+1) ) , 
+                             include.lowest=TRUE) %>% as.numeric()
+      coords_list = c()
+      for(k in 1:length(groups)){
+        ind_loc = group_sizes_cut[k]
+        sp_loc = metanetwork$trophicTable[
+            which(metanetwork$trophicTable[,res] == groups[k]),
+            1]
+        g_loc = igraph::induced_subgraph(metanetwork$metaweb,sp_loc)
+        #setting coords to 0 if single node
+        if(igraph::vcount(g_loc) == 1){
+            layout_loc = matrix(0,ncol = 2,nrow = 1)
+        }else{
+            layout_loc = igraph::layout_with_graphopt(g_loc)
+            #centering and scaling
+            layout_loc[,1] = group_width[ind_loc]*(layout_loc[,1] - mean(layout_loc[,1]))/(sd(layout_loc[,1]))
+            layout_loc[,2] = group_height[ind_loc]*(layout_loc[,2] - mean(layout_loc[,2]))/(sd(layout_loc[,2]))
+        }
+        rownames(layout_loc) = igraph::V(g_loc)$name
+        #adding the coordinate of the current group in the aggregated layout
+        layout_loc[,1] = layout_loc[,1] + 100*igraph::V(g_agg)$TL[k]/max(abs(igraph::V(g_agg)$TL))
+        layout_loc[,2] = layout_loc[,2] + 100*igraph::get.vertex.attribute(
+          g_agg,paste0("layout_beta",beta))[k]/
+          max(abs(igraph::get.vertex.attribute(
+          g_agg,paste0("layout_beta",beta))))
+        coords_list = c(coords_list,list(layout_loc))
+        }
+        names(coords_list) = groups
+        #rbinding coordinates
+        coords_mat = do.call(rbind,coords_list)
+        coords_mat = coords_mat[igraph::V(g)$name,]
+      }
   }
   return(coords_mat)
 }
@@ -351,6 +389,14 @@ attach_layout.metanetwork <- function(metanetwork,g = NULL,beta = 0.1,
   if(is.null(g)){
     g = metanetwork$metaweb
   }
+  if(is.null(res)){
+    message(paste0("attaching ",mode," layout for ",g$name,"_",g$res,"\n
+                  beta = ",beta))
+  }else{
+    message(paste0("attaching ",mode," layout for ",g$name, " at resolution: ",res,"\n
+                  beta = ",beta))
+  }
+
   #simplify the network (remove self loops)
   if(!(igraph::is.simple(g))){
     g = igraph::simplify(g)
