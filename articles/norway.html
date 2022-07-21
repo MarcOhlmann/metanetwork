@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -63,6 +63,9 @@
     </li>
     <li>
       <a href="../articles/norway.html">The Norway dataset</a>
+    </li>
+    <li>
+      <a href="../articles/vertebrates.html">The metaweb of European vertebrates</a>
     </li>
   </ul>
 </li>
@@ -90,7 +93,7 @@
       <h1 data-toc-skip>Norway soil metanetwork analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-06-10</h4>
+            <h4 data-toc-skip class="date">2022-07-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/norway.Rmd" class="external-link"><code>vignettes/norway.Rmd</code></a></small>
       <div class="hidden name"><code>norway.Rmd</code></div>
@@ -104,18 +107,19 @@
 </h2>
 <p>Norway soil metanetwork dataset was extracted from <em>Calderon-SAnou et al. 2021</em>. It consists in a soil expert knowledge metaweb with abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. It also contains a trophic table to analyse the network at different aggregation levels.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="norway-metanetwork-object">Norway metanetwork object<a class="anchor" aria-label="anchor" href="#norway-metanetwork-object"></a>
 </h2>
 <p>Norway soil dataset is lazy loaded in metanetwork. <code>meta_norway</code> consists in a object of class <code>metanetwork</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_metanet.html">print_metanet</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## metaweb has 40 nodes and 204 edges </span>
-<span class="co">## 2 local networks </span>
-<span class="co">## available resolutions (not computed) are: trophic_group trophic_class taxa</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## metaweb has 40 nodes and 204 edges </span></span>
+<span><span class="co">## 2 local networks </span></span>
+<span><span class="co">## available resolutions (not computed) are: trophic_group trophic_class taxa</span></span></code></pre>
 <div class="section level3">
 <h3 id="plot_trophic_table-function">
 <code>plot_trophic_table</code> function<a class="anchor" aria-label="anchor" href="#plot_trophic_table-function"></a>
@@ -123,9 +127,9 @@
 <p>Trophic table describes nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at trophic class or trophic group level.<br>
 The <code>plot_trophic_table</code> function allows representing the tree describing species memberships.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span>
-<span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span>
-<span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'trophic_group'</span>,<span class="st">'trophic_class'</span><span class="op">)</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'trophic_group'</span>,<span class="st">'trophic_class'</span><span class="op">)</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="norway_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -134,25 +138,25 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 </h3>
 <p>The method <code>append_agg_nets</code> allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span>
-<span class="fu"><a href="../reference/print_metanet.html">print_metanet</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## metaweb has 40 nodes and 204 edges </span>
-<span class="co">## 2 local networks </span>
-<span class="co">## available resolutions are: trophic_group trophic_class taxa</span></code></pre>
+<code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## metaweb has 40 nodes and 204 edges </span></span>
+<span><span class="co">## 2 local networks </span></span>
+<span><span class="co">## available resolutions are: trophic_group trophic_class taxa</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="representing-aggregated-networks-adding-a-legend-to-networks">Representing aggregated networks, adding a legend to networks<a class="anchor" aria-label="anchor" href="#representing-aggregated-networks-adding-a-legend-to-networks"></a>
 </h3>
 <p>Once computed, <code>ggmetanet</code> function allows representing aggregated networks and legending local networks using trophic table using ‘ggnet’ visualisation. Do not forget to first compute trophic levels. Computation of ‘TL-tsne’ layout is done <code>ggmetanet</code> function.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.5</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.5</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <p><img src="norway_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span>
-<span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">1.5</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">1.5</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="norway_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -160,7 +164,7 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code>diff_plot</code><a class="anchor" aria-label="anchor" href="#diff_plot"></a>
 </h3>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <p><img src="norway_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 </div>
 </div>
@@ -183,7 +187,7 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

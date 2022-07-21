@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -63,6 +63,9 @@
     </li>
     <li>
       <a href="../articles/norway.html">The Norway dataset</a>
+    </li>
+    <li>
+      <a href="../articles/vertebrates.html">The metaweb of European vertebrates</a>
     </li>
   </ul>
 </li>
@@ -90,7 +93,7 @@
       <h1 data-toc-skip>Pyramid metanetwork example using ‘metanetwork’</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-06-10</h4>
+            <h4 data-toc-skip class="date">2022-07-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/pyramid.Rmd" class="external-link"><code>vignettes/pyramid.Rmd</code></a></small>
       <div class="hidden name"><code>pyramid.Rmd</code></div>
@@ -104,8 +107,8 @@
 </h2>
 <p>This vignette illustrates ‘metanetwork’ through a pyramid network example. The packages required to run the vignette are the following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="generating-pyramid-data-set">Generating pyramid data set<a class="anchor" aria-label="anchor" href="#generating-pyramid-data-set"></a>
@@ -115,29 +118,29 @@
 </h3>
 <p>We first generate a pyramid network using ‘igraph’ and represent it using ‘ggnet2’</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org/" class="external-link">network</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph" class="external-link">intergraph</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/" class="external-link">GGally</a></span><span class="op">)</span>
-
-<span class="va">n</span> <span class="op">=</span> <span class="fl">5</span>
-<span class="co">#generate a lattice </span>
-<span class="va">g</span> <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">2</span>,length <span class="op">=</span> <span class="va">n</span>,directed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-<span class="co">#deleting nodes and edges</span>
-<span class="va">nodes_to_rm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>
-<span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span>
-  <span class="va">nodes_to_rm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nodes_to_rm</span>,<span class="op">(</span><span class="op">(</span><span class="va">k</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">*</span><span class="va">n</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="op">(</span><span class="va">k</span><span class="op">*</span><span class="va">n</span> <span class="op">-</span> <span class="va">k</span><span class="op">)</span><span class="op">)</span>
-<span class="op">}</span>
-<span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/delete_vertices.html" class="external-link">delete_vertices</a></span><span class="op">(</span><span class="va">g</span>,<span class="va">nodes_to_rm</span><span class="op">)</span>
-<span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/delete_edges.html" class="external-link">delete_edges</a></span><span class="op">(</span><span class="va">g</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"7|12"</span>,<span class="st">"8|13"</span>,<span class="st">"9|14"</span>,<span class="st">"2|5"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html" class="external-link">vcount</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">]</span>
-<span class="co">#representing the lattice using ggnet package</span>
-<span class="va">network</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html" class="external-link">asNetwork</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span>
-<span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://statnet.org/" class="external-link">network</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://mbojan.github.io/intergraph" class="external-link">intergraph</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggobi.github.io/ggally/" class="external-link">GGally</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">=</span> <span class="fl">5</span></span>
+<span><span class="co">#generate a lattice </span></span>
+<span><span class="va">g</span> <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">2</span>,length <span class="op">=</span> <span class="va">n</span>,directed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#deleting nodes and edges</span></span>
+<span><span class="va">nodes_to_rm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">k</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="va">nodes_to_rm</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">nodes_to_rm</span>,<span class="op">(</span><span class="op">(</span><span class="va">k</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">*</span><span class="va">n</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span><span class="op">:</span><span class="op">(</span><span class="va">k</span><span class="op">*</span><span class="va">n</span> <span class="op">-</span> <span class="va">k</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/delete_vertices.html" class="external-link">delete_vertices</a></span><span class="op">(</span><span class="va">g</span>,<span class="va">nodes_to_rm</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/delete_edges.html" class="external-link">delete_edges</a></span><span class="op">(</span><span class="va">g</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"7|12"</span>,<span class="st">"8|13"</span>,<span class="st">"9|14"</span>,<span class="st">"2|5"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span> <span class="op">=</span> <span class="va">LETTERS</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/gorder.html" class="external-link">vcount</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#representing the lattice using ggnet package</span></span>
+<span><span class="va">network</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html" class="external-link">asNetwork</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 <p>Notice that ‘ggnet2’ default layout algorithm (Fruchterman-Reingold algorithm, a force directed algorithm) is non-reproducible. Moreover, x-axis and y-axis do not have any ecological interpretation.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -145,12 +148,12 @@
 </h3>
 <p>We now generate two local communities (presence/absence in our case)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#sampling a presence table</span>
-<span class="va">presence</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,
-                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">presence</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">presence</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#sampling a presence table</span></span>
+<span><span class="va">presence</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
+<span>                 <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">presence</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'a'</span>,<span class="st">'b'</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">colnames</a></span><span class="op">(</span><span class="va">presence</span><span class="op">)</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -158,19 +161,19 @@
 </h2>
 <p>From the lattice metaweb and abundance table, build a S3 object of class ‘metanetwork’ using <code>build_metanetwork</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#building metanetwork object</span>
-<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/build_metanet.html">build_metanet</a></span><span class="op">(</span>metaweb <span class="op">=</span> <span class="va">g</span>,abTable <span class="op">=</span> <span class="va">presence</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "igraph"</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#building metanetwork object</span></span>
+<span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/build_metanet.html">build_metanet</a></span><span class="op">(</span>metaweb <span class="op">=</span> <span class="va">g</span>,abTable <span class="op">=</span> <span class="va">presence</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "igraph"</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## [1] "metanetwork"</span></code></pre>
-<p>method <code>print_metanet</code> prints a summary of the considered metanetwork.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "metanetwork"</span></span></code></pre>
+<p>method <code>print</code> prints a summary of the considered metanetwork.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/print_metanet.html">print_metanet</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## metaweb has 15 nodes and 16 edges </span>
-<span class="co">## 2 local networks </span>
-<span class="co">## single resolution available</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## metaweb has 15 nodes and 16 edges </span></span>
+<span><span class="co">## 2 local networks </span></span>
+<span><span class="co">## single resolution available</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="handling-metanetworks">Handling metanetworks<a class="anchor" aria-label="anchor" href="#handling-metanetworks"></a>
@@ -185,22 +188,22 @@
 <li>local networks, a list of ‘igraph’ objects with node attribute <code>$ab</code> indicating the local relative abundance of each node in each network and graph attribute <code>$name</code> indicating local network names, that is rownames of the abundance table.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<pre><code><span class="co">## [1] "b"</span></code></pre>
+<code class="sourceCode R"><span><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "b"</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<pre><code><span class="co">## [1] "metaweb"</span></code></pre>
+<code class="sourceCode R"><span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "metaweb"</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#abundances</span>
-<span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## </span>
-<span class="co">## 0.0833333333333333 </span>
-<span class="co">##                 12</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#abundances</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## 0.0833333333333333 </span></span>
+<span><span class="co">##                 12</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">## </span>
-<span class="co">## 0.05  0.1 </span>
-<span class="co">##   10    5</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">ab</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## 0.05  0.1 </span></span>
+<span><span class="co">##   10    5</span></span></code></pre>
 <p>Metaweb node relative abundances are the mean of the local relative abundances. Additional objects like <code>abTable</code> or <code>trophicTable</code> can be included in a ‘metanetwork’ object</p>
 </div>
 <div class="section level3">
@@ -209,15 +212,15 @@
 <p>‘metanetwork’ package enables 2D network representation with x-axis equals to trophic levels. To compute trophic levels, ‘metanetwork’ implements the method, based on laplacian matrix, described in: <em>MacKay, R. S., S. Johnson, and B. Sansom. “How directed is a directed network?.” Royal Society open science 7.9 (2020): 201138.</em><br>
 The metaweb needs to be connected for trophic levels to be unique. Local networks can however be disconnected (see Ref). A method <code>compute_TL</code> allows computing trophic levels and storing it as node attribute <code>$TL</code> of each network.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#compute trophic levels for metaweb and local networks</span>
-<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></code></pre></div>
-<pre><code><span class="co">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#compute trophic levels for metaweb and local networks</span></span>
+<span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></code></pre></div>
-<pre><code><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span>
-<span class="co">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span>
-<span class="co">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></code></pre>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span></span>
+<span><span class="co">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
+<span><span class="co">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -248,26 +251,26 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 </h3>
 <p>The main metanetwork representation function is <code>ggmetanet</code>. It allows representing metaweb and local networks using <code>ggnet</code> and both layout algorithms. <code>ggmetanet</code> plots the metaweb of the current metanetwork by default.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#ggmetanet#</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#ggmetanet#</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#ggmetanet#</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.45</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#ggmetanet#</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.45</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p><code>ggmetanet</code> can also represent local networks (with specific layout)</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Increasing <code>beta</code> squeeze y-axis</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>Moreover, it clusters nodes belonging to different ‘branches’. They become more and more similar when beta is increased.</p>
 <p><em>Representing disconnected networks</em></p>
 <p>If the metaweb needs to be connected, local networks can be disconnected due to sampling effects. In that case, trophic levels are computed using metaweb trophic levels. The basal species of each connected component has a trophic level equals to its value in the metaweb.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.45</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.45</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -276,7 +279,7 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 </h3>
 <p>In order to compare local networks, a <code>diff_plot</code> function is implemented. It colors nodes according to their presence/absence or variation in abundance in both networks.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,g2 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,mode <span class="op">=</span> <span class="st">'TL-tsne'</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,g2 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,mode <span class="op">=</span> <span class="st">'TL-tsne'</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -284,11 +287,11 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 </h3>
 <p>In order to fine tune network plots, it is possible to modify <code>ggnet</code> parameters in metanetwork. An object <code>ggnet.default</code> is stored and wraps the different visualisation parameters. Change it to modify the plot.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span>
-<span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.size</span> <span class="op">=</span> <span class="fl">3</span><span class="op">*</span><span class="va">ggnet.default</span><span class="op">$</span><span class="va">edge.size</span>
-<span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">7</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,
-          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.size</span> <span class="op">=</span> <span class="fl">3</span><span class="op">*</span><span class="va">ggnet.default</span><span class="op">$</span><span class="va">edge.size</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">7</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,</span>
+<span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -296,35 +299,35 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 </h3>
 <p>For network representation reproducibility and to gain computation time, we recommend to store ‘TL-tsne’ layout after computation. To do so, use the method <code>attach_layout</code>. Once the layout computed, it is attached to the network as node attribute.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#for the metaweb</span>
-<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1]  29.4009464  41.3846950  34.8477732  10.8874596  15.9756959  21.6905967</span>
-<span class="co">##  [7]  -9.7706778  -4.2406821   0.9799551   5.7948946 -41.9703064 -35.7447211</span>
-<span class="co">## [13] -29.2995049 -23.0150121 -16.9211121</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#for the metaweb</span></span>
+<span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]  42.434415  30.143352  35.721345  11.248338  16.447737  22.285336</span></span>
+<span><span class="co">##  [7]  -9.983870  -4.308974   1.051719   5.996519 -43.138160 -36.739720</span></span>
+<span><span class="co">## [13] -30.113613 -23.653007 -17.391416</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#for a local network</span>
-<span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></code></pre></div>
-<pre><code><span class="co">##  [1]  29.4009464  41.3846950  34.8477732  10.8874596  15.9756959  21.6905967</span>
-<span class="co">##  [7]  -9.7706778  -4.2406821   0.9799551   5.7948946 -41.9703064 -35.7447211</span>
-<span class="co">## [13] -29.2995049 -23.0150121 -16.9211121</span></code></pre>
+<code class="sourceCode R"><span><span class="co">#for a local network</span></span>
+<span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]  42.434415  30.143352  35.721345  11.248338  16.447737  22.285336</span></span>
+<span><span class="co">##  [7]  -9.983870  -4.308974   1.051719   5.996519 -43.138160 -36.739720</span></span>
+<span><span class="co">## [13] -30.113613 -23.653007 -17.391416</span></span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or <code>vismetaNetwork</code> will use the computed layout for the desired <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 <p>Using that way, network representation is reproducible.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#calling again ggmetanet</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#calling again ggmetanet</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-17-1.png" width="700"> Once the layout computed for the metaweb, it can be used to represent local network or difference network using <code>layout_metaweb = T</code></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#ggmetanet</span>
-<span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#ggmetanet</span></span>
+<span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co">#diffplot</span>
-<span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span><span class="va">meta0</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co">#diffplot</span></span>
+<span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span><span class="va">meta0</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="pyramid_files/figure-html/unnamed-chunk-18-2.png" width="700"> ## Modifying local networks</p>
 </div>
 </div>
@@ -347,7 +350,7 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

@@ -24,7 +24,7 @@ function composition into a series of imperative statements."><!-- mathjax --><s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@ function composition into a series of imperative statements."><!-- mathjax --><s
     </li>
     <li>
       <a href="../articles/norway.html">The Norway dataset</a>
+    </li>
+    <li>
+      <a href="../articles/vertebrates.html">The metaweb of European vertebrates</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -77,13 +80,16 @@ function composition into a series of imperative statements.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="va">meta_angola</span> <span class="op">%&gt;%</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">%&gt;%</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for metaweb_Species</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 838.971792973629</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 199.589203826844</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 199.589190200874</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 838.970727065381</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 199.589217781162</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 199.589190200878</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-plt img"><img src="pipe-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
@@ -100,7 +106,7 @@ function composition into a series of imperative statements.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

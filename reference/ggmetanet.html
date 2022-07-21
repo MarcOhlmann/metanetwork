@@ -24,7 +24,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@
     </li>
     <li>
       <a href="../articles/norway.html">The Norway dataset</a>
+    </li>
+    <li>
+      <a href="../articles/vertebrates.html">The metaweb of European vertebrates</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -74,100 +77,132 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">ggmetanet</span><span class="op">(</span>
-  <span class="va">metanetwork</span>,
-  g <span class="op">=</span> <span class="cn">NULL</span>,
-  beta <span class="op">=</span> <span class="fl">0.1</span>,
-  legend <span class="op">=</span> <span class="cn">NULL</span>,
-  mode <span class="op">=</span> <span class="st">"TL-tsne"</span>,
-  edge_thrs <span class="op">=</span> <span class="cn">NULL</span>,
-  layout_metaweb <span class="op">=</span> <span class="cn">F</span>,
-  nrep_ly <span class="op">=</span> <span class="fl">1</span>,
-  flip_coords <span class="op">=</span> <span class="cn">F</span>,
-  diff_plot_bool <span class="op">=</span> <span class="cn">F</span>,
-  alpha_per_group <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha_per_node <span class="op">=</span> <span class="cn">NULL</span>,
-  alpha_interactive <span class="op">=</span> <span class="cn">F</span>,
-  ggnet.config <span class="op">=</span> <span class="va">ggnet.default</span>,
-  TL_tsne.config <span class="op">=</span> <span class="va">TL_tsne.default</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ggmetanet</span><span class="op">(</span></span>
+<span>  <span class="va">metanetwork</span>,</span>
+<span>  g <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  beta <span class="op">=</span> <span class="fl">0.1</span>,</span>
+<span>  legend <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  mode <span class="op">=</span> <span class="st">"TL-tsne"</span>,</span>
+<span>  edge_thrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  layout_metaweb <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  nrep_ly <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  flip_coords <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  diff_plot_bool <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  alpha_per_group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha_per_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  alpha_interactive <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  ggnet.config <span class="op">=</span> <span class="va">ggnet.default</span>,</span>
+<span>  TL_tsne.config <span class="op">=</span> <span class="va">TL_tsne.default</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>metanetwork</dt>
 <dd><p>object of class metanetwork</p></dd>
+
+
 <dt>g</dt>
 <dd><p>network (igraph object) to represent, default is metaweb</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 vertical squeezing of the network</p></dd>
+
+
 <dt>legend</dt>
 <dd><p>resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL</p></dd>
+
+
 <dt>mode</dt>
 <dd><p>mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'</p></dd>
+
+
 <dt>edge_thrs</dt>
 <dd><p>if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation</p></dd>
+
+
 <dt>layout_metaweb</dt>
 <dd><p>a boolean indicating whether the layout of the metaweb should be used to represent the network
 to use metaweb layout = T, you need first to compute metaweb layout for this beta value using <code><a href="attach_layout.html">attach_layout()</a></code></p></dd>
+
+
 <dt>nrep_ly</dt>
 <dd><p>If several layouts for this beta value are attached to the metaweb (if <code>layout_metaweb = T</code>), index of the layout to use, see <code><a href="attach_layout.html">attach_layout()</a></code></p></dd>
+
+
 <dt>flip_coords</dt>
 <dd><p>a boolean indicating wheter coordinates should be flipped.</p></dd>
+
+
 <dt>diff_plot_bool</dt>
 <dd><p>boolean, do not edit by hand</p></dd>
+
+
 <dt>alpha_per_group</dt>
 <dd><p>controlling alpha per group (only for 'ggnet' vis), a list of format
 <code>list(resolutions = "XX",groups = XX,alpha_focal = XX,alpha_hidden = XX)</code>, see example</p></dd>
+
+
 <dt>alpha_per_node</dt>
 <dd><p>controlling alpha per node (only for 'ggnet' vis), a list of format
 <code>list(nodes = XX,alpha_focal = XX,alpha_hidden = XX)</code>, see example
 In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
+
+
 <dt>alpha_interactive</dt>
 <dd><p>a boolean indicating whether alpha (that is node transparency)
 should be asked in interactive mode to the user</p></dd>
+
+
 <dt>ggnet.config</dt>
 <dd><p>configuration list for ggnet representation, default is ggnet.default</p></dd>
+
+
 <dt>TL_tsne.config</dt>
 <dd><p>configuration list for mode 'TL-tsne', default is TL_tsne.default</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object of class 'ggplot'</p>
+    
+
+<p>object of class 'ggplot'</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_ring.html" class="external-link">make_ring</a></span><span class="op">(</span><span class="fl">5</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_ring.html" class="external-link">make_ring</a></span><span class="op">(</span><span class="fl">5</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
-<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 145.616748656516</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 34.6730914178753</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 34.6730824448791</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 145.6168180261</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 34.673219528919</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 34.6731632225938</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_segment).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_point).</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_text).</span>
 <span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># angola dataset</span></span>
-<span class="r-in"><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># angola dataset</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775026465</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.136349001286</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.248329831293</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.4107750189</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.111766161157</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.232454762718</span>
 <span class="r-plt img"><img src="ggmetanet-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -182,7 +217,7 @@ should be asked in interactive mode to the user</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

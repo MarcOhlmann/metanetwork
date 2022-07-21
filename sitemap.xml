@@ -16,6 +16,9 @@
     <loc>https://marcohlmann.github.io/metanetwork/articles/pyramid.html</loc>
   </url>
   <url>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/vertebrates.html</loc>
+  </url>
+  <url>
     <loc>https://marcohlmann.github.io/metanetwork/authors.html</loc>
   </url>
   <url>
@@ -49,6 +52,9 @@
     <loc>https://marcohlmann.github.io/metanetwork/reference/ggnet.default.html</loc>
   </url>
   <url>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/group_layout.default.html</loc>
+  </url>
+  <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/index.html</loc>
   </url>
   <url>
@@ -59,6 +65,9 @@
   </url>
   <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/meta_norway.html</loc>
+  </url>
+  <url>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/meta_vrtb.html</loc>
   </url>
   <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/metanet_build_pipe.html</loc>
@@ -73,7 +82,7 @@
     <loc>https://marcohlmann.github.io/metanetwork/reference/plot_trophicTable.html</loc>
   </url>
   <url>
-    <loc>https://marcohlmann.github.io/metanetwork/reference/print_metanet.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/print.html</loc>
   </url>
   <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/visNetwork.default.html</loc>

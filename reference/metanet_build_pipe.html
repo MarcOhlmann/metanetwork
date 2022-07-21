@@ -24,7 +24,7 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
     </li>
     <li>
       <a href="../articles/norway.html">The Norway dataset</a>
+    </li>
+    <li>
+      <a href="../articles/vertebrates.html">The metaweb of European vertebrates</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
@@ -74,14 +77,14 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">metanet_build_pipe</span><span class="op">(</span>
-  <span class="va">metaweb</span>,
-  abTable <span class="op">=</span> <span class="cn">NULL</span>,
-  trophicTable <span class="op">=</span> <span class="cn">NULL</span>,
-  compute_local_nets <span class="op">=</span> <span class="cn">T</span>,
-  verbose <span class="op">=</span> <span class="cn">T</span>,
-  beta <span class="op">=</span> <span class="fl">0.1</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">metanet_build_pipe</span><span class="op">(</span></span>
+<span>  <span class="va">metaweb</span>,</span>
+<span>  abTable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  trophicTable <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  compute_local_nets <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  verbose <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  beta <span class="op">=</span> <span class="fl">0.1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -89,50 +92,66 @@ attach_layout)"><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/l
     <dl><dt>metaweb</dt>
 <dd><p>metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
 Metaweb needs to be directed and connected. This parameter must be non-null.</p></dd>
+
+
 <dt>abTable</dt>
 <dd><p>abundances of nodes in local networks, matrix of class 'matrix',
 columns must have names corresponding to node labels of the metaweb,
 rows are node abundances in local networks.
 Default is null, in that case, uniform abundances are assigned</p></dd>
+
+
 <dt>trophicTable</dt>
 <dd><p>a 'matrix' or 'data.frame' indicating hierarchy of the nodes.
 Names of the columns correspond to the different resolutions.
 It indicates the membership of each node of the metaweb. Default is null.</p></dd>
+
+
 <dt>compute_local_nets</dt>
 <dd><p>a boolean, indicates whether local networks must be computed or not.
 Default is <code>TRUE</code></p></dd>
+
+
 <dt>verbose</dt>
 <dd><p>a boolean indicating wheter message along the pipeline should be printed</p></dd>
+
+
 <dt>beta</dt>
 <dd><p>the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>object of class 'metanetwork'</p>
+    
+
+<p>object of class 'metanetwork'</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dimvector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">3</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">meta0</span> <span class="op">=</span> <span class="fu">metanet_build_pipe</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dimvector <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>,<span class="fl">4</span><span class="op">)</span>,<span class="fl">2</span>,<span class="fl">3</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu">metanet_build_pipe</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> building metanetwork</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> computing trophic levels</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> attaching layout for beta= 0.1</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for metaweb_</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891913</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051215531</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891914</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051216963</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
-<span class="r-in"><span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-plt img"><img src="metanet_build_pipe-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -147,7 +166,7 @@ squeezing of the network</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
