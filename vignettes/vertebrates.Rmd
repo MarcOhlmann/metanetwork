@@ -8,7 +8,7 @@ output:
     toc_depth: 4
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteIndexEntry{vertebrates}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -60,19 +60,20 @@ meta_vrtb = compute_TL(meta_vrtb)
 We represent the distribution of trophic levels of the $4$ classes and $46$ SBM groups.
 
 ```{r distrib TL}
-TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
-              TL = V(meta_vrtb$metaweb)$TL,
-              group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
-              class = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"Class"]) %>%
-        as.data.frame()
-
-TL_df$TL = as.numeric(TL_df$TL)
-
-ggplot(TL_df, aes(x=class, y=TL)) + 
-  geom_boxplot() + theme_classic()
-
-ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) + 
-  geom_boxplot() + theme_classic() + xlab("group")
+print("tt")
+# TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
+#               TL = V(meta_vrtb$metaweb)$TL,
+#               group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
+#               class = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"Class"]) %>%
+#         as.data.frame()
+# 
+# TL_df$TL = as.numeric(TL_df$TL)
+# 
+# ggplot(TL_df, aes(x=class, y=TL)) + 
+#   geom_boxplot() + theme_classic()
+# 
+# ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) + 
+#   geom_boxplot() + theme_classic() + xlab("group")
 ```
 
 We see that if the four classes are 
