@@ -184,7 +184,7 @@ get_local_networks <- function(metanetwork){
 #'
 #' @examples
 #' library(metanetwork)
-#'
+#' data("meta_angola")
 #' extract_networks(meta_angola)  
 #' @export
 extract_networks <- function(metanetwork){

@@ -33,7 +33,7 @@ In this vignette, we aim at representing this large network using SBM groups.
 library(metanetwork)
 library(igraph)
 library(ggplot2)
-# library(tidyverse)
+library(tidyverse)
 ```
 
 ```{r data}
