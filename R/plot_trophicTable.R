@@ -28,6 +28,7 @@
 #' library(metanetwork)
 #' 
 #' #on Angola data_set
+#' data(meta_angola)
 #' plot_trophicTable(meta_angola)
 #'
 #' @export

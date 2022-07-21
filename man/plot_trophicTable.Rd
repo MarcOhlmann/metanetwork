@@ -24,6 +24,7 @@ Function to represent trophic groups hierachy provided by trophicTable
 library(metanetwork)
 
 #on Angola data_set
+data(meta_angola)
 plot_trophicTable(meta_angola)
 
 }

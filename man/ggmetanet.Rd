@@ -76,6 +76,7 @@ meta0 = compute_TL(meta0)
 ggmetanet(meta0)
 
 # angola dataset
+data(meta_angola)
 meta_angola = compute_TL(meta_angola)
 ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
 

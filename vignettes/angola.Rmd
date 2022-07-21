@@ -37,8 +37,10 @@ library(igraph)
 angola dataset is lazy loaded in metanetwork. `meta_angola` consists in a object of class `metanetwork`.
 
 ```{r}
-print_metanet(meta_angola)
+data(meta_angola)
+print(meta_angola)
 ```
+
 ### `plot_trophic_table` function
 
 Contrary to the pyramid example, angola dataset do have a trophic table, describing nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at Species or Phylum level.       
@@ -50,13 +52,13 @@ ggnet.custom$label.size = 2
 plot_trophicTable(meta_angola,ggnet.config = ggnet.custom)
 ```
 
-### `append_aggregated_network` method
+### `append_agg_nets` method
 
-The method `append_aggregated_network` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
+The method `append_agg_nets` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
 
 ```{r}
 meta_angola = append_agg_nets(meta_angola)
-print_metanet(meta_angola)
+print(meta_angola)
 ```
 
 ### Representing aggregated networks, adding a legend to networks

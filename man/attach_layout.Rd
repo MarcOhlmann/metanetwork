@@ -51,6 +51,7 @@ If this function is run several times for a given beta value, repetitions of the
 library(metanetwork)
 library(igraph)
 # on angola dataset (metaweb)
+data(meta_angola)
 meta_angola = attach_layout(meta_angola,beta = 0.05)
 V(meta_angola$metaweb)$layout_beta0.05
 # on a local network

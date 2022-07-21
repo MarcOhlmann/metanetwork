@@ -38,6 +38,7 @@
 #' g = igraph::make_ring(5,directed = TRUE)
 #' meta = build_metanet(g)
 #' #on Angola dataset (re-building the dataset)
+#' data(meta_angola)
 #' metaweb = meta_angola$metaweb
 #' abTable = meta_angola$abTable
 #' trophicTable = meta_angola$trophicTable 

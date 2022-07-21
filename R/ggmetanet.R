@@ -39,13 +39,22 @@
 # ggnet.custom$palette = "Set2"
 # ggnet.config = ggnet.custom
 # TL_tsne.config = TL_tsne.default
-
+# 
+# metanetwork = meta_vrtb
 # g = meta_vrtb$metaweb_group
 # flip_coords = T
 # beta = beta
 # legend = "group"
+# mode = 'TL-tsne'
 # ggnet.config = ggnet.custom
-# edge_thrs = 0.5
+# edge_thrs = NULL
+# layout_metaweb = F
+# nrep_ly = 1
+# diff_plot_bool = F
+# alpha_per_group = NULL
+# alpha_per_node = NULL
+# alpha_interactive = F
+# TL_tsne.config = TL_tsne.default
 
 
 #' Default configuration for ggnet
@@ -121,10 +130,14 @@ class(ggnet.default) = 'metanetwork_config'
 #' ggmetanet(meta0)
 #'
 #'# angola dataset
+#'data(meta_angola)
 #'meta_angola = compute_TL(meta_angola)
 #'ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
 #'
 #' @export
+#
+#
+#
 ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                            legend = NULL,mode = 'TL-tsne',
                            edge_thrs = NULL,
@@ -474,7 +487,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,
+                                               beta,nrep_ly,mode_loc,flip_coords)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -524,7 +538,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta,
+                                               nrep_ly,mode_loc,flip_coords)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -576,7 +591,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
               ggplot2::theme(legend.box = "vertical")
             return(net)
           } else{ #use colors and shapes
-            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta)
+            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta,nrep_ly,
+                                                 mode_loc,flip_coords)
             colors_loc_nodes = shapes_colors$colors
             shapes_loc_nodes = shapes_colors$shapes
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
@@ -687,7 +703,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
      
 #function to build a legend mixing shapes and colors    
 assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
-                                 beta){
+                                 beta,nrep_ly,mode_loc,flip_coords){
   groups_loc = unique(color_loc)
   #re-order with group trophic levels for shapes
   networks = extract_networks(metanetwork)
@@ -711,9 +727,22 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
   mycolors = grDevices::colorRampPalette(
     RColorBrewer::brewer.pal(8, ggnet.config$palette))(floor(nb_cols/5)+4)
   
-  #assign colors according to TL-tsne coordinate of the aggregated network
+  #assign colors according to TL-tsne coordinate (if existing) of the aggregated network
   ind_attr_loc = grep(paste0("layout_beta",beta), igraph::vertex_attr_names(agg_net_loc))
-  lay_agg_loc = igraph::get.vertex.attribute(agg_net_loc)[[ind_attr_loc]]
+  if(length(ind_attr_loc) == 1){
+    lay_agg_loc = igraph::get.vertex.attribute(agg_net_loc)[[ind_attr_loc]]
+  } else if(length(ind_attr_loc) == 0){
+    if(flip_coords){
+      lay_agg_loc = mode_loc[,1]
+    } else{
+      lay_agg_loc = mode_loc[,2]
+    }
+    #repet layout case 
+  } else if(length(ind_attr_loc>1)){
+    ind_attr_loc = ind_attr_loc[nrep_ly]
+    lay_agg_loc = igraph::get.vertex.attribute(agg_net_loc)[[ind_attr_loc]]
+  }
+
   names(lay_agg_loc) = igraph::V(agg_net_loc)$name
   lay_agg_loc = lay_agg_loc[groups_loc]
   

@@ -25,6 +25,7 @@ library(metanetwork)
 library(igraph)
 
 #on angola dataset
+data(meta_angola)
 meta_angola  = compute_TL(meta_angola)
 V(meta_angola$metaweb)$TL
 

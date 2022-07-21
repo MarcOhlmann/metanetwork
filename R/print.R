@@ -30,6 +30,7 @@
 #' print(meta)
 #' 
 #' #on Angola dataset
+#' data(meta_angola)
 #' print(meta_angola)
 #'
 #' #on Norway dataset

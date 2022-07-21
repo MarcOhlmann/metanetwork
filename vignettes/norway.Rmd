@@ -35,7 +35,8 @@ library(igraph)
 Norway soil dataset is lazy loaded in metanetwork. `meta_norway` consists in a object of class `metanetwork`.
 
 ```{r}
-print_metanet(meta_norway)
+data(meta_norway)
+print(meta_norway)
 ```
 
 ### `plot_trophic_table` function
@@ -55,7 +56,7 @@ The method `append_agg_nets` allows computing and appending aggregated networks 
 
 ```{r}
 meta_norway = append_agg_nets(meta_norway)
-print_metanet(meta_norway)
+print(meta_norway)
 ```
 
 ### Representing aggregated networks, adding a legend to networks

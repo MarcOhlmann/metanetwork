@@ -86,10 +86,10 @@ class(g)
 class(meta0)
 ```
 
-method `print_metanet` prints a summary of the considered metanetwork.
+method `print` prints a summary of the considered metanetwork.
 
 ```{r}
-print_metanet(meta0)
+print(meta0)
 ```
 
 ## Handling metanetworks

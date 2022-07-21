@@ -48,6 +48,8 @@
 #' #on Angola dataset
 #' library(igraph)
 #' library(metanetwork)
+#' 
+#' data(meta_angola)
 #'
 #'diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
 #'beta = 0.05)

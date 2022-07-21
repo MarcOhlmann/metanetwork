@@ -20,6 +20,8 @@ navbar:
         href: articles/angola.html
       - text: "The Norway dataset"
         href: articles/norway.html
+      - text: "The metaweb of European vertebrates"
+        href: articles/vertebrates.html
     
 reference:
 - title: Building and handling metanetworks
@@ -58,5 +60,3 @@ reference:
   - '`meta_angola`'
   - '`meta_norway`'
   - '`meta_vrtb`'
-
-

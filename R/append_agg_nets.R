@@ -23,6 +23,7 @@
 #'
 #' @examples
 #' library(metanetwork)
+#' data(meta_angola)
 #' append_agg_nets(meta_angola)
 #'
 #' @export

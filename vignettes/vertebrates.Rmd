@@ -1,0 +1,87 @@
+---
+title: "Metaweb of European vertebrates analysis"
+author: "Marc Ohlmann"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    toc: true
+    toc_depth: 4
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  screenshot.force = FALSE, 
+  echo = TRUE,
+  rows.print = 5,
+  message = FALSE, 
+  warning = FALSE)
+```
+
+## The European vertebrates data set
+
+Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from Maiorano et al. 2020 and O'Connor et al. 2020. It contains $1122$ vertebrate species (birds, mammals, amphibians and reptiles) and $49883$ expert-knowledge potential interactions. O'Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see Daudin et al.). This method inferred $46$ species groups. We also have classification of species in $4$ classes (Amphibians, Birds, Mammals and Reptiles).
+
+In this vignette, we aim at representing this large network using SBM groups.
+
+## Loading the data set
+
+```{r packages}
+library(metanetwork)
+library(igraph)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r data}
+data("meta_vrtb")
+print(meta_vrtb)
+```
+
+### Append aggregated networks
+
+To compute aggregated networks at the SBM group level and Class level, we use the `append_agg_nets` method.
+
+```{r append agg nets}
+meta_vrtb = append_agg_nets(meta_vrtb)
+```
+
+### Compute trophic levels
+
+In order to represent this metaweb, we compute trophic levels since it is the first axis of 'metanetwork' layout.
+
+```{r TL}
+meta_vrtb = compute_TL(meta_vrtb)
+```
+
+We represent the distribution of trophic levels of the $4$ classes and $46$ SBM groups.
+
+```{r distrib TL}
+TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
+              TL = V(meta_vrtb$metaweb)$TL,
+              group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
+              class = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"Class"]) %>%
+        as.data.frame()
+
+TL_df$TL = as.numeric(TL_df$TL)
+
+ggplot(TL_df, aes(x=class, y=TL)) + 
+  geom_boxplot() + theme_classic()
+
+ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) + 
+  geom_boxplot() + theme_classic() + xlab("group")
+```
+
+We see that if the four classes are 
+
+## References
+
+Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., & Thuiller, W. (2020). 
+TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.
+
+O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., ... & Thuiller, W. (2020). 
+Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.
+
