@@ -60,3 +60,5 @@ reference:
   - '`meta_angola`'
   - '`meta_norway`'
   - '`meta_vrtb`'
+development:
+  mode: auto
