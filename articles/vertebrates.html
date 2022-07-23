@@ -39,7 +39,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
       </span>
     </div>
 
@@ -93,7 +93,7 @@
       <h1 data-toc-skip>Metaweb of European vertebrates analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-07-21</h4>
+            <h4 data-toc-skip class="date">2022-07-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/vertebrates.Rmd" class="external-link"><code>vignettes/vertebrates.Rmd</code></a></small>
       <div class="hidden name"><code>vertebrates.Rmd</code></div>
@@ -114,31 +114,30 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span><span class="co"># library(tidyverse)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_vrtb"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## metaweb has 1122 nodes and 49883 edges </span></span>
+<pre><code><span><span class="co">## metaweb has 1122 nodes and 49865 edges </span></span>
 <span><span class="co">## single network </span></span>
-<span><span class="co">## available resolutions (not computed) are: sp group Class</span></span></code></pre>
+<span><span class="co">## available resolutions are: sp group Class</span></span></code></pre>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "/home/runner/work/metanetwork/metanetwork/vignettes"</span></span></code></pre>
 <div class="section level3">
 <h3 id="append-aggregated-networks">Append aggregated networks<a class="anchor" aria-label="anchor" href="#append-aggregated-networks"></a>
 </h3>
 <p>To compute aggregated networks at the SBM group level and Class level, we use the <code>append_agg_nets</code> method.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="compute-trophic-levels">Compute trophic levels<a class="anchor" aria-label="anchor" href="#compute-trophic-levels"></a>
 </h3>
 <p>In order to represent this metaweb, we compute trophic levels since it is the first axis of ‘metanetwork’ layout.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">)</span></span></code></pre></div>
 <p>We represent the distribution of trophic levels of the <span class="math inline">\(4\)</span> classes and <span class="math inline">\(46\)</span> SBM groups.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="st">"tt"</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "tt"</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">TL_df</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">name</span>,</span>
 <span>              TL <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span>,</span>
@@ -150,12 +149,73 @@
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">class</span>, y<span class="op">=</span><span class="va">TL</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="vertebrates_files/figure-html/distrib%20TL-1.png" width="700"></p>
+<p><img src="vertebrates_files/figure-html/distrib%20TL-1.png" width="672"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># </span></span>
-<span><span class="co"># ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) + </span></span>
-<span><span class="co">#   geom_boxplot() + theme_classic() + xlab("group")</span></span></code></pre></div>
-<p>We see that if the four classes are</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">TL</span><span class="op">)</span>, y<span class="op">=</span><span class="va">TL</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="vertebrates_files/figure-html/distrib%20TL-2.png" width="672"></p>
+<p>We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#this group contains several eagles species</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">17</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Accipiter_gentilis"   "Aquila_adalberti"     "Aquila_clanga"       </span></span>
+<span><span class="co">## [4] "Aquila_heliaca"       "Hieraaetus_fasciatus" "Lynx_lynx"           </span></span>
+<span><span class="co">## [7] "Hyaena_hyaena"</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#single group made of eagle-owl only</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">46</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Bubo_bubo"</span></span></code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#this one contain wolf and fox</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">42</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "Canis_lupus"   "Vulpes_vulpes"</span></span></code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2 id="represent-the-metaweb">Represent the metaweb<a class="anchor" aria-label="anchor" href="#represent-the-metaweb"></a>
+</h2>
+<p>In order to represent this large metaweb, we first represent the network at the SBM group level. We will use then the layout at the aggregated level to compute the layout at the species level. This layout is called <code>group-TL-tsne</code>, as <code>TL-tsne</code> is the diffusion based layout of <code>metanetwork</code>.</p>
+<div class="section level3">
+<h3 id="representation-at-the-sbm-level">Representation at the SBM level<a class="anchor" aria-label="anchor" href="#representation-at-the-sbm-level"></a>
+</h3>
+<p>Using <code>ggmetanet</code> and the precomputed layout for <code>beta = 0.005</code>, we first represent the web at the SBM group level</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
+<span></span>
+<span><span class="co">#custom ggnet parameters</span></span>
+<span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">T</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.5</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.7</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">1</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">max_size</span> <span class="op">=</span> <span class="fl">12</span></span>
+<span></span>
+<span><span class="va">net_groups</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,g <span class="op">=</span> <span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>          beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,</span>
+<span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
+<span><span class="va">net_groups</span></span></code></pre></div>
+<p><img src="vertebrates_files/figure-html/SBM%20level-1.png" width="768"></p>
+</div>
+<div class="section level3">
+<h3 id="group-tl-tsne-layout">group-TL-tsne layout<a class="anchor" aria-label="anchor" href="#group-tl-tsne-layout"></a>
+</h3>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># beta = 0.005</span></span>
+<span><span class="co"># ggnet.custom = ggnet.default</span></span>
+<span><span class="co"># ggnet.custom$label = F</span></span>
+<span><span class="co"># ggnet.custom$edge.alpha = 0.02</span></span>
+<span><span class="co"># ggnet.custom$alpha = 0.7</span></span>
+<span><span class="co"># ggnet.custom$arrow.size = 1</span></span>
+<span><span class="co"># ggnet.custom$max_size = 4</span></span>
+<span><span class="co"># ggnet.custom$palette = "Set2"</span></span>
+<span><span class="co"># #add images in the legend</span></span>
+<span><span class="co"># ggnet.custom$img_PATH = "vignettes/silouhette_metaweb_europe/"</span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># </span></span>
+<span><span class="co"># net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",</span></span>
+<span><span class="co">#                              beta = beta,legend = "group",ggnet.config = ggnet.custom)</span></span>
+<span><span class="co"># net_group_layout</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
