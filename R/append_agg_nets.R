@@ -41,32 +41,38 @@ append_agg_nets.metanetwork <- function(metanetwork){
     return(metanetwork)
   } else {
     N_resolution = ncol(metanetwork$trophicTable)
-    for(scale in colnames(metanetwork$trophicTable)[2:N_resolution]){
-      g = metanetwork$metaweb
-      groups_loc =  metanetwork$trophicTable[,scale]
-      names(groups_loc) = metanetwork$trophicTable[,1]
-      array_ag = sbmParams(g = g,groups = groups_loc[igraph::V(g)$name])
-      g_agg = igraph::graph_from_adjacency_matrix(t(array_ag$pi),weighted = T)
-      g_agg = igraph::set_vertex_attr(g_agg, name = "ab", value = array_ag$alpha)
-      g_agg = igraph::set_graph_attr(g_agg, name = "res", value = scale)
-      g_agg = igraph::set_graph_attr(g_agg, name = "name", value = "metaweb")
-      eval(parse(text = paste0("metanetwork$metaweb_",scale,"= g_agg")))
-      
-      local_networks_names = rownames(metanetwork$abTable)
-      for(local_networks_name in local_networks_names){
-        eval(parse(text = paste0('g = metanetwork$',local_networks_name) ))
+    #check if aggregated networks are already computed
+    networks = extract_networks(metanetwork)
+    if(unique(sapply(networks,function(g) g$res)) %>% length() == N_resolution){
+      return(metanetwork)
+    } else{
+      for(scale in colnames(metanetwork$trophicTable)[2:N_resolution]){
+        g = metanetwork$metaweb
         groups_loc =  metanetwork$trophicTable[,scale]
         names(groups_loc) = metanetwork$trophicTable[,1]
-        array_ag = sbmParams(g,groups_loc[igraph::V(g)$name])
+        array_ag = sbmParams(g = g,groups = groups_loc[igraph::V(g)$name])
         g_agg = igraph::graph_from_adjacency_matrix(t(array_ag$pi),weighted = T)
-        g_agg = igraph::set_graph_attr(g_agg, name = "res", value = scale)
-        g_agg = igraph::set_graph_attr(g_agg, name = "name",
-                               value = local_networks_name)
         g_agg = igraph::set_vertex_attr(g_agg, name = "ab", value = array_ag$alpha)
-        eval(parse(text = paste0("metanetwork$",local_networks_name,"_",scale,"= g_agg")))
+        g_agg = igraph::set_graph_attr(g_agg, name = "res", value = scale)
+        g_agg = igraph::set_graph_attr(g_agg, name = "name", value = "metaweb")
+        eval(parse(text = paste0("metanetwork$metaweb_",scale,"= g_agg")))
+        
+        local_networks_names = rownames(metanetwork$abTable)
+        for(local_networks_name in local_networks_names){
+          eval(parse(text = paste0('g = metanetwork$',local_networks_name) ))
+          groups_loc =  metanetwork$trophicTable[,scale]
+          names(groups_loc) = metanetwork$trophicTable[,1]
+          array_ag = sbmParams(g,groups_loc[igraph::V(g)$name])
+          g_agg = igraph::graph_from_adjacency_matrix(t(array_ag$pi),weighted = T)
+          g_agg = igraph::set_graph_attr(g_agg, name = "res", value = scale)
+          g_agg = igraph::set_graph_attr(g_agg, name = "name",
+                                         value = local_networks_name)
+          g_agg = igraph::set_vertex_attr(g_agg, name = "ab", value = array_ag$alpha)
+          eval(parse(text = paste0("metanetwork$",local_networks_name,"_",scale,"= g_agg")))
+        }
       }
+      return(metanetwork) 
     }
-    return(metanetwork)
   }
 }
 

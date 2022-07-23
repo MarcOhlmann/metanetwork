@@ -5,7 +5,7 @@
 \alias{ggnet.default}
 \title{Default configuration for ggnet}
 \format{
-An object of class \code{metanetwork_config} of length 14.
+An object of class \code{metanetwork_config} of length 15.
 }
 \usage{
 ggnet.default

@@ -85,7 +85,8 @@ ggnet.default = list(
   size.cut = 5,
   palette = "Set2",
   default.color = "grey75",
-  legend.position = "bottom")
+  legend.position = "bottom",
+  img_PATH = NULL)
 
 class(ggnet.default) = 'metanetwork_config'
 
@@ -487,8 +488,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,
-                                               beta,nrep_ly,mode_loc,flip_coords)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,
+                                               beta,nrep_ly,mode_loc,flip_coords,ggnet.config)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -538,8 +539,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
             ggplot2::theme(legend.box = "vertical")
           return(net)
         } else{ #use colors and shapes
-          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta,
-                                               nrep_ly,mode_loc,flip_coords)
+          shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,beta,
+                                               nrep_ly,mode_loc,flip_coords,ggnet.config)
           colors_loc_nodes = shapes_colors$colors
           shapes_loc_nodes = shapes_colors$shapes
           
@@ -591,8 +592,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
               ggplot2::theme(legend.box = "vertical")
             return(net)
           } else{ #use colors and shapes
-            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,ggnet.config,beta,nrep_ly,
-                                                 mode_loc,flip_coords)
+            shapes_colors = assign_shapes_colors(color_loc,metanetwork,g,legend,beta,nrep_ly,
+                                                 mode_loc,flip_coords,ggnet.config)
             colors_loc_nodes = shapes_colors$colors
             shapes_loc_nodes = shapes_colors$shapes
             # shape_color_table = data.frame(shape = shapes_loc,color = shapes_loc)
@@ -702,15 +703,15 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
 }    
      
 #function to build a legend mixing shapes and colors    
-assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
-                                 beta,nrep_ly,mode_loc,flip_coords){
+assign_shapes_colors <- function(color_loc,metanetwork,g,legend,
+                                 beta,nrep_ly,mode_loc,flip_coords,ggnet.config){
   groups_loc = unique(color_loc)
   #re-order with group trophic levels for shapes
   networks = extract_networks(metanetwork)
   agg_net_loc = networks[[
-                          which(sapply(networks,
-                                       function(x) c(x$res == legend,x$name == g$name)) %>%
-                           colSums() == 2)]]
+    which(sapply(networks,
+                 function(x) c(x$res == legend,x$name == g$name)) %>%
+            colSums() == 2)]]
   if(!(is.null(V(agg_net_loc)$TL))){
     groups_loc = groups_loc[order(V(agg_net_loc)$TL)]
   }
@@ -742,7 +743,7 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
     ind_attr_loc = ind_attr_loc[nrep_ly]
     lay_agg_loc = igraph::get.vertex.attribute(agg_net_loc)[[ind_attr_loc]]
   }
-
+  
   names(lay_agg_loc) = igraph::V(agg_net_loc)$name
   lay_agg_loc = lay_agg_loc[groups_loc]
   
@@ -766,7 +767,7 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
   names(colors_loc) = groups_loc[order_colors]
   colors_loc = colors_loc[groups_loc]
   
-    # colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
+  # colors_loc = c(mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:k],mycolors[1:(n_groups_loc-4*k)])
   # names(colors_loc) = groups_loc
   
   #legend identical to network resolution
@@ -794,7 +795,7 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
   #plot legend if resolution of the current network is different than legend
   if(g$res != legend){
     p  = plot_legend(shapes_loc,colors_loc,metanetwork,
-                     legend,order_colors)
+                     legend,order_colors,ggnet.config)
     plot(p)
   }
   return(list(shapes = shapes_loc_nodes,
@@ -803,7 +804,7 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,ggnet.config,
 
 
 plot_legend <- function(shapes_loc,colors_loc,metanetwork,
-                        legend,order_colors){
+                        legend,order_colors,ggnet.config){
   message("plotting legend")
   shapes_colors_df = cbind(shapes_loc,colors_loc)
   colnames(shapes_colors_df) = c('shape','color')
@@ -842,30 +843,67 @@ plot_legend <- function(shapes_loc,colors_loc,metanetwork,
     }
   }
   
-  legend_plot = ggplot2::ggplot(shapes_colors_df, aes(x, y, label = group)) +
-    ggplot2::geom_point(aes(shape = shape, color = color)
-               , size = 5) +
-    ggplot2::scale_shape_manual(values = unique(as.numeric(shapes_colors_df$shape))) +
-    ggplot2::scale_color_manual(breaks = shapes_colors_df[shapes_colors_df$shape == 20,]$color,
-                                values = shapes_colors_df[shapes_colors_df$shape == 20,]$color) + 
-    ggplot2::geom_text(hjust=0, vjust=2) + 
-    ggplot2::theme(legend.position = "none",
-                   panel.border = element_blank(),
-                   panel.grid.major = element_blank(),
-                   panel.grid.minor = element_blank(),
-                   # Modifier le trait des axes
-                   axis.line = element_line(colour = "white"),
-                   plot.background = element_rect(fill = "white"),
-                   panel.grid = element_blank(),
-                   panel.background = element_blank(),
-                   panel.grid.major.x = element_blank(),
-                   axis.title.x=element_blank(),
-                   axis.text.x=element_blank(),
-                   axis.ticks.x=element_blank(),
-                   axis.title.y=element_blank(),
-                   axis.text.y=element_blank(),
-                   axis.ticks.y=element_blank()) + 
-    ggplot2::ggtitle("legend") + xlim(c(0,20)) + ylim(c(0,10))
+  if(is.null(ggnet.config$img_PATH)){
+    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(x, y, label = group)) +
+      ggplot2::geom_point(aes(shape = shape, color = color)
+                          , size = 5) +
+      ggplot2::scale_shape_manual(values = unique(as.numeric(shapes_colors_df$shape))) +
+      ggplot2::scale_color_manual(breaks = shapes_colors_df[shapes_colors_df$shape == 20,]$color,
+                                  values = shapes_colors_df[shapes_colors_df$shape == 20,]$color) + 
+      ggplot2::geom_text(hjust=0, vjust=2) + 
+      ggplot2::theme(legend.position = "none",
+                     panel.border = element_blank(),
+                     panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     # Modifier le trait des axes
+                     axis.line = element_line(colour = "white"),
+                     plot.background = element_rect(fill = "white"),
+                     panel.grid = element_blank(),
+                     panel.background = element_blank(),
+                     panel.grid.major.x = element_blank(),
+                     axis.title.x=element_blank(),
+                     axis.text.x=element_blank(),
+                     axis.ticks.x=element_blank(),
+                     axis.title.y=element_blank(),
+                     axis.text.y=element_blank(),
+                     axis.ticks.y=element_blank()) + 
+      ggplot2::ggtitle("legend") + xlim(c(0,24)) + ylim(c(0,10)) 
+  } else{
+    message("building a legend with images")
+    message(paste0("image PATH: "),ggnet.config$img_PATH)
+    img_PATH = ggnet.config$img_PATH
+    img = list.files(path = img_PATH,
+                     pattern="png", full.names=TRUE)
+    #reorder
+    img = img[sapply(shapes_colors_df$group,function(x) grep(paste0("/",x,"_"),img))]
+    shapes_colors_df = cbind(shapes_colors_df,image = img)
+    
+    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(x, y, label = group)) +
+      ggplot2::geom_point(aes(shape = shape, color = color)
+                          , size = 5) +
+      ggplot2::scale_shape_manual(values = unique(as.numeric(shapes_colors_df$shape))) +
+      ggplot2::scale_color_manual(breaks = shapes_colors_df[shapes_colors_df$shape == 20,]$color,
+                                  values = shapes_colors_df[shapes_colors_df$shape == 20,]$color) + 
+      ggplot2::geom_text(hjust=0, vjust=2) + 
+      ggplot2::theme(legend.position = "none",
+                     panel.border = element_blank(),
+                     panel.grid.major = element_blank(),
+                     panel.grid.minor = element_blank(),
+                     # Modifier le trait des axes
+                     axis.line = element_line(colour = "white"),
+                     plot.background = element_rect(fill = "white"),
+                     panel.grid = element_blank(),
+                     panel.background = element_blank(),
+                     panel.grid.major.x = element_blank(),
+                     axis.title.x=element_blank(),
+                     axis.text.x=element_blank(),
+                     axis.ticks.x=element_blank(),
+                     axis.title.y=element_blank(),
+                     axis.text.y=element_blank(),
+                     axis.ticks.y=element_blank()) + 
+      ggplot2::ggtitle("legend") + xlim(c(0,24)) + ylim(c(0,10)) + 
+      ggimage::geom_image(aes(x = x + 2,y=y,image = image))
+  }
   return(legend_plot)
 }
 

@@ -33,7 +33,6 @@ In this vignette, we aim at representing this large network using SBM groups.
 library(metanetwork)
 library(igraph)
 library(ggplot2)
-library(tidyverse)
 ```
 
 ```{r data}
@@ -59,8 +58,7 @@ meta_vrtb = compute_TL(meta_vrtb)
 
 We represent the distribution of trophic levels of the $4$ classes and $46$ SBM groups.
 
-```{r distrib TL}
-print("tt")
+```{r distrib TL,fig.height = 7, fig.width = 7}
 TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
               TL = V(meta_vrtb$metaweb)$TL,
               group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
@@ -71,12 +69,71 @@ TL_df$TL = as.numeric(TL_df$TL)
 
 ggplot(TL_df, aes(x=class, y=TL)) +
   geom_boxplot() + theme_classic()
-# 
-# ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) + 
-#   geom_boxplot() + theme_classic() + xlab("group")
+
+ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
+  geom_boxplot() + theme_classic() + xlab("group") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-We see that if the four classes are 
+We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels.
+
+```{r}
+#this group contains several eagles species
+which(meta_vrtb$trophicTable[,"group"] == 17) %>% names()
+#single group made of eagle-owl only
+which(meta_vrtb$trophicTable[,"group"] == 46) %>% names()
+#this one contain wolf and fox
+which(meta_vrtb$trophicTable[,"group"] == 42) %>% names()
+```
+
+
+## Represent the metaweb
+
+In order to represent this large metaweb, we first represent the network at the SBM group level. We will use then the layout at the aggregated level to compute the layout at the species level. This layout is called `group-TL-tsne`, as `TL-tsne` is the diffusion based layout of `metanetwork`.
+
+### Representation at the SBM level
+
+Using `ggmetanet` and the precomputed layout for `beta = 0.005`, we first represent the web at the SBM group level
+
+```{r SBM level,fig.height = 8, fig.width = 8}
+beta = 0.005
+
+#custom ggnet parameters
+ggnet.custom = ggnet.default
+ggnet.custom$label = T
+ggnet.custom$edge.alpha = 0.5
+ggnet.custom$alpha = 0.7
+ggnet.custom$arrow.size = 1
+ggnet.custom$max_size = 12
+
+net_groups = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
+          beta = beta,legend = "group",
+          ggnet.config = ggnet.custom,edge_thrs = 0.1)
+net_groups
+```
+
+### group-TL-tsne layout
+
+
+```{r group-layout,warning=FALSE,fig.height = 8, fig.width = 8}
+beta = 0.005
+ggnet.custom = ggnet.default
+ggnet.custom$label = F
+ggnet.custom$edge.alpha = 0.02
+ggnet.custom$alpha = 0.7
+ggnet.custom$arrow.size = 1
+ggnet.custom$max_size = 4
+ggnet.custom$palette = "Set2"
+#add images in the legend
+ggnet.custom$img_PATH = "~/Desktop/metanetwork_project/data_test/european_vertebrate_metaweb/silouhette_metaweb_europe/"
+
+
+net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+                             beta = beta,legend = "group",ggnet.config = ggnet.custom)
+net_group_layout
+```
+
+
 
 ## References
 

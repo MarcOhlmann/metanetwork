@@ -20,6 +20,6 @@ Return a list of 'igraph' objects
 }
 \examples{
 library(metanetwork)
-
+data("meta_angola")
 extract_networks(meta_angola)  
 }
