@@ -38,6 +38,7 @@ library(ggplot2)
 ```{r data}
 data("meta_vrtb")
 print(meta_vrtb)
+getwd()
 ```
 
 ### Append aggregated networks
@@ -116,21 +117,21 @@ net_groups
 
 
 ```{r group-layout,warning=FALSE,fig.height = 8, fig.width = 8}
-beta = 0.005
-ggnet.custom = ggnet.default
-ggnet.custom$label = F
-ggnet.custom$edge.alpha = 0.02
-ggnet.custom$alpha = 0.7
-ggnet.custom$arrow.size = 1
-ggnet.custom$max_size = 4
-ggnet.custom$palette = "Set2"
-#add images in the legend
-ggnet.custom$img_PATH = "vignettes/silouhette_metaweb_europe/"
-
-
-net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
-                             beta = beta,legend = "group",ggnet.config = ggnet.custom)
-net_group_layout
+# beta = 0.005
+# ggnet.custom = ggnet.default
+# ggnet.custom$label = F
+# ggnet.custom$edge.alpha = 0.02
+# ggnet.custom$alpha = 0.7
+# ggnet.custom$arrow.size = 1
+# ggnet.custom$max_size = 4
+# ggnet.custom$palette = "Set2"
+# #add images in the legend
+# ggnet.custom$img_PATH = "vignettes/silouhette_metaweb_europe/"
+# 
+# 
+# net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+#                              beta = beta,legend = "group",ggnet.config = ggnet.custom)
+# net_group_layout
 ```
 
 
