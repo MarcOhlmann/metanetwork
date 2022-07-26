@@ -1,93 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/404.html</loc>
   </url>
   <url>
-    <loc>/articles/angola.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/angola.html</loc>
   </url>
   <url>
-    <loc>/articles/index.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/index.html</loc>
   </url>
   <url>
-    <loc>/articles/norway.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/norway.html</loc>
   </url>
   <url>
-    <loc>/articles/pyramid.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/pyramid.html</loc>
   </url>
   <url>
-    <loc>/articles/vertebrates.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/vertebrates.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/vertebrates0.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/authors.html</loc>
   </url>
   <url>
-    <loc>/reference/TL_tsne.default.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/index.html</loc>
   </url>
   <url>
-    <loc>/reference/append_agg_nets.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/TL_tsne.default.html</loc>
   </url>
   <url>
-    <loc>/reference/attach_layout.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/append_agg_nets.html</loc>
   </url>
   <url>
-    <loc>/reference/build_metanet.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/attach_layout.html</loc>
   </url>
   <url>
-    <loc>/reference/compute_TL.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/build_metanet.html</loc>
   </url>
   <url>
-    <loc>/reference/diff_plot.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/compute_TL.html</loc>
   </url>
   <url>
-    <loc>/reference/extract_networks.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/diff_plot.html</loc>
   </url>
   <url>
-    <loc>/reference/ggmetanet.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/extract_networks.html</loc>
   </url>
   <url>
-    <loc>/reference/ggnet.default.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/ggmetanet.html</loc>
   </url>
   <url>
-    <loc>/reference/group_layout.default.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/ggnet.default.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/group_layout.default.html</loc>
   </url>
   <url>
-    <loc>/reference/is.metanetwork.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/meta_angola.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/is.metanetwork.html</loc>
   </url>
   <url>
-    <loc>/reference/meta_norway.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/meta_angola.html</loc>
   </url>
   <url>
-    <loc>/reference/meta_vrtb.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/meta_norway.html</loc>
   </url>
   <url>
-    <loc>/reference/metanet_build_pipe.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/meta_vrtb.html</loc>
   </url>
   <url>
-    <loc>/reference/metanet_pipe.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/metanet_build_pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/pipe.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/metanet_pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_trophicTable.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>/reference/print.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/plot_trophicTable.html</loc>
   </url>
   <url>
-    <loc>/reference/visNetwork.default.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/print.html</loc>
   </url>
   <url>
-    <loc>/reference/vismetaNetwork.html</loc>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/visNetwork.default.html</loc>
+  </url>
+  <url>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/vismetaNetwork.html</loc>
   </url>
 </urlset>
