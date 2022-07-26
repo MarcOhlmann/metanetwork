@@ -1,7 +1,7 @@
 ---
 title: "Metaweb of European vertebrates analysis"
 author: "Marc Ohlmann"
-date: "2022-07-26"
+date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -12,7 +12,14 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  screenshot.force = FALSE, 
+  echo = TRUE,
+  rows.print = 5,
+  message = FALSE, 
+  warning = FALSE)
+```
 
 ## The European vertebrates data set
 
@@ -22,40 +29,24 @@ In this vignette, we aim at representing this large network using SBM groups.
 
 ## Loading the data set
 
-
-```r
+```{r packages}
 library(metanetwork)
 library(igraph)
 library(ggplot2)
 library(ggimage)
 ```
 
-
-```r
+```{r data}
 data("meta_vrtb")
 print(meta_vrtb)
-```
-
-```
-## metaweb has 1122 nodes and 49865 edges 
-## single network 
-## available resolutions are: sp group Class
-```
-
-```r
 getwd()
-```
-
-```
-## [1] "/home/me/Desktop/metanetwork_project/github/metanetwork/vignettes"
 ```
 
 ### Append aggregated networks
 
 To compute aggregated networks at the SBM group level and Class level, we use the `append_agg_nets` method.
 
-
-```r
+```{r append agg nets}
 meta_vrtb = append_agg_nets(meta_vrtb)
 ```
 
@@ -63,15 +54,13 @@ meta_vrtb = append_agg_nets(meta_vrtb)
 
 In order to represent this metaweb, we compute trophic levels since it is the first axis of 'metanetwork' layout.
 
-
-```r
+```{r TL}
 meta_vrtb = compute_TL(meta_vrtb)
 ```
 
 We represent the distribution of trophic levels of the $4$ classes and $46$ SBM groups.
 
-
-```r
+```{r distrib TL,fig.height = 7, fig.width = 7}
 TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
               TL = V(meta_vrtb$metaweb)$TL,
               group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
@@ -82,48 +71,21 @@ TL_df$TL = as.numeric(TL_df$TL)
 
 ggplot(TL_df, aes(x=class, y=TL)) +
   geom_boxplot() + theme_classic()
-```
 
-![plot of chunk distrib TL](figure/distrib TL-1.png)
-
-```r
 ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
   geom_boxplot() + theme_classic() + xlab("group") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-![plot of chunk distrib TL](figure/distrib TL-2.png)
-
 We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels.
 
-
-```r
+```{r}
 #this group contains several eagles species
 which(meta_vrtb$trophicTable[,"group"] == 17) %>% names()
-```
-
-```
-## [1] "Accipiter_gentilis"   "Aquila_adalberti"     "Aquila_clanga"       
-## [4] "Aquila_heliaca"       "Hieraaetus_fasciatus" "Lynx_lynx"           
-## [7] "Hyaena_hyaena"
-```
-
-```r
 #single group made of eagle-owl only
 which(meta_vrtb$trophicTable[,"group"] == 46) %>% names()
-```
-
-```
-## [1] "Bubo_bubo"
-```
-
-```r
 #this one contain wolf and fox
 which(meta_vrtb$trophicTable[,"group"] == 42) %>% names()
-```
-
-```
-## [1] "Canis_lupus"   "Vulpes_vulpes"
 ```
 
 
@@ -135,8 +97,7 @@ In order to represent this large metaweb, we first represent the network at the 
 
 Using `ggmetanet` and the precomputed layout for `beta = 0.005`, we first represent the web at the SBM group level
 
-
-```r
+```{r SBM level,fig.height = 8, fig.width = 8}
 beta = 0.005
 
 #custom ggnet parameters
@@ -153,13 +114,10 @@ net_groups = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
 net_groups
 ```
 
-![plot of chunk SBM level](figure/SBM level-1.png)
-
 ### group-TL-tsne layout
 
 
-
-```r
+```{r group-layout,warning=FALSE,fig.height = 8, fig.width = 8}
 beta = 0.005
 ggnet.custom = ggnet.default
 ggnet.custom$label = F

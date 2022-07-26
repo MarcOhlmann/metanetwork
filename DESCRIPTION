@@ -35,5 +35,6 @@ Imports:
         visNetwork,
         grDevices,
         RColorBrewer,
-        magrittr
+        magrittr,
+        ggimage
 Language: en-US
