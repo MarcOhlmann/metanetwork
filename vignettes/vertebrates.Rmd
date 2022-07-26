@@ -84,7 +84,7 @@ ggplot(TL_df, aes(x=class, y=TL)) +
   geom_boxplot() + theme_classic()
 ```
 
-![plot of chunk distrib TL](figure/distrib TL-1.png)
+![](figure/distrib TL-1.png)
 
 ```r
 ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
@@ -92,7 +92,7 @@ ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
 
-![plot of chunk distrib TL](figure/distrib TL-2.png)
+![](figure/distrib TL-2.png)
 
 We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels.
 
@@ -153,7 +153,7 @@ net_groups = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
 net_groups
 ```
 
-![plot of chunk SBM level](figure/SBM level-1.png)
+![](figure/SBM level-1.png)
 
 ### group-TL-tsne layout
 
@@ -175,13 +175,13 @@ net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom)
 ```
 
-![plot of chunk group-layout](figure/group-layout-1.png)
+![](figure/group-layout-1.png)
 
 ```r
 net_group_layout
 ```
 
-![plot of chunk group-layout](figure/group-layout-2.png)
+![](figure/group-layout-2.png)
 
 
 
