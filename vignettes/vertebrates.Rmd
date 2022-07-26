@@ -129,9 +129,9 @@ ggnet.custom$palette = "Set2"
 #add images in the legend
 # ggnet.custom$img_PATH = "silouhette_metaweb_europe"
 
-net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
-                             beta = beta,legend = "group",ggnet.config = ggnet.custom)
-net_group_layout
+# net_group_layout = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+#                              beta = beta,legend = "group",ggnet.config = ggnet.custom)
+# net_group_layout
 ```
 
 
