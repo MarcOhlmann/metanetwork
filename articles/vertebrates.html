@@ -129,16 +129,12 @@
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">class</span>, y<span class="op">=</span><span class="va">TL</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/distrib%20TL-1.png" alt=""><p class="caption">plot of chunk distrib TL</p>
-</div>
+<p><img src="figure/distrib%20TL-1.png"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">TL</span><span class="op">)</span>, y<span class="op">=</span><span class="va">TL</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/distrib%20TL-2.png" alt=""><p class="caption">plot of chunk distrib TL</p>
-</div>
+<p><img src="figure/distrib%20TL-2.png"></p>
 <p>We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this group contains several eagles species</span></span>
@@ -179,9 +175,7 @@
 <span>          beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,</span>
 <span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">net_groups</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/SBM%20level-1.png" alt=""><p class="caption">plot of chunk SBM level</p>
-</div>
+<p><img src="figure/SBM%20level-1.png"></p>
 </div>
 <div class="section level3">
 <h3 id="group-tl-tsne-layout">group-TL-tsne layout<a class="anchor" aria-label="anchor" href="#group-tl-tsne-layout"></a>
@@ -200,14 +194,10 @@
 <span></span>
 <span><span class="va">net_group_layout</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
 <span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/group-layout-1.png" alt=""><p class="caption">plot of chunk group-layout</p>
-</div>
+<p><img src="figure/group-layout-1.png"></p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_group_layout</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/group-layout-2.png" alt=""><p class="caption">plot of chunk group-layout</p>
-</div>
+<p><img src="figure/group-layout-2.png"></p>
 </div>
 </div>
 <div class="section level2">
