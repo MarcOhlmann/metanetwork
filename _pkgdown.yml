@@ -1,8 +1,5 @@
 title: metanetwork
 url: https://marcohlmann.github.io/metanetwork/
-  params:
-    bootswatch: flatly
-    ganalytics: UA-12345678-0
 
 navbar:
   structure:
