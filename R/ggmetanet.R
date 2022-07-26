@@ -455,8 +455,12 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
       }
       return(net)
     }
-
   }else{
+    #assigning max_size if single abundance value
+    size_loc = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab))
+    if(length(unique(size_loc)) == 1){
+      size_loc = ggnet.config$max_size
+    }
     if(!(is.null(alpha_per_group) && is.null(alpha_per_node))){
       if(!is.null(alpha_per_group)){
         groups_focal = alpha_per_group$groups
