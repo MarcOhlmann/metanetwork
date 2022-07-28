@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## The European vertebrates data set
 
-Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from Maiorano et al. 2020 and O'Connor et al. 2020. It contains $1122$ vertebrate species (birds, mammals, amphibians and reptiles) and $49883$ expert-knowledge potential interactions. O'Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see Daudin et al.). This method inferred $46$ species groups. We also have classification of species in $4$ classes (Amphibians, Birds, Mammals and Reptiles).
+Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from *Maiorano et al. 2020* and *O'Connor et al. 2020*. It contains $1122$ vertebrate species (birds, mammals, amphibians and reptiles) and $49883$ expert-knowledge potential interactions. O'Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see *Daudin et al. 2008*). This method inferred $46$ species groups. We also have classification of species in $4$ classes (Amphibians, Birds, Mammals and Reptiles).
 
 In this vignette, we aim at representing this large network using SBM groups.
 
@@ -75,8 +75,25 @@ ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
   geom_boxplot() + theme_classic() + xlab("group") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 ```
-
 We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels. It is a finer scale than the class level. 
+We then represent the group composition in terms of classes.
+
+```{r compo,fig.height = 7, fig.width = 7}
+TL_df_mean = TL_df %>% 
+  group_by(group) %>%
+  summarise(across(TL, mean, na.rm = TRUE)) %>%
+  as.data.frame()
+
+rownames(TL_df_mean) = TL_df_mean$group
+
+TL_df_agg = TL_df %>% dplyr::count(group,class) %>%
+            dplyr::mutate(TL = TL_df_mean[group,2])
+
+ggplot(TL_df_agg, aes(fill=class, y=n, x=reorder(group, TL))) + 
+  geom_bar(position="stack", stat="identity") + theme_classic() + xlab("group") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + ylab("count")
+```
+We see that groups are getting smaller when their mean trophic level increases. Moreover, SMB groups are relatively well separated trough classes.
 
 ```{r}
 #this group contains several eagles species
@@ -131,6 +148,7 @@ net_groups2 = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
           ggnet.config = ggnet.custom,edge_thrs = 0.1)
 net_groups2
 ```
+
 The `attach_layout` method allows storing computed layout as node attribute
 
 ```{r SBM level 3,fig.height = 8, fig.width = 8}
@@ -138,7 +156,7 @@ The `attach_layout` method allows storing computed layout as node attribute
 vertex_attr_names(meta_vrtb$metaweb_group)
 ```
 
-### 'group-TL-tsne' layout
+### `'group-TL-tsne'` layout
 
 To represent the metaweb at the species level, we do not compute 'TL-tsne' at the species level. Instead, we mix the layout computed at SBM level and a regular `igraph` layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires `'TL-tsne'` layout computation at the SBM level instead of computing it in higher dimension at the species level.
 
@@ -178,14 +196,15 @@ net_group_layout2
 
 The legend is different from the previous plot due to stochasticity of `'TL-tsne` layout. However, since trophic level is fixed, shapes remain the same.
 
-### 'TL-tsne' layout
+### `'TL-tsne'` layout
 
-We represent here the web at species level using `'TL-tsne'` layout. We do not recommand to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.
+We represent here the web at species level using `'TL-tsne'` layout. We do not recommend to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.
 
 ```{r TL-tsne species,fig.height = 8, fig.width = 8}
 beta = 4e-06
 
-#add images in the legend (if NULL, legend will represent group names only)
+#remove legend plot
+ggnet.custom$legend.big.nets = F
 ggnet.custom$img_PATH = NULL
 
 ggmetanet(meta_vrtb,beta = beta,legend = "group", mode = 'TL-tsne',
@@ -227,18 +246,63 @@ In order to represent sub-networks, we advise to play on transparency (alpha). W
 ```{r mammals,fig.height = 8, fig.width = 8}
 beta = 0.005
 mammals_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Mammal"))
-
-net_group_layout4 = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+ggnet.custom$label = F
+ggnet.custom$label.size = 2
+net_mammals = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom,
                                 alpha_per_node = list(nodes = mammals_names,
                                                       alpha_focal = 0.8,
-                                                      alpha_hidden = 0.2))
-net_group_layout4
-
+                                                      alpha_hidden = 0.1)) +
+              ggtitle("Mammals")
+net_mammals
 ```
 
+Similarly, we represent the metaweb of birds, amphibians and reptiles (with the same layout) and represent them on the same plot
+
+```{r birds}
+bird_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Bird"))
+
+
+net_birds = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+                              beta = beta,legend = "group",ggnet.config = ggnet.custom,
+                                alpha_per_node = list(nodes = bird_names,
+                                                      alpha_focal = 0.8,
+                                                      alpha_hidden = 0.1)) + 
+              ggtitle("Birds")
+```
+
+```{r amphibians}
+amphibian_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Amphibian"))
+
+
+net_amphibians = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+                              beta = beta,legend = "group",ggnet.config = ggnet.custom,
+                                alpha_per_node = list(nodes = amphibian_names,
+                                                      alpha_focal = 0.8,
+                                                      alpha_hidden = 0.1)) +
+              ggtitle("Amphibians")
+```
+
+```{r reptiles}
+reptile_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Reptile"))
+
+
+net_reptiles = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+                              beta = beta,legend = "group",ggnet.config = ggnet.custom,
+                                alpha_per_node = list(nodes = reptile_names,
+                                                      alpha_focal = 0.8,
+                                                      alpha_hidden = 0.1)) +
+              ggtitle("Reptiles")
+```
+
+```{r grid,fig.height = 8, fig.width = 8}
+nets_all = gridExtra::grid.arrange(net_mammals,net_birds,
+                                   net_amphibians,net_reptiles,nrow = 2)
+```
 
 ## References
+
+Daudin, J. J., Picard, F., & Robin, S. (2008). A mixture model for random graphs. Statistics and computing, 18(2), 173-183.
 
 Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., & Thuiller, W. (2020). 
 TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.

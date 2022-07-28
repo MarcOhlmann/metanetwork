@@ -18,7 +18,10 @@ object of class 'metanetwork' with a node attribude \code{TL}
 \code{NULL}
 }
 \description{
-Compute trophic levels using graph laplacian
+Compute trophic levels using graph Laplacian using the method described in:
+}
+\details{
+\eqn{Lx = v}
 }
 \examples{
 library(metanetwork)

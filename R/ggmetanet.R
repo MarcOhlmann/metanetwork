@@ -86,6 +86,7 @@ ggnet.default = list(
   palette = "Set2",
   default.color = "grey75",
   legend.position = "bottom",
+  legend.big.nets = T,
   img_PATH = NULL)
 
 class(ggnet.default) = 'metanetwork_config'
@@ -798,9 +799,11 @@ assign_shapes_colors <- function(color_loc,metanetwork,g,legend,
   # print(colors_loc_nodes)
   #plot legend if resolution of the current network is different than legend
   if(g$res != legend){
-    p  = plot_legend(shapes_loc,colors_loc,metanetwork,
-                     legend,order_colors,ggnet.config)
-    plot(p)
+    if(ggnet.config$legend.big.nets){
+      p  = plot_legend(shapes_loc,colors_loc,metanetwork,
+                       legend,order_colors,ggnet.config)
+      plot(p) 
+    }
   }
   return(list(shapes = shapes_loc_nodes,
               colors = colors_loc_nodes))

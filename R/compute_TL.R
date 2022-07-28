@@ -80,7 +80,10 @@ compute_TL_laplacian <- function(G,metanetwork){
 
 #' compute trophic levels
 #'
-#' Compute trophic levels using graph laplacian
+#' Compute trophic levels using graph Laplacian using the method described in:
+#' 
+#' 
+#' \eqn{Lx = v}
 #'
 #' @param metanetwork object of class 'metanetwork'
 #' @return object of class 'metanetwork' with a node attribude \code{TL}
