@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Metaweb of European vertebrates analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-07-26</h4>
+            <h4 data-toc-skip class="date">2022-07-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/vertebrates.Rmd" class="external-link"><code>vignettes/vertebrates.Rmd</code></a></small>
       <div class="hidden name"><code>vertebrates.Rmd</code></div>
@@ -99,7 +99,7 @@
 <div class="section level2">
 <h2 id="the-european-vertebrates-data-set">The European vertebrates data set<a class="anchor" aria-label="anchor" href="#the-european-vertebrates-data-set"></a>
 </h2>
-<p>Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from Maiorano et al. 2020 and O’Connor et al. 2020. It contains <span class="math inline">\(1122\)</span> vertebrate species (birds, mammals, amphibians and reptiles) and <span class="math inline">\(49883\)</span> expert-knowledge potential interactions. O’Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see Daudin et al.). This method inferred <span class="math inline">\(46\)</span> species groups. We also have classification of species in <span class="math inline">\(4\)</span> classes (Amphibians, Birds, Mammals and Reptiles).</p>
+<p>Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from <em>Maiorano et al. 2020</em> and <em>O’Connor et al. 2020</em>. It contains <span class="math inline">\(1122\)</span> vertebrate species (birds, mammals, amphibians and reptiles) and <span class="math inline">\(49883\)</span> expert-knowledge potential interactions. O’Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see <em>Daudin et al. 2008</em>). This method inferred <span class="math inline">\(46\)</span> species groups. We also have classification of species in <span class="math inline">\(4\)</span> classes (Amphibians, Birds, Mammals and Reptiles).</p>
 <p>In this vignette, we aim at representing this large network using SBM groups.</p>
 </div>
 <div class="section level2">
@@ -148,20 +148,32 @@
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">TL</span><span class="op">)</span>, y<span class="op">=</span><span class="va">TL</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/distrib%20TL-2.png" alt=""><p class="caption">plot of chunk distrib TL</p>
-</div>
-<p>We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels. It is a finer scale than the class level.</p>
+<p><img src="figure/distrib%20TL-2.png" alt="plot of chunk distrib TL"> We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels. It is a finer scale than the class level. We then represent the group composition in terms of classes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">TL_df_mean</span> <span class="op">=</span> <span class="va">TL_df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu">summarise</span><span class="op">(</span><span class="fu">across</span><span class="op">(</span><span class="va">TL</span>, <span class="va">mean</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">TL_df_mean</span><span class="op">)</span> <span class="op">=</span> <span class="va">TL_df_mean</span><span class="op">$</span><span class="va">group</span></span>
+<span></span>
+<span><span class="va">TL_df_agg</span> <span class="op">=</span> <span class="va">TL_df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">count</a></span><span class="op">(</span><span class="va">group</span>,<span class="va">class</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
+<span>            <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>TL <span class="op">=</span> <span class="va">TL_df_mean</span><span class="op">[</span><span class="va">group</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">TL_df_agg</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill<span class="op">=</span><span class="va">class</span>, y<span class="op">=</span><span class="va">n</span>, x<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/stats/reorder.factor.html" class="external-link">reorder</a></span><span class="op">(</span><span class="va">group</span>, <span class="va">TL</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>position<span class="op">=</span><span class="st">"stack"</span>, stat<span class="op">=</span><span class="st">"identity"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="figure/compo-1.png" alt="plot of chunk compo"> We see that groups are getting smaller when their mean trophic level increases. Moreover, SMB groups are relatively well separated trough classes.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this group contains several eagles species</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">17</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "Accipiter_gentilis"   "Aquila_adalberti"     "Aquila_clanga"        "Aquila_heliaca"       "Hieraaetus_fasciatus" "Lynx_lynx"           </span></span>
 <span><span class="co">## [7] "Hyaena_hyaena"</span></span></code></pre>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#single group made of eagle-owl only</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">46</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "Bubo_bubo"</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this one contain wolf and fox</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">42</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "Canis_lupus"   "Vulpes_vulpes"</span></span></code></pre>
@@ -175,7 +187,7 @@
 <h3 id="representation-at-the-sbm-level">Representation at the SBM level<a class="anchor" aria-label="anchor" href="#representation-at-the-sbm-level"></a>
 </h3>
 <p>Using <code>ggmetanet</code> and the precomputed layout for <code>beta = 0.005</code>, we first represent the web at the SBM group level</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
 <span></span>
 <span><span class="co">#custom ggnet parameters</span></span>
@@ -194,7 +206,7 @@
 <img src="figure/SBM%20level-1.png" alt=""><p class="caption">plot of chunk SBM level</p>
 </div>
 <p>To compute layout for another <span class="math inline">\(\beta\)</span> value, you can do:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span>
 <span></span>
 <span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,<span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span>, beta <span class="op">=</span> <span class="va">beta</span><span class="op">)</span></span>
@@ -210,18 +222,22 @@
 <span>          beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,</span>
 <span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="va">net_groups2</span></span></code></pre></div>
-<p><img src="figure/SBM%20level%202-1.png" alt="plot of chunk SBM level 2"> The <code>attach_layout</code> method allows storing computed layout as node attribute</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="figure">
+<img src="figure/SBM%20level%202-1.png" alt=""><p class="caption">plot of chunk SBM level 2</p>
+</div>
+<p>The <code>attach_layout</code> method allows storing computed layout as node attribute</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#get computed layout names on metaweb_group</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "name"              "ab"                "TL"                "layout_beta0.008"  "layout_beta0.004"  "layout_beta0.005"  "layout_beta0.0035"</span></span></code></pre>
 </div>
 <div class="section level3">
-<h3 id="group-tl-tsne-layout">‘group-TL-tsne’ layout<a class="anchor" aria-label="anchor" href="#group-tl-tsne-layout"></a>
+<h3 id="group-tl-tsne-layout">
+<code>'group-TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#group-tl-tsne-layout"></a>
 </h3>
 <p>To represent the metaweb at the species level, we do not compute ‘TL-tsne’ at the species level. Instead, we mix the layout computed at SBM level and a regular <code>igraph</code> layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires <code>'TL-tsne'</code> layout computation at the SBM level instead of computing it in higher dimension at the species level.</p>
 <p>We call this layout <code>'group-TL-tsne'</code>.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
 <span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">F</span></span>
@@ -238,13 +254,13 @@
 <div class="figure">
 <img src="figure/group-layout-1.png" alt=""><p class="caption">plot of chunk group-layout</p>
 </div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_group_layout</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/group-layout-2.png" alt=""><p class="caption">plot of chunk group-layout</p>
 </div>
 <p>Since the number of groups is large (<span class="math inline">\(46\)</span>), <code>metanetwork</code> builds a legend containing shapes and colors. <span class="math inline">\(4\)</span> different shape types are ordered along the trophic level axis. By doing so, basal species groups have the same shapes (squares and big circles here). Colors are ordered along the second axis. Moreover, we use ‘phylopic’ silhouettes to illustrate each group. We choose a representative species for each group (see <code>vignettes/silouhette_metaweb_europe</code> folder for silhouettes and phylopic credits) and <code>metanetwork</code> builds the legend using <code>ggimage</code> package.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span>
 <span><span class="co">#attaching `group-TL-tsne` for beta = 0.0035, must provide resolution for the groups</span></span>
 <span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,<span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb</span>,<span class="va">beta</span>,</span>
@@ -255,7 +271,7 @@
 <div class="figure">
 <img src="figure/group-layout2-1.png" alt=""><p class="caption">plot of chunk group-layout2</p>
 </div>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">net_group_layout2</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/group-layout2-2.png" alt=""><p class="caption">plot of chunk group-layout2</p>
@@ -263,18 +279,22 @@
 <p>The legend is different from the previous plot due to stochasticity of <code>'TL-tsne</code> layout. However, since trophic level is fixed, shapes remain the same.</p>
 </div>
 <div class="section level3">
-<h3 id="tl-tsne-layout">‘TL-tsne’ layout<a class="anchor" aria-label="anchor" href="#tl-tsne-layout"></a>
+<h3 id="tl-tsne-layout">
+<code>'TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#tl-tsne-layout"></a>
 </h3>
-<p>We represent here the web at species level using <code>'TL-tsne'</code> layout. We do not recommand to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<p>We represent here the web at species level using <code>'TL-tsne'</code> layout. We do not recommend to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">4e-06</span></span>
 <span></span>
-<span><span class="co">#add images in the legend (if NULL, legend will represent group names only)</span></span>
+<span><span class="co">#remove legend plot</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">legend.big.nets</span> <span class="op">=</span> <span class="cn">F</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">img_PATH</span> <span class="op">=</span> <span class="cn">NULL</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>, mode <span class="op">=</span> <span class="st">'TL-tsne'</span>,</span>
 <span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,flip_coords <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/TL-tsne%20species-1.png" alt="plot of chunk TL-tsne species"><img src="figure/TL-tsne%20species-2.png" alt="plot of chunk TL-tsne species"></p>
+<div class="figure">
+<img src="figure/TL-tsne%20species-1.png" alt=""><p class="caption">plot of chunk TL-tsne species</p>
+</div>
 <p>It highlights the fact that basal species groups are not well separated on the <code>TL-tsne</code> axis.</p>
 </div>
 </div>
@@ -286,7 +306,7 @@
 <code>group-TL-tsne</code> configuration<a class="anchor" aria-label="anchor" href="#group-tl-tsne-configuration"></a>
 </h3>
 <p>If the mean position of groups in <code>'group-TL-tsne'</code> layout is fixed, a configuration object allows controlling for height and width of the groups in the same way than <code>ggnet.config</code>.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span>
 <span></span>
 <span><span class="co"># group-layout config</span></span>
@@ -301,14 +321,10 @@
 <span>                          group_layout.config <span class="op">=</span> <span class="va">group_layout.custom</span><span class="op">)</span></span>
 <span><span class="co">#representing it</span></span>
 <span><span class="va">net_group_layout3</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
-<span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
+<span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span>
+<span><span class="va">net_group_layout3</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/group%20config-1.png" alt=""><p class="caption">plot of chunk group config</p>
-</div>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">net_group_layout3</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/group%20config-2.png" alt=""><p class="caption">plot of chunk group config</p>
 </div>
 </div>
 <div class="section level3">
@@ -318,25 +334,61 @@
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
 <span><span class="va">mammals_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Mammal"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">net_group_layout4</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">F</span></span>
+<span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
+<span><span class="va">net_mammals</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
 <span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,</span>
 <span>                                alpha_per_node <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nodes <span class="op">=</span> <span class="va">mammals_names</span>,</span>
 <span>                                                      alpha_focal <span class="op">=</span> <span class="fl">0.8</span>,</span>
-<span>                                                      alpha_hidden <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>                                                      alpha_hidden <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Mammals"</span><span class="op">)</span></span>
+<span><span class="va">net_mammals</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/mammals-1.png" alt=""><p class="caption">plot of chunk mammals</p>
 </div>
+<p>Similarly, we represent the metaweb of birds, amphibians and reptiles (with the same layout) and represent them on the same plot</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">net_group_layout4</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">bird_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Bird"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">net_birds</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
+<span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,</span>
+<span>                                alpha_per_node <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nodes <span class="op">=</span> <span class="va">bird_names</span>,</span>
+<span>                                                      alpha_focal <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>                                                      alpha_hidden <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Birds"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">amphibian_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Amphibian"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">net_amphibians</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
+<span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,</span>
+<span>                                alpha_per_node <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nodes <span class="op">=</span> <span class="va">amphibian_names</span>,</span>
+<span>                                                      alpha_focal <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>                                                      alpha_hidden <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Amphibians"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">reptile_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Reptile"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="va">net_reptiles</span> <span class="op">=</span> <span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span>
+<span>                              beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,</span>
+<span>                                alpha_per_node <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nodes <span class="op">=</span> <span class="va">reptile_names</span>,</span>
+<span>                                                      alpha_focal <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>                                                      alpha_hidden <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>              <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Reptiles"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nets_all</span> <span class="op">=</span> <span class="fu">gridExtra</span><span class="fu">::</span><span class="fu">grid.arrange</span><span class="op">(</span><span class="va">net_mammals</span>,<span class="va">net_birds</span>,</span>
+<span>                                   <span class="va">net_amphibians</span>,<span class="va">net_reptiles</span>,nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/mammals-2.png" alt=""><p class="caption">plot of chunk mammals</p>
+<img src="figure/grid-1.png" alt=""><p class="caption">plot of chunk grid</p>
 </div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
+<p>Daudin, J. J., Picard, F., &amp; Robin, S. (2008). A mixture model for random graphs. Statistics and computing, 18(2), 173-183.</p>
 <p>Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., &amp; Thuiller, W. (2020). TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.</p>
 <p>O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., … &amp; Thuiller, W. (2020). Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.</p>
 </div>
