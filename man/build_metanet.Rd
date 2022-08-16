@@ -13,9 +13,9 @@ build_metanet(
 }
 \arguments{
 \item{metaweb}{metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
-Metaweb needs to be directed and connected. This parameter must be non-null.}
+Metaweb needs to be directed and connected. This argument must be non-null.}
 
-\item{abTable}{abundances of nodes in local networks, matrix of class 'matrix',
+\item{abTable}{node abundances in local networks, matrix of class 'matrix',
 columns must have names corresponding to node labels of the metaweb,
 rows are node abundances in local networks.
 Default is null, in that case, uniform abundances are assigned}
@@ -39,11 +39,13 @@ library(igraph)
 #with a single metaweb
 g = igraph::make_ring(5,directed = TRUE)
 meta = build_metanet(g)
+
 #on Angola dataset (re-building the dataset)
-data(meta_angola)
+data("meta_angola")
 metaweb = meta_angola$metaweb
 abTable = meta_angola$abTable
 trophicTable = meta_angola$trophicTable 
 meta_angola = build_metanet(metaweb,abTable,trophicTable)
+print(meta_angola)
 
 }

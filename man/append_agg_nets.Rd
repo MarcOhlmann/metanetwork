@@ -18,12 +18,23 @@ object of class 'metanetwork'
 \code{NULL}
 }
 \description{
-Method to append aggregated metawebs and aggregated local networks using
-the hierarchy describes in \code{trophicTable}
+Method to append aggregated metawebs and local networks using
+the hierarchy described in \code{trophicTable}
+}
+\details{
+It uses the network aggregation method developed in Ohlmann et al. 2019.
+It computes group abundances and edge probabilities of the aggregated networks.
 }
 \examples{
 library(metanetwork)
 data(meta_angola)
-append_agg_nets(meta_angola)
-
+meta_angola = append_agg_nets(meta_angola)
+names(meta_angola)
+}
+\references{
+Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O connor, L., & Thuiller, W. 2019.
+Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22 4 , 737-747.
+}
+\seealso{
+\code{\link[=plot_trophicTable]{plot_trophicTable()}}
 }

@@ -18,10 +18,17 @@ object of class 'metanetwork' with a node attribude \code{TL}
 \code{NULL}
 }
 \description{
-Compute trophic levels using graph Laplacian using the method described in:
+Method to compute trophic levels using graph Laplacian using the method described in MacKay et al 2020.
 }
 \details{
-\eqn{Lx = v}
+Let \eqn{A} be the adjacency matrix of the considered network and \eqn{D} its degree diagonal matrix.
+The Laplacian matrix of the symmetrised network is defined by:
+\deqn{L = D - A - t(A)}
+With \eqn{v = indegree(G) - outdegree(G)} the imbalance degree vector, the trophic level \eqn{x} is defined as the solution of:
+\deqn{Lx = v}
+For a connected network, the solution is unique up to a translation.
+We then fix the minimum trophic level value at 0 thus fixing trophic levels of all others species. \n
+Local networks may be disconnected due to sampling effect. In that case, we fix the mininmum value on each connected component.
 }
 \examples{
 library(metanetwork)
@@ -32,4 +39,7 @@ data(meta_angola)
 meta_angola  = compute_TL(meta_angola)
 V(meta_angola$metaweb)$TL
 
+}
+\references{
+MacKay, R. S., Johnson, S., & Sansom, B. (2020). How directed is a directed network?. Royal Society open science, 7(9), 201138.
 }

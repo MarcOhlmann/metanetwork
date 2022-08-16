@@ -32,14 +32,12 @@ diff_plot(
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
-\item{mode}{mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'}
-
 \item{vis_tool}{a character indicating the visualisation tool, either 'ggnet' or visNetwork}
 
 \item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}
 
 \item{layout_metaweb}{a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
-to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}}
+to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}}
 
 \item{flip_coords}{a boolean indicating wheter coordinates should be flipped.
 In that case, y-axis is the trophic level and x-axis is the layout axis}

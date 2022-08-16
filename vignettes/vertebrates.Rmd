@@ -72,6 +72,7 @@ TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
 
 TL_df$TL = as.numeric(TL_df$TL)
 
+#boxplot of trophic levels through Classes
 ggplot(TL_df, aes(x=class, y=TL)) +
   geom_boxplot() + theme_classic()
 ```
@@ -79,9 +80,11 @@ ggplot(TL_df, aes(x=class, y=TL)) +
 ![plot of chunk distrib TL](figure/distrib TL-1.png)
 
 ```r
+#boxplot of trophic levels through SBM groups
 ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
   geom_boxplot() + theme_classic() + xlab("group") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        text = element_text(size = 15))
 ```
 
 ![plot of chunk distrib TL](figure/distrib TL-2.png)
@@ -91,8 +94,8 @@ We then represent the group composition in terms of classes.
 
 ```r
 TL_df_mean = TL_df %>% 
-  group_by(group) %>%
-  summarise(across(TL, mean, na.rm = TRUE)) %>%
+  dplyr::group_by(group) %>%
+  dplyr::summarise(dplyr::across(TL, mean, na.rm = TRUE)) %>%
   as.data.frame()
 
 rownames(TL_df_mean) = TL_df_mean$group
@@ -102,7 +105,9 @@ TL_df_agg = TL_df %>% dplyr::count(group,class) %>%
 
 ggplot(TL_df_agg, aes(fill=class, y=n, x=reorder(group, TL))) + 
   geom_bar(position="stack", stat="identity") + theme_classic() + xlab("group") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) + ylab("count")
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        text = element_text(size = 15)) +
+  ylab("count")
 ```
 
 ![plot of chunk compo](figure/compo-1.png)
@@ -316,7 +321,7 @@ ggnet.custom$label.size = 2
 net_mammals = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom,
                                 alpha_per_node = list(nodes = mammals_names,
-                                                      alpha_focal = 0.8,
+                                                      alpha_focal = 0.7,
                                                       alpha_hidden = 0.1)) +
               ggtitle("Mammals")
 net_mammals
@@ -334,7 +339,7 @@ bird_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Bird"))
 net_birds = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom,
                                 alpha_per_node = list(nodes = bird_names,
-                                                      alpha_focal = 0.8,
+                                                      alpha_focal = 0.7,
                                                       alpha_hidden = 0.1)) + 
               ggtitle("Birds")
 ```
@@ -347,7 +352,7 @@ amphibian_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Amphibian"))
 net_amphibians = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom,
                                 alpha_per_node = list(nodes = amphibian_names,
-                                                      alpha_focal = 0.8,
+                                                      alpha_focal = 0.7,
                                                       alpha_hidden = 0.1)) +
               ggtitle("Amphibians")
 ```
@@ -360,7 +365,7 @@ reptile_names = names(which(meta_vrtb$trophicTable[,"Class"] == "Reptile"))
 net_reptiles = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
                               beta = beta,legend = "group",ggnet.config = ggnet.custom,
                                 alpha_per_node = list(nodes = reptile_names,
-                                                      alpha_focal = 0.8,
+                                                      alpha_focal = 0.7,
                                                       alpha_hidden = 0.1)) +
               ggtitle("Reptiles")
 ```

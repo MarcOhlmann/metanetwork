@@ -344,25 +344,53 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 }
   
 
-#' compute and attach 'TL-tsne' layouts
+#' compute and attach metanetwork layouts
 #'
-#' Method to compute 'TL-tsne' layout and save it as node attributes of the focal network. Each node of the focal network has an attribute \code{layout_beta_VALUE}.
-#' If this function is run several times for a given beta value, repetitions of the layout algorithm will be stored as node attributes
+#' Method to compute `'TL-tsne'` and `'group-TL-tsne'` layouts and save it as node attributes of the focal network.
+#' 
+#' The `'TL-tsne'` layout is a diffusion based layout algorithm specifically designed for trophic networks.
+#' In metanetwork, first axis is the trophic level (see `compute_TL` method) whereas the second axis is computed using a diffusion graph kernel (Kondor & Lafferty 2002) 
+#' and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package). \n
+#' Let \eqn{A} be the adjacency matrix of the considered network and \eqn{D} its degree diagonal matrix. 
+#' The Laplacian matrix of the symmetrised network is defined by: 
+#' 
+#' \deqn{L = D - A - t(A)}
+#' 
+#' The diffusion graph kernel is:
+#' 
+#' \deqn{K = exp(-beta*L)}
+#' 
+#' It is a similarity matrix between nodes according to a diffusion process. `beta` is the diffusion constant,it must be provided by the user.
+#' `beta` parameter influences the layout by grouping together similar paths (see `pyramid` vignette).
+#' Each node of the focal network has an attribute \code{layout_beta_VALUE}.
+#' If this function is run several times for a given beta value, repetitions of the layout algorithm will be stored as node attributes.
+#' 
+#' The `'group-TL-tsne'` layout is a variation of `'TL-tsne` layout. For a focal network, it mixes `'TL-tsne'` layout at the desired aggregated level
+#' with the `layout_with_graphopt` function from `igraph`. It clusters nodes belonging to the same group. 
+#' `'group-TL-tsne'` layout is recommended for large networks since you only need to compute `'TL-tsne'` at the aggregated network
+#'  that is much smaller than the focal network. `group_layout.config` allows controlling the overall size of the groups.
 #'
 #' @param metanetwork object of class 'metanetwork'
 #' @param g character indicating the name of the network for which the 'TL-tsne' layout is computed,
 #'  default is 'metaweb'
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
-#' squeezing of the network
-#' @param mode 'TL-tsne' or 'group-TL-tsne'
+#' squeezing of the network, default is 0.1
+#' @param mode 'TL-tsne' or 'group-TL-tsne', default is 'TL-tsne'.
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
+#' @param group_layout.config configuration list for mode 'group-TL-tsne', default is group_layout.default
 #' @return 'metanetwork' object with layout added as node attribute of the considered network
+#' 
+#' @seealso [ggmetanet()], [vismetaNetwork()]
+#'
+#' @references Kondor, R. I., & Lafferty, J. (2002, July). Diffusion kernels on graphs and other discrete structures.
+#'  In Proceedings of the 19th international conference on machine learning (Vol. 2002, pp. 315-322). 
+#'  Van der Maaten, L., & Hinton, G. (2008). Visualizing data using t-SNE. Journal of machine learning research, 9(11).
 #'
 #' @examples
 #' library(metanetwork)
 #' library(igraph)
 #' # on angola dataset (metaweb)
-#' data(meta_angola)
+#' data("meta_angola")
 #' meta_angola = attach_layout(meta_angola,beta = 0.05)
 #' V(meta_angola$metaweb)$layout_beta0.05
 #' # on a local network
@@ -372,7 +400,16 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' meta_angola = attach_layout(meta_angola,beta = 0.05)
 #' V(meta_angola$metaweb)$layout_beta0.05
 #' V(meta_angola$metaweb)$layout_beta0.05_1
-#'
+#' 
+#' 
+#' # attaching 'group-TL-tsne' layout on norway dataset
+#' data("meta_norway")
+#' ## attach 'TL-tsne layout at the desired aggregated level
+#' meta_norway = append_agg_nets(meta_norway) %>% 
+#'               compute_TL()
+#'meta_norway = attach_layout(meta_norway,meta_norway$metaweb_trophic_class,beta = 0.1)
+#' ## attach 'group-TL-tsne layout'
+#' meta_norway = attach_layout(meta_norway,mode = "group-TL-tsne",res = "trophic_class",beta = 0.1)
 #' @export
 attach_layout <- function(metanetwork,g = NULL,beta = 0.1,
                           mode = 'TL-tsne',TL_tsne.config = TL_tsne.default,
@@ -390,12 +427,20 @@ attach_layout.metanetwork <- function(metanetwork,g = NULL,beta = 0.1,
   if(is.null(g)){
     g = metanetwork$metaweb
   }
+  if(is.null(igraph::V(g)$TL)){
+    stop("you must compute trophic levels first, see compute_TL")  
+  }
   if(is.null(res)){
     message(paste0("attaching ",mode," layout for ",g$name,"_",g$res,"\n
                   beta = ",beta))
   }else{
-    message(paste0("attaching ",mode," layout for ",g$name, " at resolution: ",res,"\n
+    if(!(res %in% colnames(metanetwork$trophicTable))){
+      stop(paste0("res must be one the the available resolutions:",
+                  paste(colnames(metanetwork$trophicTable),collapse = ' ')))
+    }else{
+      message(paste0("attaching ",mode," layout for ",g$name, " at resolution: ",res,"\n
                   beta = ",beta))
+    }
   }
 
   #simplify the network (remove self loops)

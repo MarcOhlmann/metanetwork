@@ -23,11 +23,11 @@
 #' @param g2 network (of class 'igraph') of metanetwork
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network
-#' @param mode mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'
+#' @param mode mode used for layout, either 'TL-tsne' or 'group-TL-tsne' (see \code{attach_layout()). Default is 'TL-tsne'
 #' @param vis_tool a character indicating the visualisation tool, either 'ggnet' or visNetwork
 #' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
-#' to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
+#' to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb 
 #' (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}
 #' @param flip_coords a boolean indicating wheter coordinates should be flipped. 
@@ -92,7 +92,7 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
     stop("metanetwork is an object of class metanetwork, see build_metanet")
   }
   message(paste0("mode is ",mode))
-  if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle'))){
+  if(!(mode %in% c('TL-tsne','group-TL-tsne','TL-kpco','fr','kk','circle'))){
     stop("mode must be one of: \n
          'TL-tsne','TL-kpco','fr','kk','circle")
   }
@@ -172,18 +172,38 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
         names(metaweb_TL) = igraph::V(current_metaweb)$name
         igraph::V(metanetwork_diff$metaweb)$TL =
           metaweb_TL[igraph::V(metanetwork_diff$metaweb)$name]
-        layout_loc = igraph::get.vertex.attribute(graph = current_metaweb,
-                                                  name = paste0("layout_beta",beta))
-        names(layout_loc) = V(current_metaweb)$name
-        metanetwork_diff$metaweb =  
-          igraph::set_vertex_attr(graph = metanetwork_diff$metaweb,
-                                                            name = paste0("layout_beta",beta),
-                                                            value = layout_loc[V(metanetwork_diff$metaweb)$name])
+        if(mode == "TL-tsne"){
+          layout_loc = igraph::get.vertex.attribute(graph = current_metaweb,
+                                                    name = paste0("layout_beta",beta))
+          names(layout_loc) = V(current_metaweb)$name
+          metanetwork_diff$metaweb =  
+            igraph::set_vertex_attr(graph = metanetwork_diff$metaweb,
+                                    name = paste0("layout_beta",beta),
+                                    value = layout_loc[V(metanetwork_diff$metaweb)$name])
+        } else if(mode == "group-TL-tsne"){
+          layout_loc = sapply(c("x","y"),
+                              function(k) igraph::get.vertex.attribute(graph = current_metaweb,
+                                                                       name = paste0("group_layout_",k,"_beta",beta)))
+          rownames(layout_loc) = V(current_metaweb)$name
+          metanetwork_diff$metaweb =  
+            igraph::set_vertex_attr(graph = metanetwork_diff$metaweb,
+                                    name = paste0("group_layout_x_beta",beta),
+                                    value = layout_loc[V(metanetwork_diff$metaweb)$name,"x"]) 
+          metanetwork_diff$metaweb =  
+            igraph::set_vertex_attr(graph = metanetwork_diff$metaweb,
+                                    name = paste0("group_layout_y_beta",beta),
+                                    value = layout_loc[V(metanetwork_diff$metaweb)$name,"y"])
+        }
+
         }
       } else{
         #compute trophic level of the difference network if layout_metaweb = F
-        igraph::V(metanetwork_diff$metaweb)$TL = compute_TL_diff(metanetwork_diff,metanetwork)
-      }
+        if(mode == "TL-tsne"){
+          igraph::V(metanetwork_diff$metaweb)$TL = compute_TL_diff(metanetwork_diff,metanetwork)
+        } else if(mode == "group-TL-tsne"){
+          stop("to use 'group-TL-tsne' layout, you need to set metaweb_layout = T")
+        }
+      } 
       if(is.null(g1$res)){
         message(paste0('plotting: ',g1$name,' - ',g2$name))
       }else{message(paste0('plotting: ',g1$name,'_',g1$res,' - ',g2$name,'_',g2$res))}

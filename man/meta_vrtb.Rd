@@ -8,7 +8,7 @@ metanetwork built using data from:
 O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., ... & Thuiller, W. (2020).
 Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.
 and
-Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., & Thuiller, W. (2020).
+Maiorano, L., Montemaggiori, A., Ficetola, G. F., O connor, L., & Thuiller, W. (2020).
 TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.}
 \format{
 \describe{
@@ -30,7 +30,7 @@ metanetwork built using data from:
 O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., ... & Thuiller, W. (2020).
 Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.
 and
-Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., & Thuiller, W. (2020).
+Maiorano, L., Montemaggiori, A., Ficetola, G. F., O connor, L., & Thuiller, W. (2020).
 TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.
 }
 \keyword{datasets}

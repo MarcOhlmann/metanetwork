@@ -3,7 +3,7 @@
 \name{attach_layout}
 \alias{attach_layout}
 \alias{attach_layout.metanetwork}
-\title{compute and attach 'TL-tsne' layouts}
+\title{compute and attach metanetwork layouts}
 \usage{
 attach_layout(
   metanetwork,
@@ -32,11 +32,13 @@ attach_layout(
 default is 'metaweb'}
 
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
-squeezing of the network}
+squeezing of the network, default is 0.1}
 
-\item{mode}{'TL-tsne' or 'group-TL-tsne'}
+\item{mode}{'TL-tsne' or 'group-TL-tsne', default is 'TL-tsne'.}
 
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
+
+\item{group_layout.config}{configuration list for mode 'group-TL-tsne', default is group_layout.default}
 }
 \value{
 'metanetwork' object with layout added as node attribute of the considered network
@@ -44,14 +46,36 @@ squeezing of the network}
 \code{NULL}
 }
 \description{
-Method to compute 'TL-tsne' layout and save it as node attributes of the focal network. Each node of the focal network has an attribute \code{layout_beta_VALUE}.
-If this function is run several times for a given beta value, repetitions of the layout algorithm will be stored as node attributes
+Method to compute \code{'TL-tsne'} and \code{'group-TL-tsne'} layouts and save it as node attributes of the focal network.
+}
+\details{
+The \code{'TL-tsne'} layout is a diffusion based layout algorithm specifically designed for trophic networks.
+In metanetwork, first axis is the trophic level (see \code{compute_TL} method) whereas the second axis is computed using a diffusion graph kernel (Kondor & Lafferty 2002)
+and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package). \n
+Let \eqn{A} be the adjacency matrix of the considered network and \eqn{D} its degree diagonal matrix.
+The Laplacian matrix of the symmetrised network is defined by:
+
+\deqn{L = D - A - t(A)}
+
+The diffusion graph kernel is:
+
+\deqn{K = exp(-beta*L)}
+
+It is a similarity matrix between nodes according to a diffusion process. \code{beta} is the diffusion constant,it must be provided by the user.
+\code{beta} parameter influences the layout by grouping together similar paths (see \code{pyramid} vignette).
+Each node of the focal network has an attribute \code{layout_beta_VALUE}.
+If this function is run several times for a given beta value, repetitions of the layout algorithm will be stored as node attributes.
+
+The \code{'group-TL-tsne'} layout is a variation of \verb{'TL-tsne} layout. For a focal network, it mixes \code{'TL-tsne'} layout at the desired aggregated level
+with the \code{layout_with_graphopt} function from \code{igraph}. It clusters nodes belonging to the same group.
+\code{'group-TL-tsne'} layout is recommended for large networks since you only need to compute \code{'TL-tsne'} at the aggregated network
+that is much smaller than the focal network. \code{group_layout.config} allows controlling the overall size of the groups.
 }
 \examples{
 library(metanetwork)
 library(igraph)
 # on angola dataset (metaweb)
-data(meta_angola)
+data("meta_angola")
 meta_angola = attach_layout(meta_angola,beta = 0.05)
 V(meta_angola$metaweb)$layout_beta0.05
 # on a local network
@@ -62,4 +86,21 @@ meta_angola = attach_layout(meta_angola,beta = 0.05)
 V(meta_angola$metaweb)$layout_beta0.05
 V(meta_angola$metaweb)$layout_beta0.05_1
 
+
+# attaching 'group-TL-tsne' layout on norway dataset
+data("meta_norway")
+## attach 'TL-tsne layout at the desired aggregated level
+meta_norway = append_agg_nets(meta_norway) \%>\% 
+              compute_TL()
+meta_norway = attach_layout(meta_norway,meta_norway$metaweb_trophic_class,beta = 0.1)
+## attach 'group-TL-tsne layout'
+meta_norway = attach_layout(meta_norway,mode = "group-TL-tsne",res = "trophic_class",beta = 0.1)
+}
+\references{
+Kondor, R. I., & Lafferty, J. (2002, July). Diffusion kernels on graphs and other discrete structures.
+In Proceedings of the 19th international conference on machine learning (Vol. 2002, pp. 315-322).
+Van der Maaten, L., & Hinton, G. (2008). Visualizing data using t-SNE. Journal of machine learning research, 9(11).
+}
+\seealso{
+\code{\link[=ggmetanet]{ggmetanet()}}, \code{\link[=vismetaNetwork]{vismetaNetwork()}}
 }
