@@ -81,11 +81,11 @@
     <h2>Arguments</h2>
     <dl><dt>metaweb</dt>
 <dd><p>metaweb of the metanetwork, object of class 'graph', 'matrix', 'data.frame' or 'dgCMatrix'.
-Metaweb needs to be directed and connected. This parameter must be non-null.</p></dd>
+Metaweb needs to be directed and connected. This argument must be non-null.</p></dd>
 
 
 <dt>abTable</dt>
-<dd><p>abundances of nodes in local networks, matrix of class 'matrix',
+<dd><p>node abundances in local networks, matrix of class 'matrix',
 columns must have names corresponding to node labels of the metaweb,
 rows are node abundances in local networks.
 Default is null, in that case, uniform abundances are assigned</p></dd>
@@ -117,12 +117,18 @@ Default is <code>TRUE</code></p></dd>
 <span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_ring.html" class="external-link">make_ring</a></span><span class="op">(</span><span class="fl">5</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">meta</span> <span class="op">=</span> <span class="fu">build_metanet</span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#on Angola dataset (re-building the dataset)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_angola"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">metaweb</span> <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span></span></span>
 <span class="r-in"><span><span class="va">abTable</span> <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">abTable</span></span></span>
 <span class="r-in"><span><span class="va">trophicTable</span> <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">trophicTable</span> </span></span>
 <span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">build_metanet</span><span class="op">(</span><span class="va">metaweb</span>,<span class="va">abTable</span>,<span class="va">trophicTable</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="print.html">print</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> object of class metanetwork</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> metaweb has 28 nodes and 127 edges </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 local networks </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> available resolutions (not computed) are: Species Phylum </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
