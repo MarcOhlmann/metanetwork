@@ -205,7 +205,7 @@ The legend is different from the previous plot due to stochasticity of `'TL-tsne
 
 We represent here the web at species level using `'TL-tsne'` layout. We do not recommend to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.
 
-```{r TL-tsne species,fig.height = 8, fig.width = 8}
+```{r TL-tsne_species,fig.height = 8, fig.width = 8}
 beta = 4e-06
 
 #remove legend plot
@@ -225,7 +225,7 @@ It highlights the fact that basal species groups are not well separated on the `
 
 If the mean position of groups in `'group-TL-tsne'` layout is fixed, a configuration object allows controlling for height and width of the groups in the same way than `ggnet.config`.
 
-```{r group config,fig.height = 8, fig.width = 8}
+```{r group_config,fig.height = 8, fig.width = 8}
 beta = 0.0035
 
 # group-layout config
