@@ -276,7 +276,7 @@ ggmetanet(meta_vrtb,beta = beta,legend = "group", mode = 'TL-tsne',
           ggnet.config = ggnet.custom,flip_coords = T)
 ```
 
-![plot of chunk TL-tsne species](figure/TL-tsne species-1.png)
+![plot of chunk TL-tsne_species](figure/TL-tsne_species-1.png)
 
 It highlights the fact that basal species groups are not well separated on the `TL-tsne` axis. 
 
@@ -306,7 +306,7 @@ net_group_layout3 = ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
 net_group_layout3
 ```
 
-![plot of chunk group config](figure/group config-1.png)
+![plot of chunk group_config](figure/group_config-1.png)
 
 ### Playing on transparency
 
