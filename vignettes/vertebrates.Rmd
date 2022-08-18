@@ -1,7 +1,7 @@
 ---
 title: "Metaweb of European vertebrates analysis"
 author: "Marc Ohlmann"
-date: "2022-07-28"
+date: "2022-08-18"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -77,7 +77,7 @@ ggplot(TL_df, aes(x=class, y=TL)) +
   geom_boxplot() + theme_classic()
 ```
 
-![plot of chunk distrib TL](figure/distrib TL-1.png)
+![plot of chunk distrib_TL](figure/distrib_TL-1.png)
 
 ```r
 #boxplot of trophic levels through SBM groups
@@ -87,7 +87,7 @@ ggplot(TL_df, aes(x=reorder(group, TL), y=TL)) +
         text = element_text(size = 15))
 ```
 
-![plot of chunk distrib TL](figure/distrib TL-2.png)
+![plot of chunk distrib_TL](figure/distrib_TL-2.png)
 We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels. It is a finer scale than the class level. 
 We then represent the group composition in terms of classes.
 
@@ -169,7 +169,7 @@ net_groups = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
 net_groups
 ```
 
-![plot of chunk SBM level](figure/SBM level-1.png)
+![plot of chunk SBM_level](figure/SBM_level-1.png)
 
 To compute layout for another $\beta$ value, you can do:
 
@@ -191,7 +191,7 @@ net_groups2 = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
 net_groups2
 ```
 
-![plot of chunk SBM level 2](figure/SBM level 2-1.png)
+![plot of chunk SBM_level_2](figure/SBM_level_2-1.png)
 
 The `attach_layout` method allows storing computed layout as node attribute
 

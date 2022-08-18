@@ -45,7 +45,7 @@ print(meta_vrtb)
 
 To compute aggregated networks at the SBM group level and Class level, we use the `append_agg_nets` method.
 
-```{r append agg nets}
+```{r append_agg_nets}
 meta_vrtb = append_agg_nets(meta_vrtb)
 ```
 
@@ -59,7 +59,7 @@ meta_vrtb = compute_TL(meta_vrtb)
 
 We represent the distribution of trophic levels of the $4$ classes and $46$ SBM groups.
 
-```{r distrib TL,fig.height = 8, fig.width = 8}
+```{r distrib_TL,fig.height = 8, fig.width = 8}
 TL_df = cbind(name = V(meta_vrtb$metaweb)$name,
               TL = V(meta_vrtb$metaweb)$TL,
               group = meta_vrtb$trophicTable[V(meta_vrtb$metaweb),"group"],
@@ -118,7 +118,7 @@ In order to represent this large metaweb, we first represent the network at the 
 
 Using `ggmetanet` and the precomputed layout for `beta = 0.005`, we first represent the web at the SBM group level
 
-```{r SBM level,fig.height = 8, fig.width = 8}
+```{r SBM_level,fig.height = 8, fig.width = 8}
 beta = 0.005
 
 #custom ggnet parameters
@@ -136,7 +136,7 @@ net_groups
 ```
 
 To compute layout for another $\beta$ value, you can do:
-```{r SBM level 2,fig.height = 8, fig.width = 8}
+```{r SBM_level_2,fig.height = 8, fig.width = 8}
 beta = 0.0035
 
 meta_vrtb = attach_layout(meta_vrtb,meta_vrtb$metaweb_group, beta = beta)
@@ -156,7 +156,7 @@ net_groups2
 
 The `attach_layout` method allows storing computed layout as node attribute
 
-```{r SBM level 3,fig.height = 8, fig.width = 8}
+```{r SBM_level_3,fig.height = 8, fig.width = 8}
 #get computed layout names on metaweb_group
 vertex_attr_names(meta_vrtb$metaweb_group)
 ```
