@@ -78,6 +78,8 @@ ggmetanet(g = meta_angola$metaweb,beta = 0.04,legend = 'Phylum',metanetwork = me
 
 ### `diff_plot`
 
+To represent difference between local networks, use `diff_plot()` function.
+
 ```{r, message=F,warning=F}
 diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,beta = 0.04,metanetwork = meta_angola)
 ```

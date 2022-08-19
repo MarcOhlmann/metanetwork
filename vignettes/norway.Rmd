@@ -23,19 +23,18 @@ knitr::opts_chunk$set(
 
 ## Norway soil metanetwork data set 
 
-Norway soil metanetwork dataset was extracted from *Calderon-SAnou et al. 2021*. It consists in a soil expert knowledge metaweb with abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. It also contains a trophic table to analyse the network at different aggregation levels.
+Norway soil metanetwork dataset was extracted from *Calderon-SAnou et al. 2021*. It consists in a soil expert knowledge metaweb
+that contains $40$ tropho-functional groups and $204$ interactions. Tropho-functional groups have abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. This dataset also contains a trophic table that contains broader taxonomic and functional informations on groups.
+
+In this vignette, we aim at represent metaweb at different aggregation levels and compare local networks with layouts provided by 'metanetwork'.
+
+## Loading the dataset
 
 ```{r}
 library(metanetwork)
 library(igraph)
-```
 
-## Norway metanetwork object
-
-Norway soil dataset is lazy loaded in metanetwork. `meta_norway` consists in a object of class `metanetwork`.
-
-```{r}
-data(meta_norway)
+data("meta_norway")
 print(meta_norway)
 ```
 
@@ -52,12 +51,14 @@ plot_trophicTable(meta_norway,res = c('trophic_group','trophic_class'),ggnet.con
 
 ### `append_agg_nets` method
 
-The method `append_agg_nets` allows computing and appending aggregated networks (at the different available resolutions) to the current metanetwork.
+The method `append_agg_nets` allows computing and appending aggregated networks (at the different available resolutions shown by `plot_trophic_table`) to the current metanetwork.
 
 ```{r}
 meta_norway = append_agg_nets(meta_norway)
 print(meta_norway)
 ```
+
+## Represent the metaweb at several resolutions
 
 ### Representing aggregated networks, adding a legend to networks
 
@@ -65,19 +66,69 @@ Once computed, `ggmetanet` function allows representing aggregated networks and 
 
 ```{r, message = FALSE, warning = FALSE}
 meta_norway = compute_TL(meta_norway)
-ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.5,metanetwork = meta_norway)
+ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.2,metanetwork = meta_norway)
 ```
 
 Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.
 
 ```{r, message = FALSE, warning = FALSE}
 ggnet.custom = ggnet.default
-ggnet.custom$label.size = 1.5
+ggnet.custom$label.size = 2
 ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
 ```
 
-### `diff_plot`
+### Attaching layout
 
-```{r, message=F,warning=F}
+Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given $\beta$ value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed.
+`attach_layout` function allows saving computed layouts by attaching them as a node attribute.
+
+```{r}
+#attaching 'TL-tsne' layout to the metaweb
+meta_norway = attach_layout(metanetwork = meta_norway,beta = 0.006)
+ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
+
+#attaching 'TL-tsne' layout to metaweb at class level
+meta_norway = attach_layout(metanetwork = meta_norway,g = meta_norway$metaweb_trophic_class,beta = 0.006)
+ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.006,metanetwork = meta_norway)
+```
+### 'group-TL-tnse' layout
+
+A variation of `'TL-tsne'` layout consists in `'group-TL-tsne'` layout. It mixes `'TL-tsne'` and a regular `igraph` layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires `'TL-tsne'` layout computation at the aggregated level instead of computing it in higher dimension at the group level.
+`'group-TL-tsne'` layout is stored as node attribute.
+
+```{r}
+meta_norway = attach_layout(meta_norway,beta = 0.2,mode = "group-TL-tsne",res = "trophic_class")
+vertex_attr_names(meta_norway$metaweb)
+ggmetanet(meta_norway,beta = 0.2,mode = "group-TL-tsne",legend = "trophic_class",ggnet.config = ggnet.custom)
+```
+## Representing and comparing local networks
+
+`diff_plot` allows comparing local networks. Here, it provides a comparison between high and low disturbed sites by moth outbreaks.
+
+```{r, message=T,warning=F}
 diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = meta_norway)
 ```
+
+Here, a new 'TL-tsne' layout is computed.
+
+### Using metaweb layout
+
+In order to gain reproducibility and not to compute `'TL-tsne'` layout at each call, use argument `layout_metaweb = T` to represent the difference network with metaweb layout.
+
+```{r, message=T,warning=F}
+diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = meta_norway,layout_metaweb = T)
+```
+
+### Using `'group-TL-tsne'` layout
+
+Once computed on the metaweb, `'group-TL-tsne'` layout can be used in `'diff_plot'`
+
+```{r, message=T,warning=F}
+ggnet.custom$arrow.size = 2
+ggnet.custom$edge.alpha = 0.2
+
+diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.2, mode = "group-TL-tsne",
+          metanetwork = meta_norway,layout_metaweb = T,ggnet.config = ggnet.custom)
+```
+
+
