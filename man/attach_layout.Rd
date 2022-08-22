@@ -102,5 +102,5 @@ In Proceedings of the 19th international conference on machine learning (Vol. 20
 Van der Maaten, L., & Hinton, G. (2008). Visualizing data using t-SNE. Journal of machine learning research, 9(11).
 }
 \seealso{
-\code{\link[=ggmetanet]{ggmetanet()}}, \code{\link[=vismetaNetwork]{vismetaNetwork()}}
+\code{\link[=ggmetanet]{ggmetanet()}}, \code{\link[=vismetaNetwork]{vismetaNetwork()}},\link{group_layout.default}
 }

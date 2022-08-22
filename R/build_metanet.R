@@ -175,9 +175,9 @@ get_local_networks <- function(metanetwork){
   return(gList)
 }
 
-#' extract networks from metanetwork
+#' extract networks from a metanetwork object
 #'
-#' Function to extract metawebs and local networks from metanetwork
+#' Function to extract metawebs and local networks from a metanetwork object
 #'
 #' Return a list of 'igraph' objects
 #'

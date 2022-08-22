@@ -32,7 +32,8 @@ vertical squeezing of the network}
 
 \item{legend}{resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL}
 
-\item{mode}{mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'}
+\item{mode}{mode used for layout, 'TL-tsne' or 'group-TL-tsne' Default is 'TL-tsne'.
+This argument can also be a two-column matrix for custom layout.}
 
 \item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}
 
@@ -64,7 +65,19 @@ object of class 'ggplot'
 }
 \description{
 Function that provides network static representation  (using 'ggnet') from a
-'metanetwork' object with a layout based on a diffusion kernel
+'metanetwork' object using 'TL-tsne' or 'group-TL-tsne' layout.
+}
+\details{
+At each call of the function with 'TL-tsne' layout, it computes a layout for the current beta value.
+If a layout is already attached to the current network, it uses directly this layout (without computing).
+This function provides many static visualisation tools:
+\itemize{
+\item customising ggnet parameters wrapped in \code{ggnet.config}
+\item legending using the trophicTable
+\item playing on group transparency (alpha)
+\item using the metaweb layout
+\item building a legend for large networks.
+}
 }
 \examples{
 library(metanetwork)
@@ -76,8 +89,36 @@ meta0 = compute_TL(meta0)
 ggmetanet(meta0)
 
 # angola dataset
-data(meta_angola)
+data("meta_angola")
 meta_angola = compute_TL(meta_angola)
 ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
 
+# using pre-computed layout and custom ggnet parametersfor vertebrates metaweb
+data("meta_vrtb")
+#custom ggnet parameters
+ggnet.custom = ggnet.default
+ggnet.custom$label = T
+ggnet.custom$edge.alpha = 0.5
+ggnet.custom$alpha = 0.7
+ggnet.custom$arrow.size = 1
+ggnet.custom$max_size = 12
+#at SBM group level
+beta = 0.0035
+ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
+         beta = beta,legend = "group",
+         ggnet.config = ggnet.custom,edge_thrs = 0.1)
+# at a species level, using "group-TL-tsne" layout
+ggnet.custom$label = F
+ggnet.custom$edge.alpha = 0.02
+ggnet.custom$alpha = 0.7
+ggnet.custom$arrow.size = 1
+ggnet.custom$max_size = 3
+ggnet.custom$palette = "Set2"
+
+ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+beta = beta,legend = "group",ggnet.config = ggnet.custom)
+
+}
+\seealso{
+\code{\link[=attach_layout]{attach_layout()}},\link{ggnet.default}
 }

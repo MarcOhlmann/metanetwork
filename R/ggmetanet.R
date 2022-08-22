@@ -13,50 +13,6 @@
 # You should have received a copy of the GNU General Public License
 # along with metanetwork.  If not, see <http://www.gnu.org/licenses/>
 
-# data("meta_vrtb")
-# beta = 0.005
-# 
-# meta_vrtb = append_agg_nets(meta_vrtb)
-# meta_vrtb = compute_TL(meta_vrtb)
-# 
-# meta_vrtb = attach_layout(meta_vrtb,g = meta_vrtb$metaweb,res = "group",beta = beta,
-#                           mode = "group-TL-tsne")
-# 
-# metanetwork = meta_vrtb
-# g = NULL
-# flip_coords = T
-# legend = "group"
-# mode = 'group-TL-tsne'
-# edge_thrs = NULL
-# layout_metaweb = F
-# nrep_ly = 1
-# diff_plot_bool = F
-# alpha_per_group = NULL
-# alpha_per_node = NULL
-# alpha_interactive = F
-# ggnet.custom = ggnet.default
-# ggnet.custom$label = F
-# ggnet.custom$palette = "Set2"
-# ggnet.config = ggnet.custom
-# TL_tsne.config = TL_tsne.default
-# 
-# metanetwork = meta_vrtb
-# g = meta_vrtb$metaweb_group
-# flip_coords = T
-# beta = beta
-# legend = "group"
-# mode = 'TL-tsne'
-# ggnet.config = ggnet.custom
-# edge_thrs = NULL
-# layout_metaweb = F
-# nrep_ly = 1
-# diff_plot_bool = F
-# alpha_per_group = NULL
-# alpha_per_node = NULL
-# alpha_interactive = F
-# TL_tsne.config = TL_tsne.default
-
-
 #' Default configuration for ggnet
 #'
 #' A list with parameters customizing ggmetanet representation (see ggnet documentations)
@@ -96,14 +52,24 @@ class(ggnet.default) = 'metanetwork_config'
 #' ggmetanet
 #'
 #' Function that provides network static representation  (using 'ggnet') from a 
-#' 'metanetwork' object with a layout based on a diffusion kernel
+#' 'metanetwork' object using 'TL-tsne' or 'group-TL-tsne' layout.
+#' 
+#' At each call of the function with 'TL-tsne' layout, it computes a layout for the current beta value.
+#' If a layout is already attached to the current network, it uses directly this layout (without computing). 
+#' This function provides many static visualisation tools:
+#'  - customising ggnet parameters wrapped in `ggnet.config`
+#'  - legending using the trophicTable
+#'  - playing on group transparency (alpha)
+#'  - using the metaweb layout
+#'  - building a legend for large networks.
 #'
 #' @param metanetwork object of class metanetwork
 #' @param g network (igraph object) to represent, default is metaweb
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' vertical squeezing of the network
 #' @param legend resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL
-#' @param mode mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'
+#' @param mode mode used for layout, 'TL-tsne' or 'group-TL-tsne' Default is 'TL-tsne'.
+#' This argument can also be a two-column matrix for custom layout.
 #' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the network
 #' to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
@@ -121,7 +87,9 @@ class(ggnet.default) = 'metanetwork_config'
 #' @param diff_plot_bool boolean, do not edit by hand
 #' 
 #' @return object of class 'ggplot' 
-#'
+#' 
+#' @seealso [attach_layout()],[ggnet.default]
+#' 
 #' @examples
 #' library(metanetwork)
 #' library(igraph)
@@ -132,9 +100,34 @@ class(ggnet.default) = 'metanetwork_config'
 #' ggmetanet(meta0)
 #'
 #'# angola dataset
-#'data(meta_angola)
+#'data("meta_angola")
 #'meta_angola = compute_TL(meta_angola)
 #'ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
+#'
+#'# using pre-computed layout and custom ggnet parametersfor vertebrates metaweb
+#'data("meta_vrtb")
+#'#custom ggnet parameters
+#'ggnet.custom = ggnet.default
+#'ggnet.custom$label = T
+#'ggnet.custom$edge.alpha = 0.5
+#'ggnet.custom$alpha = 0.7
+#'ggnet.custom$arrow.size = 1
+#'ggnet.custom$max_size = 12
+#' #at SBM group level
+#'beta = 0.0035
+#'ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
+#'          beta = beta,legend = "group",
+#'          ggnet.config = ggnet.custom,edge_thrs = 0.1)
+#'# at a species level, using "group-TL-tsne" layout
+#'ggnet.custom$label = F
+#'ggnet.custom$edge.alpha = 0.02
+#'ggnet.custom$alpha = 0.7
+#'ggnet.custom$arrow.size = 1
+#'ggnet.custom$max_size = 3
+#'ggnet.custom$palette = "Set2"
+#'
+#'ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+#'beta = beta,legend = "group",ggnet.config = ggnet.custom)
 #'
 #' @export
 #

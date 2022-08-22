@@ -2,7 +2,7 @@
 % Please edit documentation in R/build_metanet.R
 \name{extract_networks}
 \alias{extract_networks}
-\title{extract networks from metanetwork}
+\title{extract networks from a metanetwork object}
 \usage{
 extract_networks(metanetwork)
 }
@@ -13,7 +13,7 @@ extract_networks(metanetwork)
 a list of \code{igraph} objects with attributes computed by \code{metanetwork}
 }
 \description{
-Function to extract metawebs and local networks from metanetwork
+Function to extract metawebs and local networks from a metanetwork object
 }
 \details{
 Return a list of 'igraph' objects

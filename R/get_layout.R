@@ -380,7 +380,7 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' @param group_layout.config configuration list for mode 'group-TL-tsne', default is group_layout.default
 #' @return 'metanetwork' object with layout added as node attribute of the considered network
 #' 
-#' @seealso [ggmetanet()], [vismetaNetwork()]
+#' @seealso [ggmetanet()], [vismetaNetwork()],[group_layout.default]
 #'
 #' @references Kondor, R. I., & Lafferty, J. (2002, July). Diffusion kernels on graphs and other discrete structures.
 #'  In Proceedings of the 19th international conference on machine learning (Vol. 2002, pp. 315-322). 

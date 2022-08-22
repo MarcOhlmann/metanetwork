@@ -16,7 +16,8 @@
 #' plot difference network
 #'
 #' Function to represent difference between two networks belonging to a metanetwork 
-#' with 'TL-tsne' using either 'ggnet' or 'visNetwork' visualisation. This function represent the difference between g1 and g2 (g1-g2).
+#' with specific layout ('TL-tsne' or group 'TL-tsne') using either 'ggnet' or 'visNetwork' visualisation.
+#'  This function represent the difference between g1 and g2 (g1-g2). 
 #'
 #' @param metanetwork object of class 'metanetwork'
 #' @param g1 network (of class 'igraph') of metanetwork
@@ -40,7 +41,7 @@
 #' @param ggnet.config configuration list for ggnet representation, default is ggnet.default
 #' @param visNetwork.config configuration list for visNetwork representation, default is visNetwork.default
 #' 
-#' 
+#' @seealso [attach_layout()]
 #' 
 #' @return plot of the difference network, either using 'ggnet' or 'visNetwork'
 #'

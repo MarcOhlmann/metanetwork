@@ -62,7 +62,8 @@ plot of the difference network, either using 'ggnet' or 'visNetwork'
 }
 \description{
 Function to represent difference between two networks belonging to a metanetwork
-with 'TL-tsne' using either 'ggnet' or 'visNetwork' visualisation. This function represent the difference between g1 and g2 (g1-g2).
+with specific layout ('TL-tsne' or group 'TL-tsne') using either 'ggnet' or 'visNetwork' visualisation.
+This function represent the difference between g1 and g2 (g1-g2).
 }
 \examples{
 #on Angola dataset
@@ -100,4 +101,7 @@ alpha_focal = 0.01,alpha_hidden = 0.8))
 
 
 
+}
+\seealso{
+\code{\link[=attach_layout]{attach_layout()}}
 }
