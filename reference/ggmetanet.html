@@ -185,21 +185,22 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_ring.html" class="external-link">make_ring</a></span><span class="op">(</span><span class="fl">5</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
+<span class="r-in"><span><span class="co">#lattice example</span></span></span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">2</span>,length <span class="op">=</span> <span class="va">n</span>,directed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in make_lattice(dim = 2, length = n, directed = T):</span> object 'n' not found</span>
+<span class="r-in"><span><span class="co">#building metanetwork and computing trophic levels</span></span></span>
+<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> </span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in build_metanet(g):</span> object 'g' not found</span>
 <span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in compute_TL(meta0):</span> object 'meta0' not found</span>
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 145.616821763174</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 34.6731557977602</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 34.6731237709676</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_segment).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_point).</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Removed 5 rows containing missing values (geom_text).</span>
-<span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.metanetwork(metanetwork):</span> object 'meta0' not found</span>
+<span class="r-in"><span><span class="co">#storing layout</span></span></span>
+<span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in attach_layout(meta0):</span> object 'meta0' not found</span>
+<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.metanetwork(metanetwork):</span> object 'meta0' not found</span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># angola dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_angola"</span><span class="op">)</span></span></span>
@@ -207,10 +208,10 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775018966</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.11121007734</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.224777710495</span>
-<span class="r-plt img"><img src="ggmetanet-2.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019187</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.140070277471</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.278279735965</span>
+<span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># using pre-computed layout and custom ggnet parametersfor vertebrates metaweb</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_vrtb"</span><span class="op">)</span></span></span>
@@ -228,11 +229,11 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span>         ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.0035</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 1568.26201494786</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 376.316434835836</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 376.441969950936</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 1568.21879958174</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 376.30329505935</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 376.423432634198</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> too many groups, assigning colors and shapes</span>
-<span class="r-plt img"><img src="ggmetanet-3.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="ggmetanet-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="co"># at a species level, using "group-TL-tsne" layout</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">F</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.02</span></span></span>
