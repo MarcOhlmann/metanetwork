@@ -83,10 +83,16 @@ This function provides many static visualisation tools:
 library(metanetwork)
 library(igraph)
 
-g = make_ring(5,directed = TRUE)
-meta0 = build_metanet(g)
+#lattice example
+g = make_lattice(dim = 2,length = n,directed = T)
+#building metanetwork and computing trophic levels
+meta0 = build_metanet(g) 
 meta0 = compute_TL(meta0)
 ggmetanet(meta0)
+#storing layout
+meta0 = attach_layout(meta0)
+ggmetanet(meta0)
+
 
 # angola dataset
 data("meta_angola")
