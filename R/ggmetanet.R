@@ -26,9 +26,6 @@
 #' ggnet.custom$edge.size = 2
 #' ggnet.custom
 #'
-#' @importFrom ggplot2 aes element_blank element_line element_rect xlim ylim
-#' @importFrom graphics image
-#' @importFrom rlang .data
 #' @export
 ggnet.default = list(
   label = TRUE,
@@ -138,6 +135,11 @@ class(ggnet.default) = 'metanetwork_config'
 #'ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
 #'beta = beta,legend = "group",ggnet.config = ggnet.custom)
 #'
+#' @importFrom ggplot2 aes element_blank element_line element_rect xlim ylim
+#' @importFrom intergraph asNetwork
+#' @importFrom graphics image
+#' @importFrom rlang .data
+#' 
 #' @export
 #
 #
