@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Norway soil metanetwork analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-08-22</h4>
+            <h4 data-toc-skip class="date">2022-09-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/norway.Rmd" class="external-link"><code>vignettes/norway.Rmd</code></a></small>
       <div class="hidden name"><code>norway.Rmd</code></div>
@@ -124,7 +124,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'trophic_group'</span>,<span class="st">'trophic_class'</span><span class="op">)</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_plot_trophic_table-1.png" alt=""><p class="caption">plot of chunk norway_plot_trophic_table</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="append_agg_nets-method">
@@ -149,13 +151,17 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_metaweb_trophic_class-1.png" alt=""><p class="caption">plot of chunk norway_metaweb_trophic_class</p>
+</div>
 <p>Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_metaweb-1.png" alt=""><p class="caption">plot of chunk norway_metaweb</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="attaching-layout">Attaching layout<a class="anchor" aria-label="anchor" href="#attaching-layout"></a>
@@ -165,21 +171,23 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to the metaweb</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_attach_layout-1.png" alt=""><p class="caption">plot of chunk norway_attach_layout</p>
+</div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to metaweb at class level</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-6-2.png" width="700"> ### ‘group-TL-tnse’ layout</p>
+<p><img src="figure/norway_attach_layout-2.png" alt="plot of chunk norway_attach_layout"> ### ‘group-TL-tnse’ layout</p>
 <p>A variation of <code>'TL-tsne'</code> layout consists in <code>'group-TL-tsne'</code> layout. It mixes <code>'TL-tsne'</code> and a regular <code>igraph</code> layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires <code>'TL-tsne'</code> layout computation at the aggregated level instead of computing it in higher dimension at the group level. <code>'group-TL-tsne'</code> layout is stored as node attribute.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                    </span></span>
-<span><span class="co">## [4] "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "group_layout_x_beta0.2"</span></span>
+<span><span class="co">## [6] "group_layout_y_beta0.2"</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,legend <span class="op">=</span> <span class="st">"trophic_class"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="norway_files/figure-html/unnamed-chunk-7-1.png" width="700"> ## Representing and comparing local networks</p>
+<p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and comparing local networks</p>
 <p><code>diff_plot</code> allows comparing local networks. Here, it provides a comparison between high and low disturbed sites by moth outbreaks.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
@@ -187,10 +195,12 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## beta = 0.006</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.46450033833</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.502688303769</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.634221419117</span></span></code></pre>
-<p><img src="norway_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.65907925706</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.569234928954</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.714665711209</span></span></code></pre>
+<div class="figure">
+<img src="figure/norway_diffplot-1.png" alt=""><p class="caption">plot of chunk norway_diffplot</p>
+</div>
 <p>Here, a new ‘TL-tsne’ layout is computed.</p>
 </div>
 <div class="section level3">
@@ -202,7 +212,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
-<p><img src="norway_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_diff_plot-1.png" alt=""><p class="caption">plot of chunk norway_diff_plot</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="using-group-tl-tsne-layout">Using <code>'group-TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#using-group-tl-tsne-layout"></a>
@@ -217,7 +229,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <pre><code><span><span class="co">## mode is group-TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is group-TL-tsne</span></span></code></pre>
-<p><img src="norway_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/norway_diffplot_group_layout-1.png" alt=""><p class="caption">plot of chunk norway_diffplot_group_layout</p>
+</div>
 </div>
 </div>
   </div>

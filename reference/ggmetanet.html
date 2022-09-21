@@ -18,7 +18,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@ This argument can also be a two-column matrix for custom layout.</p></dd>
 
 <dt>layout_metaweb</dt>
 <dd><p>a boolean indicating whether the layout of the metaweb should be used to represent the network
-to use metaweb layout = T, you need first to compute metaweb layout for this beta value using <code><a href="attach_layout.html">attach_layout()</a></code></p></dd>
+to use metaweb layout = TRUE, you need first to compute metaweb layout for this beta value using <code><a href="attach_layout.html">attach_layout()</a></code></p></dd>
 
 
 <dt>nrep_ly</dt>
@@ -186,20 +186,30 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#lattice example</span></span></span>
-<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">2</span>,length <span class="op">=</span> <span class="va">n</span>,directed <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in make_lattice(dim = 2, length = n, directed = T):</span> object 'n' not found</span>
+<span class="r-in"><span><span class="va">g</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/igraph/man/make_lattice.html" class="external-link">make_lattice</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fl">2</span>,length <span class="op">=</span> <span class="fl">4</span>,directed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">#building metanetwork and computing trophic levels</span></span></span>
 <span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="build_metanet.html">build_metanet</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span> </span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in build_metanet(g):</span> object 'g' not found</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>nodes of metaweb do not have names. Assigning integers as names</span>
 <span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in compute_TL(meta0):</span> object 'meta0' not found</span>
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.metanetwork(metanetwork):</span> object 'meta0' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891912</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051214827</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in require_namespaces(c("network", "sna", "scales")):</span> please install the package 'sna'.  install.packages('sna') </span>
 <span class="r-in"><span><span class="co">#storing layout</span></span></span>
 <span class="r-in"><span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in attach_layout(meta0):</span> object 'meta0' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for metaweb_</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891917</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051214606</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.metanetwork(metanetwork):</span> object 'meta0' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in require_namespaces(c("network", "sna", "scales")):</span> please install the package 'sna'.  install.packages('sna') </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># angola dataset</span></span></span>
@@ -208,45 +218,43 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019187</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.140070277471</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.278279735965</span>
-<span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775025999</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.146017865856</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.270893669876</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in require_namespaces(c("network", "sna", "scales")):</span> please install the package 'sna'.  install.packages('sna') </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># using pre-computed layout and custom ggnet parametersfor vertebrates metaweb</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_vrtb"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">#custom ggnet parameters</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">T</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.5</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.7</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">max_size</span> <span class="op">=</span> <span class="fl">12</span></span></span>
 <span class="r-in"><span><span class="co">#at SBM group level</span></span></span>
-<span class="r-in"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span></span>
-<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,g <span class="op">=</span> <span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,</span></span>
+<span class="r-in"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span></span>
+<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,g <span class="op">=</span> <span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span>,flip_coords <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>         beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,</span></span>
 <span class="r-in"><span>         ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.0035</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 1568.21879958174</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 376.30329505935</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 376.423432634198</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> too many groups, assigning colors and shapes</span>
-<span class="r-plt img"><img src="ggmetanet-2.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in require_namespaces(c("network", "sna", "scales")):</span> please install the package 'sna'.  install.packages('sna') </span>
 <span class="r-in"><span><span class="co"># at a species level, using "group-TL-tsne" layout</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">F</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.02</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.7</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">1</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">max_size</span> <span class="op">=</span> <span class="fl">3</span></span></span>
 <span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">palette</span> <span class="op">=</span> <span class="st">"Set2"</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">T</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span></span>
+<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">TRUE</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span></span>
 <span class="r-in"><span>beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is group-TL-tsne</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ggmetanet(meta_vrtb, flip_coords = T, mode = "group-TL-tsne",     beta = beta, legend = "group", ggnet.config = ggnet.custom):</span> to use 'group-TL-tsne', you need to attach a layout for the desired beta value</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>            and resolution, see attach_layout function with 'group-TL-tsne' mode</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> too many groups, assigning colors and shapes</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> plotting legend</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in require_namespaces(c("network", "sna", "scales")):</span> please install the package 'sna'.  install.packages('sna') </span>
+<span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

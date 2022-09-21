@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">metanetwork</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Angola dataset analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-08-22</h4>
+            <h4 data-toc-skip class="date">2022-09-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/angola.Rmd" class="external-link"><code>vignettes/angola.Rmd</code></a></small>
       <div class="hidden name"><code>angola.Rmd</code></div>
@@ -124,7 +124,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_angola</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_plot_trophicTable-1.png" alt=""><p class="caption">plot of chunk angola_plot_trophicTable</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="append_agg_nets-method">
@@ -145,11 +147,15 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb_Phylum</span>,beta <span class="op">=</span> <span class="fl">1</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_metaweb_phylum-1.png" alt=""><p class="caption">plot of chunk angola_metaweb_phylum</p>
+</div>
 <p>Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.04</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_metaweb-1.png" alt=""><p class="caption">plot of chunk angola_metaweb</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="diff_plot">
@@ -158,7 +164,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <p>To represent difference between local networks, use <code><a href="../reference/diff_plot.html">diff_plot()</a></code> function.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,beta <span class="op">=</span> <span class="fl">0.04</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_diff_plot-1.png" alt=""><p class="caption">plot of chunk angola_diff_plot</p>
+</div>
 </div>
 <div class="section level3">
 <h3 id="vismetanetwork-function">
@@ -182,23 +190,25 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#layout is saved as node attribute (only one component since the other one is trophic level)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122</span></span>
-<span><span class="co">##  [8] 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394</span></span>
-<span><span class="co">## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889</span></span>
-<span><span class="co">## [22] 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000</span></span></code></pre>
+<pre><code><span><span class="co">##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394</span></span>
+<span><span class="co">## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000</span></span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></code></pre></div>
 <pre><code><span><span class="co">## NULL</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet uses computed layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_attach_layout-1.png" alt=""><p class="caption">plot of chunk angola_attach_layout</p>
+</div>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching a new layout for the same beta value</span></span>
 <span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#ggmetanet with the new 'TL-tsne-run</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>,nrep_ly <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_attach_layout-2.png" alt=""><p class="caption">plot of chunk angola_attach_layout</p>
+</div>
 <p>Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure.</p>
 </div>
 <div class="section level3">
@@ -209,13 +219,17 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code class="sourceCode R"><span><span class="co">#using metaweb layout to represent a local network</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span>
 <span>          legend <span class="op">=</span> <span class="st">"Phylum"</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_layout_metaweb-1.png" alt=""><p class="caption">plot of chunk angola_layout_metaweb</p>
+</div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#using metaweb layout for diffplot</span></span>
 <span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,</span>
 <span>          metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>          layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="angola_files/figure-html/unnamed-chunk-10-2.png" width="700"></p>
+<div class="figure">
+<img src="figure/angola_layout_metaweb-2.png" alt=""><p class="caption">plot of chunk angola_layout_metaweb</p>
+</div>
 </div>
 </div>
   </div>
