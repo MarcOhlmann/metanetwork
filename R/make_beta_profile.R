@@ -33,7 +33,7 @@ get_coords_list <- function(g,beta,nrep){
   K = compute_diffusion_kernel(g,beta)
   coords_list = lapply(1:nrep,function(k)
     return(
-      get_nodes_position_TL_tsne(
+      get_coord_TL_tsne(
         g,V(g)$TL,beta = beta,
         TL_tsne.config = TL_tsne.default)
     )

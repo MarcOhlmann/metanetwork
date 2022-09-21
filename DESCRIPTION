@@ -1,15 +1,15 @@
 Package: metanetwork
 Type: Package
-Title: Handling and representing trophic networks in space and time
-Version: 0.5.1
+Title: Handling and Representing Trophic Networks in Space and Time
+Version: 0.6.0
 Date: 2022-29-03
 Authors@R: c(
-  person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marc.ohlmann@univ-grenoble-alpes.fr",
-      comment = c(ORCID = "0000-0003-3772-3969 ")),
+  person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marcohlmann@live.fr",
+      comment = c(ORCID = "0000-0003-3772-3969")),
   person("Jimmy", "Garnier", role = c("aut", "ctb"), email = "jimmy.garnier@univ-smb.fr"),
   person("Laurent", "Vuillon", role = c("aut", "ctb"), email = "laurent.vuillon@univ-smb.fr")
   )
-Description: A toolbox to handle and represent trophic networks in space or time accross aggregation levels. This package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on a diffusion graph kernel and trophic levels. Importantly, this package provides a layout method applicable for large trophic networks.
+Description: A toolbox to handle and represent trophic networks in space or time across aggregation levels. This package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on a diffusion graph kernel and trophic levels. Importantly, this package provides a layout method applicable for large trophic networks.
 LinkingTo:
 License: GPL-3
 URL: https://github.com/MarcOhlmann/metanetwork,
@@ -24,7 +24,6 @@ BugReports: https://github.com/MarcOhlmann/metanetwork/issues
 Imports: 
 	GGally,
 	network,
-	sna,
 	ggplot2,
 	intergraph,
 	dplyr,
@@ -36,5 +35,7 @@ Imports:
         grDevices,
         RColorBrewer,
         magrittr,
-        ggimage
+        ggimage,
+        rlang
 Language: en-US
+VignetteBuilder: utils

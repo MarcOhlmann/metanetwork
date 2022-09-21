@@ -21,7 +21,7 @@ with three different taxonomic levels (species (or group), phylum and kingdom)}
 \url{https://scientiamarina.revistas.csic.es/index.php/scientiamarina/article/view/1254}
 }
 \usage{
-meta_angola
+data(meta_angola)
 }
 \description{
 Angola fishery metanetwork

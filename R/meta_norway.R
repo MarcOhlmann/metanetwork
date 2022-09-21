@@ -30,6 +30,7 @@
 #' with three different taxonomic levels (trophic_group, trophic_class and taxa)}
 #' }
 #'
+#' @usage data(meta_norway)
 #' @source \url{https://www.nature.com/articles/s41598-021-94227-z}
 "meta_norway"
 

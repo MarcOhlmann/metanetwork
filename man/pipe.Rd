@@ -10,5 +10,6 @@ function composition into a series of imperative statements.
 \examples{
 
 library(metanetwork)
+data("meta_angola")
 meta_angola \%>\% attach_layout() \%>\% ggmetanet()
 }

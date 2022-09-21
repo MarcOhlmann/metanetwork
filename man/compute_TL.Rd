@@ -27,7 +27,7 @@ The Laplacian matrix of the symmetrised network is defined by:
 With \eqn{v = indegree(G) - outdegree(G)} the imbalance degree vector, the trophic level \eqn{x} is defined as the solution of:
 \deqn{Lx = v}
 For a connected network, the solution is unique up to a translation.
-We then fix the minimum trophic level value at 0 thus fixing trophic levels of all others species. \n
+We then fix the minimum trophic level value at 0 thus fixing trophic levels of all others species.
 Local networks may be disconnected due to sampling effect. In that case, we fix the mininmum value on each connected component.
 }
 \examples{

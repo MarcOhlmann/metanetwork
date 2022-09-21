@@ -29,7 +29,7 @@
 #' \item{trophicTable}{Taxonomic table, a three column \code{data.frame} 
 #' with three different taxonomic levels (species (or group), phylum and kingdom)}
 #' }
-#'
+#' @usage data(meta_angola)
 #' @source \url{https://scientiamarina.revistas.csic.es/index.php/scientiamarina/article/view/1254}
 "meta_angola"
 

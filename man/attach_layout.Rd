@@ -38,6 +38,8 @@ squeezing of the network, default is 0.1}
 
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
 
+\item{res}{resolution for the 'group-TL-tsne' layout}
+
 \item{group_layout.config}{configuration list for mode 'group-TL-tsne', default is group_layout.default}
 }
 \value{
@@ -51,7 +53,7 @@ Method to compute \code{'TL-tsne'} and \code{'group-TL-tsne'} layouts and save i
 \details{
 The \code{'TL-tsne'} layout is a diffusion based layout algorithm specifically designed for trophic networks.
 In metanetwork, first axis is the trophic level (see \code{compute_TL} method) whereas the second axis is computed using a diffusion graph kernel (Kondor & Lafferty 2002)
-and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package). \n
+and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package).
 Let \eqn{A} be the adjacency matrix of the considered network and \eqn{D} its degree diagonal matrix.
 The Laplacian matrix of the symmetrised network is defined by:
 

@@ -26,6 +26,7 @@
 #' group_layout.custom$group_height = 10
 #' group_layout.custom
 #' 
+#' @importFrom stats rnorm sd quantile dist
 #' @export
 group_layout.default = list(
   nbreaks_group = 1,
@@ -350,7 +351,7 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' 
 #' The `'TL-tsne'` layout is a diffusion based layout algorithm specifically designed for trophic networks.
 #' In metanetwork, first axis is the trophic level (see `compute_TL` method) whereas the second axis is computed using a diffusion graph kernel (Kondor & Lafferty 2002) 
-#' and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package). \n
+#' and tsne dimension reduction algorithm to (see van der Maaten & Hinton (2008) and 'tsne' R package). 
 #' Let \eqn{A} be the adjacency matrix of the considered network and \eqn{D} its degree diagonal matrix. 
 #' The Laplacian matrix of the symmetrised network is defined by: 
 #' 
@@ -376,6 +377,7 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network, default is 0.1
 #' @param mode 'TL-tsne' or 'group-TL-tsne', default is 'TL-tsne'.
+#' @param res resolution for the 'group-TL-tsne' layout
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
 #' @param group_layout.config configuration list for mode 'group-TL-tsne', default is group_layout.default
 #' @return 'metanetwork' object with layout added as node attribute of the considered network

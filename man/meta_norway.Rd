@@ -21,7 +21,7 @@ with three different taxonomic levels (trophic_group, trophic_class and taxa)}
 \url{https://www.nature.com/articles/s41598-021-94227-z}
 }
 \usage{
-meta_norway
+data(meta_norway)
 }
 \description{
 Norway soil metanetwork

@@ -35,7 +35,7 @@
 #' ggmetanet(meta0)
 #' 
 #' #on angola data set
-#' data(meta_angola)
+#' data("meta_angola")
 #'meta_angola = metanet_pipe(meta_angola)
 #'
 #' @export

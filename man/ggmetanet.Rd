@@ -38,7 +38,7 @@ This argument can also be a two-column matrix for custom layout.}
 \item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}
 
 \item{layout_metaweb}{a boolean indicating whether the layout of the metaweb should be used to represent the network
-to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}}
+to use metaweb layout = TRUE, you need first to compute metaweb layout for this beta value using \code{attach_layout()}}
 
 \item{nrep_ly}{If several layouts for this beta value are attached to the metaweb (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}}
 
@@ -84,7 +84,7 @@ library(metanetwork)
 library(igraph)
 
 #lattice example
-g = make_lattice(dim = 2,length = n,directed = T)
+g = make_lattice(dim = 2,length = 4,directed = TRUE)
 #building metanetwork and computing trophic levels
 meta0 = build_metanet(g) 
 meta0 = compute_TL(meta0)
@@ -103,25 +103,25 @@ ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
 data("meta_vrtb")
 #custom ggnet parameters
 ggnet.custom = ggnet.default
-ggnet.custom$label = T
+ggnet.custom$label = TRUE
 ggnet.custom$edge.alpha = 0.5
 ggnet.custom$alpha = 0.7
 ggnet.custom$arrow.size = 1
 ggnet.custom$max_size = 12
 #at SBM group level
-beta = 0.0035
-ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
+beta = 0.005
+ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = TRUE,
          beta = beta,legend = "group",
          ggnet.config = ggnet.custom,edge_thrs = 0.1)
 # at a species level, using "group-TL-tsne" layout
-ggnet.custom$label = F
+ggnet.custom$label = FALSE
 ggnet.custom$edge.alpha = 0.02
 ggnet.custom$alpha = 0.7
 ggnet.custom$arrow.size = 1
 ggnet.custom$max_size = 3
 ggnet.custom$palette = "Set2"
 
-ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
 beta = beta,legend = "group",ggnet.config = ggnet.custom)
 
 }

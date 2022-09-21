@@ -25,7 +25,10 @@
 #' ggnet.custom = ggnet.default
 #' ggnet.custom$edge.size = 2
 #' ggnet.custom
-#' 
+#'
+#' @importFrom ggplot2 aes element_blank element_line element_rect xlim ylim
+#' @importFrom graphics image
+#' @importFrom rlang .data
 #' @export
 ggnet.default = list(
   label = TRUE,
@@ -72,7 +75,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' This argument can also be a two-column matrix for custom layout.
 #' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the network
-#' to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
+#' to use metaweb layout = TRUE, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}
 #' @param flip_coords a boolean indicating wheter coordinates should be flipped. 
 #' @param alpha_per_group controlling alpha per group (only for 'ggnet' vis), a list of format 
@@ -95,7 +98,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' library(igraph)
 #' 
 #' #lattice example
-#' g = make_lattice(dim = 2,length = n,directed = T)
+#' g = make_lattice(dim = 2,length = 4,directed = TRUE)
 #' #building metanetwork and computing trophic levels
 #' meta0 = build_metanet(g) 
 #' meta0 = compute_TL(meta0)
@@ -114,25 +117,25 @@ class(ggnet.default) = 'metanetwork_config'
 #'data("meta_vrtb")
 #'#custom ggnet parameters
 #'ggnet.custom = ggnet.default
-#'ggnet.custom$label = T
+#'ggnet.custom$label = TRUE
 #'ggnet.custom$edge.alpha = 0.5
 #'ggnet.custom$alpha = 0.7
 #'ggnet.custom$arrow.size = 1
 #'ggnet.custom$max_size = 12
 #' #at SBM group level
-#'beta = 0.0035
-#'ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
+#'beta = 0.005
+#'ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = TRUE,
 #'          beta = beta,legend = "group",
 #'          ggnet.config = ggnet.custom,edge_thrs = 0.1)
 #'# at a species level, using "group-TL-tsne" layout
-#'ggnet.custom$label = F
+#'ggnet.custom$label = FALSE
 #'ggnet.custom$edge.alpha = 0.02
 #'ggnet.custom$alpha = 0.7
 #'ggnet.custom$arrow.size = 1
 #'ggnet.custom$max_size = 3
 #'ggnet.custom$palette = "Set2"
 #'
-#'ggmetanet(meta_vrtb,flip_coords = T,mode = "group-TL-tsne",
+#'ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
 #'beta = beta,legend = "group",ggnet.config = ggnet.custom)
 #'
 #' @export
@@ -520,7 +523,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         alpha = ifelse(V(g)$name %in% nodes_focal,
                        as.numeric(alpha_focal),as.numeric(alpha_hidden))
         
-        edge_alpha = (alpha %*% t(alpha)) * igraph::get.adjacency(g) * ggnet.custom$edge.alpha
+        edge_alpha = (alpha %*% t(alpha)) * igraph::get.adjacency(g) * ggnet.config$edge.alpha
         g_Network = network::set.edge.value(g_Network,"edge_alpha",edge_alpha)
         edge_alpha_vec = network::get.edge.attribute(g_Network,'edge_alpha')
         
@@ -850,8 +853,8 @@ plot_legend <- function(shapes_loc,colors_loc,metanetwork,
   }
   
   if(is.null(ggnet.config$img_PATH)){
-    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(x, y, label = group)) +
-      ggplot2::geom_point(aes(shape = shape, color = color)
+    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(.data$x, .data$y, label = .data$group)) +
+      ggplot2::geom_point(aes(shape = .data$shape, color = .data$color)
                           , size = 5) +
       ggplot2::scale_shape_manual(values = unique(as.numeric(shapes_colors_df$shape))) +
       ggplot2::scale_color_manual(breaks = shapes_colors_df[shapes_colors_df$shape == 20,]$color,
@@ -884,8 +887,8 @@ plot_legend <- function(shapes_loc,colors_loc,metanetwork,
     img = img[sapply(shapes_colors_df$group,function(x) grep(paste0("/",x,"_"),img))]
     shapes_colors_df = cbind(shapes_colors_df,image = img)
     
-    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(x, y, label = group)) +
-      ggplot2::geom_point(aes(shape = shape, color = color)
+    legend_plot = ggplot2::ggplot(shapes_colors_df, aes(.data$x, .data$y, label = .data$group)) +
+      ggplot2::geom_point(aes(shape = .data$shape, color = .data$color)
                           , size = 5) +
       ggplot2::scale_shape_manual(values = unique(as.numeric(shapes_colors_df$shape))) +
       ggplot2::scale_color_manual(breaks = shapes_colors_df[shapes_colors_df$shape == 20,]$color,
@@ -908,7 +911,7 @@ plot_legend <- function(shapes_loc,colors_loc,metanetwork,
                      axis.text.y=element_blank(),
                      axis.ticks.y=element_blank()) + 
       ggplot2::ggtitle("legend") + xlim(c(0,24)) + ylim(c(0,10)) + 
-      ggimage::geom_image(aes(x = x + 2,y=y,image = image))
+      ggimage::geom_image(aes(x = .data$x + 2,y=.data$y,image = .data$image))
   }
   return(legend_plot)
 }

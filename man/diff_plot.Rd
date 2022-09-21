@@ -32,6 +32,8 @@ diff_plot(
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
+\item{mode}{mode used for layout, either 'TL-tsne' or 'group-TL-tsne' (see \code{attach_layout()}). Default is 'TL-tsne'}
+
 \item{vis_tool}{a character indicating the visualisation tool, either 'ggnet' or visNetwork}
 
 \item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}

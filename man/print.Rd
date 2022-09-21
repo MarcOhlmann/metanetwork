@@ -30,9 +30,10 @@ meta = build_metanet(g)
 print(meta)
 
 #on Angola dataset
-data(meta_angola)
+data("meta_angola")
 print(meta_angola)
 
 #on Norway dataset
+data("meta_norway")
 print(meta_norway)
 }

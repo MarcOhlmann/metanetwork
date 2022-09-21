@@ -28,5 +28,6 @@ g = make_ring(5,directed = TRUE)
 meta = build_metanet(g)
 is.metanetwork(meta)
 #on Angola dataset
+data("meta_angola")
 is.metanetwork(meta_angola)
 }

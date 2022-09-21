@@ -28,7 +28,7 @@
 #' library(metanetwork)
 #' 
 #' #on Angola data_set
-#' data(meta_angola)
+#' data("meta_angola")
 #' plot_trophicTable(meta_angola)
 #'
 #' @export
@@ -53,24 +53,12 @@ plot_trophicTable = function(metanetwork,res = "all",ggnet.config = ggnet.defaul
   trophicTable_loc = metanetwork$trophicTable 
   trophicTable_loc = trophicTable_loc[,res]
   
-  expr_loc = 'graph_data_frame = rbind('
-  
-  for(k in 1:N_res){
-    if(k == 1){
-      expr_loc = paste0(expr_loc,
-                       'data.frame(from="origin", to=unique(trophicTable_loc[,',N_res+1-k,'])),')
-    } else if (k == N_res){
-      expr_loc = paste0(expr_loc,
-                        'data.frame(from=trophicTable_loc[,',N_res+1-(k-1),
-                        '],to=trophicTable_loc[,',N_res+1-k,']))')
-    }else{
-      expr_loc = paste0(expr_loc,
-                        'data.frame(from=metanetwork$trophicTable[,',N_res+1-(k-1),
-                        '],to=metanetwork$trophicTable[,',N_res+1-k,']),')
+  graph_data_frame = data.frame(from = "origin", to = unique(trophicTable_loc[,N_res]))
+  for(k in 2:N_res){
+      graph_data_frame = rbind(graph_data_frame,
+                               data.frame(from = trophicTable_loc[,N_res+1-(k-1)],
+                                          to = trophicTable_loc[,N_res+1-k]))
     }
-
-  }
-  eval(parse(text = expr_loc))
   group_tree = igraph::graph_from_data_frame(graph_data_frame)
   color_loc = c("origin",
                 as.vector(unlist(sapply(res[seq(N_res,1,length.out = N_res)],

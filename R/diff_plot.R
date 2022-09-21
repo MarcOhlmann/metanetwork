@@ -24,7 +24,7 @@
 #' @param g2 network (of class 'igraph') of metanetwork
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network
-#' @param mode mode used for layout, either 'TL-tsne' or 'group-TL-tsne' (see \code{attach_layout()). Default is 'TL-tsne'
+#' @param mode mode used for layout, either 'TL-tsne' or 'group-TL-tsne' (see \code{attach_layout()}). Default is 'TL-tsne'
 #' @param vis_tool a character indicating the visualisation tool, either 'ggnet' or visNetwork
 #' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the difference network.

@@ -46,6 +46,7 @@
 #' meta_angola = build_metanet(metaweb,abTable,trophicTable)
 #' print(meta_angola)
 #' 
+#' @importFrom igraph V get.adjacency vcount
 #' @export
 build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
                               compute_local_nets = TRUE){
@@ -146,6 +147,7 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
 #' meta = build_metanet(g)
 #' is.metanetwork(meta)
 #' #on Angola dataset
+#' data("meta_angola")
 #' is.metanetwork(meta_angola)
 #' @export
 is.metanetwork <- function(metanetwork){

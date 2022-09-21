@@ -5,11 +5,11 @@
 \alias{meta_vrtb}
 \title{European vertebrates metanetwork
 metanetwork built using data from:
-O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., ... & Thuiller, W. (2020).
+O'Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez-Almoyna, C., ...  & Thuiller, W. (2020).
 Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.
 and
-Maiorano, L., Montemaggiori, A., Ficetola, G. F., O connor, L., & Thuiller, W. (2020).
-TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.}
+Maiorano, L., Montemaggiori, A., Ficetola, G. F., O'connor, L., & Thuiller, W. (2020).
+TETRA-EU 1.0: a species-level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.}
 \format{
 \describe{
 A object of class 'metanetwork'
@@ -19,18 +19,18 @@ with a column containing species name and a column containing Stochastic Block M
 }
 }
 \source{
-\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/geb.13138, https://onlinelibrary.wiley.com/doi/abs/10.1111/jbi.13773}
+\url{https://onlinelibrary.wiley.com/doi/abs/10.1111/geb.13138, https://onlinelibrary.wiley.com/doi/abs/10.1111/jbi.13773 }
 }
 \usage{
-meta_vrtb
+data(meta_vrtb)
 }
 \description{
 European vertebrates metanetwork
 metanetwork built using data from:
-O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., ... & Thuiller, W. (2020).
+O'Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez-Almoyna, C., ...  & Thuiller, W. (2020).
 Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.
 and
-Maiorano, L., Montemaggiori, A., Ficetola, G. F., O connor, L., & Thuiller, W. (2020).
-TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.
+Maiorano, L., Montemaggiori, A., Ficetola, G. F., O'connor, L., & Thuiller, W. (2020).
+TETRA-EU 1.0: a species-level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.
 }
 \keyword{datasets}

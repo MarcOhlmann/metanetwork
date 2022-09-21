@@ -10,5 +10,6 @@
 #' @examples
 #' 
 #' library(metanetwork)
+#' data("meta_angola")
 #' meta_angola %>% attach_layout() %>% ggmetanet()
 NULL
