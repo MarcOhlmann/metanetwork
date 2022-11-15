@@ -10,7 +10,6 @@ Authors@R: c(
   person("Laurent", "Vuillon", role = c("aut", "ctb"), email = "laurent.vuillon@univ-smb.fr")
   )
 Description: A toolbox to handle and represent trophic networks in space or time across aggregation levels. This package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on a diffusion graph kernel and trophic levels. Importantly, this package provides a layout method applicable for large trophic networks.
-LinkingTo:
 License: GPL-3
 URL: https://github.com/MarcOhlmann/metanetwork,
     https://marcohlmann.github.io/metanetwork/
@@ -39,3 +38,6 @@ Imports:
         rlang
 Language: en-US
 VignetteBuilder: utils
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
