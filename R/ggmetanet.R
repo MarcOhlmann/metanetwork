@@ -235,10 +235,10 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
     color_loc[which(igraph::V(g)$ab > 2)] = 'only pres in g1'
     color_loc[which(igraph::V(g)$ab < -2)] = 'only pres in g2'
     color_loc[which(igraph::V(g)$ab ==0)] = 'shared'
-    edge_color_loc = ifelse(igraph::E(g)$weight_col>0,'#a1d99b','#fc9272')
+    edge_color_loc = ifelse(igraph::E(g)$weight_col>0,'#d55e00','#56b4e9')
     edge_color_loc[which(igraph::E(g)$weight_col == 0)] = 'black'
-    edge_color_loc[which(igraph::E(g)$weight_col > 2)] = '#31a354'
-    edge_color_loc[which(igraph::E(g)$weight_col < -2)] = '#de2d26'
+    edge_color_loc[which(igraph::E(g)$weight_col > 2)] = '#8c2a00'
+    edge_color_loc[which(igraph::E(g)$weight_col < -2)] = '#1a2d4d'
     if(length(igraph::E(g)$weight_col[which(igraph::E(g)$weight_col == 0)])>0){
       igraph::E(g)$weight_col[which(igraph::E(g)$weight_col == 0)] =  
         igraph::E(g)$weight_col_bis[which(igraph::E(g)$weight_col == 0)]
@@ -402,8 +402,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                              alpha = alpha,
                              edge.alpha = edge_alpha_vec*ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
                              legend.position = ggnet.config$legend.position,
-                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
-                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+                             palette = c("only pres in g1" = "#8c2a00", "more ab in g1" = "#d55e00","more ab in g2" = "#56b4e9",
+                                         "only pres in g2" = "#1a2d4d","shared" = "grey75")) +
                              ggplot2::theme(legend.box = "vertical")
         return(net)
       } else{
@@ -426,8 +426,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                              alpha = alpha,
                              edge.alpha = edge_alpha_vec,
                              legend.position = ggnet.config$legend.position,
-                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
-                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+                             palette = c("only pres in g1" = "#8c2a00", "more ab in g1" = "#d55e00","more ab in g2" = "#56b4e9",
+                                         "only pres in g2" = "#1a2d4d","shared" = "grey75")) +
           ggplot2::theme(legend.box = "vertical")
         return(net)
       }
@@ -454,8 +454,8 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                              alpha = alpha,
                              edge.alpha = ifelse(edge_color_loc == 'black',ggnet.config$edge.alpha,ggnet.config$edge.alpha_diff),
                              legend.position = ggnet.config$legend.position,
-                             palette = c("only pres in g1" = "#31a354", "more ab in g1" = "#a1d99b","more ab in g2" = "#fc9272",
-                                         "only pres in g2" = "#de2d26","shared" = "grey75")) +
+                             palette = c("only pres in g1" = "#8c2a00", "more ab in g1" = "#d55e00","more ab in g2" = "#56b4e9",
+                                         "only pres in g2" = "#1a2d4d","shared" = "grey75")) +
           ggplot2::theme(legend.box = "vertical")
       }
       return(net)
