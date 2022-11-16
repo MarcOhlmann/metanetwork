@@ -483,10 +483,13 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
         if(nb_cols < 15){
           mycolors = grDevices::colorRampPalette(RColorBrewer::brewer.pal(8, ggnet.config$palette))(nb_cols)
           names(mycolors) = unique(color_loc)
+          #make label size proportional to alpha
+          
+          
           net = GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
                          size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
                          label = ggnet.config$label, 
-                         label.size = ggnet.config$label.size,
+                         label.size = ggnet.config$label.size*alpha,
                          max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
                          edge.size = "weight",arrow.size = ggnet.config$arrow.size,
                          arrow.gap = ggnet.config$arrow.gap,
@@ -508,7 +511,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                          color = colors_loc_nodes,
                          size = as.numeric(igraph::V(g)$ab/max(igraph::V(g)$ab)),
                          label = ggnet.config$label, 
-                         label.size = ggnet.config$label.size,
+                         label.size = ggnet.config$label.size*alpha,
                          max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
                          edge.size = "weight",arrow.size = ggnet.config$arrow.size,
                          arrow.gap = ggnet.config$arrow.gap,
@@ -537,7 +540,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
           net = GGally::ggnet2(g_Network,mode = mode_loc,color = color_loc,
                          size = size_loc,
                          label = ggnet.config$label, 
-                         label.size = ggnet.config$label.size,
+                         label.size = ggnet.config$label.size*alpha,
                          max_size = ggnet.config$max_size,size.cut = ggnet.config$size.cut,
                          edge.size = "weight",arrow.size = ggnet.config$arrow.size,
                          arrow.gap = ggnet.config$arrow.gap,
