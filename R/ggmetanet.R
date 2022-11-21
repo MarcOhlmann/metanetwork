@@ -341,9 +341,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
            and resolution, see attach_layout function with 'group-TL-tsne' mode")
     }else{
       mode_loc = cbind(igraph::get.vertex.attribute(g,attr_names[
-        grep(paste0("group_layout_x_beta",beta),attr_names)]),
+        match(paste0("group_layout_x_beta",beta),attr_names)]),
                        igraph::get.vertex.attribute(g,attr_names[
-                         grep(paste0("group_layout_y_beta",beta),attr_names)]))
+                         match(paste0("group_layout_y_beta",beta),attr_names)]))
       rownames(mode_loc) = igraph::V(g)$name
     }
   }
