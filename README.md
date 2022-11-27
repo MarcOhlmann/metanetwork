@@ -8,7 +8,7 @@ Marc Ohlmann
 <!-- badges: start -->
 
 [![R build
-status](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
+status](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
 <!-- badges: end -->
 
 ## Description
