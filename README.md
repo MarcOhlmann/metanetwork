@@ -5,6 +5,12 @@ Marc Ohlmann
 
 # <img src="man/figures/logo_metanetwork.png" align="right" />
 
+<!-- badges: start -->
+
+[![R build
+status](https://github.com/pln-team/PLNmodels/workflows/R-CMD-check/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
+<!-- badges: end -->
+
 ## Description
 
 A collection of tools in `R` to represent and analyse trophic networks
@@ -39,22 +45,23 @@ In ecological networks literature, metanetwork refers to a set of
 networks in space. In R package ‘metanetwork’, we stick to a widespread
 (however restrictive) case:
 
--   a potential interaction network (the metaweb, can be built using
-    expert knowledge)
--   local abundance tables, local networks are then induced subgraph of
-    the metaweb by local abundances
+- a potential interaction network (the metaweb, can be built using
+  expert knowledge)
+- local abundance tables, local networks are then induced subgraph of
+  the metaweb by local abundances
 
 Additional information might be considered (and used in ‘metanetwork’)
 as:
 
--   a trophic table indicating a hierarchy of nodes of the metaweb, in
-    order to study the metanetwork at different aggregation levels
+- a trophic table indicating a hierarchy of nodes of the metaweb, in
+  order to study the metanetwork at different aggregation levels
 
 See vignettes for application of ‘metanetwork’ on several datasets.
 
 ## What ‘metanetwork’ package provides ?
 
 ``` r
+data("meta_angola")
 #Angola dataset
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```

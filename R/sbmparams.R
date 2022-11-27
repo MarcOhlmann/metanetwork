@@ -48,41 +48,41 @@ sbmParams <- function(g, groups = NULL){
                 C=sum(adj.mat.w)))
 }
 
-metawebParams <- function(gList, groups){
-    ## get the L,Pi arrays and P mat for a list of graph
-    ## groups must be an array with names associated to the nodes of the metaweb 
-    groups.id <- unique(groups)
-    if(length(names(gList))){
-        g.id <- names(gList)
-    } else{
-        g.id <- 1:length(gList)
-    }
-    Q <- length(groups.id) #number of different groups in the metaweb
-    P.mat <- matrix(0, nrow=Q, ncol=length(gList))
-    rownames(P.mat) <- groups.id
-    colnames(P.mat) <- g.id
-    
-    L.array <- array(0, dim=c(Q,Q,length(gList))) #stacked adjacency matrix at a group level
-    dimnames(L.array)[[1]] <- if(Q>1)  groups.id else list(groups.id)
-    dimnames(L.array)[[2]] <- if(Q>1)  groups.id else list(groups.id)
-    dimnames(L.array)[[3]] <- g.id
-    
-    SBMparams <- lapply(gList, function(g){
-        sbmParams(g, groups[igraph::V(g)$name])
-    })
-    alpha_list <- lapply(SBMparams, function(p) p$alpha)
-    L_list <- lapply(SBMparams, function(p) p$l)
-    Pi_list <- lapply(SBMparams, function(p) p$pi)
-    
-    Pi.array.NA <- array(NA, dim = c(Q,Q,length(gList)))
-    dimnames(Pi.array.NA)[[1]] <- groups.id
-    dimnames(Pi.array.NA)[[2]] <- groups.id 
-    dimnames(Pi.array.NA)[[3]] <- g.id
-        
-    for(i in 1:length(gList)){
-        P.mat[colnames(alpha_list[[i]]),i] <- alpha_list[[i]][1,]
-        L.array[rownames(L_list[[i]]),colnames(L_list[[i]]),i] <- as.matrix(L_list[[i]][rownames(L_list[[i]]),colnames(L_list[[i]])])
-        Pi.array.NA[rownames(Pi_list[[i]]), colnames(Pi_list[[i]]), i] <- as.matrix(Pi_list[[i]][rownames(Pi_list[[i]]),colnames(Pi_list[[i]])])
-    }
-    return(list(P.mat=P.mat, L.array=L.array, Pi.array=Pi.array.NA))
-}
+# metawebParams <- function(gList, groups){
+#     ## get the L,Pi arrays and P mat for a list of graph
+#     ## groups must be an array with names associated to the nodes of the metaweb 
+#     groups.id <- unique(groups)
+#     if(length(names(gList))){
+#         g.id <- names(gList)
+#     } else{
+#         g.id <- 1:length(gList)
+#     }
+#     Q <- length(groups.id) #number of different groups in the metaweb
+#     P.mat <- matrix(0, nrow=Q, ncol=length(gList))
+#     rownames(P.mat) <- groups.id
+#     colnames(P.mat) <- g.id
+#     
+#     L.array <- array(0, dim=c(Q,Q,length(gList))) #stacked adjacency matrix at a group level
+#     dimnames(L.array)[[1]] <- if(Q>1)  groups.id else list(groups.id)
+#     dimnames(L.array)[[2]] <- if(Q>1)  groups.id else list(groups.id)
+#     dimnames(L.array)[[3]] <- g.id
+#     
+#     SBMparams <- lapply(gList, function(g){
+#         sbmParams(g, groups[igraph::V(g)$name])
+#     })
+#     alpha_list <- lapply(SBMparams, function(p) p$alpha)
+#     L_list <- lapply(SBMparams, function(p) p$l)
+#     Pi_list <- lapply(SBMparams, function(p) p$pi)
+#     
+#     Pi.array.NA <- array(NA, dim = c(Q,Q,length(gList)))
+#     dimnames(Pi.array.NA)[[1]] <- groups.id
+#     dimnames(Pi.array.NA)[[2]] <- groups.id 
+#     dimnames(Pi.array.NA)[[3]] <- g.id
+#         
+#     for(i in 1:length(gList)){
+#         P.mat[colnames(alpha_list[[i]]),i] <- alpha_list[[i]][1,]
+#         L.array[rownames(L_list[[i]]),colnames(L_list[[i]]),i] <- as.matrix(L_list[[i]][rownames(L_list[[i]]),colnames(L_list[[i]])])
+#         Pi.array.NA[rownames(Pi_list[[i]]), colnames(Pi_list[[i]]), i] <- as.matrix(Pi_list[[i]][rownames(Pi_list[[i]]),colnames(Pi_list[[i]])])
+#     }
+#     return(list(P.mat=P.mat, L.array=L.array, Pi.array=Pi.array.NA))
+# }
