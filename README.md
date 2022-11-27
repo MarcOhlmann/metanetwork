@@ -7,8 +7,8 @@ Marc Ohlmann
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/pln-team/PLNmodels/workflows/R-CMD-check/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
+[\[R build
+status\](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check/badge.svg](https://github.com/MarcOhlmann/metanetwork/actions)
 <!-- badges: end -->
 
 ## Description
