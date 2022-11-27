@@ -56,14 +56,15 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
       warning('nodes of metaweb do not have names. Assigning integers as names')
       igraph::V(metaweb)$name = as.character(1:length(igraph::V(metaweb)))
     }
-  }
-  if(inherits(metaweb, c("matrix","data.frame","dgCMatrix"))){
+  }else if(inherits(metaweb, c("matrix","data.frame","dgCMatrix"))){
     if(is.null(colnames(metaweb))){
       warning('colnames of metaweb do not have names. Assigning integers as names')
       colnames(metaweb) = as.character(1:ncol(metaweb))
     }
     metaweb = igraph::graph_from_adjacency_matrix(as.matrix(metaweb),mode = "directed")
     metaweb = igraph::permute(metaweb,order(order(igraph::V(metaweb)$name)))
+  }else{
+   stop("metaweb should be a network of class igraph or a matrix/dataframe") 
   }
   if(!(igraph::is.connected(metaweb,mode = "weak"))){
     stop("metaweb must be connected, consider extracting the largest connected component")
@@ -96,7 +97,7 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
     } else if(is.null(colnames(trophicTable))){
       stop("trophicTable must have colnames")
     } else if(!setequal(trophicTable[,1],igraph::V(metaweb)$name)) {
-      stop("colnames of trophicTable must correspond to metaweb node names") 
+      stop("first column of trophicTable must correspond to metaweb node names") 
     } else{
       rownames(trophicTable) = trophicTable[,1]
       trophicTable = trophicTable[order(rownames(trophicTable)),]
