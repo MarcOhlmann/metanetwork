@@ -1,7 +1,7 @@
 Package: metanetwork
 Type: Package
 Title: Handling and Representing Trophic Networks in Space and Time
-Version: 0.6.0
+Version: 0.6.1
 Date: 2022-29-03
 Authors@R: c(
   person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marcohlmann@live.fr",
@@ -28,7 +28,6 @@ Imports:
 	dplyr,
 	igraph,
 	Matrix,
-        Matrix.utils,
 	ade4,
         visNetwork,
         grDevices,

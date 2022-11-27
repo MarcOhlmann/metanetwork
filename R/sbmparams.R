@@ -13,16 +13,16 @@
 # You should have received a copy of the GNU General Public License
 # along with econetwork.  If not, see <http://www.gnu.org/licenses/>
 
-sbmParams <- function(g, groups=NULL){
+sbmParams <- function(g, groups = NULL){
     ## groups[i] for V(g)[i]    
     if(is.null(groups)){# each node forms its own group if groups is NULL
-        groups = igraph::V(g)$name
-        names(groups) = igraph::V(g)$name
+        groups <- igraph::V(g)$name
+        names(groups) <- igraph::V(g)$name
     }
     
     alpha.vec <- igraph::V(g)$ab #abundance of the groups of the groups
     names(alpha.vec) <- igraph::V(g)$name
-    alpha.vec = t(as.matrix(Matrix.utils::aggregate.Matrix(alpha.vec,groups,fun = 'sum')))
+    alpha.vec = t(as.matrix(sapply(split(alpha.vec,groups),sum)))
     
     if(is.null(igraph::E(g)$weight)){#get the (weighted adjacency matrix)
         adj.mat <- igraph::get.adjacency(g)
@@ -30,9 +30,17 @@ sbmParams <- function(g, groups=NULL){
         adj.mat <- igraph::get.adjacency(g,attr = "weight")/max(igraph::E(g)$weight)
     }
     adj.mat.w <- adj.mat*igraph::V(g)$ab%*%t(igraph::V(g)$ab) #weight by species abundances (i.e. matrix of L_{ql} in the paper)
-    l.mat<-as.matrix(Matrix.utils::aggregate.Matrix(
-        t(as.matrix(Matrix.utils::aggregate.Matrix(adj.mat.w,groups,fun='sum'))),groups,fun='sum'))[colnames(alpha.vec),colnames(alpha.vec)] #aggregate the adjacency matrix at a group level
+    l.mat <- matrix(0, length(alpha.vec),length(alpha.vec))
+    colnames(l.mat) <- rownames(l.mat) <- colnames(alpha.vec)
+    Q <- length(colnames(alpha.vec))
+    for (q in 1:Q){
+      for (l in 1:Q){
+        l.mat[q,l] <- sum(adj.mat.w[which(groups==colnames(alpha.vec)[q]),
+                                    which(groups==colnames(alpha.vec)[l])])
+      }
+    }
     pi.mat<-l.mat/(t(alpha.vec)%*%alpha.vec) #link probability matrix
+    
     
     return(list(alpha=alpha.vec,
                 l=l.mat,
