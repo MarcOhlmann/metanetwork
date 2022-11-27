@@ -35,7 +35,8 @@ Imports:
         RColorBrewer,
         magrittr,
         ggimage,
-        rlang
+        rlang,
+        sna
 Language: en-US
 VignetteBuilder: utils
 Suggests: 

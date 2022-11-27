@@ -139,6 +139,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' @importFrom intergraph asNetwork
 #' @importFrom graphics image
 #' @importFrom rlang .data
+#' @import sna
 #' 
 #' @export
 #

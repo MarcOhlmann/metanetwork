@@ -4,3 +4,6 @@
 ^\.github$
 ^vignettes$
 ^README_files$
+^README\.Rmd$
+^README\.md$
+
