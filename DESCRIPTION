@@ -20,6 +20,7 @@ Date/Publication:
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 BugReports: https://github.com/MarcOhlmann/metanetwork/issues
+biocViews:
 Imports: 
 	GGally,
 	network,

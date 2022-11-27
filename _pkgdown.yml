@@ -1,5 +1,10 @@
 title: metanetwork
 url: https://marcohlmann.github.io/metanetwork/
+# template:
+#   params:
+#     docsearch:
+#       api_key: API_KEY
+#       index_name: INDEX_NAME
 
 navbar:
   structure:
