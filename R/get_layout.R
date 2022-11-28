@@ -277,41 +277,41 @@ get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
   return(coords_mat)
 }
 
-# get TL-kpco layout
-get_nodes_position_TL_kpco <- function(g,TL,beta){
-  if(igraph::is.connected(g,mode = "weak")){
-    if(igraph::vcount(g)>2){
-      K = compute_diffusion_kernel(g,beta)
-      nf_loc = dim(K)[1] - 1
-      pco1 = ade4::dudi.pco(dist(K),scannf = FALSE, nf = nf_loc)
-      pco2 = ade4::pcaivortho(pco1,TL, scan = F,nf = nf_loc)
-      coords = cbind(TL,rowMeans(pco2$li))
-      return(coords)
-    } else{
-      coords = cbind(TL,rep(0,igraph::vcount(g)))
-      return(coords)
-    }
-  } else{
-    coords_list = list() #stock coords for each connected component
-    membership_loc = igraph::components(g)$membership
-    for(comp in unique(membership_loc)){
-      #nodes belonging to comp
-      nodes_comp = igraph::V(g)[names(which(membership_loc == comp))]
-      g_comp_loc = igraph::induced_subgraph(g,nodes_comp)
-      coords_comp = get_nodes_position_TL_kpco(g = g_comp_loc,
-                                               TL = igraph::V(g_comp_loc)$TL ,beta = beta)
-      rownames(coords_comp) = igraph::V(g_comp_loc)$name
-      #avoiding overlay of different components
-      if(comp>1){
-        coords_comp[,2] = coords_comp[,2] - min(coords_comp[,2]) + 
-          max(coords_list[[comp-1]][,2]) #+ sd(coords_list[[comp-1]][,2])
-      }
-      coords_list = c(coords_list,list(coords_comp))
-    }
-    coords = do.call(rbind,coords_list)
-    return(coords[igraph::V(g)$name,])
-  }
-}
+# # get TL-kpco layout
+# get_nodes_position_TL_kpco <- function(g,TL,beta){
+#   if(igraph::is.connected(g,mode = "weak")){
+#     if(igraph::vcount(g)>2){
+#       K = compute_diffusion_kernel(g,beta)
+#       nf_loc = dim(K)[1] - 1
+#       pco1 = ade4::dudi.pco(dist(K),scannf = FALSE, nf = nf_loc)
+#       pco2 = ade4::pcaivortho(pco1,TL, scan = F,nf = nf_loc)
+#       coords = cbind(TL,rowMeans(pco2$li))
+#       return(coords)
+#     } else{
+#       coords = cbind(TL,rep(0,igraph::vcount(g)))
+#       return(coords)
+#     }
+#   } else{
+#     coords_list = list() #stock coords for each connected component
+#     membership_loc = igraph::components(g)$membership
+#     for(comp in unique(membership_loc)){
+#       #nodes belonging to comp
+#       nodes_comp = igraph::V(g)[names(which(membership_loc == comp))]
+#       g_comp_loc = igraph::induced_subgraph(g,nodes_comp)
+#       coords_comp = get_nodes_position_TL_kpco(g = g_comp_loc,
+#                                                TL = igraph::V(g_comp_loc)$TL ,beta = beta)
+#       rownames(coords_comp) = igraph::V(g_comp_loc)$name
+#       #avoiding overlay of different components
+#       if(comp>1){
+#         coords_comp[,2] = coords_comp[,2] - min(coords_comp[,2]) + 
+#           max(coords_list[[comp-1]][,2]) #+ sd(coords_list[[comp-1]][,2])
+#       }
+#       coords_list = c(coords_list,list(coords_comp))
+#     }
+#     coords = do.call(rbind,coords_list)
+#     return(coords[igraph::V(g)$name,])
+#   }
+# }
 
 #save TL-tsne layout as node attribute
 attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
