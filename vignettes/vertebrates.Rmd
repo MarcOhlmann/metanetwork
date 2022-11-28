@@ -1,7 +1,7 @@
 ---
 title: "Metaweb of European vertebrates analysis"
 author: "Marc Ohlmann"
-date: "2022-09-21"
+date: "2022-11-28"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -120,7 +120,8 @@ which(meta_vrtb$trophicTable[,"group"] == 17) %>% names()
 ```
 
 ```
-## [1] "Accipiter_gentilis"   "Aquila_adalberti"     "Aquila_clanga"        "Aquila_heliaca"       "Hieraaetus_fasciatus" "Lynx_lynx"           
+## [1] "Accipiter_gentilis"   "Aquila_adalberti"     "Aquila_clanga"       
+## [4] "Aquila_heliaca"       "Hieraaetus_fasciatus" "Lynx_lynx"           
 ## [7] "Hyaena_hyaena"
 ```
 
@@ -202,7 +203,9 @@ vertex_attr_names(meta_vrtb$metaweb_group)
 ```
 
 ```
-## [1] "name"              "ab"                "TL"                "layout_beta0.008"  "layout_beta0.004"  "layout_beta0.005"  "layout_beta0.0035"
+## [1] "name"              "ab"                "TL"               
+## [4] "layout_beta0.008"  "layout_beta0.004"  "layout_beta0.005" 
+## [7] "layout_beta0.0035"
 ```
 
 ### `'group-TL-tsne'` layout

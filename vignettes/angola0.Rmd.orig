@@ -121,7 +121,7 @@ Notice that even if the two layouts are quite different in term of global struct
 
 ### Using metaweb layout
 
-Using metaweb layout can ease the representation and comparaison of multiple local networks. 
+Using metaweb layout can ease the representation and comparison of multiple local networks. 
 
 ```{r angola_layout_metaweb}
 #using metaweb layout to represent a local network

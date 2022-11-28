@@ -138,7 +138,7 @@ build_metanet <- function(metaweb,abTable = NULL,trophicTable = NULL,
 #' Return a boolean indicating whether the object belongs to class \code{metanetwork}
 #'
 #' @param metanetwork the object to test
-#' @return a boolean indicating wheter the object belongs to class \code{metanetwork}
+#' @return a boolean indicating whether the object belongs to class \code{metanetwork}
 #'
 #' @examples
 #' library(metanetwork)

@@ -29,7 +29,7 @@ It indicates the membership of each node of the metaweb. Default is null.}
 \item{compute_local_nets}{a boolean, indicates whether local networks must be computed or not.
 Default is \code{TRUE}}
 
-\item{verbose}{a boolean indicating wheter message along the pipeline should be printed}
+\item{verbose}{a boolean indicating whether message along the pipeline should be printed}
 
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}

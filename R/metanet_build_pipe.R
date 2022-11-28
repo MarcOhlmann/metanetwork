@@ -31,7 +31,7 @@
 #' Default is \code{TRUE}
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' squeezing of the network
-#' @param verbose a boolean indicating wheter message along the pipeline should be printed
+#' @param verbose a boolean indicating whether message along the pipeline should be printed
 #'
 #' @return object of class 'metanetwork'
 #'

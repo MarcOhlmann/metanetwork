@@ -15,7 +15,7 @@ metanet_pipe(metanetwork, beta = 0.1, verbose = T)
 \item{beta}{the diffusion parameter of the diffusion kernel, a positive scalar controlling the
 squeezing of the network}
 
-\item{verbose}{a boolean indicating wheter message along the pipeline should be printed}
+\item{verbose}{a boolean indicating whether message along the pipeline should be printed}
 }
 \value{
 object of class 'metanetwork'

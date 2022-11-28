@@ -74,7 +74,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the network
 #' to use metaweb layout = TRUE, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}
-#' @param flip_coords a boolean indicating wheter coordinates should be flipped. 
+#' @param flip_coords a boolean indicating whether coordinates should be flipped. 
 #' @param alpha_per_group controlling alpha per group (only for 'ggnet' vis), a list of format 
 #' \code{list(resolutions = "XX",groups = XX,alpha_focal = XX,alpha_hidden = XX)}, see example
 #' @param alpha_per_node controlling alpha per node (only for 'ggnet' vis), a list of format 
@@ -161,9 +161,9 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
   }
   if(sum(class(mode) == "character")>0){
     message(paste0("mode is ",mode))
-    if(!(mode %in% c('TL-tsne','TL-kpco','fr','kk','circle','group-TL-tsne'))){
+    if(!(mode %in% c('TL-tsne','fr','kk','circle','group-TL-tsne'))){
       stop("mode must be one of: \n
-         'TL-tsne','TL-kpco','fr','kk','circle', 'group-TL-tsne' \n
+         'TL-tsne','fr','kk','circle', 'group-TL-tsne' \n
            or, alternatively, a 2-column matrix with coordinates" )
     }
   } else if (sum(class(mode) %in% c("matrix","data.frame"))>0){
@@ -273,16 +273,6 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
       mode_loc = mode
     }
   }
-  if(mode == "TL-kpco"){
-    if(is.null(igraph::V(g)$TL)){
-      if(!diff_plot_bool){
-        stop("you must compute trophic levels first, see compute_TL")  
-      }
-      igraph::V(g)$TL = compute_TL_laplacian(g,metanetwork)
-    }
-    mode_loc =  get_nodes_position_TL_kpco(g = g,TL = igraph::V(g)$TL,beta = beta)
-    rownames(mode_loc) = igraph::V(g)$name
-  }
   if(mode == 'TL-tsne'){
     if(is.null(igraph::V(g)$TL)){
       stop("you must compute trophic levels first, see compute_TL")
@@ -334,7 +324,6 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
       }
     }
   }
-  }
   if(mode == "group-TL-tsne"){
     attr_names = igraph::vertex_attr_names(g)
     if(length(grep(paste0("group_layout_x_beta",beta),attr_names)) == 0){
@@ -347,6 +336,7 @@ ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                          match(paste0("group_layout_y_beta",beta),attr_names)]))
       rownames(mode_loc) = igraph::V(g)$name
     }
+  }
   }
   
   if(sum(class(mode) %in% c('matrix','data.frame'))>0){

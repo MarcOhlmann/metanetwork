@@ -46,7 +46,6 @@ visNetwork.default = list(
 
 class(visNetwork.default) = 'metanetwork_config'
 
-
 #custom layout function for visnetwork
 customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
                          nrep_ly, layout_metaweb, flip_coords, diff_plot_bool,
@@ -56,9 +55,7 @@ customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
   n = igraph::vcount(g)
   TL_loc = igraph::V(g)$TL
   names(TL_loc) = igraph::V(g)$name
-  if(mode == 'TL-kpco'){
-    coords = get_nodes_position_TL_kpco(g,TL_loc,beta = beta)
-  }else if(mode == 'TL-tsne'){
+  if(mode == 'TL-tsne'){
     if(layout_metaweb == T){
       #check for a layout associated to the metaweb
       networks = extract_networks(metanetwork)
@@ -121,12 +118,12 @@ customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
 #' @param beta the diffusion parameter of the diffusion kernel, a positive scalar controlling the 
 #' vertical squeezing of the network
 #' @param legend resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL
-#' @param mode mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'
+#' @param mode mode used for layout, 'TL-tsne' for trophic level t-sne. Default is 'TL-tsne'
 #' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the network
 #' to use metaweb layout = T, you need first to compute metaweb layout for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}
-#' @param flip_coords a boolean indicating wheter coordinates should be flipped. 
+#' @param flip_coords a boolean indicating whether coordinates should be flipped. 
 #' In that case, y-axis is the trophic level and x-axis is the layout axis
 #' @param x_y_range a two dimension numeric vector, indicating dilatation of x,y axis
 #' @param visNetwork.config configuration list for visNetwork representation, default is visNetwork.default
@@ -373,9 +370,7 @@ vismetaNetwork <- function(metanetwork,g = NULL,beta = 0.1,
       visNetwork::visGroups(groupname = "more ab in g1", color = "#a1d99b") %>%
       visNetwork::visGroups(groupname = "more ab in g2", color = "#fc9272") %>%
       visNetwork::visGroups(groupname = "only pres in g1", color = "#31a354") %>%
-      visNetwork::visGroups(groupname = "only pres in g2", color = "#de2d26")  +
-      ggplot2::theme(legend.position="bottom", legend.box = "vertical")
-    
+      visNetwork::visGroups(groupname = "only pres in g2", color = "#de2d26") 
       return(network_loc)
   }
 }

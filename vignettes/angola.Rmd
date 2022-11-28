@@ -1,7 +1,7 @@
 ---
 title: "Angola dataset analysis"
 author: "Marc Ohlmann"
-date: "2022-09-21"
+date: "2022-11-28"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -131,8 +131,10 @@ V(meta_angola$metaweb)$TL
 ```
 
 ```
-##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394
-## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
+##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122
+##  [8] 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394
+## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889
+## [22] 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
 ```
 
 ```r
@@ -163,7 +165,7 @@ Notice that even if the two layouts are quite different in term of global struct
 
 ### Using metaweb layout
 
-Using metaweb layout can ease the representation and comparaison of multiple local networks. 
+Using metaweb layout can ease the representation and comparison of multiple local networks. 
 
 
 ```r

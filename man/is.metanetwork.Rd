@@ -13,7 +13,7 @@ is.metanetwork(metanetwork)
 \item{metanetwork}{the object to test}
 }
 \value{
-a boolean indicating wheter the object belongs to class \code{metanetwork}
+a boolean indicating whether the object belongs to class \code{metanetwork}
 
 \code{NULL}
 }

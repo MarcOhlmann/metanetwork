@@ -85,16 +85,16 @@ append_agg_nets.metanetwork <- function(metanetwork){
   }
 }
 
-get_aggregated_network <- function(g,scale,metanetwork){
-  groups_loc <- metanetwork$trophicTable[,scale]
-  names(groups_loc) = rownames(metanetwork$trophicTable)
-  array_ag = sbmParams(g,groups_loc[igraph::V(g)$name])
-  g_agg = igraph::graph_from_adjacency_matrix(t(array_ag$pi),weighted = T)
-  g_agg = igraph::set_vertex_attr(g_agg, name = "ab", value = array_ag$alpha)
-  return(g_agg)
-}
-
-get_aggregated_networks <- function(gList,scale,metanetwork){
-  get_aggregated_network_loc <- function(g) {return(get_aggregated_network(g,scale,metanetwork))}
-  return(lapply(gList,FUN = get_aggregated_network_loc))
-}
+# get_aggregated_network <- function(g,scale,metanetwork){
+#   groups_loc <- metanetwork$trophicTable[,scale]
+#   names(groups_loc) = rownames(metanetwork$trophicTable)
+#   array_ag = sbmParams(g,groups_loc[igraph::V(g)$name])
+#   g_agg = igraph::graph_from_adjacency_matrix(t(array_ag$pi),weighted = T)
+#   g_agg = igraph::set_vertex_attr(g_agg, name = "ab", value = array_ag$alpha)
+#   return(g_agg)
+# }
+# 
+# get_aggregated_networks <- function(gList,scale,metanetwork){
+#   get_aggregated_network_loc <- function(g) {return(get_aggregated_network(g,scale,metanetwork))}
+#   return(lapply(gList,FUN = get_aggregated_network_loc))
+# }

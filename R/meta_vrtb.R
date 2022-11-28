@@ -26,11 +26,11 @@
 #' @format
 #' \describe{
 #' A object of class 'metanetwork'
-#' \item{metaweb}{The metaweb from Maiorano et aL. 2020, O'Connor et al 2020, containing 1101 species and 49013 interactions, a \code{igraph} object} 
+#' \item{metaweb}{The metaweb from Maiorano et al. 2020, O'Connor et al 2020, containing 1101 species and 49013 interactions, a \code{igraph} object} 
 #' \item{trophicTable}{Trophic table, a two columns \code{data.frame} 
 #' with a column containing species name and a column containing Stochastic Block Model groups inferred in O'Connor et al 2020}
 #' }
 #' @usage data(meta_vrtb)
-#' @source \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/geb.13138, https://onlinelibrary.wiley.com/doi/abs/10.1111/jbi.13773 }
+#' @source \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/geb.13138}, \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/jbi.13773}
 "meta_vrtb"
 

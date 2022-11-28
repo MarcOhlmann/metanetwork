@@ -89,12 +89,12 @@ compute_TL_laplacian <- function(G,metanetwork){
 #' \deqn{Lx = v} 
 #' For a connected network, the solution is unique up to a translation.
 #' We then fix the minimum trophic level value at 0 thus fixing trophic levels of all others species. 
-#' Local networks may be disconnected due to sampling effect. In that case, we fix the mininmum value on each connected component. 
+#' Local networks may be disconnected due to sampling effect. In that case, we fix the minimum value on each connected component. 
 #' 
 #' @references MacKay, R. S., Johnson, S., & Sansom, B. (2020). How directed is a directed network?. Royal Society open science, 7(9), 201138.
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @return object of class 'metanetwork' with a node attribude \code{TL}
+#' @return object of class 'metanetwork' with a node attribute \code{TL}
 #'
 #' @examples
 #' library(metanetwork)

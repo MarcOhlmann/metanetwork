@@ -143,7 +143,7 @@ The diffusion kernel is then defined as (Kondor & Lafferty, 2002):
 \end{equation}
 
 with $\beta$ a positive parameter.
-Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbours.
+Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbors.
 
 ### beta parameter
 

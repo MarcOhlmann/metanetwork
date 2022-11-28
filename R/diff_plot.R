@@ -31,7 +31,7 @@
 #' to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb 
 #' (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}
-#' @param flip_coords a boolean indicating wheter coordinates should be flipped. 
+#' @param flip_coords a boolean indicating whether coordinates should be flipped. 
 #' In that case, y-axis is the trophic level and x-axis is the layout axis
 #' @param alpha_per_group controlling alpha per group (only for 'ggnet' vis), a list of format 
 #' \code{list(resolutions = "XX",groups = XX,alpha_focal = XX,alpha_hidden = XX)}, see example
@@ -82,6 +82,9 @@
 #' 
 #' 
 #' @export
+#' 
+#' 
+
 diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
                       vis_tool = "ggnet",
                       edge_thrs = NULL,layout_metaweb = F,flip_coords = F,
@@ -93,9 +96,9 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
     stop("metanetwork is an object of class metanetwork, see build_metanet")
   }
   message(paste0("mode is ",mode))
-  if(!(mode %in% c('TL-tsne','group-TL-tsne','TL-kpco','fr','kk','circle'))){
+  if(!(mode %in% c('TL-tsne','group-TL-tsne','fr','kk','circle'))){
     stop("mode must be one of: \n
-         'TL-tsne','TL-kpco','fr','kk','circle")
+         'TL-tsne','fr','kk','circle")
   }
   
   networks = extract_networks(metanetwork)
@@ -218,7 +221,8 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
       }else if(vis_tool == "visNetwork"){
         return(vismetaNetwork(metanetwork = metanetwork_diff,mode = mode,diff_plot_bool = T,
                          visNetwork.config = visNetwork.config,TL_tsne.config = TL_tsne.config,
-                         beta = beta,edge_thrs = edge_thrs,layout_metaweb = layout_metaweb,flip_coords = flip_coords))
+                         beta = beta,edge_thrs = edge_thrs,layout_metaweb = layout_metaweb,flip_coords = flip_coords,x_y_range = c(100,100)))
       }
   }
 }
+

@@ -41,7 +41,7 @@ squeezing of the network}
 \item{layout_metaweb}{a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
 to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}}
 
-\item{flip_coords}{a boolean indicating wheter coordinates should be flipped.
+\item{flip_coords}{a boolean indicating whether coordinates should be flipped.
 In that case, y-axis is the trophic level and x-axis is the layout axis}
 
 \item{alpha_per_group}{controlling alpha per group (only for 'ggnet' vis), a list of format

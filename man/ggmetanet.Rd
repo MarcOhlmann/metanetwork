@@ -42,7 +42,7 @@ to use metaweb layout = TRUE, you need first to compute metaweb layout for this 
 
 \item{nrep_ly}{If several layouts for this beta value are attached to the metaweb (if \code{layout_metaweb = T}), index of the layout to use, see \code{attach_layout()}}
 
-\item{flip_coords}{a boolean indicating wheter coordinates should be flipped.}
+\item{flip_coords}{a boolean indicating whether coordinates should be flipped.}
 
 \item{diff_plot_bool}{boolean, do not edit by hand}
 

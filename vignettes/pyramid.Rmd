@@ -1,7 +1,7 @@
 ---
 title: "Pyramid metanetwork example using 'metanetwork'"
 author: "Marc Ohlmann"
-date: "2022-09-21"
+date: "2022-11-28"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -183,8 +183,9 @@ V(meta0$metaweb)$TL
 ```
 
 ```
-##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 4.440892e-16 1.000000e+00
-##  [9] 2.000000e+00 3.000000e+00 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00
+##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00
+##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00
+## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00
 ```
 
 ## Representing metanetworks
@@ -206,7 +207,7 @@ The diffusion kernel is then defined as (Kondor & Lafferty, 2002):
 \end{equation}
 
 with $\beta$ a positive parameter.
-Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbours.
+Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbors.
 
 ### beta parameter
 
@@ -301,8 +302,9 @@ V(meta0$metaweb)$layout_beta0.1
 ```
 
 ```
-##  [1]   0.5781586 -10.0255923  -4.3836969  28.8397011  17.8690609   6.9659132  41.1474333  34.4807160
-##  [9]  22.7358925  12.0445424 -42.7318548 -36.4482996 -29.9493470 -23.6153042 -17.5073234
+##  [1]   0.5596168  -9.9380097  -4.3490883  28.5412315  17.6861972   6.8899526
+##  [7]  40.7003865  34.1126353  22.5213786  11.9248765 -42.2708834 -36.0604630
+## [13] -29.6295794 -23.3662527 -17.3219984
 ```
 
 ```r
@@ -312,8 +314,9 @@ V(meta0$metaweb)$layout_beta0.1
 ```
 
 ```
-##  [1]   0.5781586 -10.0255923  -4.3836969  28.8397011  17.8690609   6.9659132  41.1474333  34.4807160
-##  [9]  22.7358925  12.0445424 -42.7318548 -36.4482996 -29.9493470 -23.6153042 -17.5073234
+##  [1]   0.5596168  -9.9380097  -4.3490883  28.5412315  17.6861972   6.8899526
+##  [7]  40.7003865  34.1126353  22.5213786  11.9248765 -42.2708834 -36.0604630
+## [13] -29.6295794 -23.3662527 -17.3219984
 ```
 
 Then, any call of `ggmetanet` or `vismetaNetwork` will use the computed layout for the desired $\beta$ value.

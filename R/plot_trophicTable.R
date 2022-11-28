@@ -15,10 +15,10 @@
 
 #'Plot trophic groups hierarchy
 #'
-#'Function to represent trophic groups hierachy provided by trophicTable
+#'Function to represent trophic groups hierarchy provided by trophicTable
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @param res resolutions included in the hierachy representation. Default is "all" (all resolutions are then included)
+#' @param res resolutions included in the hierarchy representation. Default is "all" (all resolutions are then included)
 #'  but can be also a vector of given resolutions
 #' @param ggnet.config configuration list for ggnet representation, default is ggnet.default
 #'

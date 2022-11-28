@@ -18,7 +18,7 @@
 #' Print method for class \code{metanetwork}
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @return character indicating number of nodes and edges of the metaweb, availabe resolutions 
+#' @return character indicating number of nodes and edges of the metaweb, available resolutions 
 #' and number of local networks
 #'
 #' @examples

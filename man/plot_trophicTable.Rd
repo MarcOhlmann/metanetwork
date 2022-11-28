@@ -9,7 +9,7 @@ plot_trophicTable(metanetwork, res = "all", ggnet.config = ggnet.default)
 \arguments{
 \item{metanetwork}{object of class 'metanetwork'}
 
-\item{res}{resolutions included in the hierachy representation. Default is "all" (all resolutions are then included)
+\item{res}{resolutions included in the hierarchy representation. Default is "all" (all resolutions are then included)
 but can be also a vector of given resolutions}
 
 \item{ggnet.config}{configuration list for ggnet representation, default is ggnet.default}
@@ -18,7 +18,7 @@ but can be also a vector of given resolutions}
 object of class 'ggnet'
 }
 \description{
-Function to represent trophic groups hierachy provided by trophicTable
+Function to represent trophic groups hierarchy provided by trophicTable
 }
 \examples{
 library(metanetwork)
