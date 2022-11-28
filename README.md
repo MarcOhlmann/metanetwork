@@ -9,6 +9,8 @@ Marc Ohlmann
 
 [![R build
 status](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
+[![Coverage
+status](https://codecov.io/gh/MarcOhlmann/metanetwork/branch/main/graph/badge.svg)](https://codecov.io/github/MarcOhlmann/metanetwork?branch=main)
 <!-- badges: end -->
 
 ## Description
