@@ -183,66 +183,35 @@ Van der Maaten, L., &amp; Hinton, G. (2008). Visualizing data using t-SNE. Journ
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.05</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775017949</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.127358896663</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.250252264176</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019052</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.160520819233</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.291374907953</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  25.9658753   6.3636165  -4.7007548   4.3474964  11.5065287 -15.2071392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -27.0772334  -7.0469782 -30.8999710 -21.2148895 -11.1353290 -24.0472760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  19.7977531  14.7627124  22.4486385   2.1004223  17.1557252  -2.2960021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1380145 -17.7593250   8.2809573  30.4435001  -9.1355746 -13.1467054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   9.7884082  13.1036454  17.1631399 -19.4232269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.9754477   4.3233028  -4.7343032  16.0936537  10.7312871 -11.3008496</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -31.3915208  -7.0844420 -24.1964656 -17.8732174 -15.3676245 -21.3478774</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  13.6812794  18.5476402  27.4951169   2.1164764  21.0778430  -2.3221957</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1711508 -27.0662476   7.7450796  32.2832905  -9.2170184 -13.4659320</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   6.3234142   8.9328822  11.7184514 -19.5063201</span>
 <span class="r-in"><span><span class="co"># on a local network</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for X1986_Species</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775023165</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.116672084976</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.230005543318</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># getting repetitions</span></span></span>
 <span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for metaweb_Species</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775028105</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.136599229159</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.269786367488</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  25.9658753   6.3636165  -4.7007548   4.3474964  11.5065287 -15.2071392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -27.0772334  -7.0469782 -30.8999710 -21.2148895 -11.1353290 -24.0472760</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  19.7977531  14.7627124  22.4486385   2.1004223  17.1557252  -2.2960021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1380145 -17.7593250   8.2809573  30.4435001  -9.1355746 -13.1467054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   9.7884082  13.1036454  17.1631399 -19.4232269</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  25.7210358   5.9566918  -4.6409239   4.0800610  12.2667957 -14.8060103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -22.8958544  -6.8874310 -29.0735753 -17.2542364 -10.8585963 -20.6375776</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  14.9934739  19.9847843  29.6968980   1.9429852  22.5881012  -2.2859712</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.2204307 -25.3720796   9.3976749  17.2260546  -8.9498979 -12.8001499</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   8.0238701  10.5514999  13.0887150 -18.8359066</span>
-<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># attaching 'group-TL-tsne' layout on norway dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_norway"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## attach 'TL-tsne layout at the desired aggregated level</span></span></span>
+<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
 <span class="r-in"><span>              <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_norway</span>,<span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching TL-tsne layout for metaweb_trophic_class</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 275.793322650735</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 65.677895364856</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 65.6930051967189</span>
 <span class="r-in"><span><span class="co">## attach 'group-TL-tsne layout'</span></span></span>
 <span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_norway</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> attaching group-TL-tsne layout for metaweb at resolution: trophic_class</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
