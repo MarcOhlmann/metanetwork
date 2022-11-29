@@ -30,7 +30,7 @@ vertical squeezing of the network}
 
 \item{legend}{resolution for the legend, legend resolution must be a coarser resolution than the resolution of g, default is NULL}
 
-\item{mode}{mode used for layout, 'TL-tsne' for trophic level t-sne and 'TL-kpco' for trophic level kernel based pco. Default is 'TL-tsne'}
+\item{mode}{mode used for layout, 'TL-tsne' for trophic level t-sne. Default is 'TL-tsne'}
 
 \item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}
 
