@@ -106,6 +106,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' 
 #'
 #'# angola dataset
+#'\dontrun{
 #'data("meta_angola")
 #'meta_angola = compute_TL(meta_angola)
 #'ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
@@ -134,6 +135,7 @@ class(ggnet.default) = 'metanetwork_config'
 #'
 #'ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
 #'beta = beta,legend = "group",ggnet.config = ggnet.custom)
+#'}
 #'
 #' @importFrom ggplot2 aes element_blank element_line element_rect xlim ylim
 #' @importFrom intergraph asNetwork

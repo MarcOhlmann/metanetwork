@@ -95,6 +95,7 @@ ggmetanet(meta0)
 
 
 # angola dataset
+\dontrun{
 data("meta_angola")
 meta_angola = compute_TL(meta_angola)
 ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
@@ -123,6 +124,7 @@ ggnet.custom$palette = "Set2"
 
 ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
 beta = beta,legend = "group",ggnet.config = ggnet.custom)
+}
 
 }
 \seealso{
