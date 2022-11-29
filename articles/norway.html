@@ -87,7 +87,7 @@
       <h1 data-toc-skip>Norway soil metanetwork analysis</h1>
                         <h4 data-toc-skip class="author">Marc Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-09-21</h4>
+            <h4 data-toc-skip class="date">2022-11-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/norway.Rmd" class="external-link"><code>vignettes/norway.Rmd</code></a></small>
       <div class="hidden name"><code>norway.Rmd</code></div>
@@ -183,8 +183,8 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "group_layout_x_beta0.2"</span></span>
-<span><span class="co">## [6] "group_layout_y_beta0.2"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                    </span></span>
+<span><span class="co">## [4] "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,legend <span class="op">=</span> <span class="st">"trophic_class"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and comparing local networks</p>
@@ -195,9 +195,9 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## beta = 0.006</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.65907925706</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.569234928954</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.714665711209</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.49077132459</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.515606511174</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.647881726646</span></span></code></pre>
 <div class="figure">
 <img src="figure/norway_diffplot-1.png" alt=""><p class="caption">plot of chunk norway_diffplot</p>
 </div>
