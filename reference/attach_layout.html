@@ -183,35 +183,15 @@ Van der Maaten, L., &amp; Hinton, G. (2008). Visualizing data using t-SNE. Journ
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.05</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019052</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.160520819233</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.291374907953</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.410775019762</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.128768187275</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.258553823626</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  23.9754477   4.3233028  -4.7343032  16.0936537  10.7312871 -11.3008496</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] -31.3915208  -7.0844420 -24.1964656 -17.8732174 -15.3676245 -21.3478774</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13]  13.6812794  18.5476402  27.4951169   2.1164764  21.0778430  -2.3221957</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19]  -0.1711508 -27.0662476   7.7450796  32.2832905  -9.2170184 -13.4659320</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25]   6.3234142   8.9328822  11.7184514 -19.5063201</span>
-<span class="r-in"><span><span class="co"># on a local network</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># getting repetitions</span></span></span>
-<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># attaching 'group-TL-tsne' layout on norway dataset</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_norway"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## attach 'TL-tsne layout at the desired aggregated level</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> </span></span>
-<span class="r-in"><span>              <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_norway</span>,<span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## attach 'group-TL-tsne layout'</span></span></span>
-<span class="r-in"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu">attach_layout</span><span class="op">(</span><span class="va">meta_norway</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -25.933498  -5.957233   4.569148  -4.080815 -11.759664  10.798229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7]  29.671258   6.813852  22.923059  20.436446  14.646628  26.131051</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] -15.074233 -17.450515 -22.351623  -1.942314 -19.680891   2.252946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19]   0.205816  17.048409  -9.372970 -30.434087   8.810592  12.872532</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25]  -7.982027 -13.133200 -10.602193  18.575297</span>
 </code></pre></div>
     </div>
   </div>

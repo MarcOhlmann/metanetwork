@@ -194,8 +194,8 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891917</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051217027</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891916</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051217278</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
@@ -205,20 +205,21 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891915</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.98005121597</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891911</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051218962</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-plt img"><img src="ggmetanet-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># angola dataset</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_angola"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_angola</span>,legend <span class="op">=</span> <span class="st">'Phylum'</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#custom ggnet parameters</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.5</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.7</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">1</span></span></span>
+<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">max_size</span> <span class="op">=</span> <span class="fl">12</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># using pre-computed layout and custom ggnet parametersfor vertebrates metaweb</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_vrtb"</span><span class="op">)</span></span></span>
@@ -234,17 +235,9 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,g <span class="op">=</span> <span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span>,flip_coords <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>         beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,</span></span>
 <span class="r-in"><span>         ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,edge_thrs <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># at a species level, using "group-TL-tsne" layout</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label</span> <span class="op">=</span> <span class="cn">FALSE</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.02</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">alpha</span> <span class="op">=</span> <span class="fl">0.7</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">1</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">max_size</span> <span class="op">=</span> <span class="fl">3</span></span></span>
-<span class="r-in"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">palette</span> <span class="op">=</span> <span class="st">"Set2"</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta_vrtb</span>,flip_coords <span class="op">=</span> <span class="cn">TRUE</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,</span></span>
-<span class="r-in"><span>beta <span class="op">=</span> <span class="va">beta</span>,legend <span class="op">=</span> <span class="st">"group"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> too many groups, assigning colors and shapes</span>
+<span class="r-plt img"><img src="ggmetanet-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

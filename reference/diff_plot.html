@@ -185,38 +185,14 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467950473</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.101589274448</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.211369942758</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467954277</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.133112092018</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.255958635349</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'GGally':</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   method from   </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   +.gg   ggplot2</span>
 <span class="r-plt img"><img src="diff_plot-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">#using visNetwork</span></span></span>
-<span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span><span class="co">#return htmlwidget</span></span></span>
-<span class="r-in"><span><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span></span>
-<span class="r-in"><span>beta <span class="op">=</span> <span class="fl">0.05</span>,vis_tool <span class="op">=</span> <span class="st">"visNetwork"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## END NOT RUN</span></span></span>
-<span class="r-in"><span><span class="co">#computing and using metaweb layout for diffplot</span></span></span>
-<span class="r-in"><span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span></span>
-<span class="r-in"><span>beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">#using visNetwork</span></span></span>
-<span class="r-in"><span><span class="fu">diff_plot</span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span></span>
-<span class="r-in"><span>beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">TRUE</span>,vis_tool <span class="op">=</span> <span class="st">"visNetwork"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">##contrasting alpha </span></span></span>
-<span class="r-in"><span><span class="co">#per group</span></span></span>
-<span class="r-in"><span><span class="fu">diff_plot</span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
-<span class="r-in"><span>          alpha_per_group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>resolution <span class="op">=</span> <span class="st">"Phylum"</span>,groups <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Fish"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>alpha_focal <span class="op">=</span> <span class="fl">0.01</span>,alpha_hidden <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">#per node           </span></span></span>
-<span class="r-in"><span><span class="fu">diff_plot</span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,</span></span>
-<span class="r-in"><span>alpha_per_node <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>nodes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Detritus"</span>,<span class="st">"Phytoplankton"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>alpha_focal <span class="op">=</span> <span class="fl">0.01</span>,alpha_hidden <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
