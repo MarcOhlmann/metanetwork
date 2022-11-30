@@ -78,13 +78,13 @@
 <span>  legend <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  mode <span class="op">=</span> <span class="st">"TL-tsne"</span>,</span>
 <span>  edge_thrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  layout_metaweb <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  layout_metaweb <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  nrep_ly <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  flip_coords <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  diff_plot_bool <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  flip_coords <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  diff_plot_bool <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  alpha_per_group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_per_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  alpha_interactive <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  alpha_interactive <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ggnet.config <span class="op">=</span> <span class="va">ggnet.default</span>,</span>
 <span>  TL_tsne.config <span class="op">=</span> <span class="va">TL_tsne.default</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -163,7 +163,7 @@ should be asked in interactive mode to the user</p></dd>
     <h2>Value</h2>
     
 
-<p>object of class 'ggplot'</p>
+<p>an object of class <code>ggplot</code>, the current network representation</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -194,8 +194,8 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891924</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051219331</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891914</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.98005121538</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>node.size is invariant; size.cut ignored</span>
 <span class="r-plt img"><img src="ggmetanet-1.png" alt="" width="700" height="433"></span>
@@ -206,7 +206,7 @@ This function provides many static visualisation tools:</p><ul><li><p>customisin
 <span class="r-msg co"><span class="r-pr">#&gt;</span>                   beta = 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.1</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 431.402455891916</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.98005121679</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 101.980051215107</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 101.980051216652</span>
 <span class="r-in"><span><span class="fu">ggmetanet</span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>

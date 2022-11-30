@@ -81,8 +81,8 @@ This function represent the difference between g1 and g2 (g1-g2).</p>
 <span>  mode <span class="op">=</span> <span class="st">"TL-tsne"</span>,</span>
 <span>  vis_tool <span class="op">=</span> <span class="st">"ggnet"</span>,</span>
 <span>  edge_thrs <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  layout_metaweb <span class="op">=</span> <span class="cn">F</span>,</span>
-<span>  flip_coords <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>  layout_metaweb <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  flip_coords <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  alpha_per_group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  alpha_per_node <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  TL_tsne.config <span class="op">=</span> <span class="va">TL_tsne.default</span>,</span>
@@ -164,7 +164,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
     <h2>Value</h2>
     
 
-<p>plot of the difference network, either using 'ggnet' or 'visNetwork'</p>
+<p>an object of class <code>ggplot</code> or <code>visNetwork</code>, representation of the difference network</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -185,9 +185,9 @@ In that case, y-axis is the trophic level and x-axis is the layout axis</p></dd>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> plotting: X2003_Species - X1986_Species</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> mode is TL-tsne</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> beta = 0.05</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.37346795382</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.130511024843</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.269795117411</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #100 error is: 907.373467956677</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #200 error is: 217.108377413301</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Epoch: Iteration #300 error is: 217.236077553548</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Registered S3 method overwritten by 'GGally':</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   method from   </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   +.gg   ggplot2</span>
