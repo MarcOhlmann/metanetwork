@@ -93,12 +93,13 @@ ggmetanet(meta0)
 meta0 = attach_layout(meta0)
 ggmetanet(meta0)
 
-
-# angola dataset
-\dontrun{
-data("meta_angola")
-meta_angola = compute_TL(meta_angola)
-ggmetanet(meta_angola,legend = 'Phylum',beta = 0.05)
+#custom ggnet parameters
+ggnet.custom = ggnet.default
+ggnet.custom$label = TRUE
+ggnet.custom$edge.alpha = 0.5
+ggnet.custom$alpha = 0.7
+ggnet.custom$arrow.size = 1
+ggnet.custom$max_size = 12
 
 # using pre-computed layout and custom ggnet parametersfor vertebrates metaweb
 data("meta_vrtb")
@@ -114,17 +115,6 @@ beta = 0.005
 ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = TRUE,
          beta = beta,legend = "group",
          ggnet.config = ggnet.custom,edge_thrs = 0.1)
-# at a species level, using "group-TL-tsne" layout
-ggnet.custom$label = FALSE
-ggnet.custom$edge.alpha = 0.02
-ggnet.custom$alpha = 0.7
-ggnet.custom$arrow.size = 1
-ggnet.custom$max_size = 3
-ggnet.custom$palette = "Set2"
-
-ggmetanet(meta_vrtb,flip_coords = TRUE,mode = "group-TL-tsne",
-beta = beta,legend = "group",ggnet.config = ggnet.custom)
-}
 
 }
 \seealso{

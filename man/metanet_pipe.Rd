@@ -35,9 +35,4 @@ meta0 = build_metanet(g)
 meta0 = metanet_pipe(meta0)
 ggmetanet(meta0)
 
-\dontrun{
-#on angola data set
-data("meta_angola")
-meta_angola = metanet_pipe(meta_angola)
-}
 }

@@ -77,30 +77,6 @@ data(meta_angola)
 diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
 beta = 0.05)
 
-#using visNetwork
-\dontrun{
-#return htmlwidget
-diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
-beta = 0.05,vis_tool = "visNetwork")
-## END NOT RUN
-#computing and using metaweb layout for diffplot
-meta_angola = attach_layout(meta_angola,beta = 0.1)
-diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
-beta = 0.1,layout_metaweb = TRUE)
-#using visNetwork
-diff_plot(g1 = meta_angola$X2003,g2 = meta_angola$X1986,metanetwork = meta_angola,
-beta = 0.1,layout_metaweb = TRUE,vis_tool = "visNetwork")
-
-##contrasting alpha 
-#per group
-diff_plot(metanetwork = meta_angola,g1 = meta_angola$X2003,g2 = meta_angola$X1986,beta = 0.05,
-          alpha_per_group = list(resolution = "Phylum",groups = c("Fish"),
-alpha_focal = 0.01,alpha_hidden = 0.8))
-#per node           
-diff_plot(metanetwork = meta_angola,g1 = meta_angola$X2003,g2 = meta_angola$X1986,beta = 0.05,
-alpha_per_node = list(nodes = c("Detritus","Phytoplankton"),
-alpha_focal = 0.01,alpha_hidden = 0.8))
-}
 
 
 }

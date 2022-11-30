@@ -135,28 +135,12 @@ customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
 #' @examples
 #' library(metanetwork)
 #' library(igraph)
-#' \dontrun{
-#' ## NOT RUN
+#' data("meta_angola")
 #' ## Return htmlwidget
 #' # on angola dataset
 #' meta_angola = attach_layout(meta_angola, beta = 0.05)
 #' vismetaNetwork(meta_angola, beta = 0.05)
-#' # flipping coordinates and controlling x_y_range
-#' vismetaNetwork(meta_angola, beta = 0.05,flip_coords = TRUE,x_y_range = c(50,200))
-#' #adding a legend
-#' vismetaNetwork(meta_angola,legend = "Phylum", beta = 0.05)
-#' # use metaweb layout to represent a local network
-#' vismetaNetwork(metanetwork = meta_angola,g = meta_angola$X2003,legend = "Phylum", beta = 0.05,
-#' layout_metaweb=TRUE)
 #' 
-#'# custom visNetwork parameters
-#'visNetwork.custom = visNetwork.default
-#'visNetwork.custom$edge.size = 5
-#'visNetwork.custom$label = FALSE
-#'
-#'vismetaNetwork(meta_angola,legend = "Phylum", beta = 0.05,
-#'visNetwork.config = visNetwork.custom)
-#'}
 #'
 #' @export
 vismetaNetwork <- function(metanetwork,g = NULL,beta = 0.1,

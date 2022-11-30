@@ -384,26 +384,6 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' data("meta_angola")
 #' meta_angola = attach_layout(meta_angola,beta = 0.05)
 #' V(meta_angola$metaweb)$layout_beta0.05
-#' # on a local network
-#' \dontrun{
-#' meta_angola = attach_layout(meta_angola,g = meta_angola$X1986,beta = 0.05)
-#' 
-#' # getting repetitions
-#' meta_angola = attach_layout(meta_angola,beta = 0.05)
-#' V(meta_angola$metaweb)$layout_beta0.05
-#' V(meta_angola$metaweb)$layout_beta0.05_1
-#' }
-#' 
-#' # attaching 'group-TL-tsne' layout on norway dataset
-#' data("meta_norway")
-#' ## attach 'TL-tsne layout at the desired aggregated level
-#' \dontrun{
-#' meta_norway = append_agg_nets(meta_norway) %>% 
-#'               compute_TL()
-#' meta_norway = attach_layout(meta_norway,meta_norway$metaweb_trophic_class,beta = 0.1)
-#' ## attach 'group-TL-tsne layout'
-#' meta_norway = attach_layout(meta_norway,mode = "group-TL-tsne",res = "trophic_class",beta = 0.1)
-#' }
 #' @export
 attach_layout <- function(metanetwork,g = NULL,beta = 0.1,
                           mode = 'TL-tsne',TL_tsne.config = TL_tsne.default,
