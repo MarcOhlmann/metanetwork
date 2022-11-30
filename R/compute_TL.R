@@ -94,7 +94,7 @@ compute_TL_laplacian <- function(G,metanetwork){
 #' @references MacKay, R. S., Johnson, S., & Sansom, B. (2020). How directed is a directed network?. Royal Society open science, 7(9), 201138.
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @return object of class 'metanetwork' with a node attribute \code{TL}
+#' @return an object of class 'metanetwork', with computed trophic levels stored as node attribute \code{TL}
 #'
 #' @examples
 #' library(metanetwork)

@@ -5,7 +5,7 @@
 \alias{metanet_pipe.metanetwork}
 \title{Execute 'metanetwork' pipeline}
 \usage{
-metanet_pipe(metanetwork, beta = 0.1, verbose = T)
+metanet_pipe(metanetwork, beta = 0.1, verbose = TRUE)
 
 \method{metanet_pipe}{metanetwork}(metanetwork, beta = 0.1, verbose = T)
 }

@@ -35,7 +35,7 @@
 #' ggmetanet(meta0)
 #' 
 #' @export
-metanet_pipe <- function(metanetwork,beta = 0.1,verbose = T){
+metanet_pipe <- function(metanetwork,beta = 0.1,verbose = TRUE){
   UseMethod("metanet_pipe",metanetwork)
 }
 

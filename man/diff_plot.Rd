@@ -12,8 +12,8 @@ diff_plot(
   mode = "TL-tsne",
   vis_tool = "ggnet",
   edge_thrs = NULL,
-  layout_metaweb = F,
-  flip_coords = F,
+  layout_metaweb = FALSE,
+  flip_coords = FALSE,
   alpha_per_group = NULL,
   alpha_per_node = NULL,
   TL_tsne.config = TL_tsne.default,
@@ -60,7 +60,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis}
 \item{visNetwork.config}{configuration list for visNetwork representation, default is visNetwork.default}
 }
 \value{
-plot of the difference network, either using 'ggnet' or 'visNetwork'
+an object of class \code{ggplot} or \code{visNetwork}, representation of the difference network
 }
 \description{
 Function to represent difference between two networks belonging to a metanetwork

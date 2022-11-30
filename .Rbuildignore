@@ -9,3 +9,4 @@
 ^roxygenise_loc.Rout
 ^codecov.yml
 ^cran-comments\.md$
+^CRAN-SUBMISSION$

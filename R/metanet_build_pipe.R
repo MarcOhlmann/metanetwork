@@ -46,7 +46,7 @@
 #'
 #' @export
 metanet_build_pipe <- function(metaweb,abTable = NULL, trophicTable = NULL,
-                               compute_local_nets = T,verbose = T,beta = 0.1){
+                               compute_local_nets = TRUE,verbose = TRUE,beta = 0.1){
  
   if(verbose){
     message("building metanetwork")

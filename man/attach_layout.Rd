@@ -43,7 +43,7 @@ squeezing of the network, default is 0.1}
 \item{group_layout.config}{configuration list for mode 'group-TL-tsne', default is group_layout.default}
 }
 \value{
-'metanetwork' object with layout added as node attribute of the considered network
+an object of class 'metanetwork', with the computed layout added as node attribute of the considered network
 
 \code{NULL}
 }

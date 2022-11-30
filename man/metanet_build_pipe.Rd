@@ -8,8 +8,8 @@ metanet_build_pipe(
   metaweb,
   abTable = NULL,
   trophicTable = NULL,
-  compute_local_nets = T,
-  verbose = T,
+  compute_local_nets = TRUE,
+  verbose = TRUE,
   beta = 0.1
 )
 }

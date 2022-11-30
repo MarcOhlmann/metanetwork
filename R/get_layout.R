@@ -369,7 +369,7 @@ attach_layout_g <- function(g,metanetwork,mode = 'TL-tsne',
 #' @param res resolution for the 'group-TL-tsne' layout
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
 #' @param group_layout.config configuration list for mode 'group-TL-tsne', default is group_layout.default
-#' @return 'metanetwork' object with layout added as node attribute of the considered network
+#' @return an object of class 'metanetwork', with the computed layout added as node attribute of the considered network
 #' 
 #' @seealso [ggmetanet()], [vismetaNetwork()],[group_layout.default]
 #'

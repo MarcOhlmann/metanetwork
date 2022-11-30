@@ -43,7 +43,7 @@
 #' 
 #' @seealso [attach_layout()]
 #' 
-#' @return plot of the difference network, either using 'ggnet' or 'visNetwork'
+#' @return an object of class \code{ggplot} or \code{visNetwork}, representation of the difference network
 #'
 #' @examples
 #' #on Angola dataset
@@ -63,7 +63,7 @@
 
 diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
                       vis_tool = "ggnet",
-                      edge_thrs = NULL,layout_metaweb = F,flip_coords = F,
+                      edge_thrs = NULL,layout_metaweb = FALSE,flip_coords = FALSE,
                       alpha_per_group = NULL,alpha_per_node = NULL,
                       TL_tsne.config = TL_tsne.default,nrep_ly = 1,
                       ggnet.config = ggnet.default,visNetwork.config = visNetwork.default){

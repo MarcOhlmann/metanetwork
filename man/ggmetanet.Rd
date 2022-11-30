@@ -11,13 +11,13 @@ ggmetanet(
   legend = NULL,
   mode = "TL-tsne",
   edge_thrs = NULL,
-  layout_metaweb = F,
+  layout_metaweb = FALSE,
   nrep_ly = 1,
-  flip_coords = F,
-  diff_plot_bool = F,
+  flip_coords = FALSE,
+  diff_plot_bool = FALSE,
   alpha_per_group = NULL,
   alpha_per_node = NULL,
-  alpha_interactive = F,
+  alpha_interactive = FALSE,
   ggnet.config = ggnet.default,
   TL_tsne.config = TL_tsne.default
 )
@@ -61,7 +61,7 @@ should be asked in interactive mode to the user}
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
 }
 \value{
-object of class 'ggplot'
+an object of class \code{ggplot}, the current network representation
 }
 \description{
 Function that provides network static representation  (using 'ggnet') from a

@@ -11,10 +11,10 @@ vismetaNetwork(
   legend = NULL,
   mode = "TL-tsne",
   edge_thrs = NULL,
-  layout_metaweb = F,
+  layout_metaweb = FALSE,
   nrep_ly = 1,
-  flip_coords = F,
-  diff_plot_bool = F,
+  flip_coords = FALSE,
+  diff_plot_bool = FALSE,
   x_y_range = c(100, 100),
   visNetwork.config = visNetwork.default,
   TL_tsne.config = TL_tsne.default

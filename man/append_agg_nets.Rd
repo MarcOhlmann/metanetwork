@@ -13,7 +13,7 @@ append_agg_nets(metanetwork)
 \item{metanetwork}{object of class 'metanetwork'}
 }
 \value{
-object of class 'metanetwork'
+an object of class 'metanetwork', with aggregated networks appended to the network list.
 
 \code{NULL}
 }

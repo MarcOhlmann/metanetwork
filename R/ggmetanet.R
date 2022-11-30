@@ -86,7 +86,7 @@ class(ggnet.default) = 'metanetwork_config'
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
 #' @param diff_plot_bool boolean, do not edit by hand
 #' 
-#' @return object of class 'ggplot' 
+#' @return an object of class \code{ggplot}, the current network representation
 #' 
 #' @seealso [attach_layout()],[ggnet.default]
 #' 
@@ -140,11 +140,11 @@ class(ggnet.default) = 'metanetwork_config'
 ggmetanet <- function(metanetwork,g = NULL,beta = 0.1,
                            legend = NULL,mode = 'TL-tsne',
                            edge_thrs = NULL,
-                           layout_metaweb = F,nrep_ly = 1,
-                           flip_coords = F,
-                           diff_plot_bool = F,
+                           layout_metaweb = FALSE,nrep_ly = 1,
+                           flip_coords = FALSE,
+                           diff_plot_bool = FALSE,
                            alpha_per_group = NULL,alpha_per_node = NULL,
-                           alpha_interactive = F,
+                           alpha_interactive = FALSE,
                            ggnet.config = ggnet.default,
                            TL_tsne.config = TL_tsne.default){
 

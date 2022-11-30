@@ -23,7 +23,7 @@
 #'
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @return object of class 'metanetwork'
+#' @return an object of class 'metanetwork', with aggregated networks appended to the network list.
 #' 
 #' @seealso [plot_trophicTable()]
 #' 

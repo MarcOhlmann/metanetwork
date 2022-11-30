@@ -13,7 +13,7 @@ compute_TL(metanetwork)
 \item{metanetwork}{object of class 'metanetwork'}
 }
 \value{
-object of class 'metanetwork' with a node attribute \code{TL}
+an object of class 'metanetwork', with computed trophic levels stored as node attribute \code{TL}
 
 \code{NULL}
 }
