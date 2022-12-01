@@ -23,7 +23,7 @@
 #' squeezing of the network
 #' @param verbose a boolean indicating whether message along the pipeline should be printed
 #'
-#' @return object of class 'metanetwork'
+#' @return object of class 'metanetwork', with computed trophic levels and layout stored as node attribute
 #'
 #' @examples
 #' library(metanetwork)

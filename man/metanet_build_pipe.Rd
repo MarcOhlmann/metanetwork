@@ -35,7 +35,7 @@ Default is \code{TRUE}}
 squeezing of the network}
 }
 \value{
-object of class 'metanetwork'
+object of class 'metanetwork', with computed layout stored as node attribute
 }
 \description{
 Method executing the whole metanetwork pipeline, including building 'metanetwork' object (\code{build_metanet},\code{append_agg_nets}, \code{compute_TL},

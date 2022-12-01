@@ -22,7 +22,7 @@
 #'  but can be also a vector of given resolutions
 #' @param ggnet.config configuration list for ggnet representation, default is ggnet.default
 #'
-#' @return object of class 'ggnet' 
+#' @return object of class 'ggnet', representation of group hierarchy
 #'
 #' @examples
 #' library(metanetwork)

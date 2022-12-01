@@ -130,7 +130,7 @@ customLayout <- function(graph,g,metanetwork,mode,beta,x_y_range,
 #' @param TL_tsne.config configuration list for mode 'TL-tsne', default is TL_tsne.default
 #' @param diff_plot_bool boolean, do not edit by hand
 #' 
-#' @return object of class 'visNetwork' 
+#' @return object of class 'visNetwork', dynamic representation of the current network
 #'
 #' @examples
 #' library(metanetwork)
