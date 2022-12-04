@@ -3,6 +3,9 @@
 \name{\%>\%}
 \alias{\%>\%}
 \title{Pipe}
+\value{
+an object of the class of the output of the last called method/function
+}
 \description{
 Like dplyr, metanetwork also uses the pipe function, \code{\%>\%} to turn
 function composition into a series of imperative statements.

@@ -43,7 +43,7 @@ metanet_pipe <- function(metanetwork,beta = 0.1,verbose = TRUE){
 #'
 #' @rdname metanet_pipe
 #' @exportS3Method metanet_pipe metanetwork
-metanet_pipe.metanetwork <- function(metanetwork,beta = 0.1,verbose = T){
+metanet_pipe.metanetwork <- function(metanetwork,beta = 0.1,verbose = TRUE){
   if(verbose){
     if(!(is.null(metanetwork$trophicTable))){
       message("append aggregated networks")    

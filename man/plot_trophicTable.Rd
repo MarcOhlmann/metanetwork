@@ -15,7 +15,7 @@ but can be also a vector of given resolutions}
 \item{ggnet.config}{configuration list for ggnet representation, default is ggnet.default}
 }
 \value{
-object of class 'ggnet'
+object of class 'ggnet', representation of group hierarchy
 }
 \description{
 Function to represent trophic groups hierarchy provided by trophicTable

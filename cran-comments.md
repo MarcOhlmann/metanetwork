@@ -1,5 +1,34 @@
 
-## Resubmission
+## Resubmission 1
+This is a resubmission. After the package check by the CRAN's team, I:
+​
+* Added the field \value to the Rd files when it was missing (pipe.Rd)
+* Wrote TRUE instead of T (metanet_pipe)
+
+Best Regards,
+
+Marc Ohlmann
+
+## Review 
+
+Thanks,
+
+You missed to add \value in one of your .Rd files. Please also add it there.
+Missing Rd-tags:
+     pipe.Rd:  \value
+
+Please missed to write TRUE and FALSE instead of T and F in one case. Please also change.
+man/metanet_pipe.Rd:
+    metanet_pipe(metanetwork, beta = 0.1, verbose = TRUE)
+    {metanet_pipe}{metanetwork}(metanetwork, beta = 0.1, verbose = T)
+
+Please fix and resubmit.
+
+Best,
+Victoria Wimmer 
+
+
+## Resubmission 0
 This is a resubmission. After the package check by the CRAN's team, I:
 ​
 * Added the field \value to the Rd files when it was missing

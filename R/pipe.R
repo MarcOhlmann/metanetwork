@@ -6,6 +6,7 @@
 #' @importFrom magrittr %>%
 #' @name %>%
 #' @rdname pipe
+#' @return an object of the class of the output of the last called method/function
 #' @export
 #' @examples
 #' 

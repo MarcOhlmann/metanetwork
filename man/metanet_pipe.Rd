@@ -7,7 +7,7 @@
 \usage{
 metanet_pipe(metanetwork, beta = 0.1, verbose = TRUE)
 
-\method{metanet_pipe}{metanetwork}(metanetwork, beta = 0.1, verbose = T)
+\method{metanet_pipe}{metanetwork}(metanetwork, beta = 0.1, verbose = TRUE)
 }
 \arguments{
 \item{metanetwork}{object of class 'metanetwork'}
@@ -18,7 +18,7 @@ squeezing of the network}
 \item{verbose}{a boolean indicating whether message along the pipeline should be printed}
 }
 \value{
-object of class 'metanetwork'
+object of class 'metanetwork', with computed trophic levels and layout stored as node attribute
 
 \code{NULL}
 }

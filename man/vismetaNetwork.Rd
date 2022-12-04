@@ -51,7 +51,7 @@ In that case, y-axis is the trophic level and x-axis is the layout axis}
 \item{TL_tsne.config}{configuration list for mode 'TL-tsne', default is TL_tsne.default}
 }
 \value{
-object of class 'visNetwork'
+object of class 'visNetwork', dynamic representation of the current network
 }
 \description{
 Function that provides network dynamic representation  (using 'visNetwork') from a
