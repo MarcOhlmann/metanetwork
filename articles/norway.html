@@ -81,11 +81,12 @@
 
       
 
-      </header><script src="norway_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Norway soil metanetwork analysis</h1>
-                        <h4 data-toc-skip class="author">Marc Ohlmann</h4>
+                        <h4 data-toc-skip class="author">Marc
+Ohlmann</h4>
             
             <h4 data-toc-skip class="date">2022-11-28</h4>
       
@@ -99,8 +100,17 @@
 <div class="section level2">
 <h2 id="norway-soil-metanetwork-data-set">Norway soil metanetwork data set<a class="anchor" aria-label="anchor" href="#norway-soil-metanetwork-data-set"></a>
 </h2>
-<p>Norway soil metanetwork dataset was extracted from <em>Calderon-SAnou et al. 2021</em>. It consists in a soil expert knowledge metaweb that contains <span class="math inline">\(40\)</span> tropho-functional groups and <span class="math inline">\(204\)</span> interactions. Tropho-functional groups have abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. This dataset also contains a trophic table that contains broader taxonomic and functional informations on groups.</p>
-<p>In this vignette, we aim at represent metaweb at different aggregation levels and compare local networks with layouts provided by ‘metanetwork’.</p>
+<p>Norway soil metanetwork dataset was extracted from <em>Calderon-SAnou
+et al. 2021</em>. It consists in a soil expert knowledge metaweb that
+contains <span class="math inline">\(40\)</span> tropho-functional
+groups and <span class="math inline">\(204\)</span> interactions.
+Tropho-functional groups have abundance data built from eDNA data in
+disturbed and non-disturbed sites by moth outbreaks. This dataset also
+contains a trophic table that contains broader taxonomic and functional
+informations on groups.</p>
+<p>In this vignette, we aim at represent metaweb at different
+aggregation levels and compare local networks with layouts provided by
+‘metanetwork’.</p>
 </div>
 <div class="section level2">
 <h2 id="loading-the-dataset">Loading the dataset<a class="anchor" aria-label="anchor" href="#loading-the-dataset"></a>
@@ -118,8 +128,12 @@
 <h3 id="plot_trophic_table-function">
 <code>plot_trophic_table</code> function<a class="anchor" aria-label="anchor" href="#plot_trophic_table-function"></a>
 </h3>
-<p>Trophic table describes nodes memberships in higher relevant groups. In angola dataset, two different taxonomic resolutions are available. Networks can be handled and represented at trophic class or trophic group level.<br>
-The <code>plot_trophic_table</code> function allows representing the tree describing species memberships.</p>
+<p>Trophic table describes nodes memberships in higher relevant groups.
+In angola dataset, two different taxonomic resolutions are available.
+Networks can be handled and represented at trophic class or trophic
+group level.<br>
+The <code>plot_trophic_table</code> function allows representing the
+tree describing species memberships.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
@@ -132,7 +146,10 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <h3 id="append_agg_nets-method">
 <code>append_agg_nets</code> method<a class="anchor" aria-label="anchor" href="#append_agg_nets-method"></a>
 </h3>
-<p>The method <code>append_agg_nets</code> allows computing and appending aggregated networks (at the different available resolutions shown by <code>plot_trophic_table</code>) to the current metanetwork.</p>
+<p>The method <code>append_agg_nets</code> allows computing and
+appending aggregated networks (at the different available resolutions
+shown by <code>plot_trophic_table</code>) to the current
+metanetwork.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
@@ -147,14 +164,19 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="section level3">
 <h3 id="representing-aggregated-networks-adding-a-legend-to-networks">Representing aggregated networks, adding a legend to networks<a class="anchor" aria-label="anchor" href="#representing-aggregated-networks-adding-a-legend-to-networks"></a>
 </h3>
-<p>Once computed, <code>ggmetanet</code> function allows representing aggregated networks and legending local networks using trophic table using ‘ggnet’ visualisation. Do not forget to first compute trophic levels. Computation of ‘TL-tsne’ layout is done <code>ggmetanet</code> function.</p>
+<p>Once computed, <code>ggmetanet</code> function allows representing
+aggregated networks and legending local networks using trophic table
+using ‘ggnet’ visualisation. Do not forget to first compute trophic
+levels. Computation of ‘TL-tsne’ layout is done <code>ggmetanet</code>
+function.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/norway_metaweb_trophic_class-1.png" alt=""><p class="caption">plot of chunk norway_metaweb_trophic_class</p>
 </div>
-<p>Node sizes are proportional to relative abundances. Trophic table allows adding a legend to network at the finest resolution.</p>
+<p>Node sizes are proportional to relative abundances. Trophic table
+allows adding a legend to network at the finest resolution.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
@@ -166,7 +188,12 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="section level3">
 <h3 id="attaching-layout">Attaching layout<a class="anchor" aria-label="anchor" href="#attaching-layout"></a>
 </h3>
-<p>Since <code>TL-tsne</code> layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given <span class="math inline">\(\beta\)</span> value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed. <code>attach_layout</code> function allows saving computed layouts by attaching them as a node attribute.</p>
+<p>Since <code>TL-tsne</code> layout is stochastic and requires (a bit
+of) computation times, saving and using the the same layout (for a given
+<span class="math inline">\(\beta\)</span> value) is recommended.
+Moreover, it makes easier visual network analysis and comparison since
+it is fixed. <code>attach_layout</code> function allows saving computed
+layouts by attaching them as a node attribute.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to the metaweb</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
@@ -178,8 +205,17 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to metaweb at class level</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/norway_attach_layout-2.png" alt="plot of chunk norway_attach_layout"> ### ‘group-TL-tnse’ layout</p>
-<p>A variation of <code>'TL-tsne'</code> layout consists in <code>'group-TL-tsne'</code> layout. It mixes <code>'TL-tsne'</code> and a regular <code>igraph</code> layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires <code>'TL-tsne'</code> layout computation at the aggregated level instead of computing it in higher dimension at the group level. <code>'group-TL-tsne'</code> layout is stored as node attribute.</p>
+<p><img src="figure/norway_attach_layout-2.png" alt="plot of chunk norway_attach_layout"> ### ‘group-TL-tnse’
+layout</p>
+<p>A variation of <code>'TL-tsne'</code> layout consists in
+<code>'group-TL-tsne'</code> layout. It mixes <code>'TL-tsne'</code> and
+a regular <code>igraph</code> layout to provide a representation where
+species from the same group are clustered together. Such approach
+provides more stable and interpretable. Morever, it is more efficient in
+terms of computation time since it only requires <code>'TL-tsne'</code>
+layout computation at the aggregated level instead of computing it in
+higher dimension at the group level. <code>'group-TL-tsne'</code> layout
+is stored as node attribute.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
@@ -187,8 +223,11 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <span><span class="co">## [4] "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,legend <span class="op">=</span> <span class="st">"trophic_class"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and comparing local networks</p>
-<p><code>diff_plot</code> allows comparing local networks. Here, it provides a comparison between high and low disturbed sites by moth outbreaks.</p>
+<p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and
+comparing local networks</p>
+<p><code>diff_plot</code> allows comparing local networks. Here, it
+provides a comparison between high and low disturbed sites by moth
+outbreaks.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
@@ -206,7 +245,10 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="section level3">
 <h3 id="using-metaweb-layout">Using metaweb layout<a class="anchor" aria-label="anchor" href="#using-metaweb-layout"></a>
 </h3>
-<p>In order to gain reproducibility and not to compute <code>'TL-tsne'</code> layout at each call, use argument <code>layout_metaweb = T</code> to represent the difference network with metaweb layout.</p>
+<p>In order to gain reproducibility and not to compute
+<code>'TL-tsne'</code> layout at each call, use argument
+<code>layout_metaweb = T</code> to represent the difference network with
+metaweb layout.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
@@ -219,7 +261,8 @@ The <code>plot_trophic_table</code> function allows representing the tree descri
 <div class="section level3">
 <h3 id="using-group-tl-tsne-layout">Using <code>'group-TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#using-group-tl-tsne-layout"></a>
 </h3>
-<p>Once computed on the metaweb, <code>'group-TL-tsne'</code> layout can be used in <code>'diff_plot'</code></p>
+<p>Once computed on the metaweb, <code>'group-TL-tsne'</code> layout can
+be used in <code>'diff_plot'</code></p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.2</span></span>

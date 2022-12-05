@@ -81,11 +81,13 @@
 
       
 
-      </header><script src="pyramid_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Pyramid metanetwork example using ‘metanetwork’</h1>
-                        <h4 data-toc-skip class="author">Marc Ohlmann</h4>
+      <h1 data-toc-skip>Pyramid metanetwork example using
+‘metanetwork’</h1>
+                        <h4 data-toc-skip class="author">Marc
+Ohlmann</h4>
             
             <h4 data-toc-skip class="date">2022-11-28</h4>
       
@@ -99,7 +101,9 @@
 <div class="section level2">
 <h2 id="preliminaries">Preliminaries<a class="anchor" aria-label="anchor" href="#preliminaries"></a>
 </h2>
-<p>This vignette illustrates ‘metanetwork’ through a pyramid network example. The packages required to run the vignette are the following:</p>
+<p>This vignette illustrates ‘metanetwork’ through a pyramid network
+example. The packages required to run the vignette are the
+following:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/MarcOhlmann/metanetwork" class="external-link">metanetwork</a></span><span class="op">)</span></span></code></pre></div>
@@ -110,7 +114,8 @@
 <div class="section level3">
 <h3 id="generating-the-metaweb-an-representing-it-using-ggnet2">Generating the metaweb an representing it using ‘ggnet2’<a class="anchor" aria-label="anchor" href="#generating-the-metaweb-an-representing-it-using-ggnet2"></a>
 </h3>
-<p>We first generate a pyramid network using ‘igraph’ and represent it using ‘ggnet2’</p>
+<p>We first generate a pyramid network using ‘igraph’ and represent it
+using ‘ggnet2’</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://igraph.org" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnet.org/" class="external-link">network</a></span><span class="op">)</span></span>
@@ -134,7 +139,9 @@
 <div class="figure">
 <img src="figure/pyramid_build-1.png" alt=""><p class="caption">plot of chunk pyramid_build</p>
 </div>
-<p>Notice that ‘ggnet2’ default layout algorithm (Fruchterman-Reingold algorithm, a force directed algorithm) is non-reproducible. Moreover, x-axis and y-axis do not have any ecological interpretation.</p>
+<p>Notice that ‘ggnet2’ default layout algorithm (Fruchterman-Reingold
+algorithm, a force directed algorithm) is non-reproducible. Moreover,
+x-axis and y-axis do not have any ecological interpretation.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -144,7 +151,8 @@
 <div class="section level3">
 <h3 id="generating-abundance-table">Generating abundance table<a class="anchor" aria-label="anchor" href="#generating-abundance-table"></a>
 </h3>
-<p>We now generate two local communities (presence/absence in our case)</p>
+<p>We now generate two local communities (presence/absence in our
+case)</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#sampling a presence table</span></span>
 <span><span class="va">presence</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span>,</span>
@@ -157,7 +165,8 @@
 <div class="section level2">
 <h2 id="building-a-metanetwork-object">Building a metanetwork object<a class="anchor" aria-label="anchor" href="#building-a-metanetwork-object"></a>
 </h2>
-<p>From the lattice metaweb and abundance table, build a S3 object of class ‘metanetwork’ using <code>build_metanetwork</code></p>
+<p>From the lattice metaweb and abundance table, build a S3 object of
+class ‘metanetwork’ using <code>build_metanetwork</code></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#building metanetwork object</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/build_metanet.html">build_metanet</a></span><span class="op">(</span>metaweb <span class="op">=</span> <span class="va">g</span>,abTable <span class="op">=</span> <span class="va">presence</span><span class="op">)</span></span>
@@ -166,7 +175,8 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "metanetwork"</span></span></code></pre>
-<p>method <code>print</code> prints a summary of the considered metanetwork.</p>
+<p>method <code>print</code> prints a summary of the considered
+metanetwork.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## metaweb has 15 nodes and 16 edges </span></span>
@@ -181,9 +191,15 @@
 </h3>
 <p>A ‘metanetwork’ object consists in a list of ‘igraph’ objects:</p>
 <ul>
-<li>metaweb, the metaweb used to build the metanetwork, an ‘igraph’ object with node attribute <code>$ab</code> indicating the local relative abundance of each node and graph attribute <code>$name</code>indicating <code>"metaweb"</code>
+<li>metaweb, the metaweb used to build the metanetwork, an ‘igraph’
+object with node attribute <code>$ab</code> indicating the local
+relative abundance of each node and graph attribute
+<code>$name</code>indicating <code>"metaweb"</code>
 </li>
-<li>local networks, a list of ‘igraph’ objects with node attribute <code>$ab</code> indicating the local relative abundance of each node in each network and graph attribute <code>$name</code> indicating local network names, that is rownames of the abundance table.</li>
+<li>local networks, a list of ‘igraph’ objects with node attribute
+<code>$ab</code> indicating the local relative abundance of each node in
+each network and graph attribute <code>$name</code> indicating local
+network names, that is rownames of the abundance table.</li>
 </ul>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta0</span><span class="op">$</span><span class="va">b</span><span class="op">$</span><span class="va">name</span></span></code></pre></div>
@@ -202,13 +218,23 @@
 <pre><code><span><span class="co">## </span></span>
 <span><span class="co">## 0.05  0.1 </span></span>
 <span><span class="co">##   10    5</span></span></code></pre>
-<p>Metaweb node relative abundances are the mean of the local relative abundances. Additional objects like <code>abTable</code> or <code>trophicTable</code> can be included in a ‘metanetwork’ object</p>
+<p>Metaweb node relative abundances are the mean of the local relative
+abundances. Additional objects like <code>abTable</code> or
+<code>trophicTable</code> can be included in a ‘metanetwork’ object</p>
 </div>
 <div class="section level3">
 <h3 id="computing-trophic-levels">Computing trophic levels<a class="anchor" aria-label="anchor" href="#computing-trophic-levels"></a>
 </h3>
-<p>‘metanetwork’ package enables 2D network representation with x-axis equals to trophic levels. To compute trophic levels, ‘metanetwork’ implements the method, based on laplacian matrix, described in: <em>MacKay, R. S., S. Johnson, and B. Sansom. “How directed is a directed network?.” Royal Society open science 7.9 (2020): 201138.</em><br>
-The metaweb needs to be connected for trophic levels to be unique. Local networks can however be disconnected (see Ref). A method <code>compute_TL</code> allows computing trophic levels and storing it as node attribute <code>$TL</code> of each network.</p>
+<p>‘metanetwork’ package enables 2D network representation with x-axis
+equals to trophic levels. To compute trophic levels, ‘metanetwork’
+implements the method, based on laplacian matrix, described in:
+<em>MacKay, R. S., S. Johnson, and B. Sansom. “How directed is a
+directed network?.” Royal Society open science 7.9 (2020):
+201138.</em><br>
+The metaweb needs to be connected for trophic levels to be unique. Local
+networks can however be disconnected (see Ref). A method
+<code>compute_TL</code> allows computing trophic levels and storing it
+as node attribute <code>$TL</code> of each network.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#compute trophic levels for metaweb and local networks</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">)</span></span>
@@ -224,30 +250,49 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="section level2">
 <h2 id="representing-metanetworks">Representing metanetworks<a class="anchor" aria-label="anchor" href="#representing-metanetworks"></a>
 </h2>
-<p>‘metanetwork’ implements a layout algorithm, ‘TL-tsne’, specifically designed for trophic networks, based on trophic levels and on dimension reduction of graph diffusion kernel.</p>
+<p>‘metanetwork’ implements a layout algorithm, ‘TL-tsne’, specifically
+designed for trophic networks, based on trophic levels and on dimension
+reduction of graph diffusion kernel.</p>
 <div class="section level3">
 <h3 id="diffusion-graph-kernel">Diffusion graph kernel<a class="anchor" aria-label="anchor" href="#diffusion-graph-kernel"></a>
 </h3>
-<p>Diffusion kernel is a similarity matrix between nodes according to a diffusion process. Let <span class="math inline">\(G\)</span> be a directed network, <span class="math inline">\(\mathbf{A}\)</span> its adjacency matrix and <span class="math inline">\(\mathbf{D}\)</span> its degree diagonal matrix. The laplacian matrix of <span class="math inline">\(G\)</span> is defined as:</p>
+<p>Diffusion kernel is a similarity matrix between nodes according to a
+diffusion process. Let <span class="math inline">\(G\)</span> be a
+directed network, <span class="math inline">\(\mathbf{A}\)</span> its
+adjacency matrix and <span class="math inline">\(\mathbf{D}\)</span> its
+degree diagonal matrix. The laplacian matrix of <span class="math inline">\(G\)</span> is defined as:</p>
 <p><span class="math display">\[\begin{equation}
 \mathbf{L} = \mathbf{D} - \mathbf{A} - \mathbf{A}^{T}
 \end{equation}\]</span></p>
-<p>The diffusion kernel is then defined as (Kondor &amp; Lafferty, 2002):</p>
+<p>The diffusion kernel is then defined as (Kondor &amp; Lafferty,
+2002):</p>
 <p><span class="math display">\[\begin{equation}
-    \textbf{K} = \exp(-\beta\mathbf{L}) = \sum_{k \geq 0} \frac{(- \beta\mathbf{L})^k}{k!}
+    \textbf{K} = \exp(-\beta\mathbf{L}) = \sum_{k \geq 0} \frac{(-
+\beta\mathbf{L})^k}{k!}
 \end{equation}\]</span></p>
-<p>with <span class="math inline">\(\beta\)</span> a positive parameter. Diffusion kernel measures similarity between pairs of nodes by taking into account paths of arbitrary length. It does not restrict to direct neighbors.</p>
+<p>with <span class="math inline">\(\beta\)</span> a positive parameter.
+Diffusion kernel measures similarity between pairs of nodes by taking
+into account paths of arbitrary length. It does not restrict to direct
+neighbors.</p>
 </div>
 <div class="section level3">
 <h3 id="beta-parameter">beta parameter<a class="anchor" aria-label="anchor" href="#beta-parameter"></a>
 </h3>
-<p><span class="math inline">\(\beta\)</span> is the single parameter of the diffusion kernel. It controls the weight given to the different paths in the diffusion kernel. It is also analogous to the diffusion constant in physics. We’ll see through examples its importance in squeezing networks.</p>
+<p><span class="math inline">\(\beta\)</span> is the single parameter of
+the diffusion kernel. It controls the weight given to the different
+paths in the diffusion kernel. It is also analogous to the diffusion
+constant in physics. We’ll see through examples its importance in
+squeezing networks.</p>
 </div>
 <div class="section level3">
 <h3 id="ggmetanet-function">
 <code>ggmetanet</code> function<a class="anchor" aria-label="anchor" href="#ggmetanet-function"></a>
 </h3>
-<p>The main metanetwork representation function is <code>ggmetanet</code>. It allows representing metaweb and local networks using <code>ggnet</code> and both layout algorithms. <code>ggmetanet</code> plots the metaweb of the current metanetwork by default.</p>
+<p>The main metanetwork representation function is
+<code>ggmetanet</code>. It allows representing metaweb and local
+networks using <code>ggnet</code> and both layout algorithms.
+<code>ggmetanet</code> plots the metaweb of the current metanetwork by
+default.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet#</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
@@ -260,7 +305,8 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="figure">
 <img src="figure/unnamed-chunk-8-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-8</p>
 </div>
-<p><code>ggmetanet</code> can also represent local networks (with specific layout)</p>
+<p><code>ggmetanet</code> can also represent local networks (with
+specific layout)</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -272,9 +318,14 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="figure">
 <img src="figure/unnamed-chunk-10-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-10</p>
 </div>
-<p>Moreover, it clusters nodes belonging to different ‘branches’. They become more and more similar when beta is increased.</p>
+<p>Moreover, it clusters nodes belonging to different ‘branches’. They
+become more and more similar when beta is increased.</p>
 <p><em>Representing disconnected networks</em></p>
-<p>If the metaweb needs to be connected, local networks can be disconnected due to sampling effects. In that case, trophic levels are computed using metaweb trophic levels. The basal species of each connected component has a trophic level equals to its value in the metaweb.</p>
+<p>If the metaweb needs to be connected, local networks can be
+disconnected due to sampling effects. In that case, trophic levels are
+computed using metaweb trophic levels. The basal species of each
+connected component has a trophic level equals to its value in the
+metaweb.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.45</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -285,7 +336,9 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <h3 id="diff_plot-function">
 <code>diff_plot</code> function<a class="anchor" aria-label="anchor" href="#diff_plot-function"></a>
 </h3>
-<p>In order to compare local networks, a <code>diff_plot</code> function is implemented. It colors nodes according to their presence/absence or variation in abundance in both networks.</p>
+<p>In order to compare local networks, a <code>diff_plot</code> function
+is implemented. It colors nodes according to their presence/absence or
+variation in abundance in both networks.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,g2 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,mode <span class="op">=</span> <span class="st">'TL-tsne'</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -295,7 +348,10 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="section level3">
 <h3 id="changing-ggnet-configuration-parameters">Changing <code>ggnet</code> configuration parameters<a class="anchor" aria-label="anchor" href="#changing-ggnet-configuration-parameters"></a>
 </h3>
-<p>In order to fine tune network plots, it is possible to modify <code>ggnet</code> parameters in metanetwork. An object <code>ggnet.default</code> is stored and wraps the different visualisation parameters. Change it to modify the plot.</p>
+<p>In order to fine tune network plots, it is possible to modify
+<code>ggnet</code> parameters in metanetwork. An object
+<code>ggnet.default</code> is stored and wraps the different
+visualisation parameters. Change it to modify the plot.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.size</span> <span class="op">=</span> <span class="fl">3</span><span class="op">*</span><span class="va">ggnet.default</span><span class="op">$</span><span class="va">edge.size</span></span>
@@ -309,7 +365,10 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="section level3">
 <h3 id="attaching-layout">Attaching layout<a class="anchor" aria-label="anchor" href="#attaching-layout"></a>
 </h3>
-<p>For network representation reproducibility and to gain computation time, we recommend to store ‘TL-tsne’ layout after computation. To do so, use the method <code>attach_layout</code>. Once the layout computed, it is attached to the network as node attribute.</p>
+<p>For network representation reproducibility and to gain computation
+time, we recommend to store ‘TL-tsne’ layout after computation. To do
+so, use the method <code>attach_layout</code>. Once the layout computed,
+it is attached to the network as node attribute.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for the metaweb</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -324,7 +383,9 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <pre><code><span><span class="co">##  [1]   0.5596168  -9.9380097  -4.3490883  28.5412315  17.6861972   6.8899526</span></span>
 <span><span class="co">##  [7]  40.7003865  34.1126353  22.5213786  11.9248765 -42.2708834 -36.0604630</span></span>
 <span><span class="co">## [13] -29.6295794 -23.3662527 -17.3219984</span></span></code></pre>
-<p>Then, any call of <code>ggmetanet</code> or <code>vismetaNetwork</code> will use the computed layout for the desired <span class="math inline">\(\beta\)</span> value.</p>
+<p>Then, any call of <code>ggmetanet</code> or
+<code>vismetaNetwork</code> will use the computed layout for the desired
+<span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -334,7 +395,9 @@ The metaweb needs to be connected for trophic levels to be unique. Local network
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#calling again ggmetanet</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"> Once the layout computed for the metaweb, it can be used to represent local network or difference network using <code>layout_metaweb = T</code></p>
+<p><img src="figure/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"> Once the layout computed for the
+metaweb, it can be used to represent local network or difference network
+using <code>layout_metaweb = T</code></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>

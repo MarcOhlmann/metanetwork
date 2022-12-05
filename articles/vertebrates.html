@@ -81,11 +81,12 @@
 
       
 
-      </header><script src="vertebrates_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Metaweb of European vertebrates analysis</h1>
-                        <h4 data-toc-skip class="author">Marc Ohlmann</h4>
+                        <h4 data-toc-skip class="author">Marc
+Ohlmann</h4>
             
             <h4 data-toc-skip class="date">2022-11-28</h4>
       
@@ -99,8 +100,18 @@
 <div class="section level2">
 <h2 id="the-european-vertebrates-data-set">The European vertebrates data set<a class="anchor" aria-label="anchor" href="#the-european-vertebrates-data-set"></a>
 </h2>
-<p>Metaweb of potential interactions between European terrestrial vertebrates. This data set is extracted from <em>Maiorano et al. 2020</em> and <em>O’Connor et al. 2020</em>. It contains <span class="math inline">\(1122\)</span> vertebrate species (birds, mammals, amphibians and reptiles) and <span class="math inline">\(49883\)</span> expert-knowledge potential interactions. O’Connor et al. 2020 applied a Stochastic Block Model (SBM), a method that group together nodes with similar edge probability pattern (see <em>Daudin et al. 2008</em>). This method inferred <span class="math inline">\(46\)</span> species groups. We also have classification of species in <span class="math inline">\(4\)</span> classes (Amphibians, Birds, Mammals and Reptiles).</p>
-<p>In this vignette, we aim at representing this large network using SBM groups.</p>
+<p>Metaweb of potential interactions between European terrestrial
+vertebrates. This data set is extracted from <em>Maiorano et
+al. 2020</em> and <em>O’Connor et al. 2020</em>. It contains <span class="math inline">\(1122\)</span> vertebrate species (birds, mammals,
+amphibians and reptiles) and <span class="math inline">\(49883\)</span>
+expert-knowledge potential interactions. O’Connor et al. 2020 applied a
+Stochastic Block Model (SBM), a method that group together nodes with
+similar edge probability pattern (see <em>Daudin et al. 2008</em>). This
+method inferred <span class="math inline">\(46\)</span> species groups.
+We also have classification of species in <span class="math inline">\(4\)</span> classes (Amphibians, Birds, Mammals and
+Reptiles).</p>
+<p>In this vignette, we aim at representing this large network using SBM
+groups.</p>
 </div>
 <div class="section level2">
 <h2 id="loading-the-data-set">Loading the data set<a class="anchor" aria-label="anchor" href="#loading-the-data-set"></a>
@@ -119,14 +130,16 @@
 <div class="section level3">
 <h3 id="append-aggregated-networks">Append aggregated networks<a class="anchor" aria-label="anchor" href="#append-aggregated-networks"></a>
 </h3>
-<p>To compute aggregated networks at the SBM group level and Class level, we use the <code>append_agg_nets</code> method.</p>
+<p>To compute aggregated networks at the SBM group level and Class
+level, we use the <code>append_agg_nets</code> method.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="compute-trophic-levels">Compute trophic levels<a class="anchor" aria-label="anchor" href="#compute-trophic-levels"></a>
 </h3>
-<p>In order to represent this metaweb, we compute trophic levels since it is the first axis of ‘metanetwork’ layout.</p>
+<p>In order to represent this metaweb, we compute trophic levels since
+it is the first axis of ‘metanetwork’ layout.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_vrtb</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">)</span></span></code></pre></div>
 <p>We represent the distribution of trophic levels of the <span class="math inline">\(4\)</span> classes and <span class="math inline">\(46\)</span> SBM groups.</p>
@@ -151,7 +164,12 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>        text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/distrib_TL-2.png" alt="plot of chunk distrib_TL"> We see that the four classes contain species of various trophic levels. SBM groups are more ordered in terms of trophic level, even if several trophic groups have similar trophic levels. It is a finer scale than the class level. We then represent the group composition in terms of classes.</p>
+<p><img src="figure/distrib_TL-2.png" alt="plot of chunk distrib_TL">
+We see that the four classes contain species of various trophic levels.
+SBM groups are more ordered in terms of trophic level, even if several
+trophic groups have similar trophic levels. It is a finer scale than the
+class level. We then represent the group composition in terms of
+classes.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">TL_df_mean</span> <span class="op">=</span> <span class="va">TL_df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">group</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
@@ -168,7 +186,9 @@
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">90</span>, vjust <span class="op">=</span> <span class="fl">0.5</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span>        text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ylab</a></span><span class="op">(</span><span class="st">"count"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/compo-1.png" alt="plot of chunk compo"> We see that groups are getting smaller when their mean trophic level increases. Moreover, SMB groups are relatively well separated trough classes.</p>
+<p><img src="figure/compo-1.png" alt="plot of chunk compo"> We see
+that groups are getting smaller when their mean trophic level increases.
+Moreover, SMB groups are relatively well separated trough classes.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this group contains several eagles species</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"group"</span><span class="op">]</span> <span class="op">==</span> <span class="fl">17</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -188,11 +208,17 @@
 <div class="section level2">
 <h2 id="represent-the-metaweb">Represent the metaweb<a class="anchor" aria-label="anchor" href="#represent-the-metaweb"></a>
 </h2>
-<p>In order to represent this large metaweb, we first represent the network at the SBM group level. We will use then the layout at the SBM level to compute the layout at the species level. This layout is called <code>group-TL-tsne</code>, as <code>TL-tsne</code> is the diffusion based layout of <code>metanetwork</code>.</p>
+<p>In order to represent this large metaweb, we first represent the
+network at the SBM group level. We will use then the layout at the SBM
+level to compute the layout at the species level. This layout is called
+<code>group-TL-tsne</code>, as <code>TL-tsne</code> is the diffusion
+based layout of <code>metanetwork</code>.</p>
 <div class="section level3">
 <h3 id="representation-at-the-sbm-level">Representation at the SBM level<a class="anchor" aria-label="anchor" href="#representation-at-the-sbm-level"></a>
 </h3>
-<p>Using <code>ggmetanet</code> and the precomputed layout for <code>beta = 0.005</code>, we first represent the web at the SBM group level</p>
+<p>Using <code>ggmetanet</code> and the precomputed layout for
+<code>beta = 0.005</code>, we first represent the web at the SBM group
+level</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
 <span></span>
@@ -231,7 +257,8 @@
 <div class="figure">
 <img src="figure/SBM_level_2-1.png" alt=""><p class="caption">plot of chunk SBM_level_2</p>
 </div>
-<p>The <code>attach_layout</code> method allows storing computed layout as node attribute</p>
+<p>The <code>attach_layout</code> method allows storing computed layout
+as node attribute</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#get computed layout names on metaweb_group</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/igraph/man/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">metaweb_group</span><span class="op">)</span></span></code></pre></div>
@@ -243,7 +270,14 @@
 <h3 id="group-tl-tsne-layout">
 <code>'group-TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#group-tl-tsne-layout"></a>
 </h3>
-<p>To represent the metaweb at the species level, we do not compute ‘TL-tsne’ at the species level. Instead, we mix the layout computed at SBM level and a regular <code>igraph</code> layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires <code>'TL-tsne'</code> layout computation at the SBM level instead of computing it in higher dimension at the species level.</p>
+<p>To represent the metaweb at the species level, we do not compute
+‘TL-tsne’ at the species level. Instead, we mix the layout computed at
+SBM level and a regular <code>igraph</code> layout to provide a
+representation where species from the same group are clustered together.
+Such approach provides more stable and interpretable. Morever, it is
+more efficient in terms of computation time since it only requires
+<code>'TL-tsne'</code> layout computation at the SBM level instead of
+computing it in higher dimension at the species level.</p>
 <p>We call this layout <code>'group-TL-tsne'</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
@@ -267,7 +301,15 @@
 <div class="figure">
 <img src="figure/group-layout-2.png" alt=""><p class="caption">plot of chunk group-layout</p>
 </div>
-<p>Since the number of groups is large (<span class="math inline">\(46\)</span>), <code>metanetwork</code> builds a legend containing shapes and colors. <span class="math inline">\(4\)</span> different shape types are ordered along the trophic level axis. By doing so, basal species groups have the same shapes (squares and big circles here). Colors are ordered along the second axis. Moreover, we use ‘phylopic’ silhouettes to illustrate each group. We choose a representative species for each group (see <code>vignettes/silouhette_metaweb_europe</code> folder for silhouettes and phylopic credits) and <code>metanetwork</code> builds the legend using <code>ggimage</code> package.</p>
+<p>Since the number of groups is large (<span class="math inline">\(46\)</span>), <code>metanetwork</code> builds a
+legend containing shapes and colors. <span class="math inline">\(4\)</span> different shape types are ordered along
+the trophic level axis. By doing so, basal species groups have the same
+shapes (squares and big circles here). Colors are ordered along the
+second axis. Moreover, we use ‘phylopic’ silhouettes to illustrate each
+group. We choose a representative species for each group (see
+<code>vignettes/silouhette_metaweb_europe</code> folder for silhouettes
+and phylopic credits) and <code>metanetwork</code> builds the legend
+using <code>ggimage</code> package.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span>
 <span><span class="co">#attaching `group-TL-tsne` for beta = 0.0035, must provide resolution for the groups</span></span>
@@ -284,13 +326,18 @@
 <div class="figure">
 <img src="figure/group-layout2-2.png" alt=""><p class="caption">plot of chunk group-layout2</p>
 </div>
-<p>The legend is different from the previous plot due to stochasticity of <code>'TL-tsne</code> layout. However, since trophic level is fixed, shapes remain the same.</p>
+<p>The legend is different from the previous plot due to stochasticity
+of <code>'TL-tsne</code> layout. However, since trophic level is fixed,
+shapes remain the same.</p>
 </div>
 <div class="section level3">
 <h3 id="tl-tsne-layout">
 <code>'TL-tsne'</code> layout<a class="anchor" aria-label="anchor" href="#tl-tsne-layout"></a>
 </h3>
-<p>We represent here the web at species level using <code>'TL-tsne'</code> layout. We do not recommend to use this layout for large networks since it is hard to interpret, unstable and costly in terms of computation time.</p>
+<p>We represent here the web at species level using
+<code>'TL-tsne'</code> layout. We do not recommend to use this layout
+for large networks since it is hard to interpret, unstable and costly in
+terms of computation time.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">4e-06</span></span>
 <span></span>
@@ -303,7 +350,8 @@
 <div class="figure">
 <img src="figure/TL-tsne_species-1.png" alt=""><p class="caption">plot of chunk TL-tsne_species</p>
 </div>
-<p>It highlights the fact that basal species groups are not well separated on the <code>TL-tsne</code> axis.</p>
+<p>It highlights the fact that basal species groups are not well
+separated on the <code>TL-tsne</code> axis.</p>
 </div>
 </div>
 <div class="section level2">
@@ -313,7 +361,9 @@
 <h3 id="group-tl-tsne-configuration">
 <code>group-TL-tsne</code> configuration<a class="anchor" aria-label="anchor" href="#group-tl-tsne-configuration"></a>
 </h3>
-<p>If the mean position of groups in <code>'group-TL-tsne'</code> layout is fixed, a configuration object allows controlling for height and width of the groups in the same way than <code>ggnet.config</code>.</p>
+<p>If the mean position of groups in <code>'group-TL-tsne'</code> layout
+is fixed, a configuration object allows controlling for height and width
+of the groups in the same way than <code>ggnet.config</code>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.0035</span></span>
 <span></span>
@@ -338,7 +388,8 @@
 <div class="section level3">
 <h3 id="playing-on-transparency">Playing on transparency<a class="anchor" aria-label="anchor" href="#playing-on-transparency"></a>
 </h3>
-<p>In order to represent sub-networks, we advise to play on transparency (alpha). We represent here the metaweb of mammals.</p>
+<p>In order to represent sub-networks, we advise to play on transparency
+(alpha). We represent here the metaweb of mammals.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">beta</span> <span class="op">=</span> <span class="fl">0.005</span></span>
 <span><span class="va">mammals_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Mammal"</span><span class="op">)</span><span class="op">)</span></span>
@@ -354,7 +405,8 @@
 <div class="figure">
 <img src="figure/mammals-1.png" alt=""><p class="caption">plot of chunk mammals</p>
 </div>
-<p>Similarly, we represent the metaweb of birds, amphibians and reptiles (with the same layout) and represent them on the same plot</p>
+<p>Similarly, we represent the metaweb of birds, amphibians and reptiles
+(with the same layout) and represent them on the same plot</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bird_names</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">meta_vrtb</span><span class="op">$</span><span class="va">trophicTable</span><span class="op">[</span>,<span class="st">"Class"</span><span class="op">]</span> <span class="op">==</span> <span class="st">"Bird"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -396,9 +448,16 @@
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<p>Daudin, J. J., Picard, F., &amp; Robin, S. (2008). A mixture model for random graphs. Statistics and computing, 18(2), 173-183.</p>
-<p>Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., &amp; Thuiller, W. (2020). TETRA‐EU 1.0: a species‐level trophic metaweb of European tetrapods. Global Ecology and Biogeography, 29(9), 1452-1457.</p>
-<p>O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F., Maiorano, L., Martinez‐Almoyna, C., … &amp; Thuiller, W. (2020). Unveiling the food webs of tetrapods across Europe through the prism of the Eltonian niche. Journal of Biogeography, 47(1), 181-192.</p>
+<p>Daudin, J. J., Picard, F., &amp; Robin, S. (2008). A mixture model
+for random graphs. Statistics and computing, 18(2), 173-183.</p>
+<p>Maiorano, L., Montemaggiori, A., Ficetola, G. F., O’connor, L., &amp;
+Thuiller, W. (2020). TETRA‐EU 1.0: a species‐level trophic metaweb of
+European tetrapods. Global Ecology and Biogeography, 29(9),
+1452-1457.</p>
+<p>O’Connor, L. M., Pollock, L. J., Braga, J., Ficetola, G. F.,
+Maiorano, L., Martinez‐Almoyna, C., … &amp; Thuiller, W. (2020).
+Unveiling the food webs of tetrapods across Europe through the prism of
+the Eltonian niche. Journal of Biogeography, 47(1), 181-192.</p>
 </div>
   </div>
 
