@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![R build status](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
 [![Coverage status](https://codecov.io/gh/MarcOhlmann/metanetwork/branch/main/graph/badge.svg)](https://codecov.io/github/MarcOhlmann/metanetwork?branch=main)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/metanetwork)](https://cran.r-project.org/package=metanetwork)
 <!-- badges: end -->
 
 ## Description
@@ -30,6 +31,12 @@ A collection of tools in `R` to represent and analyse trophic networks in space 
 
 ## Package installation
 
+For the last stable version, use the CRAN version
+```{r,echo = TRUE,eval = F}
+install.pacakges("metanetwork")
+```
+
+For the development version, use the github install
 ```{r,echo = TRUE,eval = F}
 install_github("MarcOhlmann/metanetwork")
 ```
@@ -78,6 +85,11 @@ knitr::include_graphics("man/figures/metanetwork_map.png")
 ## Authors
 
 This package is currently developed by Marc Ohlmann from Laboratoire d'Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from Laboratoire de Mathématiques, Chambéry. It is supported by the ANR [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009) and ANR [Econet](https://cmatias.perso.math.cnrs.fr/ANR_EcoNet.html).
+
+## About
+
+https://marcohlmann.github.io/metanetwork/
+https://cran.r-project.org/web/packages/metanetwork/index.html
 
 
 

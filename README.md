@@ -11,6 +11,7 @@ Marc Ohlmann
 status](https://github.com/MarcOhlmann/metanetwork/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/MarcOhlmann/metanetwork/actions)
 [![Coverage
 status](https://codecov.io/gh/MarcOhlmann/metanetwork/branch/main/graph/badge.svg)](https://codecov.io/github/MarcOhlmann/metanetwork?branch=main)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/metanetwork)](https://cran.r-project.org/package=metanetwork)
 <!-- badges: end -->
 
 ## Description
@@ -21,6 +22,14 @@ algorithm specifically designed for trophic networks, using trophic
 levels and dimension reduction on a diffusion kernel.
 
 ## Package installation
+
+To install ‘metanetwork’ from CRAN, run:
+
+``` r
+install.pacakges("metanetwork")
+```
+
+To install the development version from github, run:
 
 ``` r
 install_github("MarcOhlmann/metanetwork")
@@ -68,7 +77,7 @@ data("meta_angola")
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
-![](man/figures/unnamed-chunk-4-1.png)<!-- -->
+![](man/figures/unnamed-chunk-5-1.png)<!-- -->
 
 ## ‘metanetwork’ map
 
@@ -81,3 +90,8 @@ d’Ecologie Alpine, Grenoble and Jimmy Garnier and Laurent Vuillon from
 Laboratoire de Mathématiques, Chambéry. It is supported by the ANR
 [Globnets](https://anr.fr/Projet-ANR-16-CE02-0009) and ANR
 [Econet](https://cmatias.perso.math.cnrs.fr/ANR_EcoNet.html).
+
+## About
+
+<https://marcohlmann.github.io/metanetwork/>
+<https://cran.r-project.org/web/packages/metanetwork/index.html>

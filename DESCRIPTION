@@ -2,7 +2,7 @@ Package: metanetwork
 Type: Package
 Title: Handling and Representing Trophic Networks in Space and Time
 Version: 0.7.0
-Date: 2022-12-04
+Date: 2022-12-08
 Authors@R: c(
   person("Marc", "Ohlmann", role = c("aut", "cre"), email = "marcohlmann@live.fr",
       comment = c(ORCID = "0000-0003-3772-3969")),
@@ -11,8 +11,10 @@ Authors@R: c(
   )
 Description: A toolbox to handle and represent trophic networks in space or time across aggregation levels. This package contains a layout algorithm specifically designed for trophic networks, using dimension reduction on a diffusion graph kernel and trophic levels. Importantly, this package provides a layout method applicable for large trophic networks.
 License: GPL-3
-URL: https://github.com/MarcOhlmann/metanetwork,
-    https://marcohlmann.github.io/metanetwork/
+URL: https://cran.r-project.org/web/packages/metanetwork/index.html,
+     https://github.com/MarcOhlmann/metanetwork,
+     https://marcohlmann.github.io/metanetwork/
+    
 NeedsCompilation: no
 Packaged: 
 Repository: CRAN
