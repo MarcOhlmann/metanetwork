@@ -23,13 +23,13 @@ levels and dimension reduction on a diffusion kernel.
 
 ## Package installation
 
-To install ‘metanetwork’ from CRAN, run:
+For the last stable version, use the CRAN version
 
 ``` r
-install.pacakges("metanetwork")
+install.packages("metanetwork")
 ```
 
-To install the development version from github, run:
+For the development version, use the github install
 
 ``` r
 install_github("MarcOhlmann/metanetwork")

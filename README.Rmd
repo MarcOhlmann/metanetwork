@@ -33,7 +33,7 @@ A collection of tools in `R` to represent and analyse trophic networks in space 
 
 For the last stable version, use the CRAN version
 ```{r,echo = TRUE,eval = F}
-install.pacakges("metanetwork")
+install.packages("metanetwork")
 ```
 
 For the development version, use the github install
