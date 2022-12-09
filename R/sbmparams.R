@@ -39,13 +39,13 @@ sbmParams <- function(g, groups = NULL){
                                     which(groups==colnames(alpha.vec)[l])])
       }
     }
-    pi.mat<-l.mat/(t(alpha.vec)%*%alpha.vec) #link probability matrix
+    pi.mat<-l.mat/(t(alpha.vec) %*% alpha.vec) #link probability matrix
     
     
-    return(list(alpha=alpha.vec,
-                l=l.mat,
-                pi=pi.mat,
-                C=sum(adj.mat.w)))
+    return(list(alpha = alpha.vec,
+                l = t(l.mat),
+                pi = t(pi.mat),
+                C = sum(adj.mat.w)))
 }
 
 # metawebParams <- function(gList, groups){
