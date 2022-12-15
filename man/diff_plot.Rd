@@ -12,6 +12,7 @@ diff_plot(
   mode = "TL-tsne",
   vis_tool = "ggnet",
   edge_thrs = NULL,
+  edge_diff_thrs = NULL,
   layout_metaweb = FALSE,
   flip_coords = FALSE,
   alpha_per_group = NULL,
@@ -36,7 +37,10 @@ squeezing of the network}
 
 \item{vis_tool}{a character indicating the visualisation tool, either 'ggnet' or visNetwork}
 
-\item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation}
+\item{edge_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge weight threshold for the representation}
+
+\item{edge_diff_thrs}{if non-null, a numeric (between 0 and 1) indicating an edge weight difference threshold under
+which edge weights of the two networks are considered equal}
 
 \item{layout_metaweb}{a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
 to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}}
