@@ -26,7 +26,9 @@
 #' squeezing of the network
 #' @param mode mode used for layout, either 'TL-tsne' or 'group-TL-tsne' (see \code{attach_layout()}). Default is 'TL-tsne'
 #' @param vis_tool a character indicating the visualisation tool, either 'ggnet' or visNetwork
-#' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge threshold for the representation
+#' @param edge_diff_thrs if non-null, a numeric (between 0 and 1) indicating an edge weight difference threshold under 
+#' which edge weights of the two networks are considered equal
+#' @param edge_thrs if non-null, a numeric (between 0 and 1) indicating an edge weight threshold for the representation
 #' @param layout_metaweb a boolean indicating whether the layout of the metaweb should be used to represent the difference network.
 #' to use metaweb layout = T, you need first to compute 'TL-tsne' layout for the metaweb for this beta value using \code{attach_layout()}
 #' @param nrep_ly If several layouts for this beta value are attached to the metaweb 
@@ -61,9 +63,27 @@
 #' 
 #' 
 
+# metanetwork = meta_orchamp_h
+# g1 = meta_orchamp_h$Forest
+# g2 = meta_orchamp_h$Shrubland
+# beta = 0.002
+# mode ='TL-tsne'
+# vis_tool = "ggnet"
+# edge_thrs = NULL
+# layout_metaweb = T
+# flip_coords = FALSE
+# alpha_per_group = NULL
+# alpha_per_node = NULL
+# TL_tsne.config = TL_tsne.default
+# nrep_ly = 1
+# ggnet.config = ggnet.default
+# visNetwork.config = visNetwork.default
+
+
 diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
                       vis_tool = "ggnet",
-                      edge_thrs = NULL,layout_metaweb = FALSE,flip_coords = FALSE,
+                      edge_thrs = NULL, edge_diff_thrs = NULL,
+                      layout_metaweb = FALSE,flip_coords = FALSE,
                       alpha_per_group = NULL,alpha_per_node = NULL,
                       TL_tsne.config = TL_tsne.default,nrep_ly = 1,
                       ggnet.config = ggnet.default,visNetwork.config = visNetwork.default){
@@ -99,6 +119,7 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
       igraph::V(g_union)$ab_2[is.na(igraph::V(g_union)$ab_2)] = -10
       
       igraph::V(g_union)$ab = igraph::V(g_union)$ab_1 - igraph::V(g_union)$ab_2
+      igraph::V(g_union)$ab[which(abs(igraph::V(g_union)$ab) < 10^(-10))] = 0
 
       
       #weights of gUnion: E(g1)$weight - E(g2)$weight if the edge is present in both networks
@@ -106,9 +127,15 @@ diff_plot <- function(metanetwork,g1,g2,beta = 0.1,mode ='TL-tsne',
       igraph::E(g_union)$weight_1[is.na(igraph::E(g_union)$weight_1)] = -10
       igraph::E(g_union)$weight_2[is.na(igraph::E(g_union)$weight_2)] = -10
       igraph::E(g_union)$weight_col = igraph::E(g_union)$weight_1 - igraph::E(g_union)$weight_2
+      #thresholding edge weight difference
+      if(!(is.null(edge_diff_thrs))){
+        igraph::E(g_union)$weight_col[which(igraph::E(g_union)$weight_col < edge_diff_thrs)] = 0
+      }
+      
       igraph::E(g_union)$weight_col_bis = igraph::E(g_union)$weight_col
+      
       #when weights are equal, E(g_union)$weight_col == 0, 
-      #setting this value to weight in g1 (or g2) for representaiton purpose
+      #setting this value to weight in g1 (or g2) for representation purpose
       igraph::E(g_union)$weight_col_bis = ifelse(igraph::E(g_union)$weight_col_bis == 0,
                                                  igraph::E(g_union)$weight_1,
                                                  igraph::E(g_union)$weight_col)
