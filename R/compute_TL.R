@@ -18,63 +18,77 @@ compute_TL_laplacian <- function(G,metanetwork){
   if(!(igraph::is.simple(G))){
     G = igraph::simplify(G)
   }
-  #recursive function on connected components of G
-  if(is.null(igraph::E(G)$weight)){
-    A = as.matrix(igraph::get.adjacency(G))
-    names_loc = rownames(A)
-    u  = igraph::degree(G)
-    v =  igraph::degree(G,mode ='in') - igraph::degree(G,mode = 'out')
-  } else{
-    A = as.matrix(igraph::get.adjacency(G,attr = "weight"))
-    names_loc = rownames(A)
-    u  = igraph::strength(G)
-    v =  igraph::strength(G,mode ='in') - igraph::strength(G,mode = 'out')
-  }
-  A = A[-1,-1]
-  u = u[-1]
-  v = v[-1]
-  L = diag(u) - A - t(A) #matrix is made symmetric!
-
-  
-  if(igraph::is.connected(G,mode = 'weak')){
-    if(igraph::vcount(G) == 1){
-      #assigning metaweb trophic value if single node    
-      TL_vec = igraph::V(metanetwork$metaweb)[igraph::V(G)[1]$name]$TL
+  #specific case where local network has only 1 or 2 nodes
+  if(vcount(G) < 3){
+    #metaweb at the current resolution
+    networks = metanetwork[sapply(metanetwork,class) == 'igraph']
+    metaweb_loc = networks[sapply(networks,function(g) g$name == 'metaweb')]
+    #if several resolutions, get the current one
+    if(length(metaweb_loc)>1){
+      metaweb_loc = networks[[which(sapply(networks,function(g)
+        g$res == G$res && g$name == 'metaweb'))]]
+    } else {metaweb_loc = metaweb_loc$metaweb}
+    TL_vec = igraph::V(metaweb_loc)[igraph::V(G)$name]$TL
+    return(TL_vec)
+  }else{
+    #recursive function on connected components of G
+    if(is.null(igraph::E(G)$weight)){
+      A = as.matrix(igraph::get.adjacency(G))
+      names_loc = rownames(A)
+      u  = igraph::degree(G)
+      v =  igraph::degree(G,mode ='in') - igraph::degree(G,mode = 'out')
     } else{
-      TL_vec = Matrix::solve(L,v)
-      TL_vec = c(0,TL_vec)
-      TL_vec = TL_vec - min(TL_vec)
-      names(TL_vec) = igraph::V(G)$name
-      if(G$name != "metaweb"){
-        #metaweb at the current resolution
-        networks = metanetwork[sapply(metanetwork,class) == 'igraph']
-        metaweb_loc = networks[sapply(networks,function(g) g$name == 'metaweb')]
-        #if several resolutions, get the current one
-        if(length(metaweb_loc)>1){
-          metaweb_loc = networks[[which(sapply(networks,function(g)
-            g$res == G$res && g$name == 'metaweb'))]]
-        } else {metaweb_loc = metaweb_loc$metaweb}
-        #assigning trophic level of metaweb for the
-        #reference species in the local network
-        TL_vec = TL_vec + mean(igraph::V(metaweb_loc)[names(TL_vec[TL_vec == 0])]$TL)
+      A = as.matrix(igraph::get.adjacency(G,attr = "weight"))
+      names_loc = rownames(A)
+      u  = igraph::strength(G)
+      v =  igraph::strength(G,mode ='in') - igraph::strength(G,mode = 'out')
+    }
+    A = A[-1,-1]
+    u = u[-1]
+    v = v[-1]
+    L = diag(u) - A - t(A) #matrix is made symmetric!
+    
+    
+    if(igraph::is.connected(G,mode = 'weak')){
+      if(igraph::vcount(G) == 1){
+        #assigning metaweb trophic value if single node    
+        TL_vec = igraph::V(metanetwork$metaweb)[igraph::V(G)[1]$name]$TL
+      } else{
+        TL_vec = Matrix::solve(L,v)
+        TL_vec = c(0,TL_vec)
+        TL_vec = TL_vec - min(TL_vec)
+        names(TL_vec) = igraph::V(G)$name
+        if(G$name != "metaweb"){
+          #metaweb at the current resolution
+          networks = metanetwork[sapply(metanetwork,class) == 'igraph']
+          metaweb_loc = networks[sapply(networks,function(g) g$name == 'metaweb')]
+          #if several resolutions, get the current one
+          if(length(metaweb_loc)>1){
+            metaweb_loc = networks[[which(sapply(networks,function(g)
+              g$res == G$res && g$name == 'metaweb'))]]
+          } else {metaweb_loc = metaweb_loc$metaweb}
+          #assigning trophic level of metaweb for the
+          #reference species in the local network
+          TL_vec = TL_vec + mean(igraph::V(metaweb_loc)[names(TL_vec[TL_vec == 0])]$TL)
+        }
+        names(TL_vec) = names_loc
       }
-      names(TL_vec) = names_loc
+      return(TL_vec)
+    } else{
+      TL_list = list() #stock the results for all connected components
+      membership_loc = igraph::components(G)$membership
+      for(comp in unique(membership_loc)){
+        #nodes belonging to comp
+        nodes_comp = igraph::V(G)[names(which(membership_loc == comp))]
+        G_comp_loc = igraph::induced_subgraph(G,nodes_comp)
+        TL_comp = compute_TL_laplacian(G = G_comp_loc,metanetwork = metanetwork)
+        names(TL_comp) = igraph::V(G_comp_loc)$name
+        TL_list = c(TL_list,list(TL_comp))
+      }
+      TL_vec = unlist(TL_list)
+      TL_vec = TL_vec[igraph::V(G)$name]
+      return(TL_vec)
     }
-    return(TL_vec)
-  } else{
-    TL_list = list() #stock the results for all connected components
-    membership_loc = igraph::components(G)$membership
-    for(comp in unique(membership_loc)){
-      #nodes belonging to comp
-      nodes_comp = igraph::V(G)[names(which(membership_loc == comp))]
-      G_comp_loc = igraph::induced_subgraph(G,nodes_comp)
-      TL_comp = compute_TL_laplacian(G = G_comp_loc,metanetwork = metanetwork)
-      names(TL_comp) = igraph::V(G_comp_loc)$name
-      TL_list = c(TL_list,list(TL_comp))
-    }
-    TL_vec = unlist(TL_list)
-    TL_vec = TL_vec[igraph::V(G)$name]
-    return(TL_vec)
   }
 }
 

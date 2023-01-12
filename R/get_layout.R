@@ -173,7 +173,7 @@ get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
   }
   #group-TL-tsne layout is available only at the original resolution
   if(!(g$res == colnames(metanetwork$trophicTable)[1])){
-    stop("group layout is only available at the orginal resolution")
+    stop("group layout is only available at the original resolution")
   }
   
   #get the network at the desired res
@@ -230,7 +230,7 @@ get_coord_group_TL_tsne <- function(g,metanetwork,res,beta,group_layout.config){
       #get group sizes
       group_sizes = table(metanetwork$trophicTable[,res])[igraph::V(g_agg)$name]
       group_sizes_cut = cut(group_sizes, 
-                             quantile(group_sizes,probs = seq(0,1,length.out = nbreaks_group+1) ) , 
+                             quantile(unique(group_sizes),probs = seq(0,1,length.out = nbreaks_group+1)) , 
                              include.lowest=TRUE) %>% as.numeric()
       coords_list = c()
       for(k in 1:length(groups)){
