@@ -164,6 +164,7 @@ is.metanetwork.metanetwork <- function(metanetwork) inherits(metanetwork, "metan
 get_local_networks <- function(metanetwork){
   gList = list()
   abTable = sweep(metanetwork$abTable, 1, rowSums(metanetwork$abTable), "/")
+  names_loc = c()
   for(k in 1:nrow(abTable)){
     gLoc = igraph::induced_subgraph(metanetwork$metaweb,colnames(abTable)[which(metanetwork$abTable[k,]>0)])
     gLoc = igraph::permute(gLoc,order(order(igraph::V(gLoc)$name)))
@@ -172,9 +173,17 @@ get_local_networks <- function(metanetwork){
     gLoc = igraph::set_graph_attr(gLoc,
            name = "res", value = colnames(metanetwork$trophicTable)[1])
     gLoc$name = rownames(abTable)[k]
-    gList = c(gList,list(gLoc))
+    #do not add the network if it has an empty edge set
+    if(igraph::ecount(gLoc) == 0){
+      message(paste0("removing ",gLoc$name," network because it has no interactions"))
+      next
+    } else{
+      gList = c(gList,list(gLoc))
+      names_loc = c(names_loc, gLoc$name)
+    }
   }
-  names(gList) = rownames(abTable)
+  
+  names(gList) = names_loc
   return(gList)
 }
 
