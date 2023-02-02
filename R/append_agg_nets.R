@@ -67,7 +67,7 @@ append_agg_nets.metanetwork <- function(metanetwork){
         eval(parse(text = paste0("metanetwork$metaweb_",scale,"= g_agg")))
         
         local_networks_names = intersect(rownames(metanetwork$abTable),
-                                         names(metanet))
+                                         names(metanetwork))
         for(local_networks_name in local_networks_names){
           eval(parse(text = paste0('g = metanetwork$',local_networks_name) ))
           groups_loc =  metanetwork$trophicTable[,scale]
