@@ -38,7 +38,7 @@
 #' compute_metrics(meta_angola,res = "Phylum")
 #'
 #' @export
-compute_diversities <- function(metanetwork,res = NULL){
+compute_metrics <- function(metanetwork,res = NULL){
   # get the local networks
   networks = metanetwork[lapply(metanetwork,class) == "igraph"]
   metaweb_names = names(metanetwork)[grep('metaweb',x = names(metanetwork))]
@@ -59,26 +59,45 @@ compute_diversities <- function(metanetwork,res = NULL){
     stop("to use compute_metrics, you need to compute trophic levels first. See compute_TL")
   }
   
+  metrics_df_list = list()
+  
   for(res in res_loc){
     metrics_df = matrix(NA,nrow = 1 + nrow(metanetwork$abTable),ncol = 5)
-    colnames(metrics_df) = c("connectance","mean_TL","max_TL","shortest_path_length","modularity")
+    colnames(metrics_df) = c("connectance","mean_TL","max_TL","mean_shortest_path_length","modularity")
     rownames(metrics_df) = c("metaweb",rownames(metanetwork$abTable))
     metrics_df = as.data.frame(metrics_df)
     
     metaweb_loc_loc = metaweb_loc[[which(sapply(metaweb_loc, function(g) g$res) == res)]]
     #metrics for the metaweb
-    metrics_df$connectance[1] = get_connectance(metaweb_loc_loc)
-    metrics_df$mean_TL = metaweb_loc_loc
-    
-    
-    
+    metrics_df[1,] = get_metrics(metaweb_loc_loc)
+    #metrics for local networks
+    networks_loc_loc = networks_loc[which(sapply(networks_loc, function(g) g$res) == res)]
+    metrics_df[2:nrow(metrics_df),] = do.call(rbind, lapply(networks_loc_loc,get_metrics))
+    metrics_df_list = c(metrics_df_list,list(metrics_df))
   }
-  return(list(nodes = diversites_df_P,links = diversites_df_L))
+  names(metrics_df_list) = res_loc
+  return("metrics_df_list")
 }
 
+#get weighted connectance
 get_connectance <- function(g){
   adj = igraph::get.adjacency(g,attr = "weight") %>% as.matrix()
   C = t(igraph::V(g)$ab) %*% adj %*% igraph::V(g)$ab
   return(C)
 }
+
+get_modularity <- function(g){
+  wtc = igraph::cluster_walktrap(g)
+  return(igraph::modularity(g, igraph::membership(wtc)))
+}
+
+get_metrics <- function(g){
+  C = get_connectance(g)
+  mean_TL = mean(igraph::V(metaweb_loc_loc)$TL)
+  max_TL = max(igraph::V(metaweb_loc_loc)$TL)
+  short_path = igraph::mean_distance(g,directed = TRUE)
+  mod = get_modularity(g)
+  return(c(C,mean_TL,max_TL,short_path,mod))
+}
+
 
