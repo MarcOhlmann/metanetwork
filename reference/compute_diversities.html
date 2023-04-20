@@ -111,11 +111,41 @@
 <span class="r-in"><span><span class="co">#on angola dataset</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_angola"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">compute_diversities</span><span class="op">(</span><span class="va">meta_angola</span>,q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in compute_diversities(meta_angola, q = 1):</span> unused argument (q = 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Species   Phylum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gamma_P       13.666059 2.680737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_Alpha_P  12.478328 2.669698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Beta_P         1.095183 1.004135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X1986_P  9.027714 2.494158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X2003_P 17.247852 2.857593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $links</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Species   Phylum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gamma_L       55.718125 3.812301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_Alpha_L  48.505518 3.791652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Beta_L         1.148697 1.005446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X1986_L 36.481408 3.410505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X2003_L 64.492722 4.215394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#computing diversities only at Phylum level</span></span></span>
 <span class="r-in"><span><span class="fu">compute_diversities</span><span class="op">(</span><span class="va">meta_angola</span>,q <span class="op">=</span> <span class="fl">1</span>,res <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in compute_diversities(meta_angola, q = 1, res = "Phylum"):</span> unused argument (q = 1)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $nodes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Phylum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gamma_P       2.680737</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_Alpha_P  2.669698</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Beta_P        1.004135</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X1986_P 2.494158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X2003_P 2.857593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $links</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 Phylum</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Gamma_L       3.812301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> mean_Alpha_L  3.791652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Beta_L        1.005446</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X1986_L 3.410505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Alpha_X2003_L 4.215394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
