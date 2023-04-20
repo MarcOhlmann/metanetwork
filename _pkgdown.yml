@@ -58,6 +58,7 @@ reference:
 - title: Computing network indices
   desc: |
    Set of functions to compute network diversities, dissimilarities and metrics
+  contents:
   - '`compute_diversities`'
   - '`compute_dissimilarities`' 
 - title: Data sets
