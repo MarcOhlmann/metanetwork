@@ -32,7 +32,7 @@
 #' 
 #' #on angola dataset
 #' data(meta_angola)
-#' compute_dissimilarities(meta_angola,q = 1)
+#' compute_dissimilarities(meta_angola,q = 1,ncores = 1)
 #'
 #' @export
 compute_dissimilarities <- function(metanetwork,q = 1,res = NULL,ncores = 4){
@@ -114,7 +114,7 @@ compute_dis_loc <- function(index_vec,P_L_list,type = c("P","L"),q,res){
   }
   div = abgDecompQ(t(spxp.dummy),q = q)
   if(q != 1){
-    res_loc = 1-((1/div$Beta)^(eta-1)-(1/2)^(eta-1))/(1-(1/2)^(eta-1))
+    res_loc = 1-((1/div$Beta)^(q-1)-(1/2)^(q-1))/(1-(1/2)^(q-1))
   }
   if(q == 1){
     res_loc = (log(div$Gamma)-log(div$mAlpha))/(log(2))

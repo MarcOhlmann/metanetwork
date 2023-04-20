@@ -55,7 +55,7 @@ reference:
   - '`visNetwork.default`'
   - '`diff_plot`'
   - '`plot_trophicTable`'
- - title: Computing indices
+- title: Computing network indices
   desc: |
    Set of functions to compute network diversities, dissimilarities and metrics
   - '`compute_diversities`'

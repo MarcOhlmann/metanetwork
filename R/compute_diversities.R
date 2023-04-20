@@ -33,10 +33,10 @@
 #' 
 #' #on angola dataset
 #' data("meta_angola")
-#' compute_diversities(meta_angola,q = 1)
+#' compute_diversities(meta_angola,q = 1,ncores = 1)
 #' 
 #' #computing diversities only at Phylum level
-#' compute_diversities(meta_angola,q = 1,res = "Phylum")
+#' compute_diversities(meta_angola,q = 1,res = "Phylum",ncores = 1)
 #'
 #' @export
 compute_diversities <- function(metanetwork,q = 1,res = NULL){
@@ -125,7 +125,7 @@ divLeinster <- function(spxp, Z = NULL,q = 1, check = TRUE){
   return(D)
 }
 
-abgDecompQ <- function(spxp, Z=NULL, q=2, check=TRUE) {
+abgDecompQ <- function(spxp, Z=NULL, q=1, check=TRUE) {
   #Calcul the diversity of each site of sites by species matrix. 
   #spxp columns and Z rows/cols are assumed to be in the same order.
   Z <- diag(ncol(spxp))
