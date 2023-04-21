@@ -5,8 +5,9 @@ articles:
   angola: angola.html
   norway: norway.html
   pyramid: pyramid.html
+  pyramid0: pyramid0.html
   vertebrates: vertebrates.html
-last_built: 2023-04-20T15:03Z
+last_built: 2023-04-21T13:16Z
 urls:
   reference: https://marcohlmann.github.io/metanetwork/reference
   article: https://marcohlmann.github.io/metanetwork/articles

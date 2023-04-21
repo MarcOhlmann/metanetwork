@@ -91,8 +91,8 @@ Ohlmann</h4>
             
             <h4 data-toc-skip class="date">2023-04-21</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/pyramid.Rmd" class="external-link"><code>vignettes/pyramid.Rmd</code></a></small>
-      <div class="hidden name"><code>pyramid.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/pyramid0.Rmd" class="external-link"><code>vignettes/pyramid0.Rmd</code></a></small>
+      <div class="hidden name"><code>pyramid0.Rmd</code></div>
 
     </div>
 
@@ -136,17 +136,13 @@ using ‘ggnet2’</p>
 <span><span class="co">#representing the lattice using ggnet package</span></span>
 <span><span class="va">network</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/intergraph/man/asNetwork.html" class="external-link">asNetwork</a></span><span class="op">(</span><span class="va">g</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/pyramid_build-1.png" alt=""><p class="caption">plot of chunk pyramid_build</p>
-</div>
+<p><img src="pyramid0_files/figure-html/pyramid_build-1.png" width="700"></p>
 <p>Notice that ‘ggnet2’ default layout algorithm (Fruchterman-Reingold
 algorithm, a force directed algorithm) is non-reproducible. Moreover,
 x-axis and y-axis do not have any ecological interpretation.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggobi.github.io/ggally/reference/ggnet2.html" class="external-link">ggnet2</a></span><span class="op">(</span><span class="va">network</span>, arrow.size <span class="op">=</span> <span class="fl">7</span>,size <span class="op">=</span> <span class="fl">3</span> ,arrow.gap <span class="op">=</span> <span class="fl">0.025</span>, label <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-1-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-1</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="generating-abundance-table">Generating abundance table<a class="anchor" aria-label="anchor" href="#generating-abundance-table"></a>
@@ -241,8 +237,8 @@ as node attribute <code>$TL</code> of each network.</p>
 <pre><code><span><span class="co">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span></span>
-<span><span class="co">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
+<pre><code><span><span class="co">##  [1] 0.000000e+00 4.440892e-16 1.000000e+00 1.221245e-15 1.000000e+00</span></span>
+<span><span class="co">##  [6] 2.000000e+00 1.332268e-15 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
 <span><span class="co">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre>
 </div>
 </div>
@@ -295,28 +291,20 @@ default.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet#</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-7-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-7</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet#</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.45</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-8-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-8</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <p><code>ggmetanet</code> can also represent local networks (with
 specific layout)</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-9-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-9</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Increasing <code>beta</code> squeeze y-axis</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-10-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-10</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Moreover, it clusters nodes belonging to different ‘branches’. They
 become more and more similar when beta is increased.</p>
 <p><em>Representing disconnected networks</em></p>
@@ -327,9 +315,7 @@ connected component has a trophic level equals to its value in the
 metaweb.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.45</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-11-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-11</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="diff_plot-function">
@@ -340,9 +326,7 @@ is implemented. It colors nodes according to their presence/absence or
 variation in abundance in both networks.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,g2 <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,mode <span class="op">=</span> <span class="st">'TL-tsne'</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-12-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-12</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="changing-ggnet-configuration-parameters">Changing <code>ggnet</code> configuration parameters<a class="anchor" aria-label="anchor" href="#changing-ggnet-configuration-parameters"></a>
@@ -357,9 +341,7 @@ visualisation parameters. Change it to modify the plot.</p>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">7</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>beta <span class="op">=</span> <span class="fl">0.1</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,</span>
 <span>          ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-13-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-13</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="attaching-layout">Attaching layout<a class="anchor" aria-label="anchor" href="#attaching-layout"></a>
@@ -372,58 +354,47 @@ it is attached to the network as node attribute.</p>
 <code class="sourceCode R"><span><span class="co">#for the metaweb</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] -40.5144928 -29.0181077 -34.5485310  26.6377537  16.6199031   6.8892654</span></span>
-<span><span class="co">##  [7]  37.9409465  31.8121092  21.0953487  11.2639462 -10.1617737 -14.9085438</span></span>
-<span><span class="co">## [13] -19.7308839  -4.2930583   0.9161185</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   0.5494251 -10.1809722  -4.4746776  29.2501955  18.0860992   7.0187932</span></span>
+<span><span class="co">##  [7]  41.7110446  35.0027407  23.0256265  12.1712740 -43.2554504 -36.9014116</span></span>
+<span><span class="co">## [13] -30.3264470 -23.9271057 -17.7491343</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for a local network</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] -40.5144928 -29.0181077 -34.5485310  26.6377537  16.6199031   6.8892654</span></span>
-<span><span class="co">##  [7]  37.9409465  31.8121092  21.0953487  11.2639462 -10.1617737 -14.9085438</span></span>
-<span><span class="co">## [13] -19.7308839  -4.2930583   0.9161185</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   0.5494251 -10.1809722  -4.4746776  29.2501955  18.0860992   7.0187932</span></span>
+<span><span class="co">##  [7]  41.7110446  35.0027407  23.0256265  12.1712740 -43.2554504 -36.9014116</span></span>
+<span><span class="co">## [13] -30.3264470 -23.9271057 -17.7491343</span></span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or
 <code>vismetaNetwork</code> will use the computed layout for the desired
 <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-15-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-15</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>Using that way, network representation is reproducible.</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#calling again ggmetanet</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16"> Once the layout computed for the
-metaweb, it can be used to represent local network or difference network
-using <code>layout_metaweb = T</code></p>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-16-1.png" width="700">
+Once the layout computed for the metaweb, it can be used to represent
+local network or difference network using
+<code>layout_metaweb = T</code></p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-17-1.png" alt=""><p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-17-2.png" alt=""><p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-17-2.png" width="700"></p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-17-3.png" alt=""><p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-17-3.png" width="700"></p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">c</span>,metanetwork <span class="op">=</span> <span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-17-4.png" alt=""><p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-17-4.png" width="700"></p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#diffplot</span></span>
 <span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span><span class="va">meta0</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,<span class="va">meta0</span><span class="op">$</span><span class="va">b</span>,beta <span class="op">=</span> <span class="fl">0.1</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="figure/unnamed-chunk-17-5.png" alt=""><p class="caption">plot of chunk unnamed-chunk-17</p>
-</div>
+<p><img src="pyramid0_files/figure-html/unnamed-chunk-17-5.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">

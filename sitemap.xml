@@ -16,6 +16,9 @@
     <loc>https://marcohlmann.github.io/metanetwork/articles/pyramid.html</loc>
   </url>
   <url>
+    <loc>https://marcohlmann.github.io/metanetwork/articles/pyramid0.html</loc>
+  </url>
+  <url>
     <loc>https://marcohlmann.github.io/metanetwork/articles/vertebrates.html</loc>
   </url>
   <url>
@@ -44,6 +47,9 @@
   </url>
   <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/compute_diversities.html</loc>
+  </url>
+  <url>
+    <loc>https://marcohlmann.github.io/metanetwork/reference/compute_metrics.html</loc>
   </url>
   <url>
     <loc>https://marcohlmann.github.io/metanetwork/reference/diff_plot.html</loc>
