@@ -59,6 +59,8 @@ compute_diversities <- function(metanetwork,q = 1,res = NULL){
       res_loc = res
     }
   }
+  
+  if(!(is.null(metanetwork$trophicTable))){ #if several resolutions
   diversites_df_P = matrix(0,nrow = 3 + nrow(metanetwork$abTable),
                          ncol = length(res_loc))
   diversites_df_L = matrix(0,nrow = 3 + nrow(metanetwork$abTable),
@@ -74,16 +76,16 @@ compute_diversities <- function(metanetwork,q = 1,res = NULL){
   #node diversity at the different resolutions
   for(res in res_loc){
     #node diversity
-    abg_P_loc = abgDecompQ(spxp = t(P_L_list$P[[res]]),q = q)
+    abg_P_loc = abgDecompQ(spxp = t(P_L_list$P),q = q)
     diversites_df_P["Gamma_P",res] = abg_P_loc$Gamma
     diversites_df_P["mean_Alpha_P",res] = abg_P_loc$mAlpha
     diversites_df_P["Beta_P",res] = abg_P_loc$Beta
     diversites_df_P[paste0("Alpha_",rownames(metanetwork$abTable),"_P"),res] = abg_P_loc$Alphas
     #link diversity
-    L_array = P_L_list$L[[res]]
-    dim(L_array) = c(nrow(P_L_list$P[[res]])*nrow(P_L_list$P[[res]]),
-                     ncol(P_L_list$P[[res]])) 
-    colnames(L_array) = colnames(P_L_list$P[[res]])
+    L_array = P_L_list$L
+    dim(L_array) = c(nrow(P_L_list$P)*nrow(P_L_list$P),
+                     ncol(P_L_list$P)) 
+    colnames(L_array) = colnames(P_L_list$P)
     abg_L_loc = abgDecompQ(spxp = t(L_array),q = q)
     diversites_df_L["Gamma_L",res] = abg_L_loc$Gamma
     diversites_df_L["mean_Alpha_L",res] = abg_L_loc$mAlpha
@@ -91,7 +93,24 @@ compute_diversities <- function(metanetwork,q = 1,res = NULL){
     diversites_df_L[paste0("Alpha_",rownames(metanetwork$abTable),"_L"),res] = abg_L_loc$Alphas
   }
   return(list(nodes = diversites_df_P,links = diversites_df_L))
+  }else{#single resolution case
+    #get node and link abundances
+    P_L_list = metawebParams(metaweb_loc,networks_loc)
+    #node diversity
+    abg_P_loc = abgDecompQ(spxp = t(P_L_list$P),q = q)
+    #link diversity
+    L_array = P_L_list$L
+    dim(L_array) = c(nrow(P_L_list$P)*nrow(P_L_list$P),
+                     ncol(P_L_list$P)) 
+    colnames(L_array) = colnames(P_L_list$P)
+    abg_L_loc = abgDecompQ(spxp = t(L_array),q = q)
+    return(list(nodes = list(Gamma = abg_P_loc$Gamma, mean_Alpha = abg_P_loc$mAlpha,
+                             Beta = abg_P_loc$Beta,Alphas = abg_P_loc$Alphas),
+                links = list(Gamma = abg_L_loc$Gamma, mean_Alpha = abg_L_loc$mAlpha,
+                             Beta = abg_L_loc$Beta,Alphas = abg_L_loc$Alphas)))
+  }
 }
+
 
 
 # Functions
@@ -154,37 +173,59 @@ abgDecompQ <- function(spxp, Z=NULL, q=1, check=TRUE) {
   return(res)
 }
 #function to extract group and link abundances
-metawebParams <- function(metaweb_loc,networks_loc,res_loc){
-  P_mat_list = list()
-  L_array_list = list()
-  ## get the L array and P mat for a list of graph
-  for(res in res_loc){
-    #get the metaweb at the current res
-    metaweb_loc_res = metaweb_loc[sapply(metaweb_loc,function(g) g$res) == res][[1]]
-    #get the local networks at the current resolution
-    networks_loc_res = networks_loc[sapply(networks_loc,function(g) g$res) == res]
-    n = igraph::vcount(do.call(igraph::union,networks_loc_res))
+metawebParams <- function(metaweb_loc,networks_loc,res_loc = NULL){
+  if(!(is.null(res_loc))){
+    P_mat_list = list()
+    L_array_list = list()
+    ## get the L array and P mat for a list of graph
+    for(res in res_loc){
+      #get the metaweb at the current res
+      metaweb_loc_res = metaweb_loc[sapply(metaweb_loc,function(g) g$res) == res][[1]]
+      #get the local networks at the current resolution
+      networks_loc_res = networks_loc[sapply(networks_loc,function(g) g$res) == res]
+      n = igraph::vcount(do.call(igraph::union,networks_loc_res))
+      #build abundance matrix
+      P_mat = matrix(0, nrow = n, ncol = length(networks_loc_res))
+      rownames(P_mat) = igraph::V(metaweb_loc_res)$name
+      colnames(P_mat) = names(networks_loc_res)
+      for(net_loc_name in names(networks_loc_res)){
+        P_mat[igraph::V(networks_loc_res[[net_loc_name]])$name,net_loc_name] =
+          igraph::V(networks_loc_res[[net_loc_name]])$ab
+      }
+      #build link abundance matrix
+      L_array = array(0, dim=c(n,n,length(networks_loc_res))) #stacked adjacency matrix at a group level
+      dimnames(L_array)[[1]] = if(n>1)  igraph::V(metaweb_loc_res)$name else list(igraph::V(metaweb_loc_res)$name)
+      dimnames(L_array)[[2]] = if(n>1)  igraph::V(metaweb_loc_res)$name else list(igraph::V(metaweb_loc_res)$name)
+      dimnames(L_array)[[3]] = names(networks_loc_res)
+      for(net_loc_name in dimnames(L_array)[[3]]){
+        L_array[,,net_loc_name] = (P_mat[,net_loc_name] %*% t(P_mat[,net_loc_name])) * 
+          as.matrix(igraph::get.adjacency(metaweb_loc_res))
+      }
+      P_mat_list = c(P_mat_list,list(P_mat))
+      L_array_list = c(L_array_list,list(L_array))
+    }
+    names(P_mat_list) = res_loc
+    names(L_array_list) = res_loc
+    return(list(P = P_mat_list, L = L_array_list))
+  }else{
+    n = igraph::vcount(metaweb_loc[[1]])
     #build abundance matrix
-    P_mat = matrix(0, nrow = n, ncol = length(networks_loc_res))
-    rownames(P_mat) = igraph::V(metaweb_loc_res)$name
-    colnames(P_mat) = names(networks_loc_res)
-    for(net_loc_name in names(networks_loc_res)){
-      P_mat[igraph::V(networks_loc_res[[net_loc_name]])$name,net_loc_name] =
-        igraph::V(networks_loc_res[[net_loc_name]])$ab
+    P_mat = matrix(0, nrow = n, ncol = length(networks_loc))
+    rownames(P_mat) = igraph::V(metaweb_loc[[1]])$name
+    colnames(P_mat) = names(networks_loc)
+    for(net_loc_name in names(networks_loc)){
+        P_mat[igraph::V(networks_loc[[net_loc_name]])$name,net_loc_name] =
+        igraph::V(networks_loc[[net_loc_name]])$ab
     }
     #build link abundance matrix
-    L_array = array(0, dim=c(n,n,length(networks_loc_res))) #stacked adjacency matrix at a group level
-    dimnames(L_array)[[1]] = if(n>1)  igraph::V(metaweb_loc_res)$name else list(igraph::V(metaweb_loc_res)$name)
-    dimnames(L_array)[[2]] = if(n>1)  igraph::V(metaweb_loc_res)$name else list(igraph::V(metaweb_loc_res)$name)
-    dimnames(L_array)[[3]] = names(networks_loc_res)
+    L_array = array(0, dim=c(n,n,length(networks_loc))) #stacked adjacency matrix at a group level
+    dimnames(L_array)[[1]] = if(n>1)  igraph::V(metaweb_loc[[1]])$name else list(igraph::V(metaweb_loc[[1]])$name)
+    dimnames(L_array)[[2]] = if(n>1)  igraph::V(metaweb_loc[[1]])$name else list(igraph::V(metaweb_loc[[1]])$name)
+    dimnames(L_array)[[3]] = names(networks_loc)
     for(net_loc_name in dimnames(L_array)[[3]]){
       L_array[,,net_loc_name] = (P_mat[,net_loc_name] %*% t(P_mat[,net_loc_name])) * 
-        as.matrix(igraph::get.adjacency(metaweb_loc_res))
+        as.matrix(igraph::get.adjacency(metaweb_loc[[1]]))
     }
-    P_mat_list = c(P_mat_list,list(P_mat))
-    L_array_list = c(L_array_list,list(L_array))
+    return(list(P = P_mat, L = L_array))
   }
-  names(P_mat_list) = res_loc
-  names(L_array_list) = res_loc
-  return(list(P = P_mat_list, L = L_array_list))
 }

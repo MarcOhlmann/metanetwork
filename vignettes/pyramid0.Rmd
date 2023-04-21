@@ -66,13 +66,14 @@ ggnet2(network, arrow.size = 7,size = 3 ,arrow.gap = 0.025, label = T)
 ```
 
 ### Generating abundance table
-We now generate two local communities (presence/absence in our case)
+We now generate three local communities (presence/absence in our case)
 ```{r,echo = TRUE}
 #sampling a presence table
 presence = rbind(c(1,1,1,1,1,1,0,0,1,0,0,0,0,0,1),
-                 c(0,0,0,1,1,1,1,1,1,1,1,1,1,1,1))
+                 c(0,0,0,1,1,1,1,1,1,1,1,1,1,1,1),
+                 c(0,0,1,1,1,1,1,1,1,1,1,1,1,0,0))
 
-rownames(presence) = c('a','b')
+rownames(presence) = c('a','b','c')
 colnames(presence) = V(g)$name
 ```
 
@@ -113,7 +114,7 @@ Additional objects like `abTable` or `trophicTable` can be included in a 'metane
 
 ### Computing trophic levels
 
-'metanetwork' package enables 2D network representation with x-axis equals to trophic levels. To compute trophic levels, 'metanetwork' implements the method, based on laplacian matrix, described in: *MacKay, R. S., S. Johnson, and B. Sansom. "How directed is a directed network?." Royal Society open science 7.9 (2020): 201138.*     
+'metanetwork' package enables 2D network representation with x-axis equals to trophic levels. To compute trophic levels, 'metanetwork' implements the method, based on Laplacian matrix, described in MacKay et al. 2020.     
 The metaweb needs to be connected for trophic levels to be unique. Local networks can however be disconnected (see Ref).
 A method `compute_TL` allows computing trophic levels and storing it as node attribute `$TL` of each network.
 
@@ -236,7 +237,43 @@ Once the layout computed for the metaweb, it can be used to represent local netw
 ```{r,warning=F,message=F}
 #ggmetanet
 ggmetanet(meta0,beta = 0.1,layout_metaweb = T)
+ggmetanet(g = meta0$a,metanetwork = meta0,beta = 0.1,layout_metaweb = T)
+ggmetanet(g = meta0$b,metanetwork = meta0,beta = 0.1,layout_metaweb = T)
+ggmetanet(g = meta0$c,metanetwork = meta0,beta = 0.1,layout_metaweb = T)
 #diffplot
 diff_plot(meta0,meta0$a,meta0$b,beta = 0.1,layout_metaweb = T)
 ```
-## Modifying local networks
+
+## Computing network indices and metrics
+
+Besides network representation, 'metanetwork' package can compute usual network metrics (weighted connectance, mean and max trophic level, mean shortest path length). Network diveristy and dissimilarity indices based on Hill numbers are also implemented in order to quantitatively compare local networks.
+
+```{r,warning=F}
+  #computing network metrics
+  compute_metrics(meta0)
+```
+The metaweb is less connected than local networks but have the highest mean shortest path length.
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitionned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+
+```{r,warning = F}
+#computing diversities
+compute_diversities(meta0)
+```
+
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+
+```{r,warning = F}
+#computing pairwise dissimilarities
+compute_dissimilarities(meta0)
+```
+
+In this case, we see that links dissimilarities are higher than node dissimilarities. Indeed, absent nodes from the metaweb might lead to the absence of several edges.
+
+## References
+
+- Kondor, R. I., & Lafferty, J. (2002, July). Diffusion kernels on graphs and other discrete structures. In Proceedings of the 19th international conference on machine learning (Vol. 2002, pp. 315-322).
+
+- MacKay, R. S., S. Johnson, and B. Sansom. "How directed is a directed network?." Royal Society open science 7.9 (2020): 201138
+
+- Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
+

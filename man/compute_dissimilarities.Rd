@@ -26,7 +26,10 @@ library(igraph)
 
 #on angola dataset
 data(meta_angola)
-compute_dissimilarities(meta_angola,q = 1)
+compute_dissimilarities(meta_angola,q = 1,ncores = 1)
+
+#computing diversities only at Phylum level
+compute_diversities(meta_angola,q = 1,res = "Phylum",ncores = 1)
 
 }
 \references{

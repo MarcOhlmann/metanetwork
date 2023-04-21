@@ -59,24 +59,48 @@ compute_metrics <- function(metanetwork,res = NULL){
     stop("to use compute_metrics, you need to compute trophic levels first. See compute_TL")
   }
   
-  metrics_df_list = list()
-  
-  for(res in res_loc){
-    metrics_df = matrix(NA,nrow = 1 + nrow(metanetwork$abTable),ncol = 5)
-    colnames(metrics_df) = c("connectance","mean_TL","max_TL","mean_shortest_path_length","modularity")
-    rownames(metrics_df) = c("metaweb",rownames(metanetwork$abTable))
-    metrics_df = as.data.frame(metrics_df)
-    
-    metaweb_loc_loc = metaweb_loc[[which(sapply(metaweb_loc, function(g) g$res) == res)]]
-    #metrics for the metaweb
-    metrics_df[1,] = get_metrics(metaweb_loc_loc)
-    #metrics for local networks
-    networks_loc_loc = networks_loc[which(sapply(networks_loc, function(g) g$res) == res)]
-    metrics_df[2:nrow(metrics_df),] = do.call(rbind, lapply(networks_loc_loc,get_metrics))
-    metrics_df_list = c(metrics_df_list,list(metrics_df))
+  #if several resolution
+  if(!(is.null(metanetwork$trophicTable))){
+    metrics_df_list = list()
+    for(res in res_loc){
+      if(nrow(metanetwork$abTable) == 1){ #singe network case
+        metrics_df = get_metrics(metaweb_loc[[1]])
+        names(metrics_df) = c("connectance","mean_TL","max_TL","mean_shortest_path_length")
+      }else{
+      metrics_df = matrix(NA,nrow = 1 + nrow(metanetwork$abTable),ncol = 4)
+      colnames(metrics_df) = c("connectance","mean_TL","max_TL","mean_shortest_path_length")
+      rownames(metrics_df) = c("metaweb",rownames(metanetwork$abTable))
+      metrics_df = as.data.frame(metrics_df)
+      
+      metaweb_loc_loc = metaweb_loc[[which(sapply(metaweb_loc, function(g) g$res) == res)]]
+      #metrics for the metaweb
+      metrics_df[1,] = get_metrics(metaweb_loc_loc)
+      #metrics for local networks
+      networks_loc_loc = networks_loc[which(sapply(networks_loc, function(g) g$res) == res)]
+      metrics_df[2:nrow(metrics_df),] = do.call(rbind, lapply(networks_loc_loc,get_metrics))
+      metrics_df_list = c(metrics_df_list,list(metrics_df))
+      }
+    }
+    names(metrics_df_list) = res_loc
+    return(metrics_df_list)
+  }else{ #single resolution case
+    if(nrow(metanetwork$abTable) == 1){ #singe network case
+      metrics_vec = get_metrics(metaweb_loc[[1]])
+      names(metrics_vec) = c("connectance","mean_TL","max_TL","mean_shortest_path_length")
+      return(metrics_vec)
+    }else{
+      metrics_df = matrix(NA,nrow = 1 + nrow(metanetwork$abTable),ncol = 4)
+      colnames(metrics_df) = c("connectance","mean_TL","max_TL","mean_shortest_path_length")
+      rownames(metrics_df) = c("metaweb",rownames(metanetwork$abTable))
+      metrics_df = as.data.frame(metrics_df)
+      #metrics for the metaweb
+      metrics_df[1,] = get_metrics(metaweb_loc[[1]])
+      #metrics for local networks
+      metrics_df[2:nrow(metrics_df),] = do.call(rbind, lapply(networks_loc,get_metrics))
+      return(metrics_df)
+    }
+
   }
-  names(metrics_df_list) = res_loc
-  return("metrics_df_list")
 }
 
 #get weighted connectance
@@ -86,18 +110,13 @@ get_connectance <- function(g){
   return(C)
 }
 
-get_modularity <- function(g){
-  wtc = igraph::cluster_walktrap(g)
-  return(igraph::modularity(g, igraph::membership(wtc)))
-}
 
 get_metrics <- function(g){
   C = get_connectance(g)
-  mean_TL = mean(igraph::V(metaweb_loc_loc)$TL)
-  max_TL = max(igraph::V(metaweb_loc_loc)$TL)
+  mean_TL = mean(igraph::V(g)$TL)
+  max_TL = max(igraph::V(g)$TL)
   short_path = igraph::mean_distance(g,directed = TRUE)
-  mod = get_modularity(g)
-  return(c(C,mean_TL,max_TL,short_path,mod))
+  return(c(C,mean_TL,max_TL,short_path))
 }
 
 

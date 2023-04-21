@@ -58,14 +58,51 @@ compute_dissimilarities <- function(metanetwork,q = 1,res = NULL,ncores = 4){
       res_loc = res
     }
   }
-  #get node and link abundances
-  P_L_list = metawebParams(metaweb_loc,networks_loc,res_loc)
-  N = nrow(metanetwork$abTable)
-  #list to store the results
-  dis_df_list_list = list()
   
-  #loop over resolutions
-  for(res in res_loc){
+  
+  if(!(is.null(metanetwork$trophicTable))){ #if several resolutions are available
+    #get node and link abundances
+    P_L_list = metawebParams(metaweb_loc,networks_loc,res_loc)
+    N = nrow(metanetwork$abTable)
+    #list to store the results
+    dis_df_list_list = list()
+    
+    #loop over resolutions
+    for(res in res_loc){
+      dis_df_P = matrix(0,nrow = N, ncol = N)
+      dis_df_L = matrix(0,nrow = N, ncol = N)
+      colnames(dis_df_P) = rownames(metanetwork$abTable)
+      rownames(dis_df_P) = rownames(metanetwork$abTable)
+      dis_df_P = as.data.frame(dis_df_P)
+      colnames(dis_df_L) = rownames(metanetwork$abTable)
+      rownames(dis_df_L) = rownames(metanetwork$abTable)
+      dis_df_L = as.data.frame(dis_df_L)
+      #inde table for parallelisation
+      ind_table = t(combn(1:N, 2))
+      message(paste0("computing node pairwise dissimilarities at resolution: ",res))
+      res_P_list = parallel::mclapply(1:nrow(ind_table),function(k)  
+        compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "P",q = q,res = res),mc.cores = ncores)
+      
+      message(paste0("computing link pairwise dissimilarities at resolution: ",res))
+      res_L_list = parallel::mclapply(1:nrow(ind_table),function(k)  
+        compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "L",q = q,res = res),mc.cores = ncores)
+      
+      #filling the dis matrix
+      dis_df_P[lower.tri(dis_df_P)] = unlist(res_P_list)
+      dis_df_L[lower.tri(dis_df_L)] = unlist(res_L_list)
+      
+      dis_df_P = dis_df_P + t(dis_df_P)
+      dis_df_L = dis_df_L + t(dis_df_L)
+      
+      dis_df_list = list(nodes = dis_df_P, links = dis_df_L)
+      dis_df_list_list = c(dis_df_list_list,list(dis_df_list))
+    }
+    names(dis_df_list_list) = res_loc
+    return(dis_df_list_list)
+  }else{#single resolution case
+    #get node and link abundances
+    P_L_list = metawebParams(metaweb_loc,networks_loc)
+    N = nrow(metanetwork$abTable)
     dis_df_P = matrix(0,nrow = N, ncol = N)
     dis_df_L = matrix(0,nrow = N, ncol = N)
     colnames(dis_df_P) = rownames(metanetwork$abTable)
@@ -76,40 +113,49 @@ compute_dissimilarities <- function(metanetwork,q = 1,res = NULL,ncores = 4){
     dis_df_L = as.data.frame(dis_df_L)
     #inde table for parallelisation
     ind_table = t(combn(1:N, 2))
-    message(paste0("computing node pairwise dissimilarities at resolution: ",res))
+    message(paste0("computing node pairwise dissimilarities"))
     res_P_list = parallel::mclapply(1:nrow(ind_table),function(k)  
-                        compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "P",q = q,res = res),mc.cores = ncores)
-    
-    message(paste0("computing link pairwise dissimilarities at resolution: ",res))
+        compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "P",q = q),mc.cores = ncores)
+      
+    message(paste0("computing link pairwise dissimilarities"))
     res_L_list = parallel::mclapply(1:nrow(ind_table),function(k)  
-                compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "L",q = q,res = res),mc.cores = ncores)
-    
+        compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "L",q = q),mc.cores = ncores)
+      
     #filling the dis matrix
     dis_df_P[lower.tri(dis_df_P)] = unlist(res_P_list)
     dis_df_L[lower.tri(dis_df_L)] = unlist(res_L_list)
     
     dis_df_P = dis_df_P + t(dis_df_P)
     dis_df_L = dis_df_L + t(dis_df_L)
-    
+      
     dis_df_list = list(nodes = dis_df_P, links = dis_df_L)
-    dis_df_list_list = c(dis_df_list_list,list(dis_df_list))
-  }
-  names(dis_df_list_list) = res_loc
-  return(dis_df_list_list)
+    return(dis_df_list)
+    }
 }
 
 #function to compute pairwise dissimilarity (to execute in parallel)
-compute_dis_loc <- function(index_vec,P_L_list,type = c("P","L"),q,res){
+compute_dis_loc <- function(index_vec,P_L_list,type = c("P","L"),q,res = NULL){
   ind_i = index_vec[1]
   ind_j = index_vec[2]
   if(type == "P"){
-    spxp.dummy= P_L_list$P[[res]][,c(ind_i,ind_j)]
+    if(is.null(res)){
+      spxp.dummy= P_L_list$P[,c(ind_i,ind_j)]
+    }else{
+      spxp.dummy= P_L_list$P[[res]][,c(ind_i,ind_j)]
+    }
   }
   if(type == "L"){
-    spxp.dummy = P_L_list$L[[res]][,,c(ind_i,ind_j)]
-    spxp.dummy = aperm(spxp.dummy,c(2,1,3))  
-    dim(spxp.dummy) <- c(nrow(P_L_list$P[[res]])*nrow(P_L_list$P[[res]]),2) 
-    colnames(spxp.dummy) <- colnames(P_L_list$P[[res]][,c(ind_i,ind_j)]) 
+    if(is.null(res)){
+      spxp.dummy = P_L_list$L[,,c(ind_i,ind_j)]
+      spxp.dummy = aperm(spxp.dummy,c(2,1,3))  
+      dim(spxp.dummy) = c(nrow(P_L_list$P)*nrow(P_L_list$P),2) 
+      colnames(spxp.dummy) = colnames(P_L_list$P[,c(ind_i,ind_j)]) 
+    }else{ 
+      spxp.dummy = P_L_list$L[[res]][,,c(ind_i,ind_j)]
+      spxp.dummy = aperm(spxp.dummy,c(2,1,3))  
+      dim(spxp.dummy) = c(nrow(P_L_list$P[[res]])*nrow(P_L_list$P[[res]]),2) 
+      colnames(spxp.dummy) = colnames(P_L_list$P[[res]][,c(ind_i,ind_j)]) 
+    }
     #removing empty rows
     if(sum(rowSums(spxp.dummy)>0)<nrow(spxp.dummy)){
       spxp.dummy=spxp.dummy[-which(rowSums(spxp.dummy)==0),]
