@@ -354,16 +354,16 @@ it is attached to the network as node attribute.</p>
 <code class="sourceCode R"><span><span class="co">#for the metaweb</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1]   0.5494251 -10.1809722  -4.4746776  29.2501955  18.0860992   7.0187932</span></span>
-<span><span class="co">##  [7]  41.7110446  35.0027407  23.0256265  12.1712740 -43.2554504 -36.9014116</span></span>
-<span><span class="co">## [13] -30.3264470 -23.9271057 -17.7491343</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   9.944677  -0.566282   4.350650 -28.577093 -17.698405  -6.893961</span></span>
+<span><span class="co">##  [7] -40.762222 -34.180404 -22.522928 -11.929777  42.324466  36.101695</span></span>
+<span><span class="co">## [13]  29.667010  23.397171  17.345402</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for a local network</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1]   0.5494251 -10.1809722  -4.4746776  29.2501955  18.0860992   7.0187932</span></span>
-<span><span class="co">##  [7]  41.7110446  35.0027407  23.0256265  12.1712740 -43.2554504 -36.9014116</span></span>
-<span><span class="co">## [13] -30.3264470 -23.9271057 -17.7491343</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   9.944677  -0.566282   4.350650 -28.577093 -17.698405  -6.893961</span></span>
+<span><span class="co">##  [7] -40.762222 -34.180404 -22.522928 -11.929777  42.324466  36.101695</span></span>
+<span><span class="co">## [13]  29.667010  23.397171  17.345402</span></span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or
 <code>vismetaNetwork</code> will use the computed layout for the desired
 <span class="math inline">\(\beta\)</span> value.</p>
