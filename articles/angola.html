@@ -291,7 +291,7 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 <span class="math inline">\(q\)</span> allows giving more weight (see
 <code>compute_diversities</code> documentation)</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">div_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_diversities.html">compute_diversities</a></span><span class="op">(</span><span class="va">meta_angola</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">div_angola</span> <span class="op">=</span> <span class="fu">compute_diversities</span><span class="op">(</span><span class="va">meta_angola</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">div_angola</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 Species   Phylum</span></span>
 <span><span class="co">## Gamma_P       13.666059 2.680737</span></span>
@@ -313,7 +313,7 @@ Phylum resolution. Moreover, pairwise dissimilarity indices (both on
 nodes and links) are also implemented in metanetwork (see
 <code>compute_dissimilarities</code> documentation).</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dis_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dis_angola</span> <span class="op">=</span> <span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#nodes and links dissimilarity at Species resolution</span></span>
 <span><span class="va">dis_angola</span><span class="op">$</span><span class="va">Species</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
@@ -338,7 +338,7 @@ nodes and links) are also implemented in metanetwork (see
 <span><span class="co">## X2003 0.007835491 0.000000000</span></span></code></pre>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#compute dissimilarity at Phylum resolution only</span></span>
-<span><span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_angola</span>,res <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_angola</span>,res <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $Phylum</span></span>
 <span><span class="co">## $Phylum$nodes</span></span>
 <span><span class="co">##             X1986       X2003</span></span>

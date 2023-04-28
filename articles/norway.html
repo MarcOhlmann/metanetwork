@@ -313,7 +313,7 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 <span class="math inline">\(q\)</span> allows giving more weight (see
 <code>compute_diversities</code> documentation)</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">div_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_diversities.html">compute_diversities</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">div_norway</span> <span class="op">=</span> <span class="fu">compute_diversities</span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">div_norway</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##              trophic_group trophic_class     taxa</span></span>
@@ -334,7 +334,7 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 implemented in metanetwork (see <code>compute_dissimilarities</code>
 documentation).</p>
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dis_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">dis_norway</span> <span class="op">=</span> <span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#nodes and links dissimilarity at Species resolution</span></span>
 <span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_group</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
@@ -359,7 +359,7 @@ documentation).</p>
 <span><span class="co">## low  0.02274482 0.00000000</span></span></code></pre>
 <div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#compute dissimilarity at taxa resolution only</span></span>
-<span><span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="st">"taxa"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="st">"taxa"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $taxa</span></span>
 <span><span class="co">## $taxa$nodes</span></span>
 <span><span class="co">##             high         low</span></span>
