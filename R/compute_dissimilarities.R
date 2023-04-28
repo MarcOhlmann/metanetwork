@@ -18,13 +18,36 @@
 #'
 #' Function to compute pairwise network dissimilarity indices based on Hill numbers following the method described in Ohlmann et al. 2019
 #' 
-#' XXXXXXXXXXXXXXXXXXXXXx
+#' This function compute pairwise dissimilarity indices using Hill numbers on node and link abundances. Importantly, a viewpoint parameters \eqn{q} allows giving more weigth to abundant nodes/links. Given a network, we note \eqn{p_q} the abundance of node \eqn{q}
+#'  (stored as node attribute \code{ab}) and \eqn{\pi_{ql}} interaction probability between nodes \eqn{q} and \eqn{l} (stored as edge attribute \code{weight}). The link abundance \eqn{L_{ql}} between nodes 
+#' \eqn{q} and \eqn{l} is then:
+#' \deqn{L_{ql} = \pi_{ql}p_q p_l}
+#' Node diversity (for \eqn{q = 1}) is then computed as:
+#' \deqn{D(p) = \exp (\sum_q - p_q \log p_q)}
+#' Link diversity is computed as:
+#' \deqn{D(L) = \exp (\sum_{ql} - \frac{L_{ql}}{C} \log L_{ql}{C})}
+#' where \eqn{C} is the weighted connectance
+#' \deqn{C = \sum_{ql} \pi_{ql}p_q p_l}
+#' 
+#' For \eqn{q = 1}, the pairwise node dissimilarity indices are computed from pairwise diversities as:
+#' \deqn{\delta_P=\frac{\log(G_P)-log(A_P)}{\log 2}}
+#' where \eqn{G_P} is node \eqn{\gamma}-diversity and \eqn{A_P} the node \eqn{\alpha}-diversity
+#' 
+#' Pairwise link diversity is:
+#' \deqn{\delta_L=\frac{\log(G_L)-log(A_L)}{\log 2}}
+#' where \eqn{G_P} is the link \eqn{\gamma}-diversity and \eqn{A_P} the link \eqn{\alpha}-diversity
+#' 
+#' For more details on \eqn{\alpha}-,\eqn{\beta}- and \eqn{\gamma}-diversity, see Ohlmann et al. 2019.
 #' 
 #' @references Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @param q viewpoint parameter controlling the weight given to abundant species/groups and links
+#' @param q viewpoint parameter controlling the weight given to abundant species/groups and links, default is 1
+#' @param res a vector containing the resolutions at which the diversities are computed
+#' @param ncores number of cores used for the computation, default is 4
 #' @return a list of \code{data.frame} containing node and link pairwise dissimilarities 
+#' 
+#' @seealso [compute_div()]
 #'
 #' @examples
 #' library(metanetwork)
@@ -32,13 +55,13 @@
 #' 
 #' #on angola dataset
 #' data(meta_angola)
-#' compute_dissimilarities(meta_angola,q = 1,ncores = 1)
+#' compute_dis(meta_angola,q = 1,ncores = 1)
 #' 
-#' #computing diversities only at Phylum level
-#' compute_diversities(meta_angola,q = 1,res = "Phylum",ncores = 1)
+#' #computing dissimilarities only at Phylum level
+#' compute_dis(meta_angola,q = 1,res = "Phylum",ncores = 1)
 #' 
 #' @export
-compute_dissimilarities <- function(metanetwork,q = 1,res = NULL,ncores = 4){
+compute_dis <- function(metanetwork,q = 1,res = NULL,ncores = 4){
   # get the local networks
   networks = metanetwork[lapply(metanetwork,class) == "igraph"]
   metaweb_names = names(metanetwork)[grep('metaweb',x = names(metanetwork))]

@@ -18,14 +18,43 @@
 #'
 #' Function to compute network diversity indices based on Hill numbers following the method described in Ohlmann et al. 2019
 #' 
-#' XXXXXXXXXXXXXXXXXXXXXx
+#' This function compute diversity indices using Hill numbers on node and link abundances. Importantly, a viewpoint parameters \eqn{q} allows giving more weigth to abundant nodes/links. Given a network, we note \eqn{p_q} the abundance of node \eqn{q}
+#'  (stored as node attribute \code{ab}) and \eqn{\pi_{ql}} interaction probability between nodes \eqn{q} and \eqn{l} (stored as edge attribute \code{weight}). The link abundance \eqn{L_{ql}} between nodes 
+#' \eqn{q} and \eqn{l} is then:
+#' \deqn{L_{ql} = \pi_{ql}p_q p_l}
+#' Node diversity (for \eqn{q = 1}) is then computed as:
+#' \deqn{D(p) = \exp (\sum_q - p_q \log p_q)}
+#' Link diversity is computed as:
+#' \deqn{D(L) = \exp (\sum_{ql} - \frac{L_{ql}}{C} \log L_{ql}{C})}
+#' where \eqn{C} is the weighted connectance
+#' \deqn{C = \sum_{ql} \pi_{ql}p_q p_l}
 #' 
+#' The overall \eqn{\alpha}-diversity in node abundances is  (for \eqn{q = 1}):
+#' \deqn{A_{P} =  \exp(\sum_{q=1}^{Q} \sum_{k} - \frac{P_{qk}}{P_{++}} \log(\frac{P_{qk}}{P_{++}}) - \log(K))}
+#' The overall \eqn{\alpha}-diversity in node abundances is  (for \eqn{q = 1}):
+#' \deqn{A_{P} =  exp(\sum_{q=1}^{Q} \sum_{k=1}^{K} - \frac{P_{qk}}{P_{++}} log (  \frac{P_{qk}}{P_{++}}) - log(K) )}
+#' where \eqn{P_{++}=\sum_{k} \sum_{q} P_{qk}}
+#' The overall \eqn{\alpha}-diversities in link abundances and link probabilities are equal to:
+#' \deqn{A_{L} =  exp (\sum_{q,l=1}^{Q} \sum_{k=1}^{K} - \frac{L_{qlk}}{L_{+++}} \log (\frac{L_{qlk}}{L_{+++}}) - log(K))}
+#' where \eqn{L_{+++}=\sum_{k} \sum_{q,l} L_{qlk}}.
+#' The \eqn{\gamma}-diversity in node  and link abundances are  (for \eqn{q = 1}):
+#' \deqn{G_{P}=exp(\sum_{q=1}^{Q} -\frac{P_{q+}}{P_{++}} log  (\frac{P_{q+}}{P_{++}}))}
+#' \deqn{G_{L}=exp(\sum_{q,l=1}^{Q} -\frac{L_{ql+}}{L_{+++}} log(\frac{L_{ql+}}{L_{+++}}))}
+#' The \eqn{\beta}-diversity is then defined in a multiplicative way:
+#' \deqn{B_{P}=\frac{G_P}{A_P}}
+#' \deqn{B_{L}=\frac{G_P}{A_L}}
+#' 
+#' 
+#' For more details on \eqn{\alpha}-,\eqn{\beta}- and \eqn{\gamma}-diversity, see Ohlmann et al. 2019.
+#'   
 #' @references Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
 #'
 #' @param metanetwork object of class 'metanetwork'
-#' @param q viewpoint parameter controlling the weight given to abundant species/groups and links
+#' @param q viewpoint parameter controlling the weight given to abundant species/groups and links, default is 1
 #' @param res a vector containing the resolutions at which the diversities are computed
 #' @return a \code{data.frame}
+#' 
+#' @seealso [compute_dis()]
 #'
 #' @examples
 #' library(metanetwork)
@@ -33,13 +62,13 @@
 #' 
 #' #on angola dataset
 #' data("meta_angola")
-#' compute_diversities(meta_angola,q = 1)
+#' compute_div(meta_angola,q = 1)
 #' 
 #' #computing diversities only at Phylum level
-#' compute_diversities(meta_angola,q = 1,res = "Phylum")
+#' compute_div(meta_angola,q = 1,res = "Phylum")
 #'
 #' @export
-compute_diversities <- function(metanetwork,q = 1,res = NULL){
+compute_div <- function(metanetwork,q = 1,res = NULL){
   # get the local networks
   networks = metanetwork[lapply(metanetwork,class) == "igraph"]
   metaweb_names = names(metanetwork)[grep('metaweb',x = names(metanetwork))]
@@ -229,3 +258,6 @@ metawebParams <- function(metaweb_loc,networks_loc,res_loc = NULL){
     return(list(P = P_mat, L = L_array))
   }
 }
+
+
+
