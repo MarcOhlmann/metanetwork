@@ -89,7 +89,7 @@
                         <h4 data-toc-skip class="author">Marc
 Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2023-04-21</h4>
+            <h4 data-toc-skip class="date">2023-04-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/pyramid.Rmd" class="external-link"><code>vignettes/pyramid.Rmd</code></a></small>
       <div class="hidden name"><code>pyramid.Rmd</code></div>
@@ -241,9 +241,8 @@ as node attribute <code>$TL</code> of each network.</p>
 <pre><code><span><span class="co">##  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O"</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00</span></span>
-<span><span class="co">##  [6] 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00</span></span>
-<span><span class="co">## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre>
+<pre><code><span><span class="co">##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00 0.000000e+00</span></span>
+<span><span class="co">## [12] 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -372,16 +371,14 @@ it is attached to the network as node attribute.</p>
 <code class="sourceCode R"><span><span class="co">#for the metaweb</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta0</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] -40.5144928 -29.0181077 -34.5485310  26.6377537  16.6199031   6.8892654</span></span>
-<span><span class="co">##  [7]  37.9409465  31.8121092  21.0953487  11.2639462 -10.1617737 -14.9085438</span></span>
-<span><span class="co">## [13] -19.7308839  -4.2930583   0.9161185</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   0.5435687 -10.3617922  -4.5666247  29.7558134  18.4300566   7.1540798  42.3503917  35.5634501  23.4595765  12.4017208 -43.9604286 -37.5111359</span></span>
+<span><span class="co">## [13] -30.8382721 -24.3436998 -18.0767044</span></span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#for a local network</span></span>
 <span><span class="va">meta0</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta0</span>,g <span class="op">=</span> <span class="va">meta0</span><span class="op">$</span><span class="va">a</span>,beta <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta0</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] -40.5144928 -29.0181077 -34.5485310  26.6377537  16.6199031   6.8892654</span></span>
-<span><span class="co">##  [7]  37.9409465  31.8121092  21.0953487  11.2639462 -10.1617737 -14.9085438</span></span>
-<span><span class="co">## [13] -19.7308839  -4.2930583   0.9161185</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]   0.5435687 -10.3617922  -4.5666247  29.7558134  18.4300566   7.1540798  42.3503917  35.5634501  23.4595765  12.4017208 -43.9604286 -37.5111359</span></span>
+<span><span class="co">## [13] -30.8382721 -24.3436998 -18.0767044</span></span></code></pre>
 <p>Then, any call of <code>ggmetanet</code> or
 <code>vismetaNetwork</code> will use the computed layout for the desired
 <span class="math inline">\(\beta\)</span> value.</p>

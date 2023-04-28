@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Marc
 Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2022-11-28</h4>
+            <h4 data-toc-skip class="date">2023-04-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/norway.Rmd" class="external-link"><code>vignettes/norway.Rmd</code></a></small>
       <div class="hidden name"><code>norway.Rmd</code></div>
@@ -100,7 +100,7 @@ Ohlmann</h4>
 <div class="section level2">
 <h2 id="norway-soil-metanetwork-data-set">Norway soil metanetwork data set<a class="anchor" aria-label="anchor" href="#norway-soil-metanetwork-data-set"></a>
 </h2>
-<p>Norway soil metanetwork dataset was extracted from <em>Calderon-SAnou
+<p>Norway soil metanetwork dataset was extracted from <em>Calderon-Sanou
 et al. 2021</em>. It consists in a soil expert knowledge metaweb that
 contains <span class="math inline">\(40\)</span> tropho-functional
 groups and <span class="math inline">\(204\)</span> interactions.
@@ -120,7 +120,10 @@ aggregation levels and compare local networks with layouts provided by
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r.igraph.org/" class="external-link">igraph</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"meta_norway"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "metanetwork"</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## metaweb has 40 nodes and 204 edges </span></span>
 <span><span class="co">## 2 local networks </span></span>
 <span><span class="co">## available resolutions (not computed) are: trophic_group trophic_class taxa</span></span></code></pre>
@@ -134,7 +137,7 @@ Networks can be handled and represented at trophic class or trophic
 group level.<br>
 The <code>plot_trophic_table</code> function allows representing the
 tree describing species memberships.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/plot_trophicTable.html">plot_trophicTable</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'trophic_group'</span>,<span class="st">'trophic_class'</span><span class="op">)</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
@@ -150,7 +153,7 @@ tree describing species memberships.</p>
 appending aggregated networks (at the different available resolutions
 shown by <code>plot_trophic_table</code>) to the current
 metanetwork.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/append_agg_nets.html">append_agg_nets</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/print.html">print</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## metaweb has 40 nodes and 204 edges </span></span>
@@ -169,7 +172,7 @@ aggregated networks and legending local networks using trophic table
 using ‘ggnet’ visualisation. Do not forget to first compute trophic
 levels. Computation of ‘TL-tsne’ layout is done <code>ggmetanet</code>
 function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_TL.html">compute_TL</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -177,7 +180,7 @@ function.</p>
 </div>
 <p>Node sizes are proportional to relative abundances. Trophic table
 allows adding a legend to network at the finest resolution.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span> <span class="op">=</span> <span class="va">ggnet.default</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">label.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
@@ -194,14 +197,14 @@ of) computation times, saving and using the the same layout (for a given
 Moreover, it makes easier visual network analysis and comparison since
 it is fixed. <code>attach_layout</code> function allows saving computed
 layouts by attaching them as a node attribute.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to the metaweb</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/norway_attach_layout-1.png" alt=""><p class="caption">plot of chunk norway_attach_layout</p>
 </div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to metaweb at class level</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
@@ -216,27 +219,26 @@ terms of computation time since it only requires <code>'TL-tsne'</code>
 layout computation at the aggregated level instead of computing it in
 higher dimension at the group level. <code>'group-TL-tsne'</code> layout
 is stored as node attribute.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                    </span></span>
-<span><span class="co">## [4] "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,legend <span class="op">=</span> <span class="st">"trophic_class"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
 <p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and
 comparing local networks</p>
 <p><code>diff_plot</code> allows comparing local networks. Here, it
 provides a comparison between high and low disturbed sites by moth
 outbreaks.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## beta = 0.006</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.49077132459</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.515606511174</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.647881726646</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.64224480326</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.563829924745</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.708802249102</span></span></code></pre>
 <div class="figure">
 <img src="figure/norway_diffplot-1.png" alt=""><p class="caption">plot of chunk norway_diffplot</p>
 </div>
@@ -249,7 +251,7 @@ outbreaks.</p>
 <code>'TL-tsne'</code> layout at each call, use argument
 <code>layout_metaweb = T</code> to represent the difference network with
 metaweb layout.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">high</span>,g2 <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">low</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
@@ -263,7 +265,7 @@ metaweb layout.</p>
 </h3>
 <p>Once computed on the metaweb, <code>'group-TL-tsne'</code> layout can
 be used in <code>'diff_plot'</code></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">arrow.size</span> <span class="op">=</span> <span class="fl">2</span></span>
 <span><span class="va">ggnet.custom</span><span class="op">$</span><span class="va">edge.alpha</span> <span class="op">=</span> <span class="fl">0.2</span></span>
 <span></span>
@@ -276,6 +278,119 @@ be used in <code>'diff_plot'</code></p>
 <img src="figure/norway_diffplot_group_layout-1.png" alt=""><p class="caption">plot of chunk norway_diffplot_group_layout</p>
 </div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="computing-network-indices-and-metrics">Computing network indices and metrics<a class="anchor" aria-label="anchor" href="#computing-network-indices-and-metrics"></a>
+</h2>
+<p>Besides network representation, ‘metanetwork’ package can compute
+usual network metrics (weighted connectance, mean and max trophic level,
+mean shortest path length). Network diversity and dissimilarity indices
+based on Hill numbers are also implemented in order to quantitatively
+compare local networks at the different resolutions.</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">metrics_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_metrics.html">compute_metrics</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span><span class="co">#metrics at the different resolutions</span></span>
+<span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_group</span></span></code></pre></div>
+<pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
+<span><span class="co">## metaweb  0.09347723 1.541796 3.112806                  1.504065</span></span>
+<span><span class="co">## high     0.09164117 1.541796 3.112806                  1.504065</span></span>
+<span><span class="co">## low      0.09486383 1.541796 3.112806                  1.504065</span></span></code></pre>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_class</span></span></code></pre></div>
+<pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
+<span><span class="co">## metaweb  0.09178516 1.369861 2.693234                  1.171429</span></span>
+<span><span class="co">## high     0.09164117 1.336951 2.641552                  1.171429</span></span>
+<span><span class="co">## low      0.09486383 1.390735 2.724371                  1.171429</span></span></code></pre>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">taxa</span></span></code></pre></div>
+<pre><code><span><span class="co">##         connectance   mean_TL   max_TL mean_shortest_path_length</span></span>
+<span><span class="co">## metaweb  0.09347723 0.9966354 1.726067                         1</span></span>
+<span><span class="co">## high     0.09164117 0.9783550 1.663029                         1</span></span>
+<span><span class="co">## low      0.09486383 1.0233475 1.825014                         1</span></span></code></pre>
+<p>We now compute network diversity indices based on Hill numbers
+(cf. Ohlmann et al. 2019). The indices are based on node and link
+abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>-diversity, <span class="math inline">\(\beta\)</span>-diversity and <span class="math inline">\(\gamma\)</span>-diversity. A viewpoint parameter
+<span class="math inline">\(q\)</span> allows giving more weight (see
+<code>compute_diversities</code> documentation)</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">div_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_diversities.html">compute_diversities</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">div_norway</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
+<pre><code><span><span class="co">##              trophic_group trophic_class     taxa</span></span>
+<span><span class="co">## Gamma_P          17.166819      4.637323 3.865180</span></span>
+<span><span class="co">## mean_Alpha_P     16.645513      4.600212 3.847461</span></span>
+<span><span class="co">## Beta_P            1.031318      1.008067 1.004605</span></span>
+<span><span class="co">## Alpha_high_P     17.833549      4.650241 3.924770</span></span>
+<span><span class="co">## Alpha_low_P      15.536622      4.550721 3.771674</span></span></code></pre>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">div_norway</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
+<pre><code><span><span class="co">##              trophic_group trophic_class     taxa</span></span>
+<span><span class="co">## Gamma_L          52.899140      8.044432 9.227551</span></span>
+<span><span class="co">## mean_Alpha_L     48.298149      7.918602 9.093270</span></span>
+<span><span class="co">## Beta_L            1.095262      1.015890 1.014767</span></span>
+<span><span class="co">## Alpha_high_L     63.542723      8.410311 9.868439</span></span>
+<span><span class="co">## Alpha_low_L      36.710910      7.455640 8.378992</span></span></code></pre>
+<p>Pairwise dissimilarity indices (both on nodes and links) are also
+implemented in metanetwork (see <code>compute_dissimilarities</code>
+documentation).</p>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dis_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#nodes and links dissimilarity at Species resolution</span></span>
+<span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_group</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
+<pre><code><span><span class="co">##            high        low</span></span>
+<span><span class="co">## high 0.00000000 0.04448943</span></span>
+<span><span class="co">## low  0.04448943 0.00000000</span></span></code></pre>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_group</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
+<pre><code><span><span class="co">##           high       low</span></span>
+<span><span class="co">## high 0.0000000 0.1312764</span></span>
+<span><span class="co">## low  0.1312764 0.0000000</span></span></code></pre>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#nodes and links dissimilarity at Phylum resolution</span></span>
+<span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_class</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
+<pre><code><span><span class="co">##            high        low</span></span>
+<span><span class="co">## high 0.00000000 0.01159194</span></span>
+<span><span class="co">## low  0.01159194 0.00000000</span></span></code></pre>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_class</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
+<pre><code><span><span class="co">##            high        low</span></span>
+<span><span class="co">## high 0.00000000 0.02274482</span></span>
+<span><span class="co">## low  0.02274482 0.00000000</span></span></code></pre>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#compute dissimilarity at taxa resolution only</span></span>
+<span><span class="fu"><a href="../reference/compute_dissimilarities.html">compute_dissimilarities</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="st">"taxa"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## $taxa</span></span>
+<span><span class="co">## $taxa$nodes</span></span>
+<span><span class="co">##             high         low</span></span>
+<span><span class="co">## high 0.000000000 0.006628866</span></span>
+<span><span class="co">## low  0.006628866 0.000000000</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## $taxa$links</span></span>
+<span><span class="co">##            high        low</span></span>
+<span><span class="co">## high 0.00000000 0.02114852</span></span>
+<span><span class="co">## low  0.02114852 0.00000000</span></span></code></pre>
+<p>We see that networks are more dissimilar at trophic_group compared to
+trophic_class resolution both on nodes and links. Moreover, at both
+resolutions, network are more dissimilar regarding link abundances
+compared to node abundances. To gain in efficiency,
+<code>compute_dissimilarities</code> is uses parallel computation (see
+<code>ncores</code> argument in <code>compute_dissimilarities</code>
+documentation)</p>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<ul>
+<li><p>Calderón-Sanou, I., Münkemüller, T., Zinger, L., Schimann, H.,
+Yoccoz, N. G., Gielly, L., … &amp; Thuiller, W. (2021). Cascading
+effects of moth outbreaks on subarctic soil food webs. Scientific
+Reports, 11(1), 15054.</p></li>
+<li><p>Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O’connor, L.,
+&amp; Thuiller, W. (2019). Diversity indices for ecological networks: a
+unifying framework using Hill numbers. Ecology letters, 22(4),
+737-747.</p></li>
+</ul>
 </div>
   </div>
 
