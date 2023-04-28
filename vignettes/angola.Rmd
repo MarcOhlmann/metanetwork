@@ -1,7 +1,7 @@
 ---
 title: "Angola dataset analysis"
 author: "Marc Ohlmann"
-date: "2022-11-28"
+date: "2023-04-28"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -26,13 +26,19 @@ library(igraph)
 
 
 
-## angola metanetwork object
-
-angola dataset is lazy loaded in metanetwork. `meta_angola` consists in a object of class `metanetwork`.
+## Loading the dataset
 
 
 ```r
-data(meta_angola)
+data("meta_angola")
+class(meta_angola)
+```
+
+```
+## [1] "metanetwork"
+```
+
+```r
 print(meta_angola)
 ```
 
@@ -110,7 +116,7 @@ metanetwork allows representing trophic networks in interactive way using `visNe
 
 
 ```r
-vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'group',x_y_range = c(10,0.05))
+vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'Phylum',x_y_range = c(30,60))
 ```
 
 Interactive visualisation of angola dataset and other trophic networks using `vismetaNetwork` are available at [https://shiny.osug.fr/app/ecological-networks](https://shiny.osug.fr/app/ecological-networks).
@@ -131,10 +137,8 @@ V(meta_angola$metaweb)$TL
 ```
 
 ```
-##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122
-##  [8] 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394
-## [15] 2.0829452 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889
-## [22] 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
+##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394 2.0829452
+## [16] 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
 ```
 
 ```r
@@ -185,3 +189,134 @@ diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,
 
 ![plot of chunk angola_layout_metaweb](figure/angola_layout_metaweb-2.png)
  
+## Computing network indices and metrics
+
+Besides network representation, 'metanetwork' package can compute usual network metrics (weighted connectance, mean and max trophic level, mean shortest path length). Network diversity and dissimilarity indices based on Hill numbers are also implemented in order to quantitatively compare local networks at the different resolutions.
+
+
+```r
+metrics_angola = compute_metrics(meta_angola)
+metrics_angola$Species
+```
+
+```
+##         connectance  mean_TL   max_TL mean_shortest_path_length
+## metaweb  0.02921234 1.561919 2.739126                  1.608333
+## X1986    0.02859672 1.561919 2.739126                  1.608333
+## X2003    0.02918298 1.561919 2.739126                  1.608333
+```
+
+```r
+metrics_angola$Phylum
+```
+
+```
+##         connectance  mean_TL   max_TL mean_shortest_path_length
+## metaweb  0.02925731 1.315389 2.229886                      1.25
+## X1986    0.02859672 1.319967 2.278338                      1.25
+## X2003    0.02918298 1.317792 2.206484                      1.25
+```
+
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+
+
+```r
+div_angola = compute_diversities(meta_angola, q = 1)
+div_angola$nodes
+```
+
+```
+##                 Species   Phylum
+## Gamma_P       13.666059 2.680737
+## mean_Alpha_P  12.478328 2.669698
+## Beta_P         1.095183 1.004135
+## Alpha_X1986_P  9.027714 2.494158
+## Alpha_X2003_P 17.247852 2.857593
+```
+
+```r
+div_angola$links
+```
+
+```
+##                 Species   Phylum
+## Gamma_L       54.570083 3.812301
+## mean_Alpha_L  47.556571 3.791652
+## Beta_L         1.147477 1.005446
+## Alpha_X1986_L 35.532836 3.410505
+## Alpha_X2003_L 63.648943 4.215394
+```
+
+We see a higher $\alpha$-diversity in 2003 compared to 1986 both on nodes and links and both at Species and Phylum resolution.
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+
+
+```r
+dis_angola = compute_dissimilarities(meta_angola)
+
+#nodes and links dissimilarity at Species resolution
+dis_angola$Species$nodes
+```
+
+```
+##           X1986     X2003
+## X1986 0.0000000 0.1311726
+## X2003 0.1311726 0.0000000
+```
+
+```r
+dis_angola$Species$links
+```
+
+```
+##           X1986     X2003
+## X1986 0.0000000 0.1984655
+## X2003 0.1984655 0.0000000
+```
+
+```r
+#nodes and links dissimilarity at Phylum resolution
+dis_angola$Phylum$nodes
+```
+
+```
+##             X1986       X2003
+## X1986 0.000000000 0.005952805
+## X2003 0.005952805 0.000000000
+```
+
+```r
+dis_angola$Phylum$links
+```
+
+```
+##             X1986       X2003
+## X1986 0.000000000 0.007835491
+## X2003 0.007835491 0.000000000
+```
+
+```r
+#compute dissimilarity at Phylum resolution only
+compute_dissimilarities(meta_angola,res = "Phylum")
+```
+
+```
+## $Phylum
+## $Phylum$nodes
+##             X1986       X2003
+## X1986 0.000000000 0.005952805
+## X2003 0.005952805 0.000000000
+## 
+## $Phylum$links
+##             X1986       X2003
+## X1986 0.000000000 0.007835491
+## X2003 0.007835491 0.000000000
+```
+We see that networks are more dissimilar at Species compared to Phylum resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
+To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+
+## References
+
+- Angelini, R., & Vaz-Velho, F. (2011). Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina(Barcelona), 75(2), 309-319.
+
+- Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.

@@ -76,16 +76,16 @@ compute_diversities <- function(metanetwork,q = 1,res = NULL){
   #node diversity at the different resolutions
   for(res in res_loc){
     #node diversity
-    abg_P_loc = abgDecompQ(spxp = t(P_L_list$P),q = q)
+    abg_P_loc = abgDecompQ(spxp = t(P_L_list$P[[res]]),q = q)
     diversites_df_P["Gamma_P",res] = abg_P_loc$Gamma
     diversites_df_P["mean_Alpha_P",res] = abg_P_loc$mAlpha
     diversites_df_P["Beta_P",res] = abg_P_loc$Beta
     diversites_df_P[paste0("Alpha_",rownames(metanetwork$abTable),"_P"),res] = abg_P_loc$Alphas
     #link diversity
-    L_array = P_L_list$L
-    dim(L_array) = c(nrow(P_L_list$P)*nrow(P_L_list$P),
-                     ncol(P_L_list$P)) 
-    colnames(L_array) = colnames(P_L_list$P)
+    L_array = P_L_list$L[[res]]
+    dim(L_array) = c(nrow(P_L_list$P[[res]])*nrow(P_L_list$P[[res]]),
+                     ncol(P_L_list$P[[res]])) 
+    colnames(L_array) = colnames(P_L_list$P[[res]])
     abg_L_loc = abgDecompQ(spxp = t(L_array),q = q)
     diversites_df_L["Gamma_L",res] = abg_L_loc$Gamma
     diversites_df_L["mean_Alpha_L",res] = abg_L_loc$mAlpha

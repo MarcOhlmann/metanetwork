@@ -32,12 +32,11 @@ library(igraph)
 
 
 
-## angola metanetwork object
-
-angola dataset is lazy loaded in metanetwork. `meta_angola` consists in a object of class `metanetwork`.
+## Loading the dataset
 
 ```{r angola_load_print}
-data(meta_angola)
+data("meta_angola")
+class(meta_angola)
 print(meta_angola)
 ```
 
@@ -89,7 +88,7 @@ diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,beta = 0.04,metanetwork 
 metanetwork allows representing trophic networks in interactive way using `visNetwork` function and both layout algorithms. We highly recommend this function to explore large and dense networks. Since outputs of this functions cannot be rendered on this README, they are saved in `./vismetaNetwork` in html format. `x_y_range` argument allows controlling the x-axis and y-axis scale.
 
 ```{r angola_vismetaNetwork,echo=T,eval=F,warning=F,message=F}
-vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'group',x_y_range = c(10,0.05))
+vismetaNetwork(metanetwork = meta_angola,beta = 0.04,legend = 'Phylum',x_y_range = c(30,60))
 ```
 
 Interactive visualisation of angola dataset and other trophic networks using `vismetaNetwork` are available at [https://shiny.osug.fr/app/ecological-networks](https://shiny.osug.fr/app/ecological-networks).
@@ -134,3 +133,45 @@ diff_plot(g1 = meta_angola$X1986,g2 = meta_angola$X2003,
           layout_metaweb = T)
 ```
  
+## Computing network indices and metrics
+
+Besides network representation, 'metanetwork' package can compute usual network metrics (weighted connectance, mean and max trophic level, mean shortest path length). Network diversity and dissimilarity indices based on Hill numbers are also implemented in order to quantitatively compare local networks at the different resolutions.
+
+```{r,warning = FALSE}
+metrics_angola = compute_metrics(meta_angola)
+metrics_angola$Species
+metrics_angola$Phylum
+```
+
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+
+```{r,warning = FALSE}
+div_angola = compute_diversities(meta_angola, q = 1)
+div_angola$nodes
+div_angola$links
+```
+
+We see a higher $\alpha$-diversity in 2003 compared to 1986 both on nodes and links and both at Species and Phylum resolution.
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+
+```{r,warning = FALSE}
+dis_angola = compute_dissimilarities(meta_angola)
+
+#nodes and links dissimilarity at Species resolution
+dis_angola$Species$nodes
+dis_angola$Species$links
+#nodes and links dissimilarity at Phylum resolution
+dis_angola$Phylum$nodes
+dis_angola$Phylum$links
+
+#compute dissimilarity at Phylum resolution only
+compute_dissimilarities(meta_angola,res = "Phylum")
+```
+We see that networks are more dissimilar at Species compared to Phylum resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
+To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+
+## References
+
+- Angelini, R., & Vaz-Velho, F. (2011). Ecosystem structure and trophic analysis of Angolan fishery landings. Scientia Marina(Barcelona), 75(2), 309-319.
+
+- Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.

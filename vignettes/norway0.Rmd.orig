@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 
 ## Norway soil metanetwork data set 
 
-Norway soil metanetwork dataset was extracted from *Calderon-SAnou et al. 2021*. It consists in a soil expert knowledge metaweb
+Norway soil metanetwork dataset was extracted from *Calderon-Sanou et al. 2021*. It consists in a soil expert knowledge metaweb
 that contains $40$ tropho-functional groups and $204$ interactions. Tropho-functional groups have abundance data built from eDNA data in disturbed and non-disturbed sites by moth outbreaks. This dataset also contains a trophic table that contains broader taxonomic and functional informations on groups.
 
 In this vignette, we aim at represent metaweb at different aggregation levels and compare local networks with layouts provided by 'metanetwork'.
@@ -35,6 +35,7 @@ library(metanetwork)
 library(igraph)
 
 data("meta_norway")
+class(meta_angola)
 print(meta_norway)
 ```
 
@@ -131,4 +132,47 @@ diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.2, mode = "group-T
           metanetwork = meta_norway,layout_metaweb = T,ggnet.config = ggnet.custom)
 ```
 
+## Computing network indices and metrics
 
+Besides network representation, 'metanetwork' package can compute usual network metrics (weighted connectance, mean and max trophic level, mean shortest path length). Network diversity and dissimilarity indices based on Hill numbers are also implemented in order to quantitatively compare local networks at the different resolutions.
+
+```{r,warning = FALSE}
+metrics_norway = compute_metrics(meta_norway)
+#metrics at the different resolutions
+metrics_norway$trophic_group
+metrics_norway$trophic_class
+metrics_norway$taxa
+```
+
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+
+```{r, warning = FALSE}
+div_norway = compute_diversities(meta_norway)
+
+div_norway$nodes
+div_norway$links
+```
+
+Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+
+```{r, warning = FALSE}
+dis_norway = compute_dissimilarities(meta_norway)
+
+#nodes and links dissimilarity at Species resolution
+dis_norway$trophic_group$nodes
+dis_norway$trophic_group$links
+#nodes and links dissimilarity at Phylum resolution
+dis_norway$trophic_class$nodes
+dis_norway$trophic_class$links
+
+#compute dissimilarity at taxa resolution only
+compute_dissimilarities(meta_norway,res = "taxa")
+```
+We see that networks are more dissimilar at trophic_group compared to trophic_class resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
+To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+
+## References
+
+- Calderón-Sanou, I., Münkemüller, T., Zinger, L., Schimann, H., Yoccoz, N. G., Gielly, L., ... & Thuiller, W. (2021). Cascading effects of moth outbreaks on subarctic soil food webs. Scientific Reports, 11(1), 15054.
+
+- Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
