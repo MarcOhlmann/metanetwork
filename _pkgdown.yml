@@ -60,8 +60,8 @@ reference:
    Set of functions to compute network diversities, dissimilarities and metrics
   contents:
   - '`compute_metrics`'
-  - '`compute_diversities`'
-  - '`compute_dissimilarities`' 
+  - '`compute_div`'
+  - '`compute_dis`' 
 - title: Data sets
   desc: ~
   contents:
