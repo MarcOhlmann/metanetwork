@@ -18,13 +18,25 @@
 #'
 #' Function to compute (some) network metrics on the metaweb and local networks
 #' 
-#' XXXXXXXXXXXXXXXXXXXXXx
+#' This function computes network metrics for the metaweb and local networks at the available resolutions. This function computes the following metrics:
+#'  - weighted connectance: connectance weighted by abundances and link probability (see Ohlmann et al. 2019)
+#'  Denoting \eqn{p_q} abundance of node \eqn{q} and \eqn{\pi_{ql}} the interaction probability between nodes \eqn{q} and \eqn{l}, then the weighted connectance \eqn{C} is:
+#'  \deqn{C = \sum_{q,l} \pi_{ql}p_q p_l}
+#'  - mean_TL and max_TL: mean and max trophic level of each network, using values computed from compute_TL() method.
+#'  - mean_shortest_path_length: mean shortest path lenght of each network computed using igraph mean_distance() function.
+#'
 #' 
-#' @references Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
+#' @references 
+#' - Csardi, G., & Nepusz, T. (2006). The igraph software package for complex network research. InterJournal, complex systems, 1695(5), 1-9.
+#'
+#' - Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., & Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.
+
 #'
 #' @param metanetwork object of class 'metanetwork'
 #' @param res a vector containing the resolutions at which the metrics are computed
 #' @return a \code{data.frame}
+#'
+#' @seealso [compute_TL()],[compute_div()]
 #'
 #' @examples
 #' library(metanetwork)
