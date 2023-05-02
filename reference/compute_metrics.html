@@ -92,11 +92,21 @@
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>XXXXXXXXXXXXXXXXXXXXXx</p>
-    </div>
+    <p>This function computes network metrics for the metaweb and local networks at the available resolutions. This function computes the following metrics:</p><ul><li><p>weighted connectance: connectance weighted by abundances and link probability (see Ohlmann et al. 2019)
+Denoting \(p_q\) abundance of node \(q\) and \(\pi_{ql}\) the interaction probability between nodes \(q\) and \(l\), then the weighted connectance \(C\) is:
+$$C = \sum_{q,l} \pi_{ql}p_q p_l$$</p></li>
+<li><p>mean_TL and max_TL: mean and max trophic level of each network, using values computed from compute_TL() method.</p></li>
+<li><p>mean_shortest_path_length: mean shortest path lenght of each network computed using igraph mean_distance() function.</p></li>
+</ul></div>
     <div id="references">
     <h2>References</h2>
-    <p>Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., &amp; Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.</p>
+    
+<ul><li><p>Csardi, G., &amp; Nepusz, T. (2006). The igraph software package for complex network research. InterJournal, complex systems, 1695(5), 1-9.</p></li>
+<li><p>Ohlmann, M., Miele, V., Dray, S., Chalmandrier, L., O'connor, L., &amp; Thuiller, W. (2019). Diversity indices for ecological networks: a unifying framework using Hill numbers. Ecology letters, 22(4), 737-747.</p></li>
+</ul></div>
+    <div id="see-also">
+    <h2>See also</h2>
+    <div class="dont-index"><p><code><a href="compute_TL.html">compute_TL()</a></code>,<code><a href="compute_div.html">compute_div()</a></code></p></div>
     </div>
 
     <div id="ref-examples">
