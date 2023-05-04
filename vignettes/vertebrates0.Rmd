@@ -100,16 +100,6 @@ ggplot(TL_df_agg, aes(fill=class, y=n, x=reorder(group, TL))) +
 ```
 We see that groups are getting smaller when their mean trophic level increases. Moreover, SMB groups are relatively well separated trough classes.
 
-```{r}
-#this group contains several eagles species
-which(meta_vrtb$trophicTable[,"group"] == 17) %>% names()
-#single group made of eagle-owl only
-which(meta_vrtb$trophicTable[,"group"] == 46) %>% names()
-#this one contain wolf and fox
-which(meta_vrtb$trophicTable[,"group"] == 42) %>% names()
-```
-
-
 ## Represent the metaweb
 
 In order to represent this large metaweb, we first represent the network at the SBM group level. We will use then the layout at the SBM level to compute the layout at the species level. This layout is called `group-TL-tsne`, as `TL-tsne` is the diffusion based layout of `metanetwork`.
@@ -135,6 +125,7 @@ net_groups = ggmetanet(meta_vrtb,g = meta_vrtb$metaweb_group,flip_coords = T,
 net_groups
 ```
 
+The size of the symbols is proportional to group relative abundances.
 To compute layout for another $\beta$ value, you can do:
 ```{r SBM_level_2,fig.height = 8, fig.width = 8}
 beta = 0.0035
@@ -219,7 +210,7 @@ ggmetanet(meta_vrtb,beta = beta,legend = "group", mode = 'TL-tsne',
 
 It highlights the fact that basal species groups are not well separated on the `TL-tsne` axis. 
 
-## Playing with representation parameters 
+## Playing on representation parameters 
 
 ### `group-TL-tsne` configuration
 

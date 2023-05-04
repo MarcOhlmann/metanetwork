@@ -78,6 +78,9 @@ ggnet.custom$label.size = 2
 ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
 ```
 
+We see that fungal groups and bacterial groups are clustered together. This is due to the fact they are part of different paths through the network.
+
+
 ### Attaching layout
 
 Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given $\beta$ value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed.
@@ -86,12 +89,41 @@ Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, 
 ```{r norway_attach_layout}
 #attaching 'TL-tsne' layout to the metaweb
 meta_norway = attach_layout(metanetwork = meta_norway,beta = 0.006)
-ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
+#TL-tsne layout is stored as node attribute
+igraph::vertex_attr_names(meta_norway$metaweb)
+#get the layout
+V(meta_norway$metaweb)$layout_beta0.006
 
+#Represent the metaweb with the computed layout
+ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
+```
+
+
+Using `attach_layout`, you can compute several layouts for the same $\beta$ value.
+
+
+```{r norway_attach_layout2}
+# attaching a new 'TL-tsne' layout to the metaweb
+meta_norway = attach_layout(metanetwork = meta_norway,beta = 0.006)
+# the new TL-tsne layout is stored as node attribute
+igraph::vertex_attr_names(meta_norway$metaweb)
+# get the new layout
+V(meta_norway$metaweb)$layout_beta0.006_1
+
+#Represent the metaweb with the computed layout
+ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom,nrep_ly = 2)
+
+```
+We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clusterd together and are linked to their corresponding consumers (fungivore and bacterivore).
+
+
+```{r norway_attach_layout3}
 #attaching 'TL-tsne' layout to metaweb at class level
 meta_norway = attach_layout(metanetwork = meta_norway,g = meta_norway$metaweb_trophic_class,beta = 0.006)
 ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.006,metanetwork = meta_norway)
 ```
+
+
 ### 'group-TL-tnse' layout
 
 A variation of `'TL-tsne'` layout consists in `'group-TL-tsne'` layout. It mixes `'TL-tsne'` and a regular `igraph` layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires `'TL-tsne'` layout computation at the aggregated level instead of computing it in higher dimension at the group level.
