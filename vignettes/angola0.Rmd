@@ -75,6 +75,8 @@ Node sizes are proportional to relative abundances. Trophic table allows adding 
 ggmetanet(g = meta_angola$metaweb,beta = 0.04,legend = 'Phylum',metanetwork = meta_angola)
 ```
 
+The metaweb has two basal nodes, 'Phytoplankton' and 'Detritus', leading to a primary producer and detritus channel that mix up higher in the network. The 'TL-tsne' layout highlights these two distinct channels for both networks: the green channel, linked to primary producers, (phytoplankton) and the brown channel, linked to detritus.
+
 ### `diff_plot`
 
 To represent difference between local networks, use `diff_plot()` function.

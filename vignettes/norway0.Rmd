@@ -78,8 +78,7 @@ ggnet.custom$label.size = 2
 ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
 ```
 
-We see that fungal groups and bacterial groups are clustered together. This is due to the fact they are part of different paths through the network.
-
+The metaweb has two basal resources: plant and organic material. They have the lowest x-axis values in the 'TL-tsne' layout. The channel starting from plants corresponds to the green energy channel while the channel starting from organic materials is the brown channel. Importantly, we observe from our network representation that bacterial and fungal paths are separated in the brown channel. It means that they are linked to separated paths higher up in the network (e.g. bacterivore and fungivore groups)
 
 ### Attaching layout
 
@@ -142,7 +141,7 @@ ggmetanet(meta_norway,beta = 0.2,mode = "group-TL-tsne",legend = "trophic_class"
 diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = meta_norway)
 ```
 
-Here, a new 'TL-tsne' layout is computed.
+It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
 
 ### Using metaweb layout
 
