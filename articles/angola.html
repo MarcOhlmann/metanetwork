@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Marc
 Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2023-04-28</h4>
+            <h4 data-toc-skip class="date">2023-05-22</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/angola.Rmd" class="external-link"><code>vignettes/angola.Rmd</code></a></small>
       <div class="hidden name"><code>angola.Rmd</code></div>
@@ -172,6 +172,11 @@ allows adding a legend to network at the finest resolution.</p>
 <div class="figure">
 <img src="figure/angola_metaweb-1.png" alt=""><p class="caption">plot of chunk angola_metaweb</p>
 </div>
+<p>The metaweb has two basal nodes, ‘Phytoplankton’ and ‘Detritus’,
+leading to a primary producer and detritus channel that mix up higher in
+the network. The ‘TL-tsne’ layout highlights these two distinct channels
+for both networks: the green channel, linked to primary producers,
+(phytoplankton) and the brown channel, linked to detritus.</p>
 </div>
 <div class="section level3">
 <h3 id="diff_plot">
@@ -218,43 +223,59 @@ layouts by attaching them as a node attribute.</p>
 <code class="sourceCode R"><span><span class="co">#attaching a layout to the metaweb</span></span>
 <span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
 <span><span class="co">#layout is saved as node attribute (only one component since the other one is trophic level)</span></span>
-<span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">TL</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394 2.0829452</span></span>
-<span><span class="co">## [16] 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000</span></span></code></pre>
+<span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "name"            "ab"              "TL"              "layout_beta0.05"</span></span></code></pre>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></code></pre></div>
-<pre><code><span><span class="co">## NULL</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co">#this is the computed layout</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]  23.3517774   6.1807663  -4.9172096   4.1942194  14.4130425 -15.3659593 -27.3309240  -7.2385653 -31.1935233 -21.3745781 -11.2900751</span></span>
+<span><span class="co">## [12] -24.2312696   8.4555195  18.3113863  26.8075235   1.9074640  20.7057644  -2.5113742  -0.3444555 -17.8968147  10.8510491  31.5078813</span></span>
+<span><span class="co">## [23]  -9.3334621 -13.3336898  16.2695690  12.7268098  10.2457485 -19.5666202</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#ggmetanet uses computed layout</span></span>
+<code class="sourceCode R"><span><span class="co">#ggmetanet uses the computed layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/angola_attach_layout-1.png" alt=""><p class="caption">plot of chunk angola_attach_layout</p>
+<img src="figure/angola_attach_layout1-1.png" alt=""><p class="caption">plot of chunk angola_attach_layout1</p>
 </div>
+<p>Several layout can be computed and stored for the same <span class="math inline">\(\beta\)</span> value. Argument
+<code>nrep_ly</code> allows selecting the desired computed layout for
+the focal <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching a new layout for the same beta value</span></span>
 <span><span class="va">meta_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span><span class="co">#ggmetanet with the new 'TL-tsne-run</span></span>
+<span><span class="co">#the two layouts are stored as node attribute</span></span>
+<span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] "name"              "ab"                "TL"                "layout_beta0.05"   "layout_beta0.05_1"</span></span></code></pre>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#this is the new layout</span></span>
+<span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></code></pre></div>
+<pre><code><span><span class="co">##  [1]  23.6239303   6.0145306  -4.8916461  15.1306002   8.0350662 -15.5248423 -31.3897929  -7.2523616 -24.3225082 -21.7065312 -11.3953381</span></span>
+<span><span class="co">## [12] -27.6685412  18.2605816  11.5881551  27.0950377   1.9668096  20.8723962  -2.4741365  -0.2931253 -18.1058836   4.1627666  31.8173426</span></span>
+<span><span class="co">## [23]  -9.3883430 -13.4664810   9.8159529  13.2355592  16.0263624 -19.7655602</span></span></code></pre>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#ggmetanet with the new 'TL-tsne' layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>,nrep_ly <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
-<img src="figure/angola_attach_layout-2.png" alt=""><p class="caption">plot of chunk angola_attach_layout</p>
+<img src="figure/angola_attach_layout2-1.png" alt=""><p class="caption">plot of chunk angola_attach_layout2</p>
 </div>
 <p>Notice that even if the two layouts are quite different in term of
-global structure, they share some features in terms of local
-structure.</p>
+global structure, they share some features in terms of local structure.
+For example, phytoplankton and zooplankton are close by as Detritus and
+benthic organisms.</p>
 </div>
 <div class="section level3">
 <h3 id="using-metaweb-layout">Using metaweb layout<a class="anchor" aria-label="anchor" href="#using-metaweb-layout"></a>
 </h3>
 <p>Using metaweb layout can ease the representation and comparison of
 multiple local networks.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#using metaweb layout to represent a local network</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,</span>
 <span>          legend <span class="op">=</span> <span class="st">"Phylum"</span>,layout_metaweb <span class="op">=</span> <span class="cn">T</span>,beta <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="figure/angola_layout_metaweb-1.png" alt=""><p class="caption">plot of chunk angola_layout_metaweb</p>
 </div>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#using metaweb layout for diffplot</span></span>
 <span><span class="fu"><a href="../reference/diff_plot.html">diff_plot</a></span><span class="op">(</span>g1 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X1986</span>,g2 <span class="op">=</span> <span class="va">meta_angola</span><span class="op">$</span><span class="va">X2003</span>,</span>
 <span>          metanetwork <span class="op">=</span> <span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,</span>
@@ -272,14 +293,14 @@ usual network metrics (weighted connectance, mean and max trophic level,
 mean shortest path length). Network diversity and dissimilarity indices
 based on Hill numbers are also implemented in order to quantitatively
 compare local networks at the different resolutions.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_metrics.html">compute_metrics</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span><span class="va">metrics_angola</span><span class="op">$</span><span class="va">Species</span></span></code></pre></div>
 <pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
 <span><span class="co">## metaweb  0.02921234 1.561919 2.739126                  1.608333</span></span>
 <span><span class="co">## X1986    0.02859672 1.561919 2.739126                  1.608333</span></span>
 <span><span class="co">## X2003    0.02918298 1.561919 2.739126                  1.608333</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics_angola</span><span class="op">$</span><span class="va">Phylum</span></span></code></pre></div>
 <pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
 <span><span class="co">## metaweb  0.02925731 1.315389 2.229886                      1.25</span></span>
@@ -289,9 +310,9 @@ compare local networks at the different resolutions.</p>
 (cf. Ohlmann et al. 2019). The indices are based on node and link
 abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>-diversity, <span class="math inline">\(\beta\)</span>-diversity and <span class="math inline">\(\gamma\)</span>-diversity. A viewpoint parameter
 <span class="math inline">\(q\)</span> allows giving more weight (see
-<code>compute_diversities</code> documentation)</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">div_angola</span> <span class="op">=</span> <span class="fu">compute_diversities</span><span class="op">(</span><span class="va">meta_angola</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<code>compute_div</code> documentation)</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">div_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_div.html">compute_div</a></span><span class="op">(</span><span class="va">meta_angola</span>, q <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">div_angola</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 Species   Phylum</span></span>
 <span><span class="co">## Gamma_P       13.666059 2.680737</span></span>
@@ -299,7 +320,7 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 <span><span class="co">## Beta_P         1.095183 1.004135</span></span>
 <span><span class="co">## Alpha_X1986_P  9.027714 2.494158</span></span>
 <span><span class="co">## Alpha_X2003_P 17.247852 2.857593</span></span></code></pre>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">div_angola</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##                 Species   Phylum</span></span>
 <span><span class="co">## Gamma_L       54.570083 3.812301</span></span>
@@ -311,34 +332,34 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 in 2003 compared to 1986 both on nodes and links and both at Species and
 Phylum resolution. Moreover, pairwise dissimilarity indices (both on
 nodes and links) are also implemented in metanetwork (see
-<code>compute_dissimilarities</code> documentation).</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dis_angola</span> <span class="op">=</span> <span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
+<code>compute_dis</code> documentation).</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dis_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_dis.html">compute_dis</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#nodes and links dissimilarity at Species resolution</span></span>
 <span><span class="va">dis_angola</span><span class="op">$</span><span class="va">Species</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##           X1986     X2003</span></span>
 <span><span class="co">## X1986 0.0000000 0.1311726</span></span>
 <span><span class="co">## X2003 0.1311726 0.0000000</span></span></code></pre>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dis_angola</span><span class="op">$</span><span class="va">Species</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##           X1986     X2003</span></span>
 <span><span class="co">## X1986 0.0000000 0.1984655</span></span>
 <span><span class="co">## X2003 0.1984655 0.0000000</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#nodes and links dissimilarity at Phylum resolution</span></span>
 <span><span class="va">dis_angola</span><span class="op">$</span><span class="va">Phylum</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##             X1986       X2003</span></span>
 <span><span class="co">## X1986 0.000000000 0.005952805</span></span>
 <span><span class="co">## X2003 0.005952805 0.000000000</span></span></code></pre>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dis_angola</span><span class="op">$</span><span class="va">Phylum</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##             X1986       X2003</span></span>
 <span><span class="co">## X1986 0.000000000 0.007835491</span></span>
 <span><span class="co">## X2003 0.007835491 0.000000000</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#compute dissimilarity at Phylum resolution only</span></span>
-<span><span class="fu">compute_dissimilarities</span><span class="op">(</span><span class="va">meta_angola</span>,res <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/compute_dis.html">compute_dis</a></span><span class="op">(</span><span class="va">meta_angola</span>,res <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $Phylum</span></span>
 <span><span class="co">## $Phylum$nodes</span></span>
 <span><span class="co">##             X1986       X2003</span></span>
@@ -353,8 +374,8 @@ nodes and links) are also implemented in metanetwork (see
 Phylum resolution both on nodes and links. Moreover, at both
 resolutions, network are more dissimilar regarding link abundances
 compared to node abundances. To gain in efficiency,
-<code>compute_dissimilarities</code> is uses parallel computation (see
-<code>ncores</code> argument in <code>compute_dissimilarities</code>
+<code>compute_dis</code> uses parallel computation (see
+<code>ncores</code> argument in <code>compute_dis</code>
 documentation)</p>
 </div>
 <div class="section level2">
