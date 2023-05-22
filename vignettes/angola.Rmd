@@ -1,14 +1,14 @@
 ---
 title: "Angola dataset analysis"
 author: "Marc Ohlmann"
-date: "2023-04-28"
+date: "2023-05-22"
 output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteIndexEntry{angola}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -99,6 +99,8 @@ ggmetanet(g = meta_angola$metaweb,beta = 0.04,legend = 'Phylum',metanetwork = me
 
 ![plot of chunk angola_metaweb](figure/angola_metaweb-1.png)
 
+The metaweb has two basal nodes, 'Phytoplankton' and 'Detritus', leading to a primary producer and detritus channel that mix up higher in the network. The 'TL-tsne' layout highlights these two distinct channels for both networks: the green channel, linked to primary producers, (phytoplankton) and the brown channel, linked to detritus.
+
 ### `diff_plot`
 
 To represent difference between local networks, use `diff_plot()` function.
@@ -133,39 +135,64 @@ Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, 
 #attaching a layout to the metaweb
 meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
 #layout is saved as node attribute (only one component since the other one is trophic level)
-V(meta_angola$metaweb)$TL
+igraph::vertex_attr_names(meta_angola$metaweb)
 ```
 
 ```
-##  [1] 1.5819853 1.3046314 1.8207464 2.2772862 1.9374378 1.9280135 2.5847122 1.9150426 1.8696796 0.9721697 2.1079731 1.0974520 1.3157930 1.6233394 2.0829452
-## [16] 1.8709379 2.7391262 2.1144788 1.3122002 0.9820602 2.5636889 2.1213395 1.0005468 0.9115165 0.8937117 0.6906842 0.1142234 0.0000000
-```
-
-```r
-V(meta_angola$metaweb)$layout_beta0.05_1
-```
-
-```
-## NULL
+## [1] "name"            "ab"              "TL"              "layout_beta0.05"
 ```
 
 ```r
-#ggmetanet uses computed layout
+#this is the computed layout
+V(meta_angola$metaweb)$layout_beta0.05
+```
+
+```
+##  [1]  23.3517774   6.1807663  -4.9172096   4.1942194  14.4130425 -15.3659593 -27.3309240  -7.2385653 -31.1935233 -21.3745781 -11.2900751
+## [12] -24.2312696   8.4555195  18.3113863  26.8075235   1.9074640  20.7057644  -2.5113742  -0.3444555 -17.8968147  10.8510491  31.5078813
+## [23]  -9.3334621 -13.3336898  16.2695690  12.7268098  10.2457485 -19.5666202
+```
+
+```r
+#ggmetanet uses the computed layout
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum")
 ```
 
-![plot of chunk angola_attach_layout](figure/angola_attach_layout-1.png)
+![plot of chunk angola_attach_layout1](figure/angola_attach_layout1-1.png)
+
+Several layout can be computed and stored for the same $\beta$ value. Argument `nrep_ly` allows selecting the desired computed layout for the focal $\beta$ value. 
+
 
 ```r
 #attaching a new layout for the same beta value
 meta_angola = attach_layout(metanetwork = meta_angola,beta = 0.05)
-#ggmetanet with the new 'TL-tsne-run
+#the two layouts are stored as node attribute
+igraph::vertex_attr_names(meta_angola$metaweb)
+```
+
+```
+## [1] "name"              "ab"                "TL"                "layout_beta0.05"   "layout_beta0.05_1"
+```
+
+```r
+#this is the new layout
+V(meta_angola$metaweb)$layout_beta0.05_1
+```
+
+```
+##  [1]  23.6239303   6.0145306  -4.8916461  15.1306002   8.0350662 -15.5248423 -31.3897929  -7.2523616 -24.3225082 -21.7065312 -11.3953381
+## [12] -27.6685412  18.2605816  11.5881551  27.0950377   1.9668096  20.8723962  -2.4741365  -0.2931253 -18.1058836   4.1627666  31.8173426
+## [23]  -9.3883430 -13.4664810   9.8159529  13.2355592  16.0263624 -19.7655602
+```
+
+```r
+#ggmetanet with the new 'TL-tsne' layout
 ggmetanet(meta_angola,beta = 0.05,legend = "Phylum",nrep_ly = 2)
 ```
 
-![plot of chunk angola_attach_layout](figure/angola_attach_layout-2.png)
+![plot of chunk angola_attach_layout2](figure/angola_attach_layout2-1.png)
 
-Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure.
+Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure. For example, phytoplankton and zooplankton are close by as Detritus and benthic organisms.
 
 ### Using metaweb layout
 
@@ -217,11 +244,11 @@ metrics_angola$Phylum
 ## X2003    0.02918298 1.317792 2.206484                      1.25
 ```
 
-We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
 
 
 ```r
-div_angola = compute_diversities(meta_angola, q = 1)
+div_angola = compute_div(meta_angola, q = 1)
 div_angola$nodes
 ```
 
@@ -248,11 +275,11 @@ div_angola$links
 ```
 
 We see a higher $\alpha$-diversity in 2003 compared to 1986 both on nodes and links and both at Species and Phylum resolution.
-Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 
 ```r
-dis_angola = compute_dissimilarities(meta_angola)
+dis_angola = compute_dis(meta_angola)
 
 #nodes and links dissimilarity at Species resolution
 dis_angola$Species$nodes
@@ -297,7 +324,7 @@ dis_angola$Phylum$links
 
 ```r
 #compute dissimilarity at Phylum resolution only
-compute_dissimilarities(meta_angola,res = "Phylum")
+compute_dis(meta_angola,res = "Phylum")
 ```
 
 ```
@@ -313,7 +340,7 @@ compute_dissimilarities(meta_angola,res = "Phylum")
 ## X2003 0.007835491 0.000000000
 ```
 We see that networks are more dissimilar at Species compared to Phylum resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
-To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+To gain in efficiency, `compute_dis` uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 
 ## References
 

@@ -1,14 +1,14 @@
 ---
 title: "Norway soil metanetwork analysis"
 author: "Marc Ohlmann"
-date: "2023-04-28"
+date: "2023-05-22"
 output:
   rmarkdown::html_vignette:
     toc: true
     toc_depth: 4
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteIndexEntry{norway}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -29,7 +29,7 @@ library(metanetwork)
 library(igraph)
 
 data("meta_norway")
-class(meta_angola)
+class(meta_norway)
 ```
 
 ```
@@ -101,6 +101,8 @@ ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = met
 
 ![plot of chunk norway_metaweb](figure/norway_metaweb-1.png)
 
+The metaweb has two basal resources: plant and organic material. They have the lowest x-axis values in the 'TL-tsne' layout. The channel starting from plants corresponds to the green energy channel while the channel starting from organic materials is the brown channel. Importantly, we observe from our network representation that bacterial and fungal paths are separated in the brown channel. It means that they are linked to separated paths higher up in the network (e.g. bacterivore and fungivore groups)
+
 ### Attaching layout
 
 Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, saving and using the the same layout (for a given $\beta$ value) is recommended. Moreover, it makes easier visual network analysis and comparison since it is fixed.
@@ -110,10 +112,70 @@ Since `TL-tsne` layout is stochastic and requires (a bit of) computation times, 
 ```r
 #attaching 'TL-tsne' layout to the metaweb
 meta_norway = attach_layout(metanetwork = meta_norway,beta = 0.006)
+#TL-tsne layout is stored as node attribute
+igraph::vertex_attr_names(meta_norway$metaweb)
+```
+
+```
+## [1] "name"             "ab"               "TL"               "layout_beta0.006"
+```
+
+```r
+#get the layout
+V(meta_norway$metaweb)$layout_beta0.006
+```
+
+```
+##  [1] -13.0522434  -7.8307428 -16.3717768 -20.3283058 -11.4641502 -22.9378876  -9.8646082  11.2749905  -4.6100019  -2.0490245 -14.2436526
+## [12]   1.1472591   4.4380364 -18.4640815   2.9498310  22.5360514  14.1390143   5.5551105   6.6281151  -0.1382171   8.6435397  -6.4904710
+## [23] -32.4646092  15.6659788  12.6823389  10.0034280   7.8240697  19.6222655  17.3759443  29.0643724  -9.3881740 -28.1781109  -1.4824717
+## [34]  34.2161572   1.5977763  -6.1023610  -3.3286003 -25.1945357   3.6080192  25.0117281
+```
+
+```r
+#Represent the metaweb with the computed layout
 ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom)
 ```
 
 ![plot of chunk norway_attach_layout](figure/norway_attach_layout-1.png)
+
+
+Using `attach_layout`, you can compute several layouts for the same $\beta$ value.
+
+
+
+```r
+# attaching a new 'TL-tsne' layout to the metaweb
+meta_norway = attach_layout(metanetwork = meta_norway,beta = 0.006)
+# the new TL-tsne layout is stored as node attribute
+igraph::vertex_attr_names(meta_norway$metaweb)
+```
+
+```
+## [1] "name"               "ab"                 "TL"                 "layout_beta0.006"   "layout_beta0.006_1"
+```
+
+```r
+# get the new layout
+V(meta_norway$metaweb)$layout_beta0.006_1
+```
+
+```
+##  [1]  11.4176427   6.3270214  14.5580110  20.8433845   9.8698086  18.3418801   8.3273881 -14.3610878   3.2096665   0.1714016  12.4926409
+## [12]  -3.3275728  -6.8769107  16.5325199  -4.9983818 -24.7743587 -11.6088187  -5.9128187  -8.0612768  -2.0031946  -9.3704634   5.0533569
+## [23] -32.7743916 -19.2231541 -15.7221231 -12.9807163 -10.1867297 -21.7429967 -17.3530429  28.8830408   7.8409215  25.5074753  -3.6204682
+## [34]  33.2792796  -0.7157458   2.0152477   4.6514143  23.0088133   0.7209167 -27.4375790
+```
+
+```r
+#Represent the metaweb with the computed layout
+ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom,nrep_ly = 2)
+```
+
+![plot of chunk norway_attach_layout2](figure/norway_attach_layout2-1.png)
+We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clusterd together and are linked to their corresponding consumers (fungivore and bacterivore).
+
+
 
 ```r
 #attaching 'TL-tsne' layout to metaweb at class level
@@ -121,7 +183,9 @@ meta_norway = attach_layout(metanetwork = meta_norway,g = meta_norway$metaweb_tr
 ggmetanet(g = meta_norway$metaweb_trophic_class,beta = 0.006,metanetwork = meta_norway)
 ```
 
-![plot of chunk norway_attach_layout](figure/norway_attach_layout-2.png)
+![plot of chunk norway_attach_layout3](figure/norway_attach_layout3-1.png)
+
+
 ### 'group-TL-tnse' layout
 
 A variation of `'TL-tsne'` layout consists in `'group-TL-tsne'` layout. It mixes `'TL-tsne'` and a regular `igraph` layout to provide a representation where species from the same group are clustered together. Such approach provides more stable and interpretable. Morever, it is more efficient in terms of computation time since it only requires `'TL-tsne'` layout computation at the aggregated level instead of computing it in higher dimension at the group level.
@@ -134,7 +198,8 @@ vertex_attr_names(meta_norway$metaweb)
 ```
 
 ```
-## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "group_layout_x_beta0.2" "group_layout_y_beta0.2"
+## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "layout_beta0.006_1"    
+## [6] "group_layout_x_beta0.2" "group_layout_y_beta0.2"
 ```
 
 ```r
@@ -168,20 +233,20 @@ diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = 
 ```
 
 ```
-## Epoch: Iteration #100 error is: 1333.64224480326
+## Epoch: Iteration #100 error is: 1333.50752192147
 ```
 
 ```
-## Epoch: Iteration #200 error is: 319.563829924745
+## Epoch: Iteration #200 error is: 319.50122757965
 ```
 
 ```
-## Epoch: Iteration #300 error is: 319.708802249102
+## Epoch: Iteration #300 error is: 319.636671431714
 ```
 
 ![plot of chunk norway_diffplot](figure/norway_diffplot-1.png)
 
-Here, a new 'TL-tsne' layout is computed.
+It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
 
 ### Using metaweb layout
 
@@ -273,11 +338,11 @@ metrics_norway$taxa
 ## low      0.09486383 1.0233475 1.825014                         1
 ```
 
-We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
 
 
 ```r
-div_norway = compute_diversities(meta_norway)
+div_norway = compute_div(meta_norway)
 
 div_norway$nodes
 ```
@@ -304,11 +369,11 @@ div_norway$links
 ## Alpha_low_L      36.710910      7.455640 8.378992
 ```
 
-Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 
 ```r
-dis_norway = compute_dissimilarities(meta_norway)
+dis_norway = compute_dis(meta_norway)
 
 #nodes and links dissimilarity at Species resolution
 dis_norway$trophic_group$nodes
@@ -353,7 +418,7 @@ dis_norway$trophic_class$links
 
 ```r
 #compute dissimilarity at taxa resolution only
-compute_dissimilarities(meta_norway,res = "taxa")
+compute_dis(meta_norway,res = "taxa")
 ```
 
 ```
@@ -369,7 +434,7 @@ compute_dissimilarities(meta_norway,res = "taxa")
 ## low  0.02114852 0.00000000
 ```
 We see that networks are more dissimilar at trophic_group compared to trophic_class resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
-To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+To gain in efficiency, `compute_dis` is uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 
 ## References
 

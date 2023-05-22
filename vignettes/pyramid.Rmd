@@ -1,7 +1,7 @@
 ---
 title: "Pyramid metanetwork example using 'metanetwork'"
 author: "Marc Ohlmann"
-date: "2023-04-28"
+date: "2023-05-22"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -184,8 +184,8 @@ V(meta0$metaweb)$TL
 ```
 
 ```
-##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00 0.000000e+00
-## [12] 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00
+##  [1] 0.000000e+00 0.000000e+00 1.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 4.440892e-16 1.000000e+00 2.000000e+00 3.000000e+00
+## [11] 0.000000e+00 1.000000e+00 2.000000e+00 3.000000e+00 4.000000e+00
 ```
 
 ## Representing metanetworks
@@ -302,8 +302,8 @@ V(meta0$metaweb)$layout_beta0.1
 ```
 
 ```
-##  [1]   0.5435687 -10.3617922  -4.5666247  29.7558134  18.4300566   7.1540798  42.3503917  35.5634501  23.4595765  12.4017208 -43.9604286 -37.5111359
-## [13] -30.8382721 -24.3436998 -18.0767044
+##  [1] -10.5245709   0.5715783  -4.6297208  30.2718230  18.7743114   7.3023306  43.1058371  36.1900901  23.8856698  12.6402267 -44.7744167
+## [12] -38.1999701 -31.4062122 -24.7935220 -18.4134542
 ```
 
 ```r
@@ -313,8 +313,8 @@ V(meta0$metaweb)$layout_beta0.1
 ```
 
 ```
-##  [1]   0.5435687 -10.3617922  -4.5666247  29.7558134  18.4300566   7.1540798  42.3503917  35.5634501  23.4595765  12.4017208 -43.9604286 -37.5111359
-## [13] -30.8382721 -24.3436998 -18.0767044
+##  [1] -10.5245709   0.5715783  -4.6297208  30.2718230  18.7743114   7.3023306  43.1058371  36.1900901  23.8856698  12.6402267 -44.7744167
+## [12] -38.1999701 -31.4062122 -24.7935220 -18.4134542
 ```
 
 Then, any call of `ggmetanet` or `vismetaNetwork` will use the computed layout for the desired $\beta$ value.
@@ -388,12 +388,12 @@ Besides network representation, 'metanetwork' package can compute usual network 
 ## c        0.09090909 1.181818      3                  1.550000
 ```
 The metaweb is less connected than local networks but have the highest mean shortest path length.
-We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitionned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitionned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
 
 
 ```r
 #computing diversities
-compute_diversities(meta0)
+compute_div(meta0)
 ```
 
 ```
@@ -427,12 +427,12 @@ compute_diversities(meta0)
 ##  6 13 11
 ```
 
-Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 
 ```r
 #computing pairwise dissimilarities
-compute_dissimilarities(meta0)
+compute_dis(meta0)
 ```
 
 ```

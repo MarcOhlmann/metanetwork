@@ -253,18 +253,18 @@ Besides network representation, 'metanetwork' package can compute usual network 
   compute_metrics(meta0)
 ```
 The metaweb is less connected than local networks but have the highest mean shortest path length.
-We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitionned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitionned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
 
 ```{r,warning = F}
 #computing diversities
-compute_diversities(meta0)
+compute_div(meta0)
 ```
 
-Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+Moreover, pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 ```{r,warning = F}
 #computing pairwise dissimilarities
-compute_dissimilarities(meta0)
+compute_dis(meta0)
 ```
 
 In this case, we see that links dissimilarities are higher than node dissimilarities. Indeed, absent nodes from the metaweb might lead to the absence of several edges.

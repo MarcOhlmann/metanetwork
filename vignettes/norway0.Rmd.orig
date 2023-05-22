@@ -8,7 +8,7 @@ output:
     toc_depth: 4
 vignette: >
   %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteIndexEntry{PLNPCA}
+  %\VignetteIndexEntry{norway}
   %\VignetteEncoding{UTF-8}
 ---
 
@@ -35,7 +35,7 @@ library(metanetwork)
 library(igraph)
 
 data("meta_norway")
-class(meta_angola)
+class(meta_norway)
 print(meta_norway)
 ```
 
@@ -175,19 +175,19 @@ metrics_norway$trophic_class
 metrics_norway$taxa
 ```
 
-We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_diversities` documentation)
+We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
 
 ```{r, warning = FALSE}
-div_norway = compute_diversities(meta_norway)
+div_norway = compute_div(meta_norway)
 
 div_norway$nodes
 div_norway$links
 ```
 
-Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dissimilarities` documentation).
+Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 ```{r, warning = FALSE}
-dis_norway = compute_dissimilarities(meta_norway)
+dis_norway = compute_dis(meta_norway)
 
 #nodes and links dissimilarity at Species resolution
 dis_norway$trophic_group$nodes
@@ -197,10 +197,10 @@ dis_norway$trophic_class$nodes
 dis_norway$trophic_class$links
 
 #compute dissimilarity at taxa resolution only
-compute_dissimilarities(meta_norway,res = "taxa")
+compute_dis(meta_norway,res = "taxa")
 ```
 We see that networks are more dissimilar at trophic_group compared to trophic_class resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
-To gain in efficiency, `compute_dissimilarities` is uses parallel computation (see `ncores` argument in `compute_dissimilarities` documentation)
+To gain in efficiency, `compute_dis` is uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 
 ## References
 
