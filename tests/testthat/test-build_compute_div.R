@@ -18,10 +18,10 @@ test_that("no local network",  {
   expect_error(compute_div(meta0))
 })
 
+div_angola = compute_div(meta_angola)
 
 test_that("dimension of div table",{
-  div_angola = compute_div(meta_angola)
-  expect_equal(length(metrics_angola),2)
-  expect_equal(dim(metrics_angola$Species),c(3,4))
+  expect_equal(length(div_angola),2)
+  expect_equal(dim(div_angola$nodes),c(5,2))
 })
 
