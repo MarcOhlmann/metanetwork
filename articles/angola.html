@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Marc
 Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2023-05-22</h4>
+            <h4 data-toc-skip class="date">2023-05-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/angola.Rmd" class="external-link"><code>vignettes/angola.Rmd</code></a></small>
       <div class="hidden name"><code>angola.Rmd</code></div>
@@ -228,9 +228,9 @@ layouts by attaching them as a node attribute.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this is the computed layout</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1]  23.3517774   6.1807663  -4.9172096   4.1942194  14.4130425 -15.3659593 -27.3309240  -7.2385653 -31.1935233 -21.3745781 -11.2900751</span></span>
-<span><span class="co">## [12] -24.2312696   8.4555195  18.3113863  26.8075235   1.9074640  20.7057644  -2.5113742  -0.3444555 -17.8968147  10.8510491  31.5078813</span></span>
-<span><span class="co">## [23]  -9.3334621 -13.3336898  16.2695690  12.7268098  10.2457485 -19.5666202</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]  -9.651342  -5.767532   5.194469  -3.823952 -18.572339  15.773919  21.064580   7.543386  25.917790  23.226553  11.649604  29.426068 -16.106680</span></span>
+<span><span class="co">## [14] -21.246919 -27.047448  -1.600164 -23.833696   2.788126   0.646412  18.443714 -14.331872 -31.772174   9.648135  13.705864  -7.831115 -12.831562</span></span>
+<span><span class="co">## [27] -10.993820  20.381996</span></span></code></pre>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet uses the computed layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span><span class="op">)</span></span></code></pre></div>
@@ -249,9 +249,9 @@ the focal <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#this is the new layout</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.05_1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1]  23.6239303   6.0145306  -4.8916461  15.1306002   8.0350662 -15.5248423 -31.3897929  -7.2523616 -24.3225082 -21.7065312 -11.3953381</span></span>
-<span><span class="co">## [12] -27.6685412  18.2605816  11.5881551  27.0950377   1.9668096  20.8723962  -2.4741365  -0.2931253 -18.1058836   4.1627666  31.8173426</span></span>
-<span><span class="co">## [23]  -9.3883430 -13.4664810   9.8159529  13.2355592  16.0263624 -19.7655602</span></span></code></pre>
+<pre><code><span><span class="co">##  [1]  23.2884614   4.1340300  -4.8161359  15.5999164  10.4074526 -15.3107874 -20.5228096  -7.1625291 -25.3092535 -22.6558866 -11.2409679 -28.7714286</span></span>
+<span><span class="co">## [13]  13.2750092  18.0097423  26.7344642   1.9609046  20.4578198  -2.4228296  -0.2968211 -17.9566698   7.4907073  31.4329101  -9.2597165 -13.2684559</span></span>
+<span><span class="co">## [25]   6.1029551   8.6541160  11.3126872 -19.8668844</span></span></code></pre>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#ggmetanet with the new 'TL-tsne' layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_angola</span>,beta <span class="op">=</span> <span class="fl">0.05</span>,legend <span class="op">=</span> <span class="st">"Phylum"</span>,nrep_ly <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
@@ -261,7 +261,8 @@ the focal <span class="math inline">\(\beta\)</span> value.</p>
 <p>Notice that even if the two layouts are quite different in term of
 global structure, they share some features in terms of local structure.
 For example, phytoplankton and zooplankton are close by as Detritus and
-benthic organisms.</p>
+benthic organisms. So, in this example, despite the stochasticity of the
+layout, the highlight of brown and green channels is stable.</p>
 </div>
 <div class="section level3">
 <h3 id="using-metaweb-layout">Using metaweb layout<a class="anchor" aria-label="anchor" href="#using-metaweb-layout"></a>
@@ -297,15 +298,15 @@ compare local networks at the different resolutions.</p>
 <code class="sourceCode R"><span><span class="va">metrics_angola</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_metrics.html">compute_metrics</a></span><span class="op">(</span><span class="va">meta_angola</span><span class="op">)</span></span>
 <span><span class="va">metrics_angola</span><span class="op">$</span><span class="va">Species</span></span></code></pre></div>
 <pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
-<span><span class="co">## metaweb  0.02921234 1.561919 2.739126                  1.608333</span></span>
-<span><span class="co">## X1986    0.02859672 1.561919 2.739126                  1.608333</span></span>
-<span><span class="co">## X2003    0.02918298 1.561919 2.739126                  1.608333</span></span></code></pre>
+<span><span class="co">## metaweb  0.02921234 1.561919 2.739126                 0.2201667</span></span>
+<span><span class="co">## X1986    0.02859672 1.561919 2.739126                 0.2201667</span></span>
+<span><span class="co">## X2003    0.02918298 1.561919 2.739126                 0.2201667</span></span></code></pre>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics_angola</span><span class="op">$</span><span class="va">Phylum</span></span></code></pre></div>
 <pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
-<span><span class="co">## metaweb  0.02925731 1.315389 2.229886                      1.25</span></span>
-<span><span class="co">## X1986    0.02859672 1.319967 2.278338                      1.25</span></span>
-<span><span class="co">## X2003    0.02918298 1.317792 2.206484                      1.25</span></span></code></pre>
+<span><span class="co">## metaweb  0.02925731 1.315389 2.229886                0.05117634</span></span>
+<span><span class="co">## X1986    0.02859672 1.319967 2.278338                0.04603361</span></span>
+<span><span class="co">## X2003    0.02918298 1.317792 2.206484                0.05471144</span></span></code></pre>
 <p>We now compute network diversity indices based on Hill numbers
 (cf. Ohlmann et al. 2019). The indices are based on node and link
 abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>-diversity, <span class="math inline">\(\beta\)</span>-diversity and <span class="math inline">\(\gamma\)</span>-diversity. A viewpoint parameter

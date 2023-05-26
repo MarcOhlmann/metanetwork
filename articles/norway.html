@@ -88,7 +88,7 @@
                         <h4 data-toc-skip class="author">Marc
 Ohlmann</h4>
             
-            <h4 data-toc-skip class="date">2023-05-22</h4>
+            <h4 data-toc-skip class="date">2023-05-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/MarcOhlmann/metanetwork/blob/HEAD/vignettes/norway.Rmd" class="external-link"><code>vignettes/norway.Rmd</code></a></small>
       <div class="hidden name"><code>norway.Rmd</code></div>
@@ -214,10 +214,10 @@ layouts by attaching them as a node attribute.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#get the layout</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.006</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1] -13.0522434  -7.8307428 -16.3717768 -20.3283058 -11.4641502 -22.9378876  -9.8646082  11.2749905  -4.6100019  -2.0490245 -14.2436526</span></span>
-<span><span class="co">## [12]   1.1472591   4.4380364 -18.4640815   2.9498310  22.5360514  14.1390143   5.5551105   6.6281151  -0.1382171   8.6435397  -6.4904710</span></span>
-<span><span class="co">## [23] -32.4646092  15.6659788  12.6823389  10.0034280   7.8240697  19.6222655  17.3759443  29.0643724  -9.3881740 -28.1781109  -1.4824717</span></span>
-<span><span class="co">## [34]  34.2161572   1.5977763  -6.1023610  -3.3286003 -25.1945357   3.6080192  25.0117281</span></span></code></pre>
+<pre><code><span><span class="co">##  [1] -12.9475056  -8.0027108 -16.2079443 -22.7132091 -11.3462398 -20.1130143  -6.5106735   9.9233144  -4.5854150  -2.0651410 -14.1010060   1.0591155</span></span>
+<span><span class="co">## [13]   4.2481564 -18.2430818   2.8069118  22.6621553  12.6249591   5.3913804   6.2461442  -0.2074156   7.6423898  -9.8195071 -32.2030752  14.0077834</span></span>
+<span><span class="co">## [25]  17.4103375  11.2056083   8.5513003  19.8232874  15.6005706  29.1014202  -9.5435798 -27.9502300   1.4803516  34.2080994  -6.0977349  -1.5314268</span></span>
+<span><span class="co">## [37]  -3.3362833 -25.0019387   3.4444592  25.0893880</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Represent the metaweb with the computed layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
@@ -235,18 +235,20 @@ the same <span class="math inline">\(\beta\)</span> value.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># get the new layout</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/V.html" class="external-link">V</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span><span class="op">$</span><span class="va">layout_beta0.006_1</span></span></code></pre></div>
-<pre><code><span><span class="co">##  [1]  11.4176427   6.3270214  14.5580110  20.8433845   9.8698086  18.3418801   8.3273881 -14.3610878   3.2096665   0.1714016  12.4926409</span></span>
-<span><span class="co">## [12]  -3.3275728  -6.8769107  16.5325199  -4.9983818 -24.7743587 -11.6088187  -5.9128187  -8.0612768  -2.0031946  -9.3704634   5.0533569</span></span>
-<span><span class="co">## [23] -32.7743916 -19.2231541 -15.7221231 -12.9807163 -10.1867297 -21.7429967 -17.3530429  28.8830408   7.8409215  25.5074753  -3.6204682</span></span>
-<span><span class="co">## [34]  33.2792796  -0.7157458   2.0152477   4.6514143  23.0088133   0.7209167 -27.4375790</span></span></code></pre>
+<pre><code><span><span class="co">##  [1] -11.3292919  -6.2404344 -14.4904523 -20.7829565  -9.7811898 -18.2751020  -8.2376113  14.2437126  -3.1185555  -0.5114248 -12.4205135   2.8892467</span></span>
+<span><span class="co">## [13]   6.7630146 -16.4638242   4.8245507  24.6439560  11.5016087   5.8200419   7.9570338   1.3369044   9.2702139  -4.9686021 -33.2063100  19.0852838</span></span>
+<span><span class="co">## [25]  12.8683306  10.0729920  15.5970396  21.5980855  17.2236436 -25.4482627  -7.7653373 -28.8226861   3.7008810  32.6364900  -4.5686339  -0.1325995</span></span>
+<span><span class="co">## [37]  -1.8834867 -22.9474544   2.0567619  27.3049378</span></span></code></pre>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#Represent the metaweb with the computed layout</span></span>
 <span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span>g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span>,beta <span class="op">=</span> <span class="fl">0.006</span>,legend <span class="op">=</span> <span class="st">'taxa'</span>,metanetwork <span class="op">=</span> <span class="va">meta_norway</span>, ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span>,nrep_ly <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/norway_attach_layout2-1.png" alt="plot of chunk norway_attach_layout2"> We see that even if the two
-layouts for the same <span class="math inline">\(\beta\)</span> value
-are different, they share some structural characteristics. For example,
-fungal and bacterial groups are clusterd together and are linked to
-their corresponding consumers (fungivore and bacterivore).</p>
+<div class="figure">
+<img src="figure/norway_attach_layout2-1.png" alt=""><p class="caption">plot of chunk norway_attach_layout2</p>
+</div>
+<p>We see that even if the two layouts for the same <span class="math inline">\(\beta\)</span> value are different, they share
+some structural characteristics. For example, fungal and bacterial
+groups are clustered together and are linked to their corresponding
+consumers (fungivore and bacterivore).</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#attaching 'TL-tsne' layout to metaweb at class level</span></span>
 <span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span>metanetwork <span class="op">=</span> <span class="va">meta_norway</span>,g <span class="op">=</span> <span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb_trophic_class</span>,beta <span class="op">=</span> <span class="fl">0.006</span><span class="op">)</span></span>
@@ -270,12 +272,18 @@ is stored as node attribute.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">meta_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/attach_layout.html">attach_layout</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,res <span class="op">=</span> <span class="st">"trophic_class"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://r.igraph.org/reference/vertex_attr_names.html" class="external-link">vertex_attr_names</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">$</span><span class="va">metaweb</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "layout_beta0.006_1"    </span></span>
-<span><span class="co">## [6] "group_layout_x_beta0.2" "group_layout_y_beta0.2"</span></span></code></pre>
+<pre><code><span><span class="co">## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "layout_beta0.006_1"     "group_layout_x_beta0.2"</span></span>
+<span><span class="co">## [7] "group_layout_y_beta0.2"</span></span></code></pre>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggmetanet.html">ggmetanet</a></span><span class="op">(</span><span class="va">meta_norway</span>,beta <span class="op">=</span> <span class="fl">0.2</span>,mode <span class="op">=</span> <span class="st">"group-TL-tsne"</span>,legend <span class="op">=</span> <span class="st">"trophic_class"</span>,ggnet.config <span class="op">=</span> <span class="va">ggnet.custom</span><span class="op">)</span></span></code></pre></div>
-<p><img src="figure/norway_metaweb_group_TL_tsne-1.png" alt="plot of chunk norway_metaweb_group_TL_tsne"> ## Representing and
-comparing local networks</p>
+<div class="figure">
+<img src="figure/norway_metaweb_group_TL_tsne-1.png" alt=""><p class="caption">plot of chunk norway_metaweb_group_TL_tsne</p>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="representing-and-comparing-local-networks">Representing and comparing local networks<a class="anchor" aria-label="anchor" href="#representing-and-comparing-local-networks"></a>
+</h2>
 <p><code>diff_plot</code> allows comparing local networks. Here, it
 provides a comparison between high and low disturbed sites by moth
 outbreaks.</p>
@@ -285,16 +293,16 @@ outbreaks.</p>
 <pre><code><span><span class="co">## plotting: high_trophic_group - low_trophic_group</span></span></code></pre>
 <pre><code><span><span class="co">## mode is TL-tsne</span></span></code></pre>
 <pre><code><span><span class="co">## beta = 0.006</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.50752192147</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.50122757965</span></span></code></pre>
-<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.636671431714</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #100 error is: 1333.49922010638</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #200 error is: 319.518122109745</span></span></code></pre>
+<pre><code><span><span class="co">## Epoch: Iteration #300 error is: 319.65237149482</span></span></code></pre>
 <div class="figure">
 <img src="figure/norway_diffplot-1.png" alt=""><p class="caption">plot of chunk norway_diffplot</p>
 </div>
 <p>It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae
-towards Arbuscular mycorrhizae and also an increase in soil predator
-abundances. Here, a new ‘TL-tsne’ layout is computed.</p>
-</div>
+towards Arbuscular mycorrhizae due to increase of shrubs after the
+perturbation and also an increase in soil predator abundances. Here, a
+new ‘TL-tsne’ layout is computed.</p>
 <div class="section level3">
 <h3 id="using-metaweb-layout">Using metaweb layout<a class="anchor" aria-label="anchor" href="#using-metaweb-layout"></a>
 </h3>
@@ -339,31 +347,24 @@ mean shortest path length). Network diversity and dissimilarity indices
 based on Hill numbers are also implemented in order to quantitatively
 compare local networks at the different resolutions.</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metrics_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_metrics.html">compute_metrics</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
-<span><span class="co">#metrics at the different resolutions</span></span>
-<span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_group</span></span></code></pre></div>
-<pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
-<span><span class="co">## metaweb  0.09347723 1.541796 3.112806                  1.504065</span></span>
-<span><span class="co">## high     0.09164117 1.541796 3.112806                  1.504065</span></span>
-<span><span class="co">## low      0.09486383 1.541796 3.112806                  1.504065</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">metrics_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_metrics.html">compute_metrics</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in t(igraph::V(g)$ab) %*% adj: arguments inadéquats</span></span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_class</span></span></code></pre></div>
-<pre><code><span><span class="co">##         connectance  mean_TL   max_TL mean_shortest_path_length</span></span>
-<span><span class="co">## metaweb  0.09178516 1.369861 2.693234                  1.171429</span></span>
-<span><span class="co">## high     0.09164117 1.336951 2.641552                  1.171429</span></span>
-<span><span class="co">## low      0.09486383 1.390735 2.724371                  1.171429</span></span></code></pre>
+<code class="sourceCode R"><span><span class="co">#metrics at the different resolutions</span></span>
+<span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_group</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable</span></span></code></pre>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">trophic_class</span></span></code></pre></div>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable</span></span></code></pre>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metrics_norway</span><span class="op">$</span><span class="va">taxa</span></span></code></pre></div>
-<pre><code><span><span class="co">##         connectance   mean_TL   max_TL mean_shortest_path_length</span></span>
-<span><span class="co">## metaweb  0.09347723 0.9966354 1.726067                         1</span></span>
-<span><span class="co">## high     0.09164117 0.9783550 1.663029                         1</span></span>
-<span><span class="co">## low      0.09486383 1.0233475 1.825014                         1</span></span></code></pre>
+<pre><code><span><span class="co">## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable</span></span></code></pre>
 <p>We now compute network diversity indices based on Hill numbers
 (cf. Ohlmann et al. 2019). The indices are based on node and link
 abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>-diversity, <span class="math inline">\(\beta\)</span>-diversity and <span class="math inline">\(\gamma\)</span>-diversity. A viewpoint parameter
 <span class="math inline">\(q\)</span> allows giving more weight (see
 <code>compute_div</code> documentation)</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">div_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_div.html">compute_div</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">div_norway</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
@@ -373,7 +374,7 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 <span><span class="co">## Beta_P            1.031318      1.008067 1.004605</span></span>
 <span><span class="co">## Alpha_high_P     17.833549      4.650241 3.924770</span></span>
 <span><span class="co">## Alpha_low_P      15.536622      4.550721 3.771674</span></span></code></pre>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">div_norway</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##              trophic_group trophic_class     taxa</span></span>
 <span><span class="co">## Gamma_L          52.899140      8.044432 9.227551</span></span>
@@ -381,10 +382,14 @@ abundances are can be partitioned in <span class="math inline">\(\alpha\)</span>
 <span><span class="co">## Beta_L            1.095262      1.015890 1.014767</span></span>
 <span><span class="co">## Alpha_high_L     63.542723      8.410311 9.868439</span></span>
 <span><span class="co">## Alpha_low_L      36.710910      7.455640 8.378992</span></span></code></pre>
-<p>Pairwise dissimilarity indices (both on nodes and links) are also
-implemented in metanetwork (see <code>compute_dis</code>
+<p>As reported in Calderon-Sanou et al. 2021, we see higher node and
+link diversities in sites with a high perturbation level. This is due to
+the fact that dominant groups tend to to disappear, giving way to an
+increase in predator groups and leading so to more evenly distributed
+abundances. Pairwise dissimilarity indices (both on nodes and links) are
+also implemented in metanetwork (see <code>compute_dis</code>
 documentation).</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dis_norway</span> <span class="op">=</span> <span class="fu"><a href="../reference/compute_dis.html">compute_dis</a></span><span class="op">(</span><span class="va">meta_norway</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#nodes and links dissimilarity at Species resolution</span></span>
@@ -392,23 +397,23 @@ documentation).</p>
 <pre><code><span><span class="co">##            high        low</span></span>
 <span><span class="co">## high 0.00000000 0.04448943</span></span>
 <span><span class="co">## low  0.04448943 0.00000000</span></span></code></pre>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_group</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##           high       low</span></span>
 <span><span class="co">## high 0.0000000 0.1312764</span></span>
 <span><span class="co">## low  0.1312764 0.0000000</span></span></code></pre>
-<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#nodes and links dissimilarity at Phylum resolution</span></span>
 <span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_class</span><span class="op">$</span><span class="va">nodes</span></span></code></pre></div>
 <pre><code><span><span class="co">##            high        low</span></span>
 <span><span class="co">## high 0.00000000 0.01159194</span></span>
 <span><span class="co">## low  0.01159194 0.00000000</span></span></code></pre>
-<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dis_norway</span><span class="op">$</span><span class="va">trophic_class</span><span class="op">$</span><span class="va">links</span></span></code></pre></div>
 <pre><code><span><span class="co">##            high        low</span></span>
 <span><span class="co">## high 0.00000000 0.02274482</span></span>
 <span><span class="co">## low  0.02274482 0.00000000</span></span></code></pre>
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#compute dissimilarity at taxa resolution only</span></span>
 <span><span class="fu"><a href="../reference/compute_dis.html">compute_dis</a></span><span class="op">(</span><span class="va">meta_norway</span>,res <span class="op">=</span> <span class="st">"taxa"</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $taxa</span></span>
