@@ -1,7 +1,7 @@
 ---
 title: "Angola dataset analysis"
 author: "Marc Ohlmann"
-date: "2023-05-22"
+date: "2023-05-26"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -148,9 +148,9 @@ V(meta_angola$metaweb)$layout_beta0.05
 ```
 
 ```
-##  [1]  23.3517774   6.1807663  -4.9172096   4.1942194  14.4130425 -15.3659593 -27.3309240  -7.2385653 -31.1935233 -21.3745781 -11.2900751
-## [12] -24.2312696   8.4555195  18.3113863  26.8075235   1.9074640  20.7057644  -2.5113742  -0.3444555 -17.8968147  10.8510491  31.5078813
-## [23]  -9.3334621 -13.3336898  16.2695690  12.7268098  10.2457485 -19.5666202
+##  [1]  -9.651342  -5.767532   5.194469  -3.823952 -18.572339  15.773919  21.064580   7.543386  25.917790  23.226553  11.649604  29.426068 -16.106680
+## [14] -21.246919 -27.047448  -1.600164 -23.833696   2.788126   0.646412  18.443714 -14.331872 -31.772174   9.648135  13.705864  -7.831115 -12.831562
+## [27] -10.993820  20.381996
 ```
 
 ```r
@@ -180,9 +180,9 @@ V(meta_angola$metaweb)$layout_beta0.05_1
 ```
 
 ```
-##  [1]  23.6239303   6.0145306  -4.8916461  15.1306002   8.0350662 -15.5248423 -31.3897929  -7.2523616 -24.3225082 -21.7065312 -11.3953381
-## [12] -27.6685412  18.2605816  11.5881551  27.0950377   1.9668096  20.8723962  -2.4741365  -0.2931253 -18.1058836   4.1627666  31.8173426
-## [23]  -9.3883430 -13.4664810   9.8159529  13.2355592  16.0263624 -19.7655602
+##  [1]  23.2884614   4.1340300  -4.8161359  15.5999164  10.4074526 -15.3107874 -20.5228096  -7.1625291 -25.3092535 -22.6558866 -11.2409679 -28.7714286
+## [13]  13.2750092  18.0097423  26.7344642   1.9609046  20.4578198  -2.4228296  -0.2968211 -17.9566698   7.4907073  31.4329101  -9.2597165 -13.2684559
+## [25]   6.1029551   8.6541160  11.3126872 -19.8668844
 ```
 
 ```r
@@ -192,7 +192,7 @@ ggmetanet(meta_angola,beta = 0.05,legend = "Phylum",nrep_ly = 2)
 
 ![plot of chunk angola_attach_layout2](figure/angola_attach_layout2-1.png)
 
-Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure. For example, phytoplankton and zooplankton are close by as Detritus and benthic organisms.
+Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure. For example, phytoplankton and zooplankton are close by as Detritus and benthic organisms. So, in this example, despite the stochasticity of the layout, the highlight of brown and green channels is stable.
 
 ### Using metaweb layout
 
@@ -228,9 +228,9 @@ metrics_angola$Species
 
 ```
 ##         connectance  mean_TL   max_TL mean_shortest_path_length
-## metaweb  0.02921234 1.561919 2.739126                  1.608333
-## X1986    0.02859672 1.561919 2.739126                  1.608333
-## X2003    0.02918298 1.561919 2.739126                  1.608333
+## metaweb  0.02921234 1.561919 2.739126                 0.2201667
+## X1986    0.02859672 1.561919 2.739126                 0.2201667
+## X2003    0.02918298 1.561919 2.739126                 0.2201667
 ```
 
 ```r
@@ -239,9 +239,9 @@ metrics_angola$Phylum
 
 ```
 ##         connectance  mean_TL   max_TL mean_shortest_path_length
-## metaweb  0.02925731 1.315389 2.229886                      1.25
-## X1986    0.02859672 1.319967 2.278338                      1.25
-## X2003    0.02918298 1.317792 2.206484                      1.25
+## metaweb  0.02925731 1.315389 2.229886                0.05117634
+## X1986    0.02859672 1.319967 2.278338                0.04603361
+## X2003    0.02918298 1.317792 2.206484                0.05471144
 ```
 
 We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
@@ -339,6 +339,7 @@ compute_dis(meta_angola,res = "Phylum")
 ## X1986 0.000000000 0.007835491
 ## X2003 0.007835491 0.000000000
 ```
+
 We see that networks are more dissimilar at Species compared to Phylum resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
 To gain in efficiency, `compute_dis` uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 

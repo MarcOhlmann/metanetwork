@@ -127,7 +127,7 @@ ggmetanet(meta_angola,beta = 0.05,legend = "Phylum",nrep_ly = 2)
 
 ```
 
-Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure. For example, phytoplankton and zooplankton are close by as Detritus and benthic organisms.
+Notice that even if the two layouts are quite different in term of global structure, they share some features in terms of local structure. For example, phytoplankton and zooplankton are close by as Detritus and benthic organisms. So, in this example, despite the stochasticity of the layout, the highlight of brown and green channels is stable.
 
 ### Using metaweb layout
 
@@ -178,6 +178,7 @@ dis_angola$Phylum$links
 #compute dissimilarity at Phylum resolution only
 compute_dis(meta_angola,res = "Phylum")
 ```
+
 We see that networks are more dissimilar at Species compared to Phylum resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
 To gain in efficiency, `compute_dis` uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 

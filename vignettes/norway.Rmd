@@ -1,7 +1,7 @@
 ---
 title: "Norway soil metanetwork analysis"
 author: "Marc Ohlmann"
-date: "2023-05-22"
+date: "2023-05-26"
 output:
   rmarkdown::html_vignette:
     toc: true
@@ -126,10 +126,10 @@ V(meta_norway$metaweb)$layout_beta0.006
 ```
 
 ```
-##  [1] -13.0522434  -7.8307428 -16.3717768 -20.3283058 -11.4641502 -22.9378876  -9.8646082  11.2749905  -4.6100019  -2.0490245 -14.2436526
-## [12]   1.1472591   4.4380364 -18.4640815   2.9498310  22.5360514  14.1390143   5.5551105   6.6281151  -0.1382171   8.6435397  -6.4904710
-## [23] -32.4646092  15.6659788  12.6823389  10.0034280   7.8240697  19.6222655  17.3759443  29.0643724  -9.3881740 -28.1781109  -1.4824717
-## [34]  34.2161572   1.5977763  -6.1023610  -3.3286003 -25.1945357   3.6080192  25.0117281
+##  [1] -12.9475056  -8.0027108 -16.2079443 -22.7132091 -11.3462398 -20.1130143  -6.5106735   9.9233144  -4.5854150  -2.0651410 -14.1010060   1.0591155
+## [13]   4.2481564 -18.2430818   2.8069118  22.6621553  12.6249591   5.3913804   6.2461442  -0.2074156   7.6423898  -9.8195071 -32.2030752  14.0077834
+## [25]  17.4103375  11.2056083   8.5513003  19.8232874  15.6005706  29.1014202  -9.5435798 -27.9502300   1.4803516  34.2080994  -6.0977349  -1.5314268
+## [37]  -3.3362833 -25.0019387   3.4444592  25.0893880
 ```
 
 ```r
@@ -161,10 +161,10 @@ V(meta_norway$metaweb)$layout_beta0.006_1
 ```
 
 ```
-##  [1]  11.4176427   6.3270214  14.5580110  20.8433845   9.8698086  18.3418801   8.3273881 -14.3610878   3.2096665   0.1714016  12.4926409
-## [12]  -3.3275728  -6.8769107  16.5325199  -4.9983818 -24.7743587 -11.6088187  -5.9128187  -8.0612768  -2.0031946  -9.3704634   5.0533569
-## [23] -32.7743916 -19.2231541 -15.7221231 -12.9807163 -10.1867297 -21.7429967 -17.3530429  28.8830408   7.8409215  25.5074753  -3.6204682
-## [34]  33.2792796  -0.7157458   2.0152477   4.6514143  23.0088133   0.7209167 -27.4375790
+##  [1] -11.3292919  -6.2404344 -14.4904523 -20.7829565  -9.7811898 -18.2751020  -8.2376113  14.2437126  -3.1185555  -0.5114248 -12.4205135   2.8892467
+## [13]   6.7630146 -16.4638242   4.8245507  24.6439560  11.5016087   5.8200419   7.9570338   1.3369044   9.2702139  -4.9686021 -33.2063100  19.0852838
+## [25]  12.8683306  10.0729920  15.5970396  21.5980855  17.2236436 -25.4482627  -7.7653373 -28.8226861   3.7008810  32.6364900  -4.5686339  -0.1325995
+## [37]  -1.8834867 -22.9474544   2.0567619  27.3049378
 ```
 
 ```r
@@ -173,7 +173,8 @@ ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = met
 ```
 
 ![plot of chunk norway_attach_layout2](figure/norway_attach_layout2-1.png)
-We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clusterd together and are linked to their corresponding consumers (fungivore and bacterivore).
+
+We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clustered together and are linked to their corresponding consumers (fungivore and bacterivore).
 
 
 
@@ -198,8 +199,8 @@ vertex_attr_names(meta_norway$metaweb)
 ```
 
 ```
-## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "layout_beta0.006_1"    
-## [6] "group_layout_x_beta0.2" "group_layout_y_beta0.2"
+## [1] "name"                   "ab"                     "TL"                     "layout_beta0.006"       "layout_beta0.006_1"     "group_layout_x_beta0.2"
+## [7] "group_layout_y_beta0.2"
 ```
 
 ```r
@@ -207,6 +208,7 @@ ggmetanet(meta_norway,beta = 0.2,mode = "group-TL-tsne",legend = "trophic_class"
 ```
 
 ![plot of chunk norway_metaweb_group_TL_tsne](figure/norway_metaweb_group_TL_tsne-1.png)
+
 ## Representing and comparing local networks
 
 `diff_plot` allows comparing local networks. Here, it provides a comparison between high and low disturbed sites by moth outbreaks.
@@ -233,20 +235,20 @@ diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = 
 ```
 
 ```
-## Epoch: Iteration #100 error is: 1333.50752192147
+## Epoch: Iteration #100 error is: 1333.49922010638
 ```
 
 ```
-## Epoch: Iteration #200 error is: 319.50122757965
+## Epoch: Iteration #200 error is: 319.518122109745
 ```
 
 ```
-## Epoch: Iteration #300 error is: 319.636671431714
+## Epoch: Iteration #300 error is: 319.65237149482
 ```
 
 ![plot of chunk norway_diffplot](figure/norway_diffplot-1.png)
 
-It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
+It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae due to increase of shrubs after the perturbation and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
 
 ### Using metaweb layout
 
@@ -305,15 +307,19 @@ Besides network representation, 'metanetwork' package can compute usual network 
 
 ```r
 metrics_norway = compute_metrics(meta_norway)
+```
+
+```
+## Error in t(igraph::V(g)$ab) %*% adj: arguments inadéquats
+```
+
+```r
 #metrics at the different resolutions
 metrics_norway$trophic_group
 ```
 
 ```
-##         connectance  mean_TL   max_TL mean_shortest_path_length
-## metaweb  0.09347723 1.541796 3.112806                  1.504065
-## high     0.09164117 1.541796 3.112806                  1.504065
-## low      0.09486383 1.541796 3.112806                  1.504065
+## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable
 ```
 
 ```r
@@ -321,10 +327,7 @@ metrics_norway$trophic_class
 ```
 
 ```
-##         connectance  mean_TL   max_TL mean_shortest_path_length
-## metaweb  0.09178516 1.369861 2.693234                  1.171429
-## high     0.09164117 1.336951 2.641552                  1.171429
-## low      0.09486383 1.390735 2.724371                  1.171429
+## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable
 ```
 
 ```r
@@ -332,10 +335,7 @@ metrics_norway$taxa
 ```
 
 ```
-##         connectance   mean_TL   max_TL mean_shortest_path_length
-## metaweb  0.09347723 0.9966354 1.726067                         1
-## high     0.09164117 0.9783550 1.663029                         1
-## low      0.09486383 1.0233475 1.825014                         1
+## Error in eval(expr, envir, enclos): objet 'metrics_norway' introuvable
 ```
 
 We now compute network diversity indices based on Hill numbers (cf. Ohlmann et al. 2019). The indices are based on node and link abundances are can be partitioned in $\alpha$-diversity, $\beta$-diversity and $\gamma$-diversity. A viewpoint parameter $q$ allows giving more weight (see `compute_div` documentation)
@@ -369,6 +369,8 @@ div_norway$links
 ## Alpha_low_L      36.710910      7.455640 8.378992
 ```
 
+
+As reported in Calderon-Sanou et al. 2021, we see higher node and link diversities in sites with a high perturbation level. This is due to the fact that dominant groups tend to to disappear, giving way to an increase in predator groups and leading so to more evenly distributed abundances.
 Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 
@@ -433,6 +435,7 @@ compute_dis(meta_norway,res = "taxa")
 ## high 0.00000000 0.02114852
 ## low  0.02114852 0.00000000
 ```
+
 We see that networks are more dissimilar at trophic_group compared to trophic_class resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
 To gain in efficiency, `compute_dis` is uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 

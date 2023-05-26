@@ -113,7 +113,8 @@ V(meta_norway$metaweb)$layout_beta0.006_1
 ggmetanet(g = meta_norway$metaweb,beta = 0.006,legend = 'taxa',metanetwork = meta_norway, ggnet.config = ggnet.custom,nrep_ly = 2)
 
 ```
-We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clusterd together and are linked to their corresponding consumers (fungivore and bacterivore).
+
+We see that even if the two layouts for the same $\beta$ value are different, they share some structural characteristics. For example, fungal and bacterial groups are clustered together and are linked to their corresponding consumers (fungivore and bacterivore).
 
 
 ```{r norway_attach_layout3}
@@ -133,6 +134,7 @@ meta_norway = attach_layout(meta_norway,beta = 0.2,mode = "group-TL-tsne",res = 
 vertex_attr_names(meta_norway$metaweb)
 ggmetanet(meta_norway,beta = 0.2,mode = "group-TL-tsne",legend = "trophic_class",ggnet.config = ggnet.custom)
 ```
+
 ## Representing and comparing local networks
 
 `diff_plot` allows comparing local networks. Here, it provides a comparison between high and low disturbed sites by moth outbreaks.
@@ -141,7 +143,7 @@ ggmetanet(meta_norway,beta = 0.2,mode = "group-TL-tsne",legend = "trophic_class"
 diff_plot(g1 = meta_norway$high,g2 = meta_norway$low,beta = 0.006,metanetwork = meta_norway)
 ```
 
-It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
+It highlights a shift from Ectomycorrhizae and Ericoid mycorrhizae towards Arbuscular mycorrhizae due to increase of shrubs after the perturbation and also an increase in soil predator abundances. Here, a new 'TL-tsne' layout is computed.
 
 ### Using metaweb layout
 
@@ -184,6 +186,8 @@ div_norway$nodes
 div_norway$links
 ```
 
+
+As reported in Calderon-Sanou et al. 2021, we see higher node and link diversities in sites with a high perturbation level. This is due to the fact that dominant groups tend to to disappear, giving way to an increase in predator groups and leading so to more evenly distributed abundances.
 Pairwise dissimilarity indices (both on nodes and links) are also implemented in metanetwork  (see `compute_dis` documentation).
 
 ```{r, warning = FALSE}
@@ -199,6 +203,7 @@ dis_norway$trophic_class$links
 #compute dissimilarity at taxa resolution only
 compute_dis(meta_norway,res = "taxa")
 ```
+
 We see that networks are more dissimilar at trophic_group compared to trophic_class resolution both on nodes and links. Moreover, at both resolutions, network are more dissimilar regarding link abundances compared to node abundances.
 To gain in efficiency, `compute_dis` is uses parallel computation (see `ncores` argument in `compute_dis` documentation)
 
