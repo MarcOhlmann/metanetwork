@@ -101,7 +101,7 @@ compute_dis <- function(metanetwork,q = 1,res = NULL,ncores = 4){
       rownames(dis_df_L) = rownames(metanetwork$abTable)
       dis_df_L = as.data.frame(dis_df_L)
       #inde table for parallelisation
-      ind_table = t(combn(1:N, 2))
+      ind_table = t(utils::combn(1:N, 2))
       message(paste0("computing node pairwise dissimilarities at resolution: ",res))
       res_P_list = parallel::mclapply(1:nrow(ind_table),function(k)  
         compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "P",q = q,res = res),mc.cores = ncores)
@@ -135,7 +135,7 @@ compute_dis <- function(metanetwork,q = 1,res = NULL,ncores = 4){
     rownames(dis_df_L) = rownames(metanetwork$abTable)
     dis_df_L = as.data.frame(dis_df_L)
     #inde table for parallelisation
-    ind_table = t(combn(1:N, 2))
+    ind_table = t(utils::combn(1:N, 2))
     message(paste0("computing node pairwise dissimilarities"))
     res_P_list = parallel::mclapply(1:nrow(ind_table),function(k)  
         compute_dis_loc(ind_table[k,],P_L_list = P_L_list,type = "P",q = q),mc.cores = ncores)
