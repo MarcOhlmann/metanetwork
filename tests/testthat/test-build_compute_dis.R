@@ -24,7 +24,7 @@ test_that("dimension of dis table",{
   expect_equal(length(dis_angola),2)
   expect_equal(length(dis_angola$Species),2)
   expect_equal(dim(dis_angola$Species$nodes),c(2,2))
-  dis_angola_Phylum = compute_dis(meta_angola,res = c("Phylum"))
+  dis_angola_Phylum = compute_dis(meta_angola,res = c("Phylum"),ncores = 1)
   expect_equal(length(dis_angola_Phylum),1)
 })
 
