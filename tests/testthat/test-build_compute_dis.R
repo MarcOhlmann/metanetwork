@@ -18,7 +18,7 @@ test_that("no local network",  {
   expect_error(compute_dis(meta0))
 })
 
-dis_angola = compute_dis(meta_angola)
+dis_angola = compute_dis(meta_angola,ncores = 1)
 
 test_that("dimension of dis table",{
   expect_equal(length(dis_angola),2)
