@@ -1,3 +1,5 @@
+## Submission of version 0.8.0
+
 
 ## Resubmission 1
 This is a resubmission. After the package check by the CRAN's team, I:
